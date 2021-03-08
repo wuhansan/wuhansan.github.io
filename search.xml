@@ -118,12 +118,12 @@
         <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>定义一单独的中介对象，封装一组对象之间的交互，将这种对象之间的交互委派给与中介对象交互，从而避免直接交互</li></ul><hr><ul><li>中介者模式的场景中,参与者之间的关系错综复杂,既可以是消息的发送者也可以同时是消息的接收者</li></ul>]]></content>
       
       
+      <categories>
+          
+          <category> 设计模式 </category>
+          
+      </categories>
       
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
       
     </entry>
     
@@ -137,12 +137,12 @@
         <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>将请求的发送和接收解耦，让多个接收对象有机会处理这个请求。将这些接收对象串成一条链，并沿着这条链传递这个请求，直到链上的某个对象能够处理为止</li></ul><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ul><li>链表来存储</li><li>数组来存储</li></ul><h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><ul><li>常用于开发框架的过滤器和拦截器</li></ul>]]></content>
       
       
+      <categories>
+          
+          <category> 设计模式 </category>
+          
+      </categories>
       
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
       
     </entry>
     
@@ -156,12 +156,12 @@
         <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>在方法中定义一个算法框架，并将某些步骤推迟到子类中实现</li><li>可以让子类在不改变算法整体结构的情况下，重新定义算法中的某些步骤</li></ul><h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><ul><li><p>复用</p><p>所有的子类可以复用父类中提供的模板方法的代码</p></li><li><p>拓展</p><p>框架通过模板模式提高功能拓展点，让用户在不修改框架源码的情况下，基于拓展定制化框架的功能</p></li></ul><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ul><li>将不变的流程抽象到父类定义的模板方法中 （模板方法中调用了抽象流程的函数）</li><li>子类继承后，可通过调用该模板方法间接执行子类自身实现的抽象流程 </li></ul><hr><h3 id="回调"><a href="#回调" class="headerlink" title="回调"></a>回调</h3><h4 id="类别"><a href="#类别" class="headerlink" title="类别"></a>类别</h4><h5 id="同步回调"><a href="#同步回调" class="headerlink" title="同步回调"></a>同步回调</h5><ul><li>函数返回之前执行回调函数</li><li>从场景上看像模板模式</li></ul><h5 id="异步回调"><a href="#异步回调" class="headerlink" title="异步回调"></a>异步回调</h5><ul><li>函数返回之后执行回调函数</li><li>从场景上看很像观察者模式</li></ul><hr><h3 id="模板模式-VS-回调"><a href="#模板模式-VS-回调" class="headerlink" title="模板模式 VS 回调"></a>模板模式 VS 回调</h3><ul><li>回调基于组合关系实现，将一个对象传递给另一个对象，是一种对象间的关系</li><li>模板模式基于继承关系来实现，子类重写父类的抽象方法，是一种类与类之间的关系</li><li>代码实现上，回调会比模板模式更加灵活</li></ul>]]></content>
       
       
+      <categories>
+          
+          <category> 设计模式 </category>
+          
+      </categories>
       
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
       
     </entry>
     
@@ -175,12 +175,12 @@
         <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>为某个语言定义它的语法表示，并定义一个解释器来处理这个语法</li></ul><h4 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h4><ul><li>将语法规则拆分成一些小的独立的单元，然后对每个单元进行解析，最终合并为对整个语法规则的解析</li></ul>]]></content>
       
       
+      <categories>
+          
+          <category> 设计模式 </category>
+          
+      </categories>
       
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
       
     </entry>
     
@@ -194,37 +194,12 @@
         <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li><p>在对象之间定义一个一对多的依赖，当一个对象状态改变的时候，所有的依赖都会收到消息</p></li><li><p>观察者模式的应用场景中,参与者之间的交互比较有,一般是单向的,一个参与者只有一个身份</p></li></ul><hr><h4 id="被观察者"><a href="#被观察者" class="headerlink" title="被观察者"></a>被观察者</h4><ul><li>Observable</li><li>被依赖的对象</li></ul><h4 id="观察者"><a href="#观察者" class="headerlink" title="观察者"></a>观察者</h4><ul><li>Observer</li><li>依赖的对象</li></ul><hr><h3 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h3><ul><li>同步阻塞（主要是代码解耦）</li><li>异步非阻塞 （实现解耦，以及提高执行效率）</li><li>进程间 （解耦更彻底，一般基于消息队列来实现）</li></ul>]]></content>
       
       
-      
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>结构型-装饰器模式</title>
-      <link href="posts/4060492b/"/>
-      <url>posts/4060492b/</url>
-      
-        <content type="html"><![CDATA[<ul><li>解决继承关系过于复杂的问题，通过组合来替代继承</li><li>主要作用是在不改变原始接口的情况下，给原始类附加相关的增强功能</li></ul><hr><h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><ul><li><p>可以对原始类嵌套使用多个装饰器，所以在设计时候，装饰器类需要跟原始类继承相同的抽象类或者接口</p></li><li><p>支持多个装饰器的嵌套使用</p></li></ul>]]></content>
-      
-      
       <categories>
           
-          <category> 设计模式学习 </category>
+          <category> 设计模式 </category>
           
       </categories>
       
-      
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
       
     </entry>
     
@@ -238,12 +213,12 @@
         <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>允许一个或者多个操作应用到一组对象上，解耦操作和对象本身</li></ul><h3 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h3><p><img src="%E8%AE%BF%E9%97%AE%E8%80%85.png" alt=""></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Extractor extractor = <span class="keyword">new</span> Extractor();</span><br><span class="line">        <span class="keyword">for</span> (ResourceFile i : listAllResourceFiles()) &#123;</span><br><span class="line">            i.accept(extractor);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Compressor compressor = <span class="keyword">new</span> Compressor();</span><br><span class="line">        <span class="keyword">for</span> (ResourceFile i : listAllResourceFiles()) &#123;</span><br><span class="line">            i.accept(compressor);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> List&lt;ResourceFile&gt; <span class="title">listAllResourceFiles</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        List&lt;ResourceFile&gt; resourceFiles = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        resourceFiles.add(<span class="keyword">new</span> PdfFile(<span class="string">"a.pdf"</span>));</span><br><span class="line">        resourceFiles.add(<span class="keyword">new</span> WordFile(<span class="string">"b.word"</span>));</span><br><span class="line">        resourceFiles.add(<span class="keyword">new</span> PPTFile(<span class="string">"c.ppt"</span>));</span><br><span class="line">        <span class="keyword">return</span> resourceFiles;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><h3 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h3><ul><li><p>所谓的双分派和单分派的区分，指的是：执行哪对象的哪个方法，和几个因素的运行时类型有关</p><p>具体到编程语言的语法机制，双分派（<code>Double Dispatch</code>）和单分派（<code>Single Dispatch</code>）跟多态和函数重载直接相关</p></li></ul><h4 id="双分派"><a href="#双分派" class="headerlink" title="双分派"></a>双分派</h4><ul><li>执行哪个对象的哪个方法，跟<code>对象</code>和<code>方法参数</code>两者的运行时类型有关</li></ul><h4 id="单分派"><a href="#单分派" class="headerlink" title="单分派"></a>单分派</h4><ul><li><p>执行哪个对象的哪个方法，只跟<code>对象</code>的运行时类型有关</p></li><li><p>当前主流的面向对象编程语言（Java、C++、C#）都只支持Single Dispatch</p><ul><li>Java支持多态，代码可以在运行时候获取对象实际类型（即：运行时类型），然后跟根据实际类型调用哪个方法</li><li>尽管Java支持函数重载，但是Java函数重载的语法规则是：并不是在运行时候，根据传递函数的参数的声明类型（运行时类型），来决定调用哪个重载函数，而是编译时候，根据传递进函数的参数的声明类型（即：编译类型），来决定调用哪个重载函数</li><li>总的来说，具体来说，执行那个对象的哪个方法，只跟对象的运行时类型有关，跟参数的运行时类型无关</li></ul></li></ul>]]></content>
       
       
+      <categories>
+          
+          <category> 设计模式 </category>
+          
+      </categories>
       
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
       
     </entry>
     
@@ -257,12 +232,12 @@
         <content type="html"><![CDATA[<h3 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h3><ul><li><p>完整的迭代器模式，一般会涉及容器和容器迭代器两部分内容</p></li><li><p>为了达到基于接口编程的目的，所以容器又包含容器接口、容器实现类迭代器又包含迭代器接口、迭代器实现类!</p><p><img src="%E8%BF%AD%E4%BB%A3%E5%99%A8.png" alt=""></p></li></ul><hr><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ul><li>迭代器定义 <code>hasNext()</code>、<code>currentItem()</code>、<code>next()</code>的基础方法</li><li>待遍历的容器对象通过依赖注入传递到迭代器容器中</li><li>容器中定义<code>iterator()</code>方法创建迭代器</li></ul><hr><h3 id="细节"><a href="#细节" class="headerlink" title="细节"></a>细节</h3><ul><li><code>foreach()</code>的底层也是基于迭代器实现的</li></ul><h4 id="意义"><a href="#意义" class="headerlink" title="意义"></a>意义</h4><ul><li>常规简单的数据结构，直接使用<code>for</code>循环来遍历是足够的</li><li>但是相对于<code>树、图</code>等复杂的数据结构，有着复杂的遍历方式。对于复杂性的结构，最好使用拆分形式，将遍历操作拆分到迭代器中，分别实现对应需求的遍历方式</li></ul><hr><h3 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h3><ul><li>封装集合内部的复杂数据结构，开发者不需要了解如何遍历，直接使用容提供的迭代器即可</li><li>将集合对象的遍历操作从集合类中拆分出来，放在迭代器中，让两者的职责更加单一</li><li>让添加新的遍历算法更容易，符合开闭原则</li><li>迭代器都实现自同样的接口，基于接口编程，替换更方便</li></ul><hr>]]></content>
       
       
+      <categories>
+          
+          <category> 设计模式 </category>
+          
+      </categories>
       
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
       
     </entry>
     
@@ -270,18 +245,18 @@
     
     <entry>
       <title>行为型-策略模式</title>
-      <link href="posts/3414386a/"/>
-      <url>posts/3414386a/</url>
+      <link href="posts/58639/"/>
+      <url>posts/58639/</url>
       
-        <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>定义一组算法类，将每个类分别封装起来，让它们可以互相替换，使算法的变化独立于被调用者</li></ul><h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><h4 id="策略定义"><a href="#策略定义" class="headerlink" title="策略定义"></a>策略定义</h4><ul><li>定义一个策略接口以及一组实现这个接口的策略类</li><li>客户端基于接口灵活替换不同策略</li></ul><h4 id="策略创建"><a href="#策略创建" class="headerlink" title="策略创建"></a>策略创建</h4><ul><li>使用工厂模式屏蔽创建细节，并根据类型判断使用对应策略</li><li>根据策略类是否有状态决定是否事先创建好缓存在工厂类中还是使用的时候进行实例化</li></ul><h4 id="策略使用"><a href="#策略使用" class="headerlink" title="策略使用"></a>策略使用</h4><ul><li>编译时候静态确定</li><li>运行时候动态决定 （典型运用场景）</li></ul>]]></content>
+        <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>定义一组算法类，将每个类分别封装起来，让它们可以互相替换，使算法的变化独立于被调用者</li></ul><h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><h4 id="策略定义"><a href="#策略定义" class="headerlink" title="策略定义"></a>策略定义</h4><ul><li>定义一个策略接口以及一组实现这个接口的策略类</li><li>客户端基于接口灵活替换不同策略</li></ul><h4 id="策略创建"><a href="#策略创建" class="headerlink" title="策略创建"></a>策略创建</h4><ul><li>使用工厂模式屏蔽创建细节，并根据类型判断使用对应策略</li><li>根据策略类是否有状态决定是否事先创建好缓存在工厂类中还是使用的时候进行实例化</li></ul><h4 id="策略使用"><a href="#策略使用" class="headerlink" title="策略使用"></a>策略使用</h4><ul><li>编译时候静态确定</li><li>运行时候动态决定 （典型运用场景）</li></ul><h4 id="实现行为"><a href="#实现行为" class="headerlink" title="实现行为"></a>实现行为</h4><ul><li>独立出来，并且可以被其他对象复用</li></ul><h5 id="UML"><a href="#UML" class="headerlink" title="UML"></a><strong>UML</strong></h5><p><img src="%E5%AE%9E%E7%8E%B0%E8%A1%8C%E4%B8%BA.jpg" alt=""></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">FlyBehavior</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fly</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FlyNoWay</span> <span class="keyword">implements</span> <span class="title">FlyBehavior</span></span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fly</span><span class="params">()</span> </span>&#123;</span><br><span class="line">System.out.println(<span class="string">"I can't fly"</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">QuackBehavior</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">quack</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Quack</span> <span class="keyword">implements</span> <span class="title">QuackBehavior</span></span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">quack</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">System.out.println(<span class="string">"Quack"</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure><h4 id="整合行为"><a href="#整合行为" class="headerlink" title="整合行为"></a>整合行为</h4><ul><li>将一些行为动作委托别人处理，而不是直接使用Duck的内部fly和quack方法</li><li>在显现类的构造方法中，继承而来的变量又会被初始化为对应的新实例</li></ul><h5 id="UML-1"><a href="#UML-1" class="headerlink" title="UML"></a><strong>UML</strong></h5><p><img src="%E6%95%B4%E5%90%88.jpg" alt=""></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Duck</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Duck</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="comment">// TODO Auto-generated constructor stub</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//这两个变量也会被继承</span></span><br><span class="line">QuackBehavior quackBehavior;</span><br><span class="line">FlyBehavior flyBehavior;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">performQuack</span><span class="params">()</span> </span>&#123;</span><br><span class="line">quackBehavior.quack();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">performFly</span><span class="params">()</span> </span>&#123;</span><br><span class="line">flyBehavior.fly();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">swim</span><span class="params">()</span> </span>&#123;</span><br><span class="line">System.out.println(<span class="string">"All ducks float , even decoys! "</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MallardDuck</span> <span class="keyword">extends</span> <span class="title">Duck</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">MallardDuck</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="comment">// TODO Auto-generated constructor stub</span></span><br><span class="line">quackBehavior = <span class="keyword">new</span> Quack();</span><br><span class="line">flyBehavior = <span class="keyword">new</span> FlyWithWing();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">disPlay</span><span class="params">()</span> </span>&#123;</span><br><span class="line">System.out.println(<span class="string">"I'm a real Mallard duck"</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="运用"><a href="#运用" class="headerlink" title="运用"></a>运用</h4><ul><li>调用继承来的对应QuackBehavior引用对象的quack()</li></ul><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">Duck mallar = <span class="keyword">new</span> MallardDuck();</span><br><span class="line">mallar.performQuack();</span><br><span class="line">mallar.performFly();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h5 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h5><p><img src="%E6%AD%A3%E5%B8%B8%E7%BB%93%E6%9E%9C.jpg" alt=""></p><h4 id="升级，动设定行为"><a href="#升级，动设定行为" class="headerlink" title="升级，动设定行为"></a>升级，动设定行为</h4><p><strong>UML</strong></p><p><img src="%E5%8D%87%E7%BA%A7.jpg" alt=""></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Duck</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Duck</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="comment">// TODO Auto-generated constructor stub</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//这两个变量也会被继承</span></span><br><span class="line">QuackBehavior quackBehavior;</span><br><span class="line">FlyBehavior flyBehavior;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">performQuack</span><span class="params">()</span> </span>&#123;</span><br><span class="line">quackBehavior.quack();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">performFly</span><span class="params">()</span> </span>&#123;</span><br><span class="line">flyBehavior.fly();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">swim</span><span class="params">()</span> </span>&#123;</span><br><span class="line">System.out.println(<span class="string">"All ducks float , even decoys! "</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//动态设定行为</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setFlyBehavior</span><span class="params">(FlyBehavior fb)</span> </span>&#123;</span><br><span class="line">flyBehavior = fb;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setQuackBehavior</span><span class="params">(QuackBehavior qb)</span> </span>&#123;</span><br><span class="line">quackBehavior = qb;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="新建实现类"><a href="#新建实现类" class="headerlink" title="新建实现类"></a>新建实现类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ModeDuck</span> <span class="keyword">extends</span> <span class="title">Duck</span></span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ModeDuck</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="comment">// 起初模型是不会飞</span></span><br><span class="line">flyBehavior = <span class="keyword">new</span> FlyNoWay();</span><br><span class="line">quackBehavior = <span class="keyword">new</span> Quack();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">disPlay</span><span class="params">()</span> </span>&#123;</span><br><span class="line">System.out.println(<span class="string">"I'm a model duck"</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="新建行为类型"><a href="#新建行为类型" class="headerlink" title="新建行为类型"></a>新建行为类型</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FlyRocketPowered</span> <span class="keyword">implements</span> <span class="title">FlyBehavior</span></span>&#123;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fly</span><span class="params">()</span> </span>&#123;</span><br><span class="line">System.out.println(<span class="string">"I'm fly with a rocket!"</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="运用-1"><a href="#运用-1" class="headerlink" title="运用"></a>运用</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">Duck mallar = <span class="keyword">new</span> ModeDuck();</span><br><span class="line">mallar.performQuack();</span><br><span class="line">mallar.performFly();</span><br><span class="line"></span><br><span class="line">Duck model = <span class="keyword">new</span> ModeDuck();</span><br><span class="line">model.setFlyBehavior(<span class="keyword">new</span> FlyRocketPowered());</span><br><span class="line">model.performQuack();</span><br><span class="line">model.performFly();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h5 id="运行结果-1"><a href="#运行结果-1" class="headerlink" title="运行结果"></a>运行结果</h5><p><img src="%E5%8D%87%E7%BA%A7%E5%90%8E%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C.jpg" alt=""></p><h4 id="总体UML"><a href="#总体UML" class="headerlink" title="总体UML"></a>总体UML</h4><p><img src="%E6%80%BB%E4%BD%93UML.jpg" alt=""></p><h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul><li>找出变化之处，独立于不需要变化的代码</li><li>针对接口编程，而不是针对实现编程</li><li>多用组合，少用继承</li></ul><h4 id="传送门"><a href="#传送门" class="headerlink" title="传送门"></a><a href="https://github.com/wuhansan/design-mode">传送门</a></h4>]]></content>
       
       
+      <categories>
+          
+          <category> 设计模式 </category>
+          
+      </categories>
       
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
       
     </entry>
     
@@ -295,12 +270,12 @@
         <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>在不违背封装原则的前提下，捕获一个对象的内部状态，并在该对对象之外保存这个状态，以便恢复对象为之前的状态</li></ul><hr><h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><ul><li>针对大的备份而言，会占用大量的内存以及时间消耗。针对不同的场景，不同的业务场景需要不同的处理方式</li><li>只备份必要的恢复信息，结合最新的数据来恢复。再比如，全量备份和增量备份相结合，低频全量备份，高频全量备份，两者相结合</li></ul>]]></content>
       
       
+      <categories>
+          
+          <category> 设计模式 </category>
+          
+      </categories>
       
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
       
     </entry>
     
@@ -314,12 +289,12 @@
         <content type="html"><![CDATA[<ul><li>将一组对象组织成树形结构，以表示一种”部分-整体”的层次结构</li><li>让编写者可以统一单个对象和组合对象的处理逻辑</li></ul><hr><h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><ul><li>数据必须能表示成树形结构</li></ul><hr><h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ul><li>将一组对象组织成树形结构，将单个对象和组合对象都看作是树中的节点，以统一的处理逻辑，利用树形结构的特点，递遍历子树，依次简化代码实现</li><li>不是一种常用模式</li></ul>]]></content>
       
       
+      <categories>
+          
+          <category> 设计模式 </category>
+          
+      </categories>
       
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
       
     </entry>
     
@@ -335,16 +310,10 @@
       
       <categories>
           
-          <category> 设计模式学习 </category>
+          <category> 设计模式 </category>
           
       </categories>
       
-      
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
       
     </entry>
     
@@ -360,16 +329,10 @@
       
       <categories>
           
-          <category> 设计模式学习 </category>
+          <category> 设计模式 </category>
           
       </categories>
       
-      
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
       
     </entry>
     
@@ -385,16 +348,10 @@
       
       <categories>
           
-          <category> 设计模式学习 </category>
+          <category> 设计模式 </category>
           
       </categories>
       
-      
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
       
     </entry>
     
@@ -410,16 +367,10 @@
       
       <categories>
           
-          <category> 设计模式学习 </category>
+          <category> 设计模式 </category>
           
       </categories>
       
-      
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
       
     </entry>
     
@@ -435,16 +386,10 @@
       
       <categories>
           
-          <category> 设计模式学习 </category>
+          <category> 设计模式 </category>
           
       </categories>
       
-      
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
       
     </entry>
     
@@ -460,16 +405,10 @@
       
       <categories>
           
-          <category> 设计模式学习 </category>
+          <category> 设计模式 </category>
           
       </categories>
       
-      
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
       
     </entry>
     
@@ -485,16 +424,10 @@
       
       <categories>
           
-          <category> 设计模式学习 </category>
+          <category> 设计模式 </category>
           
       </categories>
       
-      
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
       
     </entry>
     
@@ -510,16 +443,10 @@
       
       <categories>
           
-          <category> 设计模式学习 </category>
+          <category> 设计模式 </category>
           
       </categories>
       
-      
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
       
     </entry>
     
@@ -1050,31 +977,6 @@
     
     
     <entry>
-      <title>适配器模式</title>
-      <link href="posts/39554/"/>
-      <url>posts/39554/</url>
-      
-        <content type="html"><![CDATA[<h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><ul><li>适配器模式是将一个类的接口，转换成客户期望的另外一个接口。适配器让原本接口不兼容的类可以合作无间</li></ul><p><img src="%E7%A4%BA%E4%BE%8B.jpg" alt=""></p><h4 id="思想"><a href="#思想" class="headerlink" title="思想"></a>思想</h4><ul><li>使用对象组合，已修改的接口包装被适配者。从而被适配的任何子类，都可以搭配着适配器使用。</li></ul>]]></content>
-      
-      
-      <categories>
-          
-          <category> 设计模式学习 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>先入先出的数据结构</title>
       <link href="posts/29478/"/>
       <url>posts/29478/</url>
@@ -1182,16 +1084,10 @@
       
       <categories>
           
-          <category> 设计模式学习 </category>
+          <category> 设计模式 </category>
           
       </categories>
       
-      
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
       
     </entry>
     
@@ -1232,16 +1128,10 @@
       
       <categories>
           
-          <category> 设计模式学习 </category>
+          <category> 设计模式 </category>
           
       </categories>
       
-      
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
       
     </entry>
     
@@ -1257,16 +1147,10 @@
       
       <categories>
           
-          <category> 设计模式学习 </category>
+          <category> 设计模式 </category>
           
       </categories>
       
-      
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
       
     </entry>
     
@@ -1282,16 +1166,10 @@
       
       <categories>
           
-          <category> 设计模式学习 </category>
+          <category> 设计模式 </category>
           
       </categories>
       
-      
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
       
     </entry>
     
@@ -1323,32 +1201,26 @@
     
     
     <entry>
-      <title>装饰者模式</title>
+      <title>结构型-装饰者模式</title>
       <link href="posts/3892/"/>
       <url>posts/3892/</url>
       
-        <content type="html"><![CDATA[<h4 id="设计理念"><a href="#设计理念" class="headerlink" title="设计理念"></a>设计理念</h4><ul><li>类应该对拓展开放，对修改关闭</li></ul><h4 id="抽象组件确认初始化需求"><a href="#抽象组件确认初始化需求" class="headerlink" title="抽象组件确认初始化需求"></a>抽象组件确认初始化需求</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 饮料类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Beverage</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">String description = <span class="string">"Unknown Beverage"</span>;</span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getDescription</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="keyword">return</span> description;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">double</span> <span class="title">cost</span><span class="params">()</span> </span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="编写抽象装饰者"><a href="#编写抽象装饰者" class="headerlink" title="编写抽象装饰者"></a>编写抽象装饰者</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//调料类  在装饰者模式中，为·“装饰器” decorator类，提供基类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">CondimentDecorator</span> <span class="keyword">extends</span> <span class="title">Beverage</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> String <span class="title">getDescription</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="具体组件继承初始化需求"><a href="#具体组件继承初始化需求" class="headerlink" title="具体组件继承初始化需求"></a>具体组件继承初始化需求</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Espresso</span>  <span class="keyword">extends</span> <span class="title">Beverage</span></span>&#123;</span><br><span class="line"> <span class="comment">// description 继承自 Beverage</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Espresso</span><span class="params">()</span> </span>&#123;</span><br><span class="line">description = <span class="string">"Espresso"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">cost</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="number">1.99</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HouseBlend</span> <span class="keyword">extends</span> <span class="title">Beverage</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">HouseBlend</span><span class="params">()</span> </span>&#123;</span><br><span class="line">description = <span class="string">"House Blend Coffee"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">cost</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="number">0.9</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="具体装饰者类"><a href="#具体装饰者类" class="headerlink" title="具体装饰者类"></a>具体装饰者类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 装饰器类可以把属性和有用的接口和输入流连接在一起</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Mocha</span> <span class="keyword">extends</span> <span class="title">CondimentDecorator</span> </span>&#123;</span><br><span class="line">Beverage beverage;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Mocha</span><span class="params">(Beverage beverage)</span> </span>&#123;</span><br><span class="line"><span class="keyword">this</span>.beverage=beverage;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getDescription</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="keyword">return</span> beverage.getDescription()+<span class="string">" , Mocha"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">cost</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="number">0.10</span> + beverage.cost() ;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">Beverage beverage = <span class="keyword">new</span> Espresso();</span><br><span class="line">System.out.println(beverage.getDescription() + <span class="string">" $ "</span> + beverage.cost());</span><br><span class="line"></span><br><span class="line">        <span class="comment">//每执行一行，对应的cost和getDescription就会被调用</span></span><br><span class="line">        <span class="comment">//在这个过程中，hBeverage不断被赋值和被累计价格</span></span><br><span class="line">        <span class="comment">//一层层调用，套裹</span></span><br><span class="line">Beverage hBeverage = <span class="keyword">new</span> HouseBlend();</span><br><span class="line">hBeverage = <span class="keyword">new</span> Mocha(hBeverage);</span><br><span class="line">hBeverage=<span class="keyword">new</span> Soy(hBeverage);</span><br><span class="line">System.out.println(hBeverage.getDescription()+<span class="string">" $ "</span>+hBeverage.cost());</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h4><p><img src="%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C.jpg" alt=""></p><h4 id="整体UML"><a href="#整体UML" class="headerlink" title="整体UML"></a>整体UML</h4><p><img src="%E6%95%B4%E4%BD%93UML.jpg" alt=""></p><h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><ul><li>装饰者通常使用其他类似工厂模式生成器的模式创建，从而避免更多的对象导致编码犯错的几率大大增加</li><li>装饰者应该做的事，就是增加行为到包装对象上面，而非需要了解其他</li><li>装饰模式可查看 <strong>java.io类</strong>，Java流让人迷惑的主要原因就是：创建单一的结果流，却需要创建多个对象</li></ul>]]></content>
+        <content type="html"><![CDATA[<h4 id="设计理念"><a href="#设计理念" class="headerlink" title="设计理念"></a>设计理念</h4><ul><li><p>类应该对拓展开放，对修改关闭</p></li><li><p>解决继承关系过于复杂的问题，通过组合来替代继承</p></li><li><p>主要作用是在不改变原始接口的情况下，给原始类附加相关的增强功能</p></li></ul><hr><h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><ul><li><p>可以对原始类嵌套使用多个装饰器，所以在设计时候，装饰器类需要跟原始类继承相同的抽象类或者接口</p></li><li><p>支持多个装饰器的嵌套使用</p></li></ul><h4 id="抽象组件确认初始化需求"><a href="#抽象组件确认初始化需求" class="headerlink" title="抽象组件确认初始化需求"></a>抽象组件确认初始化需求</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 饮料类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Beverage</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">String description = <span class="string">"Unknown Beverage"</span>;</span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getDescription</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="keyword">return</span> description;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">double</span> <span class="title">cost</span><span class="params">()</span> </span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="编写抽象装饰者"><a href="#编写抽象装饰者" class="headerlink" title="编写抽象装饰者"></a>编写抽象装饰者</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//调料类  在装饰者模式中，为·“装饰器” decorator类，提供基类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">CondimentDecorator</span> <span class="keyword">extends</span> <span class="title">Beverage</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> String <span class="title">getDescription</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="具体组件继承初始化需求"><a href="#具体组件继承初始化需求" class="headerlink" title="具体组件继承初始化需求"></a>具体组件继承初始化需求</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Espresso</span>  <span class="keyword">extends</span> <span class="title">Beverage</span></span>&#123;</span><br><span class="line"> <span class="comment">// description 继承自 Beverage</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Espresso</span><span class="params">()</span> </span>&#123;</span><br><span class="line">description = <span class="string">"Espresso"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">cost</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="number">1.99</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HouseBlend</span> <span class="keyword">extends</span> <span class="title">Beverage</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">HouseBlend</span><span class="params">()</span> </span>&#123;</span><br><span class="line">description = <span class="string">"House Blend Coffee"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">cost</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="number">0.9</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="具体装饰者类"><a href="#具体装饰者类" class="headerlink" title="具体装饰者类"></a>具体装饰者类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 装饰器类可以把属性和有用的接口和输入流连接在一起</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Mocha</span> <span class="keyword">extends</span> <span class="title">CondimentDecorator</span> </span>&#123;</span><br><span class="line">Beverage beverage;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Mocha</span><span class="params">(Beverage beverage)</span> </span>&#123;</span><br><span class="line"><span class="keyword">this</span>.beverage=beverage;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getDescription</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="keyword">return</span> beverage.getDescription()+<span class="string">" , Mocha"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">cost</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="number">0.10</span> + beverage.cost() ;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">Beverage beverage = <span class="keyword">new</span> Espresso();</span><br><span class="line">System.out.println(beverage.getDescription() + <span class="string">" $ "</span> + beverage.cost());</span><br><span class="line"></span><br><span class="line">        <span class="comment">//每执行一行，对应的cost和getDescription就会被调用</span></span><br><span class="line">        <span class="comment">//在这个过程中，hBeverage不断被赋值和被累计价格</span></span><br><span class="line">        <span class="comment">//一层层调用，套裹</span></span><br><span class="line">Beverage hBeverage = <span class="keyword">new</span> HouseBlend();</span><br><span class="line">hBeverage = <span class="keyword">new</span> Mocha(hBeverage);</span><br><span class="line">hBeverage=<span class="keyword">new</span> Soy(hBeverage);</span><br><span class="line">System.out.println(hBeverage.getDescription()+<span class="string">" $ "</span>+hBeverage.cost());</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h4><p><img src="%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C.jpg" alt=""></p><h4 id="整体UML"><a href="#整体UML" class="headerlink" title="整体UML"></a>整体UML</h4><p><img src="%E6%95%B4%E4%BD%93UML.jpg" alt=""></p><h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><ul><li>装饰者通常使用其他类似工厂模式生成器的模式创建，从而避免更多的对象导致编码犯错的几率大大增加</li><li>装饰者应该做的事，就是增加行为到包装对象上面，而非需要了解其他</li><li>装饰模式可查看 <strong>java.io类</strong>，Java流让人迷惑的主要原因就是：创建单一的结果流，却需要创建多个对象</li></ul>]]></content>
       
       
       <categories>
           
-          <category> 设计模式学习 </category>
+          <category> 设计模式 </category>
           
       </categories>
       
-      
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
       
     </entry>
     
     
     
     <entry>
-      <title>观察者模式</title>
+      <title>行为型-观察者模式</title>
       <link href="posts/7738/"/>
       <url>posts/7738/</url>
       
@@ -1357,41 +1229,10 @@
       
       <categories>
           
-          <category> 设计模式学习 </category>
+          <category> 设计模式 </category>
           
       </categories>
       
-      
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>策略模式</title>
-      <link href="posts/58639/"/>
-      <url>posts/58639/</url>
-      
-        <content type="html"><![CDATA[<h4 id="实现行为"><a href="#实现行为" class="headerlink" title="实现行为"></a>实现行为</h4><ul><li>独立出来，并且可以被其他对象复用</li></ul><h5 id="UML"><a href="#UML" class="headerlink" title="UML"></a><strong>UML</strong></h5><p><img src="%E5%AE%9E%E7%8E%B0%E8%A1%8C%E4%B8%BA.jpg" alt=""></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">FlyBehavior</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fly</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FlyNoWay</span> <span class="keyword">implements</span> <span class="title">FlyBehavior</span></span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fly</span><span class="params">()</span> </span>&#123;</span><br><span class="line">System.out.println(<span class="string">"I can't fly"</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">QuackBehavior</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">quack</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Quack</span> <span class="keyword">implements</span> <span class="title">QuackBehavior</span></span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">quack</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">System.out.println(<span class="string">"Quack"</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure><h4 id="整合行为"><a href="#整合行为" class="headerlink" title="整合行为"></a>整合行为</h4><ul><li>将一些行为动作委托别人处理，而不是直接使用Duck的内部fly和quack方法</li><li>在显现类的构造方法中，继承而来的变量又会被初始化为对应的新实例</li></ul><h5 id="UML-1"><a href="#UML-1" class="headerlink" title="UML"></a><strong>UML</strong></h5><p><img src="%E6%95%B4%E5%90%88.jpg" alt=""></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Duck</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Duck</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="comment">// TODO Auto-generated constructor stub</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//这两个变量也会被继承</span></span><br><span class="line">QuackBehavior quackBehavior;</span><br><span class="line">FlyBehavior flyBehavior;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">performQuack</span><span class="params">()</span> </span>&#123;</span><br><span class="line">quackBehavior.quack();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">performFly</span><span class="params">()</span> </span>&#123;</span><br><span class="line">flyBehavior.fly();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">swim</span><span class="params">()</span> </span>&#123;</span><br><span class="line">System.out.println(<span class="string">"All ducks float , even decoys! "</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MallardDuck</span> <span class="keyword">extends</span> <span class="title">Duck</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">MallardDuck</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="comment">// TODO Auto-generated constructor stub</span></span><br><span class="line">quackBehavior = <span class="keyword">new</span> Quack();</span><br><span class="line">flyBehavior = <span class="keyword">new</span> FlyWithWing();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">disPlay</span><span class="params">()</span> </span>&#123;</span><br><span class="line">System.out.println(<span class="string">"I'm a real Mallard duck"</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="运用"><a href="#运用" class="headerlink" title="运用"></a>运用</h4><ul><li>调用继承来的对应QuackBehavior引用对象的quack()</li></ul><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">Duck mallar = <span class="keyword">new</span> MallardDuck();</span><br><span class="line">mallar.performQuack();</span><br><span class="line">mallar.performFly();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h5 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h5><p><img src="%E6%AD%A3%E5%B8%B8%E7%BB%93%E6%9E%9C.jpg" alt=""></p><h4 id="升级，动设定行为"><a href="#升级，动设定行为" class="headerlink" title="升级，动设定行为"></a>升级，动设定行为</h4><p><strong>UML</strong></p><p><img src="%E5%8D%87%E7%BA%A7.jpg" alt=""></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Duck</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Duck</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="comment">// TODO Auto-generated constructor stub</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//这两个变量也会被继承</span></span><br><span class="line">QuackBehavior quackBehavior;</span><br><span class="line">FlyBehavior flyBehavior;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">performQuack</span><span class="params">()</span> </span>&#123;</span><br><span class="line">quackBehavior.quack();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">performFly</span><span class="params">()</span> </span>&#123;</span><br><span class="line">flyBehavior.fly();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">swim</span><span class="params">()</span> </span>&#123;</span><br><span class="line">System.out.println(<span class="string">"All ducks float , even decoys! "</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//动态设定行为</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setFlyBehavior</span><span class="params">(FlyBehavior fb)</span> </span>&#123;</span><br><span class="line">flyBehavior = fb;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setQuackBehavior</span><span class="params">(QuackBehavior qb)</span> </span>&#123;</span><br><span class="line">quackBehavior = qb;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="新建实现类"><a href="#新建实现类" class="headerlink" title="新建实现类"></a>新建实现类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ModeDuck</span> <span class="keyword">extends</span> <span class="title">Duck</span></span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ModeDuck</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="comment">// 起初模型是不会飞</span></span><br><span class="line">flyBehavior = <span class="keyword">new</span> FlyNoWay();</span><br><span class="line">quackBehavior = <span class="keyword">new</span> Quack();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">disPlay</span><span class="params">()</span> </span>&#123;</span><br><span class="line">System.out.println(<span class="string">"I'm a model duck"</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="新建行为类型"><a href="#新建行为类型" class="headerlink" title="新建行为类型"></a>新建行为类型</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FlyRocketPowered</span> <span class="keyword">implements</span> <span class="title">FlyBehavior</span></span>&#123;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fly</span><span class="params">()</span> </span>&#123;</span><br><span class="line">System.out.println(<span class="string">"I'm fly with a rocket!"</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="运用-1"><a href="#运用-1" class="headerlink" title="运用"></a>运用</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">Duck mallar = <span class="keyword">new</span> ModeDuck();</span><br><span class="line">mallar.performQuack();</span><br><span class="line">mallar.performFly();</span><br><span class="line"></span><br><span class="line">Duck model = <span class="keyword">new</span> ModeDuck();</span><br><span class="line">model.setFlyBehavior(<span class="keyword">new</span> FlyRocketPowered());</span><br><span class="line">model.performQuack();</span><br><span class="line">model.performFly();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h5 id="运行结果-1"><a href="#运行结果-1" class="headerlink" title="运行结果"></a>运行结果</h5><p><img src="%E5%8D%87%E7%BA%A7%E5%90%8E%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C.jpg" alt=""></p><h4 id="总体UML"><a href="#总体UML" class="headerlink" title="总体UML"></a>总体UML</h4><p><img src="%E6%80%BB%E4%BD%93UML.jpg" alt=""></p><h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul><li>找出变化之处，独立于不需要变化的代码</li><li>针对接口编程，而不是针对实现编程</li><li>多用组合，少用继承</li></ul><h4 id="传送门"><a href="#传送门" class="headerlink" title="传送门"></a><a href="https://github.com/wuhansan/design-mode">传送门</a></h4>]]></content>
-      
-      
-      <categories>
-          
-          <category> 设计模式学习 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
       
     </entry>
     
@@ -2182,56 +2023,6 @@
     
     
     <entry>
-      <title>Android角标提示</title>
-      <link href="posts/38069/"/>
-      <url>posts/38069/</url>
-      
-        <content type="html"><![CDATA[<h4 id="部分代码"><a href="#部分代码" class="headerlink" title="部分代码"></a>部分代码</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BadgeNumberManager</span> </span>&#123;</span><br><span class="line"><span class="keyword">private</span> Context mContext;</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="title">BadgeNumberManager</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">    mContext = context;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> BadgeNumberManager <span class="title">from</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> BadgeNumberManager(context);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> BadgeNumberManager.Impl IMPL;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 设置应用在桌面上显示的角标数字</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> number 显示的数字</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBadgeNumber</span><span class="params">(<span class="keyword">int</span> number)</span> </span>&#123;</span><br><span class="line">    IMPL.setBadgeNumber(mContext, number);</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Impl</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setBadgeNumber</span><span class="params">(Context context, <span class="keyword">int</span> number)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">ImplHuaWei</span> <span class="keyword">implements</span> <span class="title">Impl</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBadgeNumber</span><span class="params">(Context context, <span class="keyword">int</span> number)</span> </span>&#123;</span><br><span class="line">        BadgeNumberManagerHuaWei.setBadgeNumber(context, number);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">ImplVIVO</span> <span class="keyword">implements</span> <span class="title">Impl</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBadgeNumber</span><span class="params">(Context context, <span class="keyword">int</span> number)</span> </span>&#123;</span><br><span class="line">        BadgeNumberManagerVIVO.setBadgeNumber(context, number);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">ImplBase</span> <span class="keyword">implements</span> <span class="title">Impl</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBadgeNumber</span><span class="params">(Context context, <span class="keyword">int</span> number)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//do nothing</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">static</span> &#123;</span><br><span class="line">    String manufacturer = Build.MANUFACTURER;</span><br><span class="line">    <span class="keyword">if</span> (manufacturer.equalsIgnoreCase(<span class="string">"Huawei"</span>)) &#123;</span><br><span class="line">        IMPL = <span class="keyword">new</span> ImplHuaWei();</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (manufacturer.equalsIgnoreCase(<span class="string">"vivo"</span>)) &#123;</span><br><span class="line">        IMPL = <span class="keyword">new</span> ImplVIVO();</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (manufacturer.equalsIgnoreCase(<span class="string">"XXX"</span>)) &#123;</span><br><span class="line">        <span class="comment">//其他品牌机型的实现类</span></span><br><span class="line">        IMPL = <span class="keyword">new</span> ImplXXX();</span><br><span class="line">        ......</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        IMPL = <span class="keyword">new</span> ImplBase();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="原文"><a href="#原文" class="headerlink" title="原文"></a>原文</h4><p><a href="https://juejin.im/post/59f2e59751882578c17ee275">有关Android应用桌面角标(BadgeNumber)实现的探讨</a></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Android </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 功能实现 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>QQ弹窗消息</title>
-      <link href="posts/34068/"/>
-      <url>posts/34068/</url>
-      
-        <content type="html"><![CDATA[<p><strong>QQ弹窗消息</strong></p><ul><li><p>指定广播接收者</p></li><li><p>广播接收者接收到对应action，判断是否锁屏状态</p></li></ul><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (action.equals(<span class="string">"xxxxxxxxxxx"</span>)) &#123;</span><br><span class="line">        <span class="comment">//管理锁屏的一个服务</span></span><br><span class="line">        KeyguardManager km = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);</span><br><span class="line">        String text = km.inKeyguardRestrictedInputMode() ? <span class="string">"锁屏了"</span> : <span class="string">"屏幕亮着的"</span>;</span><br><span class="line">        Log.i(TAG, <span class="string">"text: "</span> + text);</span><br><span class="line">        <span class="keyword">if</span> (km.inKeyguardRestrictedInputMode()) &#123;</span><br><span class="line">            Log.i(TAG, <span class="string">"onReceive:锁屏了 "</span>);</span><br><span class="line">            <span class="comment">//判断是否锁屏</span></span><br><span class="line">            Intent alarmIntent = <span class="keyword">new</span> Intent(context, MessageActivity<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">            <span class="comment">//在广播中启动Activity的context可能不是Activity对象，所以需要添加NEW_TASK的标志，否则启动时可能会报错。</span></span><br><span class="line">            alarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);</span><br><span class="line">            context.startActivity(alarmIntent); <span class="comment">//启动显示锁屏消息的activity</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure><ul><li>如果是锁屏，弹出对应的消息提示界面</li></ul><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Context mContext;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">    Log.i(<span class="string">"tag"</span>, <span class="string">"onCreate:启动了消息内容的activity "</span>);</span><br><span class="line">    <span class="comment">//四个标志位顾名思义，分别是锁屏状态下显示，解锁，保持屏幕长亮，打开屏幕。这样当Activity启动的时候，它会解锁并亮屏显示。</span></span><br><span class="line">    Window win = getWindow();</span><br><span class="line">    win.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED <span class="comment">//锁屏状态下显示</span></span><br><span class="line">            | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD <span class="comment">//解锁</span></span><br><span class="line">            | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON <span class="comment">//保持屏幕长亮</span></span><br><span class="line">            | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON); <span class="comment">//打开屏幕</span></span><br><span class="line">    <span class="comment">//使用手机的背景</span></span><br><span class="line">    Drawable wallPaper = WallpaperManager.getInstance(<span class="keyword">this</span>).getDrawable();</span><br><span class="line">    win.setBackgroundDrawable(wallPaper);</span><br><span class="line">    setContentView(R.layout.activity_message);</span><br><span class="line"></span><br><span class="line">    mContext = <span class="keyword">this</span>;</span><br><span class="line">    initView();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onNewIntent</span><span class="params">(Intent intent)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onNewIntent(intent);</span><br><span class="line">    <span class="comment">//获取电源管理器对象</span></span><br><span class="line"><span class="comment">//        PowerManager pm = (PowerManager) this.getSystemService(Context.POWER_SERVICE);</span></span><br><span class="line"><span class="comment">//        if (!pm.isScreenOn()) &#123;</span></span><br><span class="line"><span class="comment">//            PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP |</span></span><br><span class="line"><span class="comment">//                    PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "bright");</span></span><br><span class="line"><span class="comment">//            wl.acquire();  //点亮屏幕</span></span><br><span class="line"><span class="comment">//            wl.release();  //任务结束后释放</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initView</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    findViewById(R.id.message_layout).setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View view)</span> </span>&#123;</span><br><span class="line">            <span class="comment">//先解锁系统自带锁屏服务，放在锁屏界面里面</span></span><br><span class="line">            KeyguardManager keyguardManager = (KeyguardManager) mContext.getSystemService(Context.KEYGUARD_SERVICE);</span><br><span class="line">            keyguardManager.newKeyguardLock(<span class="string">""</span>).disableKeyguard(); <span class="comment">//解锁</span></span><br><span class="line">            <span class="comment">//点击进入消息对应的页面</span></span><br><span class="line">            mContext.startActivity(<span class="keyword">new</span> Intent(mContext, DetailsActivity<span class="class">.<span class="keyword">class</span>))</span>;</span><br><span class="line">            finish();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure><ul><li>设置弹窗界面</li></ul>]]></content>
-      
-      
-      <categories>
-          
-          <category> Android </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 功能实现 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>Ubuntu编译Android源码</title>
       <link href="posts/48985/"/>
       <url>posts/48985/</url>
@@ -2276,6 +2067,56 @@
         <tags>
             
             <tag> 源码 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Android角标提示</title>
+      <link href="posts/38069/"/>
+      <url>posts/38069/</url>
+      
+        <content type="html"><![CDATA[<h4 id="部分代码"><a href="#部分代码" class="headerlink" title="部分代码"></a>部分代码</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BadgeNumberManager</span> </span>&#123;</span><br><span class="line"><span class="keyword">private</span> Context mContext;</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="title">BadgeNumberManager</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">    mContext = context;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> BadgeNumberManager <span class="title">from</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> BadgeNumberManager(context);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> BadgeNumberManager.Impl IMPL;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 设置应用在桌面上显示的角标数字</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> number 显示的数字</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBadgeNumber</span><span class="params">(<span class="keyword">int</span> number)</span> </span>&#123;</span><br><span class="line">    IMPL.setBadgeNumber(mContext, number);</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Impl</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setBadgeNumber</span><span class="params">(Context context, <span class="keyword">int</span> number)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">ImplHuaWei</span> <span class="keyword">implements</span> <span class="title">Impl</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBadgeNumber</span><span class="params">(Context context, <span class="keyword">int</span> number)</span> </span>&#123;</span><br><span class="line">        BadgeNumberManagerHuaWei.setBadgeNumber(context, number);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">ImplVIVO</span> <span class="keyword">implements</span> <span class="title">Impl</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBadgeNumber</span><span class="params">(Context context, <span class="keyword">int</span> number)</span> </span>&#123;</span><br><span class="line">        BadgeNumberManagerVIVO.setBadgeNumber(context, number);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">ImplBase</span> <span class="keyword">implements</span> <span class="title">Impl</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBadgeNumber</span><span class="params">(Context context, <span class="keyword">int</span> number)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//do nothing</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">static</span> &#123;</span><br><span class="line">    String manufacturer = Build.MANUFACTURER;</span><br><span class="line">    <span class="keyword">if</span> (manufacturer.equalsIgnoreCase(<span class="string">"Huawei"</span>)) &#123;</span><br><span class="line">        IMPL = <span class="keyword">new</span> ImplHuaWei();</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (manufacturer.equalsIgnoreCase(<span class="string">"vivo"</span>)) &#123;</span><br><span class="line">        IMPL = <span class="keyword">new</span> ImplVIVO();</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (manufacturer.equalsIgnoreCase(<span class="string">"XXX"</span>)) &#123;</span><br><span class="line">        <span class="comment">//其他品牌机型的实现类</span></span><br><span class="line">        IMPL = <span class="keyword">new</span> ImplXXX();</span><br><span class="line">        ......</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        IMPL = <span class="keyword">new</span> ImplBase();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="原文"><a href="#原文" class="headerlink" title="原文"></a>原文</h4><p><a href="https://juejin.im/post/59f2e59751882578c17ee275">有关Android应用桌面角标(BadgeNumber)实现的探讨</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Android </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 功能实现 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>QQ弹窗消息</title>
+      <link href="posts/34068/"/>
+      <url>posts/34068/</url>
+      
+        <content type="html"><![CDATA[<p><strong>QQ弹窗消息</strong></p><ul><li><p>指定广播接收者</p></li><li><p>广播接收者接收到对应action，判断是否锁屏状态</p></li></ul><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (action.equals(<span class="string">"xxxxxxxxxxx"</span>)) &#123;</span><br><span class="line">        <span class="comment">//管理锁屏的一个服务</span></span><br><span class="line">        KeyguardManager km = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);</span><br><span class="line">        String text = km.inKeyguardRestrictedInputMode() ? <span class="string">"锁屏了"</span> : <span class="string">"屏幕亮着的"</span>;</span><br><span class="line">        Log.i(TAG, <span class="string">"text: "</span> + text);</span><br><span class="line">        <span class="keyword">if</span> (km.inKeyguardRestrictedInputMode()) &#123;</span><br><span class="line">            Log.i(TAG, <span class="string">"onReceive:锁屏了 "</span>);</span><br><span class="line">            <span class="comment">//判断是否锁屏</span></span><br><span class="line">            Intent alarmIntent = <span class="keyword">new</span> Intent(context, MessageActivity<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">            <span class="comment">//在广播中启动Activity的context可能不是Activity对象，所以需要添加NEW_TASK的标志，否则启动时可能会报错。</span></span><br><span class="line">            alarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);</span><br><span class="line">            context.startActivity(alarmIntent); <span class="comment">//启动显示锁屏消息的activity</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure><ul><li>如果是锁屏，弹出对应的消息提示界面</li></ul><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Context mContext;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">    Log.i(<span class="string">"tag"</span>, <span class="string">"onCreate:启动了消息内容的activity "</span>);</span><br><span class="line">    <span class="comment">//四个标志位顾名思义，分别是锁屏状态下显示，解锁，保持屏幕长亮，打开屏幕。这样当Activity启动的时候，它会解锁并亮屏显示。</span></span><br><span class="line">    Window win = getWindow();</span><br><span class="line">    win.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED <span class="comment">//锁屏状态下显示</span></span><br><span class="line">            | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD <span class="comment">//解锁</span></span><br><span class="line">            | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON <span class="comment">//保持屏幕长亮</span></span><br><span class="line">            | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON); <span class="comment">//打开屏幕</span></span><br><span class="line">    <span class="comment">//使用手机的背景</span></span><br><span class="line">    Drawable wallPaper = WallpaperManager.getInstance(<span class="keyword">this</span>).getDrawable();</span><br><span class="line">    win.setBackgroundDrawable(wallPaper);</span><br><span class="line">    setContentView(R.layout.activity_message);</span><br><span class="line"></span><br><span class="line">    mContext = <span class="keyword">this</span>;</span><br><span class="line">    initView();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onNewIntent</span><span class="params">(Intent intent)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onNewIntent(intent);</span><br><span class="line">    <span class="comment">//获取电源管理器对象</span></span><br><span class="line"><span class="comment">//        PowerManager pm = (PowerManager) this.getSystemService(Context.POWER_SERVICE);</span></span><br><span class="line"><span class="comment">//        if (!pm.isScreenOn()) &#123;</span></span><br><span class="line"><span class="comment">//            PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP |</span></span><br><span class="line"><span class="comment">//                    PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "bright");</span></span><br><span class="line"><span class="comment">//            wl.acquire();  //点亮屏幕</span></span><br><span class="line"><span class="comment">//            wl.release();  //任务结束后释放</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initView</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    findViewById(R.id.message_layout).setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View view)</span> </span>&#123;</span><br><span class="line">            <span class="comment">//先解锁系统自带锁屏服务，放在锁屏界面里面</span></span><br><span class="line">            KeyguardManager keyguardManager = (KeyguardManager) mContext.getSystemService(Context.KEYGUARD_SERVICE);</span><br><span class="line">            keyguardManager.newKeyguardLock(<span class="string">""</span>).disableKeyguard(); <span class="comment">//解锁</span></span><br><span class="line">            <span class="comment">//点击进入消息对应的页面</span></span><br><span class="line">            mContext.startActivity(<span class="keyword">new</span> Intent(mContext, DetailsActivity<span class="class">.<span class="keyword">class</span>))</span>;</span><br><span class="line">            finish();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure><ul><li>设置弹窗界面</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Android </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 功能实现 </tag>
             
         </tags>
       

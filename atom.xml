@@ -43,7 +43,7 @@
     <link href="https://www.wl960127.top/posts/8a392f6c/"/>
     <id>https://www.wl960127.top/posts/8a392f6c/</id>
     <published>2021-02-03T06:51:40.000Z</published>
-    <updated>2021-03-08T11:13:59.407Z</updated>
+    <updated>2021-03-08T11:27:20.906Z</updated>
     
     <content type="html"><![CDATA[<h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><ul><li>上承开发语言，下接操作系统，中间的接口就是字节码。通过不停的翻译执行Java字节码，调用真正的操作系统函数<br>（ Java文件 -&gt; 编译器 -&gt; 字节码 -&gt; JVM -&gt; 机器码 ）</li><li>一次编译，处处运行</li><li>是一个规范，定义了.class文件的结构，加载机制，数据存储，运行时栈等诸多内容，最常见的JVM实现就是Hostpot</li></ul><p>Java虚拟机采用基于栈的架构，其指令由操作码和操作数组成。这些字节码指令，就叫做 <strong>opcode</strong></p><hr><h4 id="执行方式"><a href="#执行方式" class="headerlink" title="执行方式"></a>执行方式</h4><ul><li>解析执行：将opcode+操作数翻译成机器代码</li><li>即时编译 （JIT）：会在一定条件下，将字节码编译成机器码再执行</li></ul><p>这些.class文件会被加载，存放在元空间，等待被调用，这里会有一个类加载器的概念</p><hr><h4 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h4><ul><li>对于Java的自动内存管理机制，为了管理这些快速的内存申请释放操作，就必须引入一个池子（<strong>堆</strong>）来延迟这些内存区域的回收操作</li></ul><h5 id="内存布局"><a href="#内存布局" class="headerlink" title="内存布局"></a>内存布局</h5><ul><li>Java8及以后版本，彻底移除持久化，而是使用Metaspace来进行替代，即: -XX:PermSize等参数调优已经无意义</li></ul><p>[]<img src="JVM内存区域划分.png" style="zoom:80%;" /></p><p><img src="" alt=""></p><ul><li>JVM堆中的数据是共享的，是占用内存最大的一块区域</li><li>可以执行字节码的模块叫做执行引擎</li><li>程序计数器使得执行引擎在线程切换时候可以恢复</li><li>JVM的内存划分与多线程息息相关。程序运行时候用到的栈以及本地方法栈的维度都是线程</li><li>本地内存包含元数据去和一些直接内存</li></ul><h5 id="虚拟机栈"><a href="#虚拟机栈" class="headerlink" title="虚拟机栈"></a>虚拟机栈</h5><ul><li>Java虚拟机栈基于线程，栈的生命周期和线程一样</li><li>栈的每条数据就是栈帧，每个栈帧包含四个区域<ul><li>局部变量表</li><li>操作数栈</li><li>动态连接</li><li>返回地址</li></ul></li></ul><h5 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h5><ul><li>与虚拟机栈非常相似，服务的对象是native方法</li></ul><h5 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h5><ul><li>一块较小的内存空间，可以看作是当前线程所执行的字节码的行号指示器。保存着当前线程执行的进度</li><li>因为线程而产生，与虚拟机栈配合完成计算操作</li><li>还存储了当前正在运行的流程，包括正在执行的指令、跳转、分支、循环、异常处理等</li></ul><h5 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h5><ul><li><p>所有线程共享并存储对象（类实例和数组）的内存</p></li><li><p>JVM最大的内存区域，申请的几乎所有对象都是在这里存储。垃圾回收操作的对象就是堆</p></li><li><p>在程序启动的时候就申请了，但是不一定会全用</p></li><li><p>针对堆空间占用，对其不定期的清理机制叫做 GC（Garbage Collection）；不仅需要销毁对象还要空间整理</p></li></ul><h5 id="元空间"><a href="#元空间" class="headerlink" title="元空间"></a>元空间</h5><ul><li>作为方法区的物理存储容器，而方法区存储的内容有：类信息、常量池、方法数据、方法代码</li></ul><hr><h4 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h4><p>①对象的创建位置</p><ul><li>取决于对象的类型和在Java类中存在的位置</li><li>对象分为基本数据类型和普通对象；针对<strong>普通对象</strong>，JVM会首先在堆上创建对象，然后在其他地方使用的其实是它的引用，比如把这个引用保存在虚拟机栈的局部变量表中。针对<strong>基本数据类型</strong>，如果方法体内声明了基本数据类型的对象，它就会在栈上直接分配，其他情况都是在堆上分配</li><li>除方法内部的基本数据类型是直接在栈上分配（引用与值并存于此）；<strong>常规而言，栈一般只持有引用，堆只持有实例对象，常量池持有字符串常量以及基本类型常量（public、static、final）</strong></li></ul><p>②存在栈中的数据可以共享</p>]]></content>
     
@@ -125,7 +125,7 @@
     <link href="https://www.wl960127.top/posts/46cbf5bc/"/>
     <id>https://www.wl960127.top/posts/46cbf5bc/</id>
     <published>2020-10-09T13:53:30.000Z</published>
-    <updated>2021-03-08T07:43:46.401Z</updated>
+    <updated>2021-03-08T11:34:36.524Z</updated>
     
     <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>定义一单独的中介对象，封装一组对象之间的交互，将这种对象之间的交互委派给与中介对象交互，从而避免直接交互</li></ul><hr><ul><li>中介者模式的场景中,参与者之间的关系错综复杂,既可以是消息的发送者也可以同时是消息的接收者</li></ul>]]></content>
     
@@ -135,8 +135,8 @@
     
     </summary>
     
+      <category term="设计模式" scheme="https://www.wl960127.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
-      <category term="设计模式" scheme="https://www.wl960127.top/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -145,7 +145,7 @@
     <link href="https://www.wl960127.top/posts/ed523091/"/>
     <id>https://www.wl960127.top/posts/ed523091/</id>
     <published>2020-09-23T13:52:59.000Z</published>
-    <updated>2021-03-08T07:44:17.144Z</updated>
+    <updated>2021-03-08T11:34:30.517Z</updated>
     
     <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>将请求的发送和接收解耦，让多个接收对象有机会处理这个请求。将这些接收对象串成一条链，并沿着这条链传递这个请求，直到链上的某个对象能够处理为止</li></ul><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ul><li>链表来存储</li><li>数组来存储</li></ul><h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><ul><li>常用于开发框架的过滤器和拦截器</li></ul>]]></content>
     
@@ -155,8 +155,8 @@
     
     </summary>
     
+      <category term="设计模式" scheme="https://www.wl960127.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
-      <category term="设计模式" scheme="https://www.wl960127.top/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -165,7 +165,7 @@
     <link href="https://www.wl960127.top/posts/53f98d70/"/>
     <id>https://www.wl960127.top/posts/53f98d70/</id>
     <published>2020-09-15T14:16:01.000Z</published>
-    <updated>2021-03-08T07:44:31.924Z</updated>
+    <updated>2021-03-08T11:34:27.437Z</updated>
     
     <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>在方法中定义一个算法框架，并将某些步骤推迟到子类中实现</li><li>可以让子类在不改变算法整体结构的情况下，重新定义算法中的某些步骤</li></ul><h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><ul><li><p>复用</p><p>所有的子类可以复用父类中提供的模板方法的代码</p></li><li><p>拓展</p><p>框架通过模板模式提高功能拓展点，让用户在不修改框架源码的情况下，基于拓展定制化框架的功能</p></li></ul><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ul><li>将不变的流程抽象到父类定义的模板方法中 （模板方法中调用了抽象流程的函数）</li><li>子类继承后，可通过调用该模板方法间接执行子类自身实现的抽象流程 </li></ul><hr><h3 id="回调"><a href="#回调" class="headerlink" title="回调"></a>回调</h3><h4 id="类别"><a href="#类别" class="headerlink" title="类别"></a>类别</h4><h5 id="同步回调"><a href="#同步回调" class="headerlink" title="同步回调"></a>同步回调</h5><ul><li>函数返回之前执行回调函数</li><li>从场景上看像模板模式</li></ul><h5 id="异步回调"><a href="#异步回调" class="headerlink" title="异步回调"></a>异步回调</h5><ul><li>函数返回之后执行回调函数</li><li>从场景上看很像观察者模式</li></ul><hr><h3 id="模板模式-VS-回调"><a href="#模板模式-VS-回调" class="headerlink" title="模板模式 VS 回调"></a>模板模式 VS 回调</h3><ul><li>回调基于组合关系实现，将一个对象传递给另一个对象，是一种对象间的关系</li><li>模板模式基于继承关系来实现，子类重写父类的抽象方法，是一种类与类之间的关系</li><li>代码实现上，回调会比模板模式更加灵活</li></ul>]]></content>
     
@@ -175,8 +175,8 @@
     
     </summary>
     
+      <category term="设计模式" scheme="https://www.wl960127.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
-      <category term="设计模式" scheme="https://www.wl960127.top/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -185,7 +185,7 @@
     <link href="https://www.wl960127.top/posts/a665927f/"/>
     <id>https://www.wl960127.top/posts/a665927f/</id>
     <published>2020-09-03T13:50:26.000Z</published>
-    <updated>2021-03-08T07:44:24.652Z</updated>
+    <updated>2021-03-08T11:34:24.121Z</updated>
     
     <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>为某个语言定义它的语法表示，并定义一个解释器来处理这个语法</li></ul><h4 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h4><ul><li>将语法规则拆分成一些小的独立的单元，然后对每个单元进行解析，最终合并为对整个语法规则的解析</li></ul>]]></content>
     
@@ -195,8 +195,8 @@
     
     </summary>
     
+      <category term="设计模式" scheme="https://www.wl960127.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
-      <category term="设计模式" scheme="https://www.wl960127.top/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -205,7 +205,7 @@
     <link href="https://www.wl960127.top/posts/94a78128/"/>
     <id>https://www.wl960127.top/posts/94a78128/</id>
     <published>2020-08-23T12:49:47.000Z</published>
-    <updated>2021-03-08T07:42:51.362Z</updated>
+    <updated>2021-03-08T11:34:21.061Z</updated>
     
     <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li><p>在对象之间定义一个一对多的依赖，当一个对象状态改变的时候，所有的依赖都会收到消息</p></li><li><p>观察者模式的应用场景中,参与者之间的交互比较有,一般是单向的,一个参与者只有一个身份</p></li></ul><hr><h4 id="被观察者"><a href="#被观察者" class="headerlink" title="被观察者"></a>被观察者</h4><ul><li>Observable</li><li>被依赖的对象</li></ul><h4 id="观察者"><a href="#观察者" class="headerlink" title="观察者"></a>观察者</h4><ul><li>Observer</li><li>依赖的对象</li></ul><hr><h3 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h3><ul><li>同步阻塞（主要是代码解耦）</li><li>异步非阻塞 （实现解耦，以及提高执行效率）</li><li>进程间 （解耦更彻底，一般基于消息队列来实现）</li></ul>]]></content>
     
@@ -215,30 +215,8 @@
     
     </summary>
     
+      <category term="设计模式" scheme="https://www.wl960127.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
-      <category term="设计模式" scheme="https://www.wl960127.top/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>结构型-装饰器模式</title>
-    <link href="https://www.wl960127.top/posts/4060492b/"/>
-    <id>https://www.wl960127.top/posts/4060492b/</id>
-    <published>2020-08-21T13:41:21.000Z</published>
-    <updated>2021-03-08T07:37:30.804Z</updated>
-    
-    <content type="html"><![CDATA[<ul><li>解决继承关系过于复杂的问题，通过组合来替代继承</li><li>主要作用是在不改变原始接口的情况下，给原始类附加相关的增强功能</li></ul><hr><h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><ul><li><p>可以对原始类嵌套使用多个装饰器，所以在设计时候，装饰器类需要跟原始类继承相同的抽象类或者接口</p></li><li><p>支持多个装饰器的嵌套使用</p></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      设计模式之美学习笔记&lt;/br&gt;结构型模式主要解决类与对象的组合和组装，将不同功能的代码解耦 &lt;/br&gt;装饰器模式则是：解决过于继承过于复杂的问题
-    
-    </summary>
-    
-      <category term="设计模式学习" scheme="https://www.wl960127.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%AD%A6%E4%B9%A0/"/>
-    
-    
-      <category term="设计模式" scheme="https://www.wl960127.top/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -247,7 +225,7 @@
     <link href="https://www.wl960127.top/posts/f21f8074/"/>
     <id>https://www.wl960127.top/posts/f21f8074/</id>
     <published>2020-08-21T13:03:04.000Z</published>
-    <updated>2021-03-08T07:42:28.547Z</updated>
+    <updated>2021-03-08T11:34:17.249Z</updated>
     
     <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>允许一个或者多个操作应用到一组对象上，解耦操作和对象本身</li></ul><h3 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h3><p><img src="%E8%AE%BF%E9%97%AE%E8%80%85.png" alt=""></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Extractor extractor = <span class="keyword">new</span> Extractor();</span><br><span class="line">        <span class="keyword">for</span> (ResourceFile i : listAllResourceFiles()) &#123;</span><br><span class="line">            i.accept(extractor);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Compressor compressor = <span class="keyword">new</span> Compressor();</span><br><span class="line">        <span class="keyword">for</span> (ResourceFile i : listAllResourceFiles()) &#123;</span><br><span class="line">            i.accept(compressor);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> List&lt;ResourceFile&gt; <span class="title">listAllResourceFiles</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        List&lt;ResourceFile&gt; resourceFiles = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        resourceFiles.add(<span class="keyword">new</span> PdfFile(<span class="string">"a.pdf"</span>));</span><br><span class="line">        resourceFiles.add(<span class="keyword">new</span> WordFile(<span class="string">"b.word"</span>));</span><br><span class="line">        resourceFiles.add(<span class="keyword">new</span> PPTFile(<span class="string">"c.ppt"</span>));</span><br><span class="line">        <span class="keyword">return</span> resourceFiles;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><h3 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h3><ul><li><p>所谓的双分派和单分派的区分，指的是：执行哪对象的哪个方法，和几个因素的运行时类型有关</p><p>具体到编程语言的语法机制，双分派（<code>Double Dispatch</code>）和单分派（<code>Single Dispatch</code>）跟多态和函数重载直接相关</p></li></ul><h4 id="双分派"><a href="#双分派" class="headerlink" title="双分派"></a>双分派</h4><ul><li>执行哪个对象的哪个方法，跟<code>对象</code>和<code>方法参数</code>两者的运行时类型有关</li></ul><h4 id="单分派"><a href="#单分派" class="headerlink" title="单分派"></a>单分派</h4><ul><li><p>执行哪个对象的哪个方法，只跟<code>对象</code>的运行时类型有关</p></li><li><p>当前主流的面向对象编程语言（Java、C++、C#）都只支持Single Dispatch</p><ul><li>Java支持多态，代码可以在运行时候获取对象实际类型（即：运行时类型），然后跟根据实际类型调用哪个方法</li><li>尽管Java支持函数重载，但是Java函数重载的语法规则是：并不是在运行时候，根据传递函数的参数的声明类型（运行时类型），来决定调用哪个重载函数，而是编译时候，根据传递进函数的参数的声明类型（即：编译类型），来决定调用哪个重载函数</li><li>总的来说，具体来说，执行那个对象的哪个方法，只跟对象的运行时类型有关，跟参数的运行时类型无关</li></ul></li></ul>]]></content>
     
@@ -257,8 +235,8 @@
     
     </summary>
     
+      <category term="设计模式" scheme="https://www.wl960127.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
-      <category term="设计模式" scheme="https://www.wl960127.top/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -267,7 +245,7 @@
     <link href="https://www.wl960127.top/posts/6ff4cba/"/>
     <id>https://www.wl960127.top/posts/6ff4cba/</id>
     <published>2020-08-19T13:03:47.000Z</published>
-    <updated>2021-03-08T07:42:04.204Z</updated>
+    <updated>2021-03-08T11:34:13.973Z</updated>
     
     <content type="html"><![CDATA[<h3 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h3><ul><li><p>完整的迭代器模式，一般会涉及容器和容器迭代器两部分内容</p></li><li><p>为了达到基于接口编程的目的，所以容器又包含容器接口、容器实现类迭代器又包含迭代器接口、迭代器实现类!</p><p><img src="%E8%BF%AD%E4%BB%A3%E5%99%A8.png" alt=""></p></li></ul><hr><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ul><li>迭代器定义 <code>hasNext()</code>、<code>currentItem()</code>、<code>next()</code>的基础方法</li><li>待遍历的容器对象通过依赖注入传递到迭代器容器中</li><li>容器中定义<code>iterator()</code>方法创建迭代器</li></ul><hr><h3 id="细节"><a href="#细节" class="headerlink" title="细节"></a>细节</h3><ul><li><code>foreach()</code>的底层也是基于迭代器实现的</li></ul><h4 id="意义"><a href="#意义" class="headerlink" title="意义"></a>意义</h4><ul><li>常规简单的数据结构，直接使用<code>for</code>循环来遍历是足够的</li><li>但是相对于<code>树、图</code>等复杂的数据结构，有着复杂的遍历方式。对于复杂性的结构，最好使用拆分形式，将遍历操作拆分到迭代器中，分别实现对应需求的遍历方式</li></ul><hr><h3 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h3><ul><li>封装集合内部的复杂数据结构，开发者不需要了解如何遍历，直接使用容提供的迭代器即可</li><li>将集合对象的遍历操作从集合类中拆分出来，放在迭代器中，让两者的职责更加单一</li><li>让添加新的遍历算法更容易，符合开闭原则</li><li>迭代器都实现自同样的接口，基于接口编程，替换更方便</li></ul><hr>]]></content>
     
@@ -277,28 +255,28 @@
     
     </summary>
     
+      <category term="设计模式" scheme="https://www.wl960127.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
-      <category term="设计模式" scheme="https://www.wl960127.top/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
   <entry>
     <title>行为型-策略模式</title>
-    <link href="https://www.wl960127.top/posts/3414386a/"/>
-    <id>https://www.wl960127.top/posts/3414386a/</id>
+    <link href="https://www.wl960127.top/posts/58639/"/>
+    <id>https://www.wl960127.top/posts/58639/</id>
     <published>2020-08-16T13:13:20.000Z</published>
-    <updated>2021-03-08T07:46:14.253Z</updated>
+    <updated>2021-03-08T15:08:07.379Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>定义一组算法类，将每个类分别封装起来，让它们可以互相替换，使算法的变化独立于被调用者</li></ul><h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><h4 id="策略定义"><a href="#策略定义" class="headerlink" title="策略定义"></a>策略定义</h4><ul><li>定义一个策略接口以及一组实现这个接口的策略类</li><li>客户端基于接口灵活替换不同策略</li></ul><h4 id="策略创建"><a href="#策略创建" class="headerlink" title="策略创建"></a>策略创建</h4><ul><li>使用工厂模式屏蔽创建细节，并根据类型判断使用对应策略</li><li>根据策略类是否有状态决定是否事先创建好缓存在工厂类中还是使用的时候进行实例化</li></ul><h4 id="策略使用"><a href="#策略使用" class="headerlink" title="策略使用"></a>策略使用</h4><ul><li>编译时候静态确定</li><li>运行时候动态决定 （典型运用场景）</li></ul>]]></content>
+    <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>定义一组算法类，将每个类分别封装起来，让它们可以互相替换，使算法的变化独立于被调用者</li></ul><h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><h4 id="策略定义"><a href="#策略定义" class="headerlink" title="策略定义"></a>策略定义</h4><ul><li>定义一个策略接口以及一组实现这个接口的策略类</li><li>客户端基于接口灵活替换不同策略</li></ul><h4 id="策略创建"><a href="#策略创建" class="headerlink" title="策略创建"></a>策略创建</h4><ul><li>使用工厂模式屏蔽创建细节，并根据类型判断使用对应策略</li><li>根据策略类是否有状态决定是否事先创建好缓存在工厂类中还是使用的时候进行实例化</li></ul><h4 id="策略使用"><a href="#策略使用" class="headerlink" title="策略使用"></a>策略使用</h4><ul><li>编译时候静态确定</li><li>运行时候动态决定 （典型运用场景）</li></ul><h4 id="实现行为"><a href="#实现行为" class="headerlink" title="实现行为"></a>实现行为</h4><ul><li>独立出来，并且可以被其他对象复用</li></ul><h5 id="UML"><a href="#UML" class="headerlink" title="UML"></a><strong>UML</strong></h5><p><img src="%E5%AE%9E%E7%8E%B0%E8%A1%8C%E4%B8%BA.jpg" alt=""></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">FlyBehavior</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fly</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FlyNoWay</span> <span class="keyword">implements</span> <span class="title">FlyBehavior</span></span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fly</span><span class="params">()</span> </span>&#123;</span><br><span class="line">System.out.println(<span class="string">"I can't fly"</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">QuackBehavior</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">quack</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Quack</span> <span class="keyword">implements</span> <span class="title">QuackBehavior</span></span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">quack</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">System.out.println(<span class="string">"Quack"</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure><h4 id="整合行为"><a href="#整合行为" class="headerlink" title="整合行为"></a>整合行为</h4><ul><li>将一些行为动作委托别人处理，而不是直接使用Duck的内部fly和quack方法</li><li>在显现类的构造方法中，继承而来的变量又会被初始化为对应的新实例</li></ul><h5 id="UML-1"><a href="#UML-1" class="headerlink" title="UML"></a><strong>UML</strong></h5><p><img src="%E6%95%B4%E5%90%88.jpg" alt=""></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Duck</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Duck</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="comment">// TODO Auto-generated constructor stub</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//这两个变量也会被继承</span></span><br><span class="line">QuackBehavior quackBehavior;</span><br><span class="line">FlyBehavior flyBehavior;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">performQuack</span><span class="params">()</span> </span>&#123;</span><br><span class="line">quackBehavior.quack();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">performFly</span><span class="params">()</span> </span>&#123;</span><br><span class="line">flyBehavior.fly();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">swim</span><span class="params">()</span> </span>&#123;</span><br><span class="line">System.out.println(<span class="string">"All ducks float , even decoys! "</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MallardDuck</span> <span class="keyword">extends</span> <span class="title">Duck</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">MallardDuck</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="comment">// TODO Auto-generated constructor stub</span></span><br><span class="line">quackBehavior = <span class="keyword">new</span> Quack();</span><br><span class="line">flyBehavior = <span class="keyword">new</span> FlyWithWing();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">disPlay</span><span class="params">()</span> </span>&#123;</span><br><span class="line">System.out.println(<span class="string">"I'm a real Mallard duck"</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="运用"><a href="#运用" class="headerlink" title="运用"></a>运用</h4><ul><li>调用继承来的对应QuackBehavior引用对象的quack()</li></ul><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">Duck mallar = <span class="keyword">new</span> MallardDuck();</span><br><span class="line">mallar.performQuack();</span><br><span class="line">mallar.performFly();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h5 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h5><p><img src="%E6%AD%A3%E5%B8%B8%E7%BB%93%E6%9E%9C.jpg" alt=""></p><h4 id="升级，动设定行为"><a href="#升级，动设定行为" class="headerlink" title="升级，动设定行为"></a>升级，动设定行为</h4><p><strong>UML</strong></p><p><img src="%E5%8D%87%E7%BA%A7.jpg" alt=""></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Duck</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Duck</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="comment">// TODO Auto-generated constructor stub</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//这两个变量也会被继承</span></span><br><span class="line">QuackBehavior quackBehavior;</span><br><span class="line">FlyBehavior flyBehavior;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">performQuack</span><span class="params">()</span> </span>&#123;</span><br><span class="line">quackBehavior.quack();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">performFly</span><span class="params">()</span> </span>&#123;</span><br><span class="line">flyBehavior.fly();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">swim</span><span class="params">()</span> </span>&#123;</span><br><span class="line">System.out.println(<span class="string">"All ducks float , even decoys! "</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//动态设定行为</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setFlyBehavior</span><span class="params">(FlyBehavior fb)</span> </span>&#123;</span><br><span class="line">flyBehavior = fb;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setQuackBehavior</span><span class="params">(QuackBehavior qb)</span> </span>&#123;</span><br><span class="line">quackBehavior = qb;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="新建实现类"><a href="#新建实现类" class="headerlink" title="新建实现类"></a>新建实现类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ModeDuck</span> <span class="keyword">extends</span> <span class="title">Duck</span></span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ModeDuck</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="comment">// 起初模型是不会飞</span></span><br><span class="line">flyBehavior = <span class="keyword">new</span> FlyNoWay();</span><br><span class="line">quackBehavior = <span class="keyword">new</span> Quack();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">disPlay</span><span class="params">()</span> </span>&#123;</span><br><span class="line">System.out.println(<span class="string">"I'm a model duck"</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="新建行为类型"><a href="#新建行为类型" class="headerlink" title="新建行为类型"></a>新建行为类型</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FlyRocketPowered</span> <span class="keyword">implements</span> <span class="title">FlyBehavior</span></span>&#123;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fly</span><span class="params">()</span> </span>&#123;</span><br><span class="line">System.out.println(<span class="string">"I'm fly with a rocket!"</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="运用-1"><a href="#运用-1" class="headerlink" title="运用"></a>运用</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">Duck mallar = <span class="keyword">new</span> ModeDuck();</span><br><span class="line">mallar.performQuack();</span><br><span class="line">mallar.performFly();</span><br><span class="line"></span><br><span class="line">Duck model = <span class="keyword">new</span> ModeDuck();</span><br><span class="line">model.setFlyBehavior(<span class="keyword">new</span> FlyRocketPowered());</span><br><span class="line">model.performQuack();</span><br><span class="line">model.performFly();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h5 id="运行结果-1"><a href="#运行结果-1" class="headerlink" title="运行结果"></a>运行结果</h5><p><img src="%E5%8D%87%E7%BA%A7%E5%90%8E%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C.jpg" alt=""></p><h4 id="总体UML"><a href="#总体UML" class="headerlink" title="总体UML"></a>总体UML</h4><p><img src="%E6%80%BB%E4%BD%93UML.jpg" alt=""></p><h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul><li>找出变化之处，独立于不需要变化的代码</li><li>针对接口编程，而不是针对实现编程</li><li>多用组合，少用继承</li></ul><h4 id="传送门"><a href="#传送门" class="headerlink" title="传送门"></a><a href="https://github.com/wuhansan/design-mode">传送门</a></h4>]]></content>
     
     <summary type="html">
     
-      设计模式之美学习笔记&lt;/br&gt;行为型模式主要解决类与对象之间的交互，将不同功能的代码解耦 &lt;/br&gt;策略模式则是：常见于避免冗长的if-else等分支判断，以及提高框架的拓展点
+      设计模式之美学习笔记&lt;/br&gt;行为型模式主要解决类与对象之间的交互，将不同功能的代码解耦 &lt;/br&gt;策略模式则是：定义了算法族，分别封装起来，让他们可以相互替换，此模式让算法的变化独立于使用算法的客户；常见于避免冗长的if-else等分支判断，以及提高框架的拓展点
     
     </summary>
     
+      <category term="设计模式" scheme="https://www.wl960127.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
-      <category term="设计模式" scheme="https://www.wl960127.top/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -307,7 +285,7 @@
     <link href="https://www.wl960127.top/posts/e4fae02c/"/>
     <id>https://www.wl960127.top/posts/e4fae02c/</id>
     <published>2020-08-13T14:07:47.000Z</published>
-    <updated>2021-03-08T07:41:31.572Z</updated>
+    <updated>2021-03-08T11:34:07.585Z</updated>
     
     <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>在不违背封装原则的前提下，捕获一个对象的内部状态，并在该对对象之外保存这个状态，以便恢复对象为之前的状态</li></ul><hr><h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><ul><li>针对大的备份而言，会占用大量的内存以及时间消耗。针对不同的场景，不同的业务场景需要不同的处理方式</li><li>只备份必要的恢复信息，结合最新的数据来恢复。再比如，全量备份和增量备份相结合，低频全量备份，高频全量备份，两者相结合</li></ul>]]></content>
     
@@ -317,8 +295,8 @@
     
     </summary>
     
+      <category term="设计模式" scheme="https://www.wl960127.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
-      <category term="设计模式" scheme="https://www.wl960127.top/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -327,7 +305,7 @@
     <link href="https://www.wl960127.top/posts/c39917f/"/>
     <id>https://www.wl960127.top/posts/c39917f/</id>
     <published>2020-08-08T13:21:53.000Z</published>
-    <updated>2021-03-08T07:37:46.255Z</updated>
+    <updated>2021-03-08T11:33:44.422Z</updated>
     
     <content type="html"><![CDATA[<ul><li>将一组对象组织成树形结构，以表示一种”部分-整体”的层次结构</li><li>让编写者可以统一单个对象和组合对象的处理逻辑</li></ul><hr><h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><ul><li>数据必须能表示成树形结构</li></ul><hr><h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ul><li>将一组对象组织成树形结构，将单个对象和组合对象都看作是树中的节点，以统一的处理逻辑，利用树形结构的特点，递遍历子树，依次简化代码实现</li><li>不是一种常用模式</li></ul>]]></content>
     
@@ -337,8 +315,8 @@
     
     </summary>
     
+      <category term="设计模式" scheme="https://www.wl960127.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
-      <category term="设计模式" scheme="https://www.wl960127.top/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -347,7 +325,7 @@
     <link href="https://www.wl960127.top/posts/3223afa7/"/>
     <id>https://www.wl960127.top/posts/3223afa7/</id>
     <published>2020-07-28T13:40:55.000Z</published>
-    <updated>2021-03-08T07:36:58.085Z</updated>
+    <updated>2021-03-08T11:33:34.882Z</updated>
     
     <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li><p>复用对象，节省内存（前提是享元对象是不可改变的对象）</p></li><li><p>将系统中的大量重复的<strong>不可变对象</strong>，使用享元模式，使其在内存中只保留一份实例，共多处代码使用。从而达到减少因过多实例化导致不必要的内存开销</p></li></ul><hr><h4 id="不可变对象"><a href="#不可变对象" class="headerlink" title="不可变对象"></a>不可变对象</h4><ul><li>通过构造函数初始化之后，成员变量和属性就不会被修改。因为不能暴露出<code>set()</code>等修改内部的方法，避免影响其他代码使用</li></ul><ul><li>棋子、文档格….</li></ul><hr><h4 id="Integer-享元"><a href="#Integer-享元" class="headerlink" title="Integer 享元"></a>Integer 享元</h4><ul><li>基本数据类型的装箱是为了<strong>将基础数据类型转换成包装类型</strong>，包装类型才能有对象的性质，才能操作属性和方法</li><li>Integer的享元对象实在类加载的时候就一次性创建好的。区间值为 <code>-128到127</code>的数值会从IntegerCache类直接返回，其余的通过new 方法创建</li></ul><hr><h4 id="String-享元"><a href="#String-享元" class="headerlink" title="String 享元"></a>String 享元</h4><ul><li>只有在第一次被使用的时候，存储到常量池中，第二次使用时候就是直接在常量池中引用即可，而不是重新创建</li></ul><hr><h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ul><li>抽取出原始类中的公有基础属性，封装成一个不可变的享元对象</li><li>使用不可变享元对象替换掉原始类的公有基础属性</li><li>使用工厂模式对已经创建过的享元对象使用Ma进行缓存处理，从而达到复用的目的</li></ul><hr><h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><ul><li>享元模式 VS 单例、缓存、对象池<ul><li>享元：实现对象复用，节省内存</li><li>单例：保证对象的全局唯一</li><li>缓存：提高访问率，而非复用</li><li>对象池：重复使用，主要是为了节省时间</li></ul></li></ul><h3 id="弊端"><a href="#弊端" class="headerlink" title="弊端"></a>弊端</h3><ul><li>对JVM的GC机制不友好，因为一直保存引用导致无法回收，所以不适用于生命周期短且不会被密集使用的对象</li></ul><hr>]]></content>
     
@@ -357,10 +335,8 @@
     
     </summary>
     
-      <category term="设计模式学习" scheme="https://www.wl960127.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%AD%A6%E4%B9%A0/"/>
+      <category term="设计模式" scheme="https://www.wl960127.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
-    
-      <category term="设计模式" scheme="https://www.wl960127.top/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -369,7 +345,7 @@
     <link href="https://www.wl960127.top/posts/2e7c4fc7/"/>
     <id>https://www.wl960127.top/posts/2e7c4fc7/</id>
     <published>2020-07-11T13:40:07.000Z</published>
-    <updated>2021-03-08T07:35:42.747Z</updated>
+    <updated>2021-03-08T11:33:31.870Z</updated>
     
     <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>将不兼容的接口转换为可兼容的接口</li></ul><hr><h3 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h3><ul><li>类适配器 （使用继承来实现）</li><li>对象适配器 （组合关系实现）</li></ul><hr><h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><p>可以看作是一种<code>补偿模式</code>，用来补救设计上的缺陷</p><ul><li>对有缺陷的接口设计二次封装</li><li>某个功能的实现依赖多个外部类时候，将接口适配为统一的接口定义（即：均实现同一接口，使用时向上转型成接口）</li><li>把项目中依赖的一个外部系统替换为另一个外部系统（即：均实现同一接口，使用时向上转型成接口）</li><li>兼容老接口</li><li>适配不同格式数据</li></ul>]]></content>
     
@@ -379,10 +355,8 @@
     
     </summary>
     
-      <category term="设计模式学习" scheme="https://www.wl960127.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%AD%A6%E4%B9%A0/"/>
+      <category term="设计模式" scheme="https://www.wl960127.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
-    
-      <category term="设计模式" scheme="https://www.wl960127.top/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -391,7 +365,7 @@
     <link href="https://www.wl960127.top/posts/2a133c38/"/>
     <id>https://www.wl960127.top/posts/2a133c38/</id>
     <published>2020-07-11T13:38:42.000Z</published>
-    <updated>2021-03-08T07:35:15.068Z</updated>
+    <updated>2021-03-08T11:33:23.603Z</updated>
     
     <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>为子系统提供一组统一的接口，定义一组高层接口让子系统更容易用</li></ul><hr><h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><ul><li>解决易用性</li><li>解决性能问题</li><li>解决分布式事务问题</li></ul>]]></content>
     
@@ -401,10 +375,8 @@
     
     </summary>
     
-      <category term="设计模式学习" scheme="https://www.wl960127.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%AD%A6%E4%B9%A0/"/>
+      <category term="设计模式" scheme="https://www.wl960127.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
-    
-      <category term="设计模式" scheme="https://www.wl960127.top/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -413,7 +385,7 @@
     <link href="https://www.wl960127.top/posts/a8ef08fd/"/>
     <id>https://www.wl960127.top/posts/a8ef08fd/</id>
     <published>2020-07-08T13:20:10.000Z</published>
-    <updated>2021-03-08T07:35:00.780Z</updated>
+    <updated>2021-03-08T11:33:18.671Z</updated>
     
     <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>在不改变原始类代码的情况下，通过引入代理类来给原始类附加功能</li><li>将框架代码与业务代码解耦</li></ul><hr><h3 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h3><p><img src="%E4%BB%A3%E7%90%86.png" alt=""></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      SubjectImpl subject = <span class="keyword">new</span> SubjectImpl();</span><br><span class="line">      InvocationHandler subjectProxy = <span class="keyword">new</span> SubjectProxy(subject);</span><br><span class="line">      ISubject proxyInstance = (Subject) Proxy.newProxyInstance(subjectProxy.getClass().getClassLoader(), subjectProxy.getClass().getInterfaces(), subjectProxy);</span><br><span class="line">      proxyInstance.doSomeThing(<span class="string">"打铁"</span>);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure><hr><h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><ul><li>RPC、缓存、监控、Spring AOP（动态代理）…</li></ul><hr><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ul><li>让代理类和原始类实现同样接口</li><li>如果原始类没有定义接口，且原始类不是我们开发为维护，这种情况可以通过让代理类继承原始类来实现代理</li></ul><hr><h3 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h3><h4 id="静态代理"><a href="#静态代理" class="headerlink" title="静态代理"></a>静态代理</h4><h5 id="内部代码实现"><a href="#内部代码实现" class="headerlink" title="内部代码实现"></a>内部代码实现</h5><ul><li><p>基于接口和组合实现</p></li><li><p>代理类和原始类实现相同接口，代理类的实例参数为原始类（相当于，在代理类实现的接口方法中委托原始类实例调用实例方法）</p></li></ul><h5 id="外部代码拓展"><a href="#外部代码拓展" class="headerlink" title="外部代码拓展"></a>外部代码拓展</h5><ul><li>无法修改原始类定义情况下，采取继承方式</li><li>代理类继承原始类，直接使用<code>super.</code>方法，调用原始类方法</li></ul><h4 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h4><ul><li>解决常规代理下，大量复杂的附加类导致的大量代理类</li><li>在运行时候，动态的创建原始类对应的代理类，然后在系统中用代理类替换掉原始类</li></ul>]]></content>
     
@@ -423,10 +395,28 @@
     
     </summary>
     
-      <category term="设计模式学习" scheme="https://www.wl960127.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%AD%A6%E4%B9%A0/"/>
+      <category term="设计模式" scheme="https://www.wl960127.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-      <category term="设计模式" scheme="https://www.wl960127.top/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+  </entry>
+  
+  <entry>
+    <title>结构型-桥接模式</title>
+    <link href="https://www.wl960127.top/posts/858c6e31/"/>
+    <id>https://www.wl960127.top/posts/858c6e31/</id>
+    <published>2020-07-03T14:03:10.000Z</published>
+    <updated>2021-03-08T11:33:27.871Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>将抽象和实现解耦，让它们可以独立变化</li><li>通过组合关系来替代继承关系，避免继承层次的指数级爆炸</li></ul><hr><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ul><li>将骨架代码“抽象“出来，将真正的业务逻辑委派给定义中的”实现”完成</li><li>“抽象”与”实现“独立开发，通过对象的组合关系组装在一起</li></ul><hr>]]></content>
+    
+    <summary type="html">
+    
+      设计模式之美学习笔记&lt;/br&gt; 结构型模式主要解决类与对象的组合和组装，将不同功能的代码解耦 &lt;/br&gt;桥接模式则是：将接口和实现部分分离，从而让它们可以较为容易、也相对独立的加以改变
+    
+    </summary>
+    
+      <category term="设计模式" scheme="https://www.wl960127.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
     
   </entry>
   
