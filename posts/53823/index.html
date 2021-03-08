@@ -1,0 +1,272 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content><title>FFmpeg基础学习 | 冷暖自知</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.4.5"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/8.0.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/3.3.1/jquery.min.js"></script><link rel="icon" mask sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">FFmpeg基础学习</h1><a id="logo" href="/.">冷暖自知</a><p class="description">足够自律,足够自由</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">FFmpeg基础学习</h1><div class="post-meta">Jul 26, 2019<span> | </span><span class="category"><a href="/categories/技术杂谈/">技术杂谈</a></span><script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> 阅读</span></span><span class="post-time"><span class="post-meta-item-text"> | </span><span class="post-meta-item-icon"><i class="fa fa-keyboard-o"></i><span class="post-count"> 843</span><span class="post-meta-item-text"> 字</span></span></span><span class="post-time"> | <span class="post-meta-item-icon"><i class="fa fa-hourglass-half"></i><span class="post-count"> 3</span><span class="post-meta-item-text"> 分钟</span></span></span></div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#源码下操作"><span class="toc-number">1.</span> <span class="toc-text">源码下操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#编译安装"><span class="toc-number">2.</span> <span class="toc-text">编译安装</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#依赖"><span class="toc-number">2.1.</span> <span class="toc-text">依赖</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#编译"><span class="toc-number">2.2.</span> <span class="toc-text">编译</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#环境变量"><span class="toc-number">2.3.</span> <span class="toc-text">环境变量</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#链接"><span class="toc-number">2.4.</span> <span class="toc-text">链接</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FFmpeg包"><span class="toc-number">3.</span> <span class="toc-text">FFmpeg包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FFmpeg命令分类"><span class="toc-number">4.</span> <span class="toc-text">FFmpeg命令分类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#基本信息查询"><span class="toc-number">4.1.</span> <span class="toc-text">基本信息查询</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#裁剪与合并命令"><span class="toc-number">4.2.</span> <span class="toc-text">裁剪与合并命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#录制命令"><span class="toc-number">4.3.</span> <span class="toc-text">录制命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#图片-视频互转命令"><span class="toc-number">4.4.</span> <span class="toc-text">图片/视频互转命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#分解-复用命令"><span class="toc-number">4.5.</span> <span class="toc-text">分解/复用命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#直播相关命令"><span class="toc-number">4.6.</span> <span class="toc-text">直播相关命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#处理原始数据命令"><span class="toc-number">4.7.</span> <span class="toc-text">处理原始数据命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#各种滤镜命令"><span class="toc-number">4.8.</span> <span class="toc-text">各种滤镜命令</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FFmpeg处理流程"><span class="toc-number">5.</span> <span class="toc-text">FFmpeg处理流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#学习链接"><span class="toc-number">6.</span> <span class="toc-text">学习链接</span></a></li></ol></div></div><div class="post-content"><h4 id="源码下操作"><a href="#源码下操作" class="headerlink" title="源码下操作"></a>源码下操作</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 展示可用信息</span></span><br><span class="line">./configure --help</span><br></pre></td></tr></table></figure>
+
+<h4 id="编译安装"><a href="#编译安装" class="headerlink" title="编译安装"></a>编译安装</h4><ul>
+<li><p>Ubuntu 18.04</p>
+<h5 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h5><ul>
+<li><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt  install -y autoconf automake build-essential git libass-dev libfreetype6-dev libsdl2-dev libtheora-dev libtool libva-dev libvdpau-dev libvorbis-dev libxcb1-dev libxcb-shm0-dev libxcb-xfixes0-dev pkg-config texinfo wget zlib1g-dev </span><br><span class="line"></span><br><span class="line">sudo apt  install -y nasm yasm cmake mercurial</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h5><ul>
+<li><p>cd 进入源码目录</p>
+</li>
+<li><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure --enable-shared  --prefix=/usr/local/ffmpeg</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<ul>
+<li><p>可通过“–prefix=安装目录”进行修改。–enable-shared：指定生成动态库，默认是静态库。静态库不方便后续开发</p>
+</li>
+<li><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo make </span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<h5 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h5>  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export FFMPEG_HOME=/usr/local/ffmpeg</span><br><span class="line">export PATH=$FFMPEG_HOME/bin:$PATH</span><br></pre></td></tr></table></figure>
+
+
+<h5 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h5><ul>
+<li><p>在/etc/ld.so.conf中 末尾添加 /usr/local/ffmpeg/lib </p>
+</li>
+<li><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ldconfig   //即刷新链接</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="FFmpeg包"><a href="#FFmpeg包" class="headerlink" title="FFmpeg包"></a>FFmpeg包</h4><p><img src="%E5%BC%80%E5%8F%91%E8%80%85api%E5%BA%93.jpg" alt="FFmpeg为开发人员提供的库"></p>
+<h4 id="FFmpeg命令分类"><a href="#FFmpeg命令分类" class="headerlink" title="FFmpeg命令分类"></a>FFmpeg命令分类</h4><h5 id="基本信息查询"><a href="#基本信息查询" class="headerlink" title="基本信息查询"></a>基本信息查询</h5><table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center"></th>
+<th align="center"></th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-version</td>
+<td align="center">显示版本</td>
+<td align="center">-formats</td>
+<td align="center">显示可用的格式</td>
+</tr>
+<tr>
+<td align="center">-demuxers</td>
+<td align="center">显示可用的demuxers</td>
+<td align="center">-protocols</td>
+<td align="center">显示可用的协议</td>
+</tr>
+<tr>
+<td align="center">-muxers</td>
+<td align="center">显示可用的muxers</td>
+<td align="center">-filters</td>
+<td align="center">显示可用的过滤器</td>
+</tr>
+<tr>
+<td align="center">-devices</td>
+<td align="center">显示可用的设备</td>
+<td align="center">-pix_fmts</td>
+<td align="center">显示可用的像素格式</td>
+</tr>
+<tr>
+<td align="center">-codecs</td>
+<td align="center">显示所有的编解码器</td>
+<td align="center">-sample_fmts</td>
+<td align="center">显示可用的采样格式</td>
+</tr>
+<tr>
+<td align="center">-decoders</td>
+<td align="center">显示可用的解码器</td>
+<td align="center">-layouts</td>
+<td align="center">显示channel的格式</td>
+</tr>
+<tr>
+<td align="center">-encoders</td>
+<td align="center">显示所有的编码器</td>
+<td align="center">-color</td>
+<td align="center">显示识别的颜色名称</td>
+</tr>
+<tr>
+<td align="center">-bsfs</td>
+<td align="center">显示比特流filter</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<h5 id="裁剪与合并命令"><a href="#裁剪与合并命令" class="headerlink" title="裁剪与合并命令"></a>裁剪与合并命令</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i in.mp4 -ss 00:00:00 -t 10 out.ts</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>-ss 裁剪的时间节点 时：分：秒</li>
+<li>-t 裁剪时间 秒</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpge -f concat -i input.txt out.flv</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>input.txt 需要裁剪的文件 格式为  file ‘filename’</li>
+</ul>
+<h5 id="录制命令"><a href="#录制命令" class="headerlink" title="录制命令"></a>录制命令</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -f avfoundation -i 1 -r 30 out.yuv</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>-f ：指定使用 avfoundation 采集数据</li>
+<li>-i ：指定从哪采集数据 1是屏幕 0是摄像头</li>
+<li>-r：指定帧率</li>
+</ul>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffplay -s 分辨率 out.yuv</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>播放 </li>
+</ul>
+<h5 id="图片-视频互转命令"><a href="#图片-视频互转命令" class="headerlink" title="图片/视频互转命令"></a>图片/视频互转命令</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i in.flv -r 1 -f image2 image-%3d.jpeg</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>-r 帧率  -r 1 即每秒转一张</li>
+<li>-f image2  转为 image2  格式</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i image-3d.jpeg out.mp4</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>图片转视频</li>
+</ul>
+<h5 id="分解-复用命令"><a href="#分解-复用命令" class="headerlink" title="分解/复用命令"></a>分解/复用命令</h5><p><img src="%E5%88%86%E8%A7%A3%E4%B8%8E%E5%A4%8D%E7%94%A8.jpg" alt></p>
+<ul>
+<li><p>多媒体格式转换</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i out.mp4 -vcodec copy -acodec copy out.flv</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>-i : 输入文件</li>
+<li>-vcodec copy 视频编码不做处理 即copy</li>
+<li>-acodec copy 音频编码不做处理 即copy</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i out.mp4 -an -vcodec copy out.h264</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>抽取视频</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i out.mp4 -acodec copy -vn out.aac</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>抽取音频</li>
+</ul>
+</li>
+</ul>
+<h5 id="直播相关命令"><a href="#直播相关命令" class="headerlink" title="直播相关命令"></a>直播相关命令</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -re -i out.mp4 -c copy -f flv rtmp://server:port/live/streamName</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>直播推流<ul>
+<li>-re 按照时间戳推流</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i rtmp://server:port/live/streamName -c copy dump.flv</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>直播拉流</li>
+</ul>
+<h5 id="处理原始数据命令"><a href="#处理原始数据命令" class="headerlink" title="处理原始数据命令"></a>处理原始数据命令</h5><ul>
+<li>原始数据 （FFmpeg 解码后数据 音频就是PCM  视频就是YUV）</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i input.mp4 -an -c:v rawvideo -pix_fmts yuv420p out.yuv</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>处理出视频<ul>
+<li>-an  a: audio  n：no  （即：不包括音频）</li>
+<li>-c:v 对视频编码   rawvideo 格式</li>
+<li>-pix_fmt 指定像素格式   yuv420p</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i out.mp4 -vn -ar 44100 -ac2 -f s16le out.pcm</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>处理音频<ul>
+<li>-vn  video no</li>
+<li>-ar  audio rate 44.1k 采样率  （16k/32k/48k 常用）</li>
+<li>-ac2 audio channel 双声道</li>
+<li>-f  抽取的音频存储格式  format</li>
+<li>s : 有符号  16  ：每一个数值用16位标识  le  ：latter end ？？？</li>
+</ul>
+</li>
+</ul>
+<h5 id="各种滤镜命令"><a href="#各种滤镜命令" class="headerlink" title="各种滤镜命令"></a>各种滤镜命令</h5><p><img src="%E6%BB%A4%E9%95%9C%E6%B5%81%E7%A8%8B.jpg" alt></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i in.mov -vf crop=in_w-200:in_h-200</span><br><span class="line">-c:v libx264 -c:a copy out.mp4</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>vf crop 视频滤镜为 crop </p>
+</li>
+<li><p>in_w-200:in_h-200  宽高各减200</p>
+</li>
+<li><p>-c:v libx264  视频编码器为libx264 </p>
+<ul>
+<li>-c  或者 codec    [：stream_specifier]编解码器（输入/输出，每个流)</li>
+</ul>
+</li>
+</ul>
+<h4 id="FFmpeg处理流程"><a href="#FFmpeg处理流程" class="headerlink" title="FFmpeg处理流程"></a>FFmpeg处理流程</h4><p><img src="%E5%A4%84%E7%90%86%E9%9F%B3%E8%A7%86%E9%A2%91%E6%B5%81%E7%A8%8B.jpg" alt=" "></p>
+<h4 id="学习链接"><a href="#学习链接" class="headerlink" title="学习链接"></a>学习链接</h4><p><a href="https://blog.csdn.net/leixiaohua1020/article/details/15811977">FFMPEG视音频编解码零基础学习方法</a> 感恩雷神 🌲 比较详细和系统的入门资料，留着以后慢慢探索</p>
+</div><div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>冷暖自知</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="/posts/53823/">https://www.wl960127.top/posts/53823/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本站内容均为个人学习笔记,不涉及商业用途，仅提供学习参考,第三方摘录已署名链接,未署名请评论添加,转载署名来源即可。</li></ul></div><br><script type="text/javascript" src="/js/share.js?v=1.4.5" async></script><a class="article-share-link" data-url="https://www.wl960127.top/posts/53823/" data-id="cklzcpeq800145hjx67au4pub" data-qrcode="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABxElEQVR42u3aS4rDMBAFQN//0h6Y1cBg+7VaUhworYwTlIoWTX90HPE6f9fVm//Pf1e+57SFi4vb5p63q8NNvpkbcHFx93PvA80VohOw7o/j8j0uLu7LuB16HuBwcXG/i5sHr2RnXFzc93OT4qdT8FRD4YRaDRcXt8GtNkxXPC/s7+Li4ha5Z3FVxyFj7dHLX8fFxd3CTcYk90XL/Q55+ZSXQ7i4uHu4eV4xloFU92wVP7i4uJO4/SsXSRKTB6yHN7i4uIu5SeiZe7Wimh49nCsuLu4C7lgSk6c4nXLo0oaLi7uYOzb4zBOjahB8ODhcXNwt3GpBUh2cjP0lXFzcz3Lz9CLvs1YLqjwZwsXF3cOtNkyrxUz14kX0l3BxcRdzq8OP+2Ipv7pRLZZwcXF3clvticalirHgiIuLu4c7Nnvp3P9KSixcXNw3cKupRnUAczQWLi7up7j5Ghu9TGvI4uLibuFWA0o5KYkbKNVPcXFxV3Pz4JWHrWqjpHUJAxcXdxm3Grw6RdFY0MTFxX0nd6yFOusIcHFx38ytDlTywiY6CFxc3I3cvNkxa6CSl1iDbRFcXNwGd6xhmrc58mdcXNwXcH8AKs1N1OrDnT0AAAAASUVORK5CYII=">分享</a><div class="tags"><a href="/tags/FFmpeg/">FFmpeg</a></div><div class="post-nav"><a class="pre" href="/posts/63527/">Android线程池</a><a class="next" href="/posts/16653/">插件化简单学习笔记</a></div><div id="disqus_thread"><div class="btn_click_load"><button class="disqus_click_btn">阅读评论（请确保 Disqus 可以正常加载）</button></div><script type="text/javascript">var disqus_config = function () {
+    this.page.url = 'https://www.wl960127.top/posts/53823/';
+    this.page.identifier = 'posts/53823/';
+    this.page.title = 'FFmpeg基础学习';
+  };</script><script type="text/javascript" id="disqus-lazy-load-script">$.ajax({
+url: 'https://disqus.com/next/config.json',
+timeout: 2500,
+type: 'GET',
+success: function(){
+  var d = document;
+  var s = d.createElement('script');
+  s.src = '//wuwangdaren.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', + new Date());
+  (d.head || d.body).appendChild(s);
+  $('.disqus_click_btn').css('display', 'none');
+},
+error: function() {
+  $('.disqus_click_btn').css('display', 'block');
+}
+});</script><script type="text/javascript" id="disqus-click-load">$('.btn_click_load').click(() => {  //click to load comments
+    (() => { // DON'T EDIT BELOW THIS LINE
+        var d = document;
+        var s = d.createElement('script');
+        s.src = '//wuwangdaren.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', + new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    $('.disqus_click_btn').css('display','none');
+});</script><script type="text/javascript" id="disqus-count-script">$(function() {
+     var xhr = new XMLHttpRequest();
+     xhr.open('GET', '//disqus.com/next/config.json', true);
+     xhr.timeout = 2500;
+     xhr.onreadystatechange = function () {
+       if (xhr.readyState === 4 && xhr.status === 200) {
+         $('.post-meta .post-comments-count').show();
+         var s = document.createElement('script');
+         s.id = 'dsq-count-scr';
+         s.src = 'https://wuwangdaren.disqus.com/count.js';
+         s.async = true;
+         (document.head || document.body).appendChild(s);
+       }
+     };
+     xhr.ontimeout = function () { xhr.abort(); };
+     xhr.send(null);
+   });
+</script></div><div id="lv-container" data-id="city" data-uid="MTAyMC8zMzgyMC8xMDM3Mw=="><script>(function(d, s) {
+   var j, e = d.getElementsByTagName(s)[0];
+   if (typeof LivereTower === 'function') { return; }
+   j = d.createElement(s);
+   j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+   j.async = true;
+   e.parentNode.insertBefore(j, e);
+})(document, 'script');
+</script></div></div></div></div><div class="pure-u-1 pure-u-md-1-4"><div id="sidebar"><div class="widget"><div class="search-form"><input id="local-search-input" placeholder="Search" type="text" name="q" results="0"><div id="local-search-result"></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">17</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android源码/">Android源码</a><span class="category-list-count">26</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flutter/">Flutter</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/React/">React</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术杂谈/">技术杂谈</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式学习/">设计模式学习</a><span class="category-list-count">9</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/react/" style="font-size: 14.43px; color: #527d8c">react</a> <a href="/tags/源码/" style="font-size: 23px; color: #00d6ff">源码</a> <a href="/tags/binder/" style="font-size: 17.29px; color: #379bb2">binder</a> <a href="/tags/设计模式/" style="font-size: 21.57px; color: #0ec7ec">设计模式</a> <a href="/tags/mqtt/" style="font-size: 14.43px; color: #527d8c">mqtt</a> <a href="/tags/工具/" style="font-size: 14.43px; color: #527d8c">工具</a> <a href="/tags/mysql/" style="font-size: 13px; color: #606e79">mysql</a> <a href="/tags/express/" style="font-size: 13px; color: #606e79">express</a> <a href="/tags/node/" style="font-size: 13px; color: #606e79">node</a> <a href="/tags/FFmpeg/" style="font-size: 15.86px; color: #458c9f">FFmpeg</a> <a href="/tags/Flutter/" style="font-size: 14.43px; color: #527d8c">Flutter</a> <a href="/tags/fragment/" style="font-size: 13px; color: #606e79">fragment</a> <a href="/tags/handler/" style="font-size: 13px; color: #606e79">handler</a> <a href="/tags/hexo/" style="font-size: 13px; color: #606e79">hexo</a> <a href="/tags/jvm/" style="font-size: 13px; color: #606e79">jvm</a> <a href="/tags/功能实现/" style="font-size: 20.14px; color: #1bb8d9">功能实现</a> <a href="/tags/ubuntu/" style="font-size: 17.29px; color: #379bb2">ubuntu</a> <a href="/tags/待完成/" style="font-size: 18.71px; color: #29a9c6">待完成</a> <a href="/tags/WebRTC/" style="font-size: 13px; color: #606e79">WebRTC</a> <a href="/tags/wifi/" style="font-size: 14.43px; color: #527d8c">wifi</a> <a href="/tags/dart/" style="font-size: 13px; color: #606e79">dart</a> <a href="/tags/HTTP/" style="font-size: 13px; color: #606e79">HTTP</a> <a href="/tags/内核/" style="font-size: 14.43px; color: #527d8c">内核</a> <a href="/tags/技术杂谈/" style="font-size: 17.29px; color: #379bb2">技术杂谈</a> <a href="/tags/Android源码/" style="font-size: 13px; color: #606e79">Android源码</a> <a href="/tags/service/" style="font-size: 13px; color: #606e79">service</a> <a href="/tags/jni/" style="font-size: 15.86px; color: #458c9f">jni</a> <a href="/tags/知识点/" style="font-size: 14.43px; color: #527d8c">知识点</a> <a href="/tags/组件化/" style="font-size: 13px; color: #606e79">组件化</a> <a href="/tags/go/" style="font-size: 13px; color: #606e79">go</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/posts/5a1e5c5f/">时序图测试</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/439ff1a0/">弹力设计笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/9d1d146e/">计算机网络学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/71959014/">操作系统学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/32d92359/">计算机组成原理学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/afdc1432/">加密算法基础</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/57192/">Flutter学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/34833/">算法与结构第二阶段学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/15227/">算法与结构第一阶段学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/51485/">反射与动态代理</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://qkmin.github.io" title="某康的博客" target="_blank">某康的博客</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">冷暖自知</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.4.5" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=1.4.5" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.css"><script type="text/javascript" src="/js/search.js?v=1.4.5"></script><script>var search_path = 'search.xml';
+if (search_path.length == 0) {
+   search_path = 'search.xml';
+}
+var path = '/' + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script><script type="text/javascript" color="100,99,98" opacity="0.7" zindex="-1" count="150" src="//lib.baomitu.com/canvas-nest.js/2.0.3/canvas-nest.umd.js"></script><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=1.4.5"></script><script>if (window.mermaid) {
+  var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
+  mermaid.initialize(options);
+}
+</script><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.4.5"></script><script type="text/javascript" src="/js/smartresize.js?v=1.4.5"></script></div></body></html>

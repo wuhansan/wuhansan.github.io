@@ -1,0 +1,196 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content><title>Ubuntu配置Nginx-rtmp-module实现推拉流 | 冷暖自知</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.4.5"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/8.0.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/3.3.1/jquery.min.js"></script><link rel="icon" mask sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Ubuntu配置Nginx-rtmp-module实现推拉流</h1><a id="logo" href="/.">冷暖自知</a><p class="description">足够自律,足够自由</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">Ubuntu配置Nginx-rtmp-module实现推拉流</h1><div class="post-meta">Oct 18, 2018<span> | </span><span class="category"><a href="/categories/Ubuntu/">Ubuntu</a></span><script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> 阅读</span></span><span class="post-time"><span class="post-meta-item-text"> | </span><span class="post-meta-item-icon"><i class="fa fa-keyboard-o"></i><span class="post-count"> 1.1k</span><span class="post-meta-item-text"> 字</span></span></span><span class="post-time"> | <span class="post-meta-item-icon"><i class="fa fa-hourglass-half"></i><span class="post-count"> 5</span><span class="post-meta-item-text"> 分钟</span></span></span></div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#概述"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#流程"><span class="toc-number">2.</span> <span class="toc-text">流程</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#安装"><span class="toc-number">2.1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#配置"><span class="toc-number">2.2.</span> <span class="toc-text">配置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#推流-请先看完小结"><span class="toc-number">2.3.</span> <span class="toc-text">推流 (请先看完小结)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#播放-请先看完小结"><span class="toc-number">2.4.</span> <span class="toc-text">播放 (请先看完小结)</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#小结"><span class="toc-number">3.</span> <span class="toc-text">小结</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#使用流程"><span class="toc-number">3.1.</span> <span class="toc-text">使用流程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#效果"><span class="toc-number">3.2.</span> <span class="toc-text">效果</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#其余指令"><span class="toc-number">4.</span> <span class="toc-text">其余指令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#错误备注"><span class="toc-number">5.</span> <span class="toc-text">错误备注</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#nginx-pid”-failed"><span class="toc-number">5.1.</span> <span class="toc-text">nginx.pid” failed</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#端口"><span class="toc-number">5.2.</span> <span class="toc-text">端口</span></a></li></ol></li></ol></div></div><div class="post-content"><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><h4 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h4><h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><ul>
+<li><p>ffmpeg</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">add-apt-repository ppa:kirillshkrogalev/ffmpeg-next</span><br><span class="line">sudo  apt-get update</span><br><span class="line">sudo apt-get install ffmpeg</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>新建目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir nginx-src</span><br><span class="line">cd nginx-src</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>nginx （tar -zxvf  解压）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://nginx.org/download/nginx-1.7.5.tar.gz</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<ul>
+<li><p>rtmp</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/arut/nginx-rtmp-module.git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>开发库libpcre3-dev</p>
+<ul>
+<li>HTTP rewrite模块需要PCRE 库，要么你加个不要这个模块的选项重新配置nginx，要么就安装PCRE</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install libpcre3 libpcre3-dev</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>OpenSSL</p>
+<ul>
+<li>系统报告libpcre3早就装好了，其实只需要装开发库libpcre3-dev</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install openssl libssl-dev</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h5 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h5><ul>
+<li>进入<code>nginx-1.7.5</code>编译</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure --add-module=../nginx-rtmp-module --with-http_flv_module --with-http_mp4_module</span><br></pre></td></tr></table></figure>
+
+<p><img src="%E9%85%8D%E7%BD%AE%E5%AE%8C%E6%88%90.png" alt></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">make</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>ubuntu18.04 会报错</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">objs \</span><br><span class="line">      -oobjs/src/event/ngx_event_openssl.o \</span><br><span class="line">      src/event/ngx_event_openssl.c</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>解决方法： 卸载当前openssl  安装1.0.x的openssl</li>
+</ul>
+</li>
+<li><p>这个每次执行完　都会有　类似 <code>make[1].....</code>，是正常的 </p>
+</li>
+<li><p>启动</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/nginx</span><br><span class="line">sudo ./sbin/nginx</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>浏览器输入　<code>localhost</code> 或者　<code>127.0.0.1</code></p>
+<p>显示 <strong>Welcome to nginx</strong> 就是成功了</p>
+</li>
+</ul>
+</li>
+<li><p>配置rtmp直播点播模块 (<strong>usr/local/nginx/conf/ nginx.conf</strong>)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br></pre></td><td class="code"><pre><span class="line">#user  nobody;</span><br><span class="line">worker_processes  1;</span><br><span class="line"></span><br><span class="line">#error_log  logs/error.log;</span><br><span class="line">#error_log  logs/error.log  notice;</span><br><span class="line">#error_log  logs/error.log  info;</span><br><span class="line"></span><br><span class="line">#pid        logs/nginx.pid;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"># 配置Nginx，支持rtmp协议推流</span><br><span class="line">rtmp &#123;</span><br><span class="line">    server &#123;</span><br><span class="line">        listen 1935; # 监听的端口</span><br><span class="line">    	chunk_size 4000;</span><br><span class="line">        # rtmp是配置的应用的路径名称</span><br><span class="line">        application rtmplive &#123;</span><br><span class="line">            live on;</span><br><span class="line">            max_connections 1024;</span><br><span class="line">        &#125;</span><br><span class="line">        # RTMP 推流路径</span><br><span class="line">        application hls&#123;</span><br><span class="line">            live on;</span><br><span class="line">            hls on;</span><br><span class="line">            #  /usr/local/var/www/hls 是自己创建的</span><br><span class="line">            hls_path /usr/local/var/www/hls;</span><br><span class="line">            hls_fragment 5s;</span><br><span class="line">        &#125;     </span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line"></span><br><span class="line">    #log_format  main  &apos;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &apos;</span><br><span class="line">    #                  &apos;$status $body_bytes_sent &quot;$http_referer&quot; &apos;</span><br><span class="line">    #                  &apos;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&apos;;</span><br><span class="line"></span><br><span class="line">    #access_log  logs/access.log  main;</span><br><span class="line"></span><br><span class="line">    sendfile        on;</span><br><span class="line">    #tcp_nopush     on;</span><br><span class="line"></span><br><span class="line">    #keepalive_timeout  0;</span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line"></span><br><span class="line">    #gzip  on;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  localhost;</span><br><span class="line"></span><br><span class="line">       location /stat &#123;    </span><br><span class="line">            rtmp_stat all;    </span><br><span class="line">            rtmp_stat_stylesheet stat.xsl;    </span><br><span class="line">        &#125;    </span><br><span class="line">  </span><br><span class="line">        location /stat.xsl &#123;    </span><br><span class="line">            root /usr/local/src/nginx-rtmp-module/;    </span><br><span class="line">        &#125;    </span><br><span class="line">          </span><br><span class="line">        location /control &#123;    </span><br><span class="line">            rtmp_control all;    </span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">	# 配置Nginx，支持http协议拉流</span><br><span class="line">    	location /hls &#123;</span><br><span class="line">  	    	types &#123;</span><br><span class="line">    	    		application/vnd.apple.mpegurl    m3u8;</span><br><span class="line">    		    	video/mp2t ts;</span><br><span class="line"> 	    	&#125;</span><br><span class="line">  	    	root /usr/local/var/www;</span><br><span class="line">   	    	add_header Cache-Control    no-cache;</span><br><span class="line">	    	expires -1; </span><br><span class="line">    	&#125;</span><br><span class="line"></span><br><span class="line">    	location ~\.flv &#123;</span><br><span class="line">                flv;</span><br><span class="line">         &#125;</span><br><span class="line">         location ~\.mp4$ &#123;</span><br><span class="line">            mp4;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        #error_page  404              /404.html;</span><br><span class="line"></span><br><span class="line">        # redirect server error pages to the static page /50x.html</span><br><span class="line">        #</span><br><span class="line">        error_page   500 502 503 504  /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        # proxy the PHP scripts to Apache listening on 127.0.0.1:80</span><br><span class="line">        #</span><br><span class="line">        #location ~ \.php$ &#123;</span><br><span class="line">        #    proxy_pass   http://127.0.0.1;</span><br><span class="line">        #&#125;</span><br><span class="line"></span><br><span class="line">        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000</span><br><span class="line">        #</span><br><span class="line">        #location ~ \.php$ &#123;</span><br><span class="line">        #    root           html;</span><br><span class="line">        #    fastcgi_pass   127.0.0.1:9000;</span><br><span class="line">        #    fastcgi_index  index.php;</span><br><span class="line">        #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;</span><br><span class="line">        #    include        fastcgi_params;</span><br><span class="line">        #&#125;</span><br><span class="line"></span><br><span class="line">        # deny access to .htaccess files, if Apache&apos;s document root</span><br><span class="line">        # concurs with nginx&apos;s one</span><br><span class="line">        #</span><br><span class="line">        #location ~ /\.ht &#123;</span><br><span class="line">        #    deny  all;</span><br><span class="line">        #&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    # another virtual host using mix of IP-, name-, and port-based configuration</span><br><span class="line">    #</span><br><span class="line">    #server &#123;</span><br><span class="line">    #    listen       8000;</span><br><span class="line">    #    listen       somename:8080;</span><br><span class="line">    #    server_name  somename  alias  another.alias;</span><br><span class="line"></span><br><span class="line">    #    location / &#123;</span><br><span class="line">    #        root   html;</span><br><span class="line">    #        index  index.html index.htm;</span><br><span class="line">    #    &#125;</span><br><span class="line">    #&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    # HTTPS server</span><br><span class="line">    #</span><br><span class="line">    #server &#123;</span><br><span class="line">    #    listen       443 ssl;</span><br><span class="line">    #    server_name  localhost;</span><br><span class="line"></span><br><span class="line">    #    ssl_certificate      cert.pem;</span><br><span class="line">    #    ssl_certificate_key  cert.key;</span><br><span class="line"></span><br><span class="line">    #    ssl_session_cache    shared:SSL:1m;</span><br><span class="line">    #    ssl_session_timeout  5m;</span><br><span class="line"></span><br><span class="line">    #    ssl_ciphers  HIGH:!aNULL:!MD5;</span><br><span class="line">    #    ssl_prefer_server_ciphers  on;</span><br><span class="line"></span><br><span class="line">    #    location / &#123;</span><br><span class="line">    #        root   html;</span><br><span class="line">    #        index  index.html index.htm;</span><br><span class="line">    #    &#125;</span><br><span class="line">    #&#125;</span><br><span class="line">    include servers/*;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>在/usr/local/ngin下</code>重启 <code>nginx</code> </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ./sbin/nginx -s reload</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h5 id="推流-请先看完小结"><a href="#推流-请先看完小结" class="headerlink" title="推流 (请先看完小结)"></a>推流 (请先看完小结)</h5><ul>
+<li>推 flv 格式</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ffmpeg -re -i /home/wl/video/one.flv -c copy -f flv rtmp://localhost:1935/hls/film</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>推　mp4　格式</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ffmpeg -re -i /home/wl/video/ac.mp4 -vcodec  libx264  -acoder aac -f flv rtmp://localhost:1935/hls/film</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>video编码器用libx264(-vcodec libx264)；audio编码器用aac(-acodec aac)；打包格式是flv(-f flv)。<br>-re代表按照帧率发送，不加则默认按照服务器最高速率发送。</li>
+</ul>
+<h5 id="播放-请先看完小结"><a href="#播放-请先看完小结" class="headerlink" title="播放 (请先看完小结)"></a>播放 (请先看完小结)</h5><ul>
+<li><p>VLC播放</p>
+<p>VLC　 –&gt;  播放网络串流　: 输入　　<code>rtmp://localhost:1935/hls/home</code></p>
+</li>
+<li><p>命令行直接播放</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ffplay rtmp://localhost:1935/hls/film</span><br><span class="line"><span class="meta">#</span><span class="bash"> rtmp://localhost:1935/hls/film　就是对应的推流的位置</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>网站播放 </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rtmp://localhost:1935/hls/film</span><br></pre></td></tr></table></figure>
+
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><h5 id="使用流程"><a href="#使用流程" class="headerlink" title="使用流程"></a>使用流程</h5><ul>
+<li><p>开启服务器！！！！！！一定要先开启服务器！！！！不然推个🥁</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/nginx</span><br><span class="line">sudo ./sbin/nginx</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>推流</p>
+</li>
+<li><p>播放</p>
+</li>
+</ul>
+<h5 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h5><p><img src="%E6%95%88%E6%9E%9C.png" alt></p>
+<h4 id="其余指令"><a href="#其余指令" class="headerlink" title="其余指令"></a>其余指令</h4><ul>
+<li><p>加图片水印</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i a.mp4 -i ice.png -filter_complex overlayoverlay -strict -2 a_out2.mp4</span><br><span class="line">//数据源 a.mp4</span><br><span class="line">//水印  ice.png</span><br><span class="line">//输出文件 a_out2.mp4</span><br><span class="line">//overlayoverlay=0:H-h 水印位置</span><br><span class="line">//overlayoverlay 默认左上角</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="错误备注"><a href="#错误备注" class="headerlink" title="错误备注"></a>错误备注</h4><h5 id="nginx-pid”-failed"><a href="#nginx-pid”-failed" class="headerlink" title="nginx.pid” failed"></a>nginx.pid” failed</h5><ul>
+<li><p>nginx 报异常”/usr/local/nginx/logs/nginx.pid” failed (2: No such file or directory)处理方法</p>
+<ul>
+<li><p>出现的情况</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/nginx/sbin/nginx -s stop</span><br><span class="line">/usr/local/nginx/sbin/nginx -s reload</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解决办法</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>原理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">使用nginx -c的参数指定nginx.conf文件的位置</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="端口"><a href="#端口" class="headerlink" title="端口"></a>端口</h5><ul>
+<li>有时候配置不报错，但是播放链接无法打开<ul>
+<li>解决办法： 关闭防火墙 （但凡使用局域网内相关通讯,一定要关闭防火墙）</li>
+</ul>
+</li>
+</ul>
+<p>#### </p>
+</div><div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>冷暖自知</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="/posts/42187/">https://www.wl960127.top/posts/42187/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本站内容均为个人学习笔记,不涉及商业用途，仅提供学习参考,第三方摘录已署名链接,未署名请评论添加,转载署名来源即可。</li></ul></div><br><script type="text/javascript" src="/js/share.js?v=1.4.5" async></script><a class="article-share-link" data-url="https://www.wl960127.top/posts/42187/" data-id="cklzcpeqn002s5hjxbiq3u88n" data-qrcode="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABy0lEQVR42u3awa6DMAwEQP7/p3nXSk+BtUNSKk1OVYVgwsGK1xxHvM6P9fnP6Pf/60f3PFYsXFzcae55ua4R+SOr9x9uGBcXdyP3utCMbl29PimFNzZcXNxXcvPy1Dsk4eLi/iI3aWmSbeDi4r6fmzQnSXlKitemXg0XF3eCm4ca634vyXdxcXFb3LO4kkcmAUrz6bi4uFu4eUGZ30Z+MLq5EhcXdzF3PhJNGpiZlmn4XnFxcZdx81FHfriZiUiaWQ4uLu6j3N5QpLq9ZJQSBSi4uLhbuL2PrnrDj7yQFXo1XFzcxdzejaqbqcashbMYLi7uQ9zkiFMdwfY+v4gaKlxc3K9yq0FqXsJ68QouLu5+bjLynB+aPkDHxcXdwk1iyt6nEvND1uFrwsXF3chNWpF8e3kUmzdLuLi4+7nlYWcrHOmNT3Bxcb/Frcaj1cNQ9ahUeDwuLu6j3PJHky1cHq0W3hMuLu4ybr4KH04V79kb2ODi4q7m5sWrF39UC+JNEcTFxd3I7RWa6+urgWkUs+Li4r6YmxegaoksnIxwcXFfw00enIcv1TYJFxd3JzcPSatxSR55RAUOFxd3C3cm3Ky2NPMDXVxc3MXcPyyTmnmYfvslAAAAAElFTkSuQmCC">分享</a><div class="tags"><a href="/tags/FFmpeg/">FFmpeg</a><a href="/tags/ubuntu/">ubuntu</a></div><div class="post-nav"><a class="pre" href="/posts/17451/">Handler笔记</a><a class="next" href="/posts/37996/">编译FFmpeg</a></div><div id="disqus_thread"><div class="btn_click_load"><button class="disqus_click_btn">阅读评论（请确保 Disqus 可以正常加载）</button></div><script type="text/javascript">var disqus_config = function () {
+    this.page.url = 'https://www.wl960127.top/posts/42187/';
+    this.page.identifier = 'posts/42187/';
+    this.page.title = 'Ubuntu配置Nginx-rtmp-module实现推拉流';
+  };</script><script type="text/javascript" id="disqus-lazy-load-script">$.ajax({
+url: 'https://disqus.com/next/config.json',
+timeout: 2500,
+type: 'GET',
+success: function(){
+  var d = document;
+  var s = d.createElement('script');
+  s.src = '//wuwangdaren.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', + new Date());
+  (d.head || d.body).appendChild(s);
+  $('.disqus_click_btn').css('display', 'none');
+},
+error: function() {
+  $('.disqus_click_btn').css('display', 'block');
+}
+});</script><script type="text/javascript" id="disqus-click-load">$('.btn_click_load').click(() => {  //click to load comments
+    (() => { // DON'T EDIT BELOW THIS LINE
+        var d = document;
+        var s = d.createElement('script');
+        s.src = '//wuwangdaren.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', + new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    $('.disqus_click_btn').css('display','none');
+});</script><script type="text/javascript" id="disqus-count-script">$(function() {
+     var xhr = new XMLHttpRequest();
+     xhr.open('GET', '//disqus.com/next/config.json', true);
+     xhr.timeout = 2500;
+     xhr.onreadystatechange = function () {
+       if (xhr.readyState === 4 && xhr.status === 200) {
+         $('.post-meta .post-comments-count').show();
+         var s = document.createElement('script');
+         s.id = 'dsq-count-scr';
+         s.src = 'https://wuwangdaren.disqus.com/count.js';
+         s.async = true;
+         (document.head || document.body).appendChild(s);
+       }
+     };
+     xhr.ontimeout = function () { xhr.abort(); };
+     xhr.send(null);
+   });
+</script></div><div id="lv-container" data-id="city" data-uid="MTAyMC8zMzgyMC8xMDM3Mw=="><script>(function(d, s) {
+   var j, e = d.getElementsByTagName(s)[0];
+   if (typeof LivereTower === 'function') { return; }
+   j = d.createElement(s);
+   j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+   j.async = true;
+   e.parentNode.insertBefore(j, e);
+})(document, 'script');
+</script></div></div></div></div><div class="pure-u-1 pure-u-md-1-4"><div id="sidebar"><div class="widget"><div class="search-form"><input id="local-search-input" placeholder="Search" type="text" name="q" results="0"><div id="local-search-result"></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">17</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android源码/">Android源码</a><span class="category-list-count">26</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flutter/">Flutter</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/React/">React</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术杂谈/">技术杂谈</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式学习/">设计模式学习</a><span class="category-list-count">9</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/react/" style="font-size: 14.43px; color: #527d8c">react</a> <a href="/tags/源码/" style="font-size: 23px; color: #00d6ff">源码</a> <a href="/tags/binder/" style="font-size: 17.29px; color: #379bb2">binder</a> <a href="/tags/设计模式/" style="font-size: 21.57px; color: #0ec7ec">设计模式</a> <a href="/tags/mqtt/" style="font-size: 14.43px; color: #527d8c">mqtt</a> <a href="/tags/工具/" style="font-size: 14.43px; color: #527d8c">工具</a> <a href="/tags/mysql/" style="font-size: 13px; color: #606e79">mysql</a> <a href="/tags/express/" style="font-size: 13px; color: #606e79">express</a> <a href="/tags/node/" style="font-size: 13px; color: #606e79">node</a> <a href="/tags/FFmpeg/" style="font-size: 15.86px; color: #458c9f">FFmpeg</a> <a href="/tags/Flutter/" style="font-size: 14.43px; color: #527d8c">Flutter</a> <a href="/tags/fragment/" style="font-size: 13px; color: #606e79">fragment</a> <a href="/tags/handler/" style="font-size: 13px; color: #606e79">handler</a> <a href="/tags/hexo/" style="font-size: 13px; color: #606e79">hexo</a> <a href="/tags/jvm/" style="font-size: 13px; color: #606e79">jvm</a> <a href="/tags/功能实现/" style="font-size: 20.14px; color: #1bb8d9">功能实现</a> <a href="/tags/ubuntu/" style="font-size: 17.29px; color: #379bb2">ubuntu</a> <a href="/tags/待完成/" style="font-size: 18.71px; color: #29a9c6">待完成</a> <a href="/tags/WebRTC/" style="font-size: 13px; color: #606e79">WebRTC</a> <a href="/tags/wifi/" style="font-size: 14.43px; color: #527d8c">wifi</a> <a href="/tags/dart/" style="font-size: 13px; color: #606e79">dart</a> <a href="/tags/HTTP/" style="font-size: 13px; color: #606e79">HTTP</a> <a href="/tags/内核/" style="font-size: 14.43px; color: #527d8c">内核</a> <a href="/tags/技术杂谈/" style="font-size: 17.29px; color: #379bb2">技术杂谈</a> <a href="/tags/Android源码/" style="font-size: 13px; color: #606e79">Android源码</a> <a href="/tags/service/" style="font-size: 13px; color: #606e79">service</a> <a href="/tags/jni/" style="font-size: 15.86px; color: #458c9f">jni</a> <a href="/tags/知识点/" style="font-size: 14.43px; color: #527d8c">知识点</a> <a href="/tags/组件化/" style="font-size: 13px; color: #606e79">组件化</a> <a href="/tags/go/" style="font-size: 13px; color: #606e79">go</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/posts/5a1e5c5f/">时序图测试</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/439ff1a0/">弹力设计笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/9d1d146e/">计算机网络学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/71959014/">操作系统学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/32d92359/">计算机组成原理学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/afdc1432/">加密算法基础</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/57192/">Flutter学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/34833/">算法与结构第二阶段学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/15227/">算法与结构第一阶段学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/51485/">反射与动态代理</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://qkmin.github.io" title="某康的博客" target="_blank">某康的博客</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">冷暖自知</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.4.5" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=1.4.5" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.css"><script type="text/javascript" src="/js/search.js?v=1.4.5"></script><script>var search_path = 'search.xml';
+if (search_path.length == 0) {
+   search_path = 'search.xml';
+}
+var path = '/' + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script><script type="text/javascript" color="100,99,98" opacity="0.7" zindex="-1" count="150" src="//lib.baomitu.com/canvas-nest.js/2.0.3/canvas-nest.umd.js"></script><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=1.4.5"></script><script>if (window.mermaid) {
+  var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
+  mermaid.initialize(options);
+}
+</script><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.4.5"></script><script type="text/javascript" src="/js/smartresize.js?v=1.4.5"></script></div></body></html>

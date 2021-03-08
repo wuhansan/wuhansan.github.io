@@ -1,0 +1,147 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content><title>Android线程池 | 冷暖自知</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.4.5"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/8.0.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/3.3.1/jquery.min.js"></script><link rel="icon" mask sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Android线程池</h1><a id="logo" href="/.">冷暖自知</a><p class="description">足够自律,足够自由</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">Android线程池</h1><div class="post-meta">Aug 13, 2019<span> | </span><span class="category"><a href="/categories/Android/">Android</a></span><script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> 阅读</span></span><span class="post-time"><span class="post-meta-item-text"> | </span><span class="post-meta-item-icon"><i class="fa fa-keyboard-o"></i><span class="post-count"> 1.1k</span><span class="post-meta-item-text"> 字</span></span></span><span class="post-time"> | <span class="post-meta-item-icon"><i class="fa fa-hourglass-half"></i><span class="post-count"> 4</span><span class="post-meta-item-text"> 分钟</span></span></span></div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#作用"><span class="toc-number">1.</span> <span class="toc-text">作用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#线程"><span class="toc-number">2.</span> <span class="toc-text">线程</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Thread"><span class="toc-number">2.1.</span> <span class="toc-text">Thread</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Runnable"><span class="toc-number">2.2.</span> <span class="toc-text">Runnable</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Callble"><span class="toc-number">2.3.</span> <span class="toc-text">Callble</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#线程池"><span class="toc-number">3.</span> <span class="toc-text">线程池</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#new-ThreadPoolExecutor"><span class="toc-number">3.1.</span> <span class="toc-text">new ThreadPoolExecutor</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#四大类"><span class="toc-number">4.</span> <span class="toc-text">四大类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Executors-newFixedThreadPool"><span class="toc-number">4.1.</span> <span class="toc-text">Executors.newFixedThreadPool</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Executors-newCachedThreadPool"><span class="toc-number">4.2.</span> <span class="toc-text">Executors.newCachedThreadPool</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Executors-newSingleThreadExecutor"><span class="toc-number">4.3.</span> <span class="toc-text">Executors.newSingleThreadExecutor</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Executors-newScheduledThreadPool"><span class="toc-number">4.4.</span> <span class="toc-text">Executors.newScheduledThreadPool</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用场景"><span class="toc-number">5.</span> <span class="toc-text">使用场景</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#newFixedThreadPool"><span class="toc-number">5.1.</span> <span class="toc-text">newFixedThreadPool</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#newCachedThreadPool"><span class="toc-number">5.2.</span> <span class="toc-text">newCachedThreadPool</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#newSingleThreadExecutor"><span class="toc-number">5.3.</span> <span class="toc-text">newSingleThreadExecutor</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#newScheduledThreadPool"><span class="toc-number">5.4.</span> <span class="toc-text">newScheduledThreadPool</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#其他方法"><span class="toc-number">6.</span> <span class="toc-text">其他方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参考出处🔗"><span class="toc-number">7.</span> <span class="toc-text">参考出处🔗</span></a></li></ol></div></div><div class="post-content"><h4 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h4><ul>
+<li>为了让线程在实际使用中，统一管理因为线程调度不统一而导致的各种频繁GC、资源竞争、甚至是内存泄漏问题</li>
+</ul>
+<h4 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h4><h5 id="Thread"><a href="#Thread" class="headerlink" title="Thread"></a>Thread</h5><ul>
+<li><p>一个类，只能被继承</p>
+</li>
+<li><p>run  在当前线程中运行</p>
+</li>
+<li><p>start 新建线程运行</p>
+</li>
+</ul>
+<h5 id="Runnable"><a href="#Runnable" class="headerlink" title="Runnable"></a>Runnable</h5><ul>
+<li>一个接口 资源可以共享</li>
+</ul>
+<h5 id="Callble"><a href="#Callble" class="headerlink" title="Callble"></a>Callble</h5><ul>
+<li><p>一个接口，但是有返回值，而 run() 方法不行</p>
+</li>
+<li><p>可以抛出受检查的异常，而run()不能抛出</p>
+</li>
+<li><p>Callable 使用 call（） 方法， Runnable 使用 run() 方法 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">     Callable&lt;String&gt; callable = <span class="keyword">new</span> Callable&lt;String&gt;() &#123;</span><br><span class="line">         <span class="function"><span class="keyword">public</span> String <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">             <span class="keyword">return</span> <span class="string">"result"</span>;</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;;</span><br><span class="line">  </span><br><span class="line">     ExecutorService executor = Executors.newSingleThreadExecutor();</span><br><span class="line">     Future&lt;String&gt; future = executor.submit(callable);</span><br><span class="line">     <span class="keyword">try</span> &#123;</span><br><span class="line">         System.out.println(future.get());  <span class="comment">//会输出 result</span></span><br><span class="line">     &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">         e.printStackTrace();</span><br><span class="line">     &#125; <span class="keyword">catch</span> (ExecutionException e) &#123;</span><br><span class="line">         e.printStackTrace();</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h4 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h4><h5 id="new-ThreadPoolExecutor"><a href="#new-ThreadPoolExecutor" class="headerlink" title="new ThreadPoolExecutor"></a>new ThreadPoolExecutor</h5><p><em>创建基本线程池</em></p>
+<ul>
+<li><p>corePoolSize：核心线程池的线程数量</p>
+</li>
+<li><p>maximumPoolSize：最大的线程池线程数量</p>
+</li>
+<li><p>keepAliveTime：线程活动保持时间，线程池的工作线程空闲后，保持存活的时间</p>
+</li>
+<li><p>unit：线程活动保持时间的单位</p>
+</li>
+<li><p>workQueue：指定任务队列所使用的阻塞队列</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">int</span> maximumPoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">long</span> keepAliveTime,</span></span></span><br><span class="line"><span class="function"><span class="params">                          TimeUnit unit,</span></span></span><br><span class="line"><span class="function"><span class="params">                          BlockingQueue&lt;Runnable&gt; workQueue)</span></span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="四大类"><a href="#四大类" class="headerlink" title="四大类"></a>四大类</h4><h5 id="Executors-newFixedThreadPool"><a href="#Executors-newFixedThreadPool" class="headerlink" title="Executors.newFixedThreadPool"></a>Executors.newFixedThreadPool</h5><p><em>可重复固定线程数</em></p>
+<ul>
+<li><p>参数为核心线程数，只有核心线程，无非核心线程，并且阻塞队列无界</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newFixedThreadPool</span><span class="params">(<span class="keyword">int</span> nThreads)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> ThreadPoolExecutor(nThreads, nThreads,</span><br><span class="line">                                    <span class="number">0L</span>, TimeUnit.MILLISECONDS,</span><br><span class="line">                                    <span class="keyword">new</span> LinkedBlockingQueue&lt;Runnable&gt;());</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h5 id="Executors-newCachedThreadPool"><a href="#Executors-newCachedThreadPool" class="headerlink" title="Executors.newCachedThreadPool"></a><strong>Executors.newCachedThreadPool</strong></h5><p><em>按需求创建</em></p>
+<ul>
+<li><p>没有核心线程，只有非核心线程，并且每个非核心线程空闲等待的时间为60s，采用SynchronousQueue队列</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newCachedThreadPool</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">new</span> ThreadPoolExecutor(<span class="number">0</span>, Integer.MAX_VALUE,</span><br><span class="line">                                     <span class="number">60L</span>, TimeUnit.SECONDS,</span><br><span class="line">                                     <span class="keyword">new</span> SynchronousQueue&lt;Runnable&gt;());</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h5 id="Executors-newSingleThreadExecutor"><a href="#Executors-newSingleThreadExecutor" class="headerlink" title="Executors.newSingleThreadExecutor"></a><strong>Executors.newSingleThreadExecutor</strong></h5><p><em>单核的Fix</em></p>
+<ul>
+<li><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newSingleThreadExecutor</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     <span class="keyword">return</span> <span class="keyword">new</span> FinalizableDelegatedExecutorService</span><br><span class="line">         (<span class="keyword">new</span> ThreadPoolExecutor(<span class="number">1</span>, <span class="number">1</span>,</span><br><span class="line">                                 <span class="number">0L</span>, TimeUnit.MILLISECONDS,</span><br><span class="line">                                 <span class="keyword">new</span> LinkedBlockingQueue&lt;Runnable&gt;()));</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h5 id="Executors-newScheduledThreadPool"><a href="#Executors-newScheduledThreadPool" class="headerlink" title="Executors.newScheduledThreadPool"></a>Executors.newScheduledThreadPool</h5><p><em>定时延时执行</em></p>
+<h4 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h4><h5 id="newFixedThreadPool"><a href="#newFixedThreadPool" class="headerlink" title="newFixedThreadPool"></a>newFixedThreadPool</h5><ul>
+<li>底层：返回ThreadPoolExecutor实例，接收参数为所设定线程数量nThread，corePoolSize为nThread，maximumPoolSize为nThread；keepAliveTime为0L(不限时)；unit为：TimeUnit.MILLISECONDS；WorkQueue为：new LinkedBlockingQueue<runnable>() 无解阻塞队列<br>通俗：创建可容纳固定数量线程的池子，每隔线程的存活时间是无限的，当池子满了就不再添加线程了；如果池中的所有线程均在繁忙状态，对于新任务会进入阻塞队列中(无界的阻塞队列)<br><strong>适用：执行长期的任务，性能好很多</strong></runnable></li>
+</ul>
+<h5 id="newCachedThreadPool"><a href="#newCachedThreadPool" class="headerlink" title="newCachedThreadPool"></a>newCachedThreadPool</h5><ul>
+<li>底层：返回ThreadPoolExecutor实例，corePoolSize为0；maximumPoolSize为Integer.MAX_VALUE；keepAliveTime为60L；unit为TimeUnit.SECONDS；workQueue为SynchronousQueue(同步队列)<br>通俗：当有新任务到来，则插入到SynchronousQueue中，由于SynchronousQueue是同步队列，因此会在池中寻找可用线程来执行，若有可以线程则执行，若没有可用线程则创建一个线程来执行该任务；若池中线程空闲时间超过指定大小，则该线程会被销毁。<br><strong>适用：执行很多短期异步的小程序或者负载较轻的服务器</strong></li>
+</ul>
+<h5 id="newSingleThreadExecutor"><a href="#newSingleThreadExecutor" class="headerlink" title="newSingleThreadExecutor"></a>newSingleThreadExecutor</h5><ul>
+<li>底层：FinalizableDelegatedExecutorService包装的ThreadPoolExecutor实例，corePoolSize为1；maximumPoolSize为1；keepAliveTime为0L；unit为：TimeUnit.MILLISECONDS；workQueue为：new LinkedBlockingQueue<runnable>() 无解阻塞队列<br>通俗：创建只有一个线程的线程池，且线程的存活时间是无限的；当该线程正繁忙时，对于新任务会进入阻塞队列中(无界的阻塞队列)<br><strong>适用：一个任务一个任务执行的场景</strong></runnable></li>
+</ul>
+<h5 id="newScheduledThreadPool"><a href="#newScheduledThreadPool" class="headerlink" title="newScheduledThreadPool"></a>newScheduledThreadPool</h5><ul>
+<li>底层：创建ScheduledThreadPoolExecutor实例，corePoolSize为传递来的参数，maximumPoolSize为Integer.MAX_VALUE；keepAliveTime为0；unit为：TimeUnit.NANOSECONDS；workQueue为：new DelayedWorkQueue() 一个按超时时间升序排序的队列<br>通俗：创建一个固定大小的线程池，线程池内线程存活时间无限制，线程池可以支持定时及周期性任务执行，如果所有线程均处于繁忙状态，对于新任务会进入DelayedWorkQueue队列中，这是一种按照超时时间排序的队列结构<br><strong>适用：周期性执行任务的场景</strong></li>
+</ul>
+<h4 id="其他方法"><a href="#其他方法" class="headerlink" title="其他方法"></a>其他方法</h4><ul>
+<li>shutDown()  关闭线程池，<strong>不影响已经提交的任务</strong></li>
+<li>shutDownNow() 关闭线程池，并尝试去<strong>终止正在执行的线程</strong></li>
+<li>allowCoreThreadTimeOut(boolean value) 允许核心线程闲置超时时被回收</li>
+<li>submit 一般情况下我们使用execute来提交任务，但是有时候可能也会用到submit，使用submit的好处是<strong>submit有返回值</strong></li>
+<li>beforeExecute() - 任务执行前执行的方法</li>
+<li>afterExecute() -任务执行结束后执行的方法</li>
+<li>terminated() -线程池关闭后执行的方法</li>
+</ul>
+<h4 id="参考出处🔗"><a href="#参考出处🔗" class="headerlink" title="参考出处🔗"></a>参考出处🔗</h4></div><div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>冷暖自知</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="/posts/63527/">https://www.wl960127.top/posts/63527/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本站内容均为个人学习笔记,不涉及商业用途，仅提供学习参考,第三方摘录已署名链接,未署名请评论添加,转载署名来源即可。</li></ul></div><br><script type="text/javascript" src="/js/share.js?v=1.4.5" async></script><a class="article-share-link" data-url="https://www.wl960127.top/posts/63527/" data-id="cklzcpeq0000c5hjx8sfdhlfn" data-qrcode="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAAByklEQVR42u3aQW7DMAwEwPz/0y7Qa2BlKcqKEIxOhd3Y4wshLvV6xev6X+9Xxtff746fuWzh4uK2uddwvT+6f3f8qw8fjIuLu5E7LjRXsMY1J3l+VOxwcXEP4yb/n9/FxcX9De644cnbmzEdFxf3HG7S/FSvj3GP92q4uLgNbjUwfeLvB/NdXFzcIvcqrupQZC4evX07Li7uFu54gLpq1DomVtshXFzcp7nVYGKugelEq7clDBcXdzs3CUbzu9WCdXsFFxd3I3dyZxQPS+Zwt4UMFxd3Izc/RJXkmflgNRnffkhxcHFxl3Lz+DI5llEdluQhS3mggouL2+Au23zEw5K59+Li4p7D7bRD1Q+L3oiLi7uFOxePdqKQzkYKFxd3D3du2JlvX+Y+5nZvg4uLu4VbnVAk/Uh1cJuHqri4uHu4/UJWTWeTqAUXF/cE7qoRSBKqVhcuLu63uPnqRCTVwczkNBgXF7fNrRaUaiGbC2SrhRUXF/cJ7hPFK2mH8lFKofri4uIu5XbC0E45q74XFxf3NG71WEYnQLn9PFxc3CO5yUPnzohFhzlwcXE3cgvDzuIgttosLYtFcHFxG9xOYJoQq7/FxcX9KvcPNglN1KJ9sBwAAAAASUVORK5CYII=">分享</a><div class="tags"><a href="/tags/功能实现/">功能实现</a></div><div class="post-nav"><a class="pre" href="/posts/61906/">Express简单的后台数据库实现</a><a class="next" href="/posts/53823/">FFmpeg基础学习</a></div><div id="disqus_thread"><div class="btn_click_load"><button class="disqus_click_btn">阅读评论（请确保 Disqus 可以正常加载）</button></div><script type="text/javascript">var disqus_config = function () {
+    this.page.url = 'https://www.wl960127.top/posts/63527/';
+    this.page.identifier = 'posts/63527/';
+    this.page.title = 'Android线程池';
+  };</script><script type="text/javascript" id="disqus-lazy-load-script">$.ajax({
+url: 'https://disqus.com/next/config.json',
+timeout: 2500,
+type: 'GET',
+success: function(){
+  var d = document;
+  var s = d.createElement('script');
+  s.src = '//wuwangdaren.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', + new Date());
+  (d.head || d.body).appendChild(s);
+  $('.disqus_click_btn').css('display', 'none');
+},
+error: function() {
+  $('.disqus_click_btn').css('display', 'block');
+}
+});</script><script type="text/javascript" id="disqus-click-load">$('.btn_click_load').click(() => {  //click to load comments
+    (() => { // DON'T EDIT BELOW THIS LINE
+        var d = document;
+        var s = d.createElement('script');
+        s.src = '//wuwangdaren.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', + new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    $('.disqus_click_btn').css('display','none');
+});</script><script type="text/javascript" id="disqus-count-script">$(function() {
+     var xhr = new XMLHttpRequest();
+     xhr.open('GET', '//disqus.com/next/config.json', true);
+     xhr.timeout = 2500;
+     xhr.onreadystatechange = function () {
+       if (xhr.readyState === 4 && xhr.status === 200) {
+         $('.post-meta .post-comments-count').show();
+         var s = document.createElement('script');
+         s.id = 'dsq-count-scr';
+         s.src = 'https://wuwangdaren.disqus.com/count.js';
+         s.async = true;
+         (document.head || document.body).appendChild(s);
+       }
+     };
+     xhr.ontimeout = function () { xhr.abort(); };
+     xhr.send(null);
+   });
+</script></div><div id="lv-container" data-id="city" data-uid="MTAyMC8zMzgyMC8xMDM3Mw=="><script>(function(d, s) {
+   var j, e = d.getElementsByTagName(s)[0];
+   if (typeof LivereTower === 'function') { return; }
+   j = d.createElement(s);
+   j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+   j.async = true;
+   e.parentNode.insertBefore(j, e);
+})(document, 'script');
+</script></div></div></div></div><div class="pure-u-1 pure-u-md-1-4"><div id="sidebar"><div class="widget"><div class="search-form"><input id="local-search-input" placeholder="Search" type="text" name="q" results="0"><div id="local-search-result"></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">17</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android源码/">Android源码</a><span class="category-list-count">26</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flutter/">Flutter</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/React/">React</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术杂谈/">技术杂谈</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式学习/">设计模式学习</a><span class="category-list-count">9</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/react/" style="font-size: 14.43px; color: #527d8c">react</a> <a href="/tags/源码/" style="font-size: 23px; color: #00d6ff">源码</a> <a href="/tags/binder/" style="font-size: 17.29px; color: #379bb2">binder</a> <a href="/tags/设计模式/" style="font-size: 21.57px; color: #0ec7ec">设计模式</a> <a href="/tags/mqtt/" style="font-size: 14.43px; color: #527d8c">mqtt</a> <a href="/tags/工具/" style="font-size: 14.43px; color: #527d8c">工具</a> <a href="/tags/mysql/" style="font-size: 13px; color: #606e79">mysql</a> <a href="/tags/express/" style="font-size: 13px; color: #606e79">express</a> <a href="/tags/node/" style="font-size: 13px; color: #606e79">node</a> <a href="/tags/FFmpeg/" style="font-size: 15.86px; color: #458c9f">FFmpeg</a> <a href="/tags/Flutter/" style="font-size: 14.43px; color: #527d8c">Flutter</a> <a href="/tags/fragment/" style="font-size: 13px; color: #606e79">fragment</a> <a href="/tags/handler/" style="font-size: 13px; color: #606e79">handler</a> <a href="/tags/hexo/" style="font-size: 13px; color: #606e79">hexo</a> <a href="/tags/jvm/" style="font-size: 13px; color: #606e79">jvm</a> <a href="/tags/功能实现/" style="font-size: 20.14px; color: #1bb8d9">功能实现</a> <a href="/tags/ubuntu/" style="font-size: 17.29px; color: #379bb2">ubuntu</a> <a href="/tags/待完成/" style="font-size: 18.71px; color: #29a9c6">待完成</a> <a href="/tags/WebRTC/" style="font-size: 13px; color: #606e79">WebRTC</a> <a href="/tags/wifi/" style="font-size: 14.43px; color: #527d8c">wifi</a> <a href="/tags/dart/" style="font-size: 13px; color: #606e79">dart</a> <a href="/tags/HTTP/" style="font-size: 13px; color: #606e79">HTTP</a> <a href="/tags/内核/" style="font-size: 14.43px; color: #527d8c">内核</a> <a href="/tags/技术杂谈/" style="font-size: 17.29px; color: #379bb2">技术杂谈</a> <a href="/tags/Android源码/" style="font-size: 13px; color: #606e79">Android源码</a> <a href="/tags/service/" style="font-size: 13px; color: #606e79">service</a> <a href="/tags/jni/" style="font-size: 15.86px; color: #458c9f">jni</a> <a href="/tags/知识点/" style="font-size: 14.43px; color: #527d8c">知识点</a> <a href="/tags/组件化/" style="font-size: 13px; color: #606e79">组件化</a> <a href="/tags/go/" style="font-size: 13px; color: #606e79">go</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/posts/5a1e5c5f/">时序图测试</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/439ff1a0/">弹力设计笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/9d1d146e/">计算机网络学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/71959014/">操作系统学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/32d92359/">计算机组成原理学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/afdc1432/">加密算法基础</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/57192/">Flutter学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/34833/">算法与结构第二阶段学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/15227/">算法与结构第一阶段学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/51485/">反射与动态代理</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://qkmin.github.io" title="某康的博客" target="_blank">某康的博客</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">冷暖自知</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.4.5" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=1.4.5" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.css"><script type="text/javascript" src="/js/search.js?v=1.4.5"></script><script>var search_path = 'search.xml';
+if (search_path.length == 0) {
+   search_path = 'search.xml';
+}
+var path = '/' + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script><script type="text/javascript" color="100,99,98" opacity="0.7" zindex="-1" count="150" src="//lib.baomitu.com/canvas-nest.js/2.0.3/canvas-nest.umd.js"></script><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=1.4.5"></script><script>if (window.mermaid) {
+  var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
+  mermaid.initialize(options);
+}
+</script><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.4.5"></script><script type="text/javascript" src="/js/smartresize.js?v=1.4.5"></script></div></body></html>

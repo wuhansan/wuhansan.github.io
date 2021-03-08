@@ -1,0 +1,153 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content><title>单例模式 | 冷暖自知</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.4.5"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/8.0.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/3.3.1/jquery.min.js"></script><link rel="icon" mask sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">单例模式</h1><a id="logo" href="/.">冷暖自知</a><p class="description">足够自律,足够自由</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">单例模式</h1><div class="post-meta">Jan 21, 2019<span> | </span><span class="category"><a href="/categories/设计模式学习/">设计模式学习</a></span><script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> 阅读</span></span><span class="post-time"><span class="post-meta-item-text"> | </span><span class="post-meta-item-icon"><i class="fa fa-keyboard-o"></i><span class="post-count"> 865</span><span class="post-meta-item-text"> 字</span></span></span><span class="post-time"> | <span class="post-meta-item-icon"><i class="fa fa-hourglass-half"></i><span class="post-count"> 3</span><span class="post-meta-item-text"> 分钟</span></span></span></div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#特点"><span class="toc-number">1.</span> <span class="toc-text">特点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Context"><span class="toc-number">2.</span> <span class="toc-text">Context</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#写法区分"><span class="toc-number">3.</span> <span class="toc-text">写法区分</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#懒汉模式"><span class="toc-number">3.1.</span> <span class="toc-text">懒汉模式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Double-Check-Lock"><span class="toc-number">3.2.</span> <span class="toc-text">Double Check  Lock</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#静态内部类单例模式"><span class="toc-number">3.3.</span> <span class="toc-text">静态内部类单例模式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#枚举单例"><span class="toc-number">3.4.</span> <span class="toc-text">枚举单例</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#小结"><span class="toc-number">4.</span> <span class="toc-text">小结</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#懒汉"><span class="toc-number">4.1.</span> <span class="toc-text">懒汉</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#DCL"><span class="toc-number">4.2.</span> <span class="toc-text">DCL</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#静态内部类"><span class="toc-number">4.3.</span> <span class="toc-text">静态内部类</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#核心"><span class="toc-number">5.</span> <span class="toc-text">核心</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#问题点"><span class="toc-number">6.</span> <span class="toc-text">问题点</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#反序列化"><span class="toc-number">6.1.</span> <span class="toc-text">反序列化</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#杜绝单例被反序列化"><span class="toc-number">6.2.</span> <span class="toc-text">杜绝单例被反序列化</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#拓展"><span class="toc-number">7.</span> <span class="toc-text">拓展</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#序列化-（Serialization）"><span class="toc-number">7.1.</span> <span class="toc-text">序列化 （Serialization）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#反序列化-1"><span class="toc-number">7.2.</span> <span class="toc-text">反序列化</span></a></li></ol></li></ol></div></div><div class="post-content"><h4 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h4><ul>
+<li>构造函数不对外开放，一般为private</li>
+<li>通过一个静态方法或者枚举类型返回单例类对象</li>
+<li>确保单例对象有且只有一个，尤其是多线程情况下</li>
+<li>反序列化时候不会重新构建对象</li>
+<li>注意使用 <code>volatile</code>这个关键字,否则在多线程环境下(懒汉模式以及DCL模式)有可能会出现问题</li>
+</ul>
+<hr>
+<h4 id="Context"><a href="#Context" class="headerlink" title="Context"></a>Context</h4><ul>
+<li>Application、Activity以及Service中都存在Context对象，也就是总个数为Activity个数+Service个数+1</li>
+<li>Activity的入口是ActivityThread的main函数，在该函数中创建一个新的ActiivtyThread对象并且启动消息循环（UI线程）、创建新的Activity、新的Context对象。而后，将Context对象传递给Activity</li>
+</ul>
+<pre class="mermaid">%% 时序图例子,-> 直线，-->虚线，->>实线箭头
+  sequenceDiagram
+    participant ActivityThread
+    ActivityThread->>ActivityThread: ①main
+    ActivityThread->>ActivityThread: ②attch
+    ActivityThread->>ActivityThread: ③mgr.attchApplication
+    Note left of ActivityThread: 由此关联到mAppThread</pre>
+
+<hr>
+<h4 id="写法区分"><a href="#写法区分" class="headerlink" title="写法区分"></a>写法区分</h4><h5 id="懒汉模式"><a href="#懒汉模式" class="headerlink" title="懒汉模式"></a>懒汉模式</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> Singleton instance;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span></span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> Singleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">null</span> == instance)&#123;</span><br><span class="line">            instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="Double-Check-Lock"><a href="#Double-Check-Lock" class="headerlink" title="Double Check  Lock"></a>Double Check  Lock</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> Singleton instance = <span class="keyword">null</span>; <span class="comment">//确保每次从主内存读取</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span></span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span>  Singleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">null</span> == instance)&#123;</span><br><span class="line">            <span class="keyword">synchronized</span>(Singleton<span class="class">.<span class="keyword">class</span>)</span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">null</span> == instance)&#123;</span><br><span class="line">                     instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="静态内部类单例模式"><a href="#静态内部类单例模式" class="headerlink" title="静态内部类单例模式"></a>静态内部类单例模式</h5><ul>
+<li>推荐使用</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span></span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span>  Singleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> SingletonHolder.sIntance;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonHolder</span></span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton sIntance = <span class="keyword">new</span> Singleton();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="枚举单例"><a href="#枚举单例" class="headerlink" title="枚举单例"></a>枚举单例</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> SingletonEnum&#123;</span><br><span class="line">    INSTANCE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><h5 id="懒汉"><a href="#懒汉" class="headerlink" title="懒汉"></a>懒汉</h5><ul>
+<li>优势： 只有在使用的时候才会实例化，一定程度上节约了资源</li>
+<li>缺点： 第一次加载的时候需要及时实例化，反应稍慢。每次调用getInstance的时候会进行同步，造成不必要的开销。一般不建议使用</li>
+</ul>
+<h5 id="DCL"><a href="#DCL" class="headerlink" title="DCL"></a>DCL</h5><ul>
+<li>优点： 解决了资源消耗、多余的同步、线程安全等问题</li>
+<li>缺点：会在某些情况下失效 😂<strong>双重检查失效</strong>，因此不赞成使用</li>
+</ul>
+<h5 id="静态内部类"><a href="#静态内部类" class="headerlink" title="静态内部类"></a>静态内部类</h5><ul>
+<li>优点:  <ul>
+<li>第一次加载class时候不会初始化sInstance，只有第一次调用getInstance才会导致初始化</li>
+<li>确保线程安全，确保单例对象的唯一性，也延迟了单例的实例化</li>
+</ul>
+</li>
+</ul>
+<h4 id="核心"><a href="#核心" class="headerlink" title="核心"></a>核心</h4><ul>
+<li>将构造函数私有化，通过静态方法获取唯一实例，获取过程中确保线程安全、防止反序列化导致重新生成实例对象等问题</li>
+</ul>
+<h4 id="问题点"><a href="#问题点" class="headerlink" title="问题点"></a>问题点</h4><h5 id="反序列化"><a href="#反序列化" class="headerlink" title="反序列化"></a>反序列化</h5><ul>
+<li><p>反序列化会出现重新创建对象的情况。</p>
+</li>
+<li><p>通过序列化可以将单例对象写入到磁盘，从而有效地获取一个实例，及时构造方法是私有的，但是并不能影响反序列化通过特殊途径调用该类的构造方法。</p>
+</li>
+<li><p>所谓特殊途径</p>
+<ul>
+<li>readResolve()</li>
+<li>该方法中 ，将sInstance对象返回，而不是默认重新生成一个新的对象。当然，枚举并不存在</li>
+</ul>
+</li>
+</ul>
+<h5 id="杜绝单例被反序列化"><a href="#杜绝单例被反序列化" class="headerlink" title="杜绝单例被反序列化"></a>杜绝单例被反序列化</h5><ul>
+<li><p>加入如下方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> Object <span class="title">readResolve</span><span class="params">()</span> <span class="keyword">throws</span> ObjectStreamException</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> sInstance;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h4><ul>
+<li>将单例的实例对象写进磁盘，然后再读回来，从而有效的获得一个实例</li>
+</ul>
+<h5 id="序列化-（Serialization）"><a href="#序列化-（Serialization）" class="headerlink" title="序列化 （Serialization）"></a>序列化 （Serialization）</h5><ul>
+<li>概念：<ul>
+<li>把对象转换为字节序列的过程</li>
+</ul>
+</li>
+<li>作用：<ul>
+<li>把对象的字节序列永久地保存到硬盘上，通常存放在一个文件中</li>
+<li>在网络上传送对象的字节序列</li>
+</ul>
+</li>
+</ul>
+<h5 id="反序列化-1"><a href="#反序列化-1" class="headerlink" title="反序列化"></a>反序列化</h5><ul>
+<li>概念：<ul>
+<li>把字节序列恢复为对象的过程</li>
+</ul>
+</li>
+</ul>
+<hr>
+</div><div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>冷暖自知</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="/posts/46132/">https://www.wl960127.top/posts/46132/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本站内容均为个人学习笔记,不涉及商业用途，仅提供学习参考,第三方摘录已署名链接,未署名请评论添加,转载署名来源即可。</li></ul></div><br><script type="text/javascript" src="/js/share.js?v=1.4.5" async></script><a class="article-share-link" data-url="https://www.wl960127.top/posts/46132/" data-id="cklzcper2003z5hjx72h9m6u4" data-qrcode="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABzUlEQVR42u3aQY7DMAgF0N7/0hlptp0kHxzTjvS8qlLVee4CAeb1itfxu5Lnx9uq7vnAwsXFXeYel+t96/fPZ096+9wcGBcXd5B7HWiuX98LWGf0m9/i4uJ+Gfcs/CX0PKjh4uL+L+4ZqPCygI6Li/s93KRouYZWS6DttRouLu4Ct9ow3fF5Y38XFxe3yD2KK0lWVsLczdtxcXFHuNctj144W7liicIcLi7uIDcJVb1g9NQbcXFx57nVxmh1tCIPWDdPcHFxN3PXW5ZPJUNRIMPFxR3hRl/H0N74RRI6//iPcXFxR7jJnUX+bXJZUj0wLi7uDLc6ZpEnK70yqdwqxcXFHecmoSrfMznYzQ64uLjj3HyLJNj1Bi9ujoSLizvIzSckq7jeYU7LJFxc3BFub6wqv5pNyqpyMYaLi7uZ20s1quinmrO4uLiT3PWRyio6X7i4uJ/i5iu68Fhuo7yqm+Li4j7KrQaUaqKTXNz2rltwcXF3c3sXq3nrpNpCLQxh4OLibubmwasHzVOZcn8XFxf3o9w8quSJS1IaNQMZLi7uIDdJR8pDV0FZhYuLO8+tJjErrdK8vbLUFsHFxV3grjRMeyNcvSYsLi7uCPcHEnK0e2Pf+/MAAAAASUVORK5CYII=">分享</a><div class="tags"><a href="/tags/设计模式/">设计模式</a><a href="/tags/Android源码/">Android源码</a></div><div class="post-nav"><a class="pre" href="/posts/39875/">快速下载Android部分源码</a><a class="next" href="/posts/22977/">命令模式</a></div><div id="disqus_thread"><div class="btn_click_load"><button class="disqus_click_btn">阅读评论（请确保 Disqus 可以正常加载）</button></div><script type="text/javascript">var disqus_config = function () {
+    this.page.url = 'https://www.wl960127.top/posts/46132/';
+    this.page.identifier = 'posts/46132/';
+    this.page.title = '单例模式';
+  };</script><script type="text/javascript" id="disqus-lazy-load-script">$.ajax({
+url: 'https://disqus.com/next/config.json',
+timeout: 2500,
+type: 'GET',
+success: function(){
+  var d = document;
+  var s = d.createElement('script');
+  s.src = '//wuwangdaren.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', + new Date());
+  (d.head || d.body).appendChild(s);
+  $('.disqus_click_btn').css('display', 'none');
+},
+error: function() {
+  $('.disqus_click_btn').css('display', 'block');
+}
+});</script><script type="text/javascript" id="disqus-click-load">$('.btn_click_load').click(() => {  //click to load comments
+    (() => { // DON'T EDIT BELOW THIS LINE
+        var d = document;
+        var s = d.createElement('script');
+        s.src = '//wuwangdaren.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', + new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    $('.disqus_click_btn').css('display','none');
+});</script><script type="text/javascript" id="disqus-count-script">$(function() {
+     var xhr = new XMLHttpRequest();
+     xhr.open('GET', '//disqus.com/next/config.json', true);
+     xhr.timeout = 2500;
+     xhr.onreadystatechange = function () {
+       if (xhr.readyState === 4 && xhr.status === 200) {
+         $('.post-meta .post-comments-count').show();
+         var s = document.createElement('script');
+         s.id = 'dsq-count-scr';
+         s.src = 'https://wuwangdaren.disqus.com/count.js';
+         s.async = true;
+         (document.head || document.body).appendChild(s);
+       }
+     };
+     xhr.ontimeout = function () { xhr.abort(); };
+     xhr.send(null);
+   });
+</script></div><div id="lv-container" data-id="city" data-uid="MTAyMC8zMzgyMC8xMDM3Mw=="><script>(function(d, s) {
+   var j, e = d.getElementsByTagName(s)[0];
+   if (typeof LivereTower === 'function') { return; }
+   j = d.createElement(s);
+   j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+   j.async = true;
+   e.parentNode.insertBefore(j, e);
+})(document, 'script');
+</script></div></div></div></div><div class="pure-u-1 pure-u-md-1-4"><div id="sidebar"><div class="widget"><div class="search-form"><input id="local-search-input" placeholder="Search" type="text" name="q" results="0"><div id="local-search-result"></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">17</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android源码/">Android源码</a><span class="category-list-count">26</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flutter/">Flutter</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/React/">React</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术杂谈/">技术杂谈</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式学习/">设计模式学习</a><span class="category-list-count">9</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/react/" style="font-size: 14.43px; color: #527d8c">react</a> <a href="/tags/源码/" style="font-size: 23px; color: #00d6ff">源码</a> <a href="/tags/binder/" style="font-size: 17.29px; color: #379bb2">binder</a> <a href="/tags/设计模式/" style="font-size: 21.57px; color: #0ec7ec">设计模式</a> <a href="/tags/mqtt/" style="font-size: 14.43px; color: #527d8c">mqtt</a> <a href="/tags/工具/" style="font-size: 14.43px; color: #527d8c">工具</a> <a href="/tags/mysql/" style="font-size: 13px; color: #606e79">mysql</a> <a href="/tags/express/" style="font-size: 13px; color: #606e79">express</a> <a href="/tags/node/" style="font-size: 13px; color: #606e79">node</a> <a href="/tags/FFmpeg/" style="font-size: 15.86px; color: #458c9f">FFmpeg</a> <a href="/tags/Flutter/" style="font-size: 14.43px; color: #527d8c">Flutter</a> <a href="/tags/fragment/" style="font-size: 13px; color: #606e79">fragment</a> <a href="/tags/handler/" style="font-size: 13px; color: #606e79">handler</a> <a href="/tags/hexo/" style="font-size: 13px; color: #606e79">hexo</a> <a href="/tags/jvm/" style="font-size: 13px; color: #606e79">jvm</a> <a href="/tags/功能实现/" style="font-size: 20.14px; color: #1bb8d9">功能实现</a> <a href="/tags/ubuntu/" style="font-size: 17.29px; color: #379bb2">ubuntu</a> <a href="/tags/待完成/" style="font-size: 18.71px; color: #29a9c6">待完成</a> <a href="/tags/WebRTC/" style="font-size: 13px; color: #606e79">WebRTC</a> <a href="/tags/wifi/" style="font-size: 14.43px; color: #527d8c">wifi</a> <a href="/tags/dart/" style="font-size: 13px; color: #606e79">dart</a> <a href="/tags/HTTP/" style="font-size: 13px; color: #606e79">HTTP</a> <a href="/tags/内核/" style="font-size: 14.43px; color: #527d8c">内核</a> <a href="/tags/技术杂谈/" style="font-size: 17.29px; color: #379bb2">技术杂谈</a> <a href="/tags/Android源码/" style="font-size: 13px; color: #606e79">Android源码</a> <a href="/tags/service/" style="font-size: 13px; color: #606e79">service</a> <a href="/tags/jni/" style="font-size: 15.86px; color: #458c9f">jni</a> <a href="/tags/知识点/" style="font-size: 14.43px; color: #527d8c">知识点</a> <a href="/tags/组件化/" style="font-size: 13px; color: #606e79">组件化</a> <a href="/tags/go/" style="font-size: 13px; color: #606e79">go</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/posts/5a1e5c5f/">时序图测试</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/439ff1a0/">弹力设计笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/9d1d146e/">计算机网络学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/71959014/">操作系统学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/32d92359/">计算机组成原理学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/afdc1432/">加密算法基础</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/57192/">Flutter学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/34833/">算法与结构第二阶段学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/15227/">算法与结构第一阶段学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/51485/">反射与动态代理</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://qkmin.github.io" title="某康的博客" target="_blank">某康的博客</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">冷暖自知</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.4.5" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=1.4.5" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.css"><script type="text/javascript" src="/js/search.js?v=1.4.5"></script><script>var search_path = 'search.xml';
+if (search_path.length == 0) {
+   search_path = 'search.xml';
+}
+var path = '/' + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script><script type="text/javascript" color="100,99,98" opacity="0.7" zindex="-1" count="150" src="//lib.baomitu.com/canvas-nest.js/2.0.3/canvas-nest.umd.js"></script><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=1.4.5"></script><script>if (window.mermaid) {
+  var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
+  mermaid.initialize(options);
+}
+</script><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.4.5"></script><script type="text/javascript" src="/js/smartresize.js?v=1.4.5"></script></div></body></html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content><title>自定义View-绘制 | 冷暖自知</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.4.5"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/8.0.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/3.3.1/jquery.min.js"></script><link rel="icon" mask sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">自定义View-绘制</h1><a id="logo" href="/.">冷暖自知</a><p class="description">足够自律,足够自由</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">自定义View-绘制</h1><div class="post-meta">Apr 23, 2019<span> | </span><span class="category"><a href="/categories/Android/">Android</a></span><script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> 阅读</span></span><span class="post-time"><span class="post-meta-item-text"> | </span><span class="post-meta-item-icon"><i class="fa fa-keyboard-o"></i><span class="post-count"> 445</span><span class="post-meta-item-text"> 字</span></span></span><span class="post-time"> | <span class="post-meta-item-icon"><i class="fa fa-hourglass-half"></i><span class="post-count"> 1</span><span class="post-meta-item-text"> 分钟</span></span></span></div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#概述"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Canvas创建-amp-获取"><span class="toc-number">2.</span> <span class="toc-text">Canvas创建&amp;获取</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#常用方法"><span class="toc-number">2.1.</span> <span class="toc-text">常用方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#关于坐标参数"><span class="toc-number">2.2.</span> <span class="toc-text">关于坐标参数</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Path"><span class="toc-number">3.</span> <span class="toc-text">Path</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#摘录来源"><span class="toc-number">4.</span> <span class="toc-text">摘录来源</span></a></li></ol></div></div><div class="post-content"><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><ul>
+<li>自定义view的常规使用类    <ul>
+<li>Canvas<ul>
+<li>Canvas.drawxxx( xx, Paint )</li>
+<li>Canvas.drawpath( Path, Paint )</li>
+</ul>
+</li>
+<li>Paint<ul>
+<li>基本是设置一些常规属性、风格,负责让canvas看起来更骚包</li>
+<li><a href="https://hencoder.com/ui-1-2/">HenCoder Android 开发进阶: 自定义 View 1-2 Paint 详解</a></li>
+</ul>
+</li>
+<li>Path</li>
+</ul>
+</li>
+</ul>
+<h4 id="Canvas创建-amp-获取"><a href="#Canvas创建-amp-获取" class="headerlink" title="Canvas创建&amp;获取"></a>Canvas创建&amp;获取</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方法1</span></span><br><span class="line"><span class="comment">// 利用空构造方法直接创建对象</span></span><br><span class="line">Canvas canvas = <span class="keyword">new</span> Canvas()；</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法2</span></span><br><span class="line"><span class="comment">// 通过传入装载画布Bitmap对象创建Canvas对象</span></span><br><span class="line"><span class="comment">// CBitmap上存储所有绘制在Canvas的信息</span></span><br><span class="line">Canvas canvas = <span class="keyword">new</span> Canvas(bitmap)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法3</span></span><br><span class="line"><span class="comment">// 通过重写View.onDraw（）创建Canvas对象</span></span><br><span class="line"><span class="comment">// 在该方法里可以获得这个View对应的Canvas对象</span></span><br><span class="line"></span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDraw</span><span class="params">(Canvas canvas)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onDraw(canvas);</span><br><span class="line">        <span class="comment">//在这里获取Canvas对象</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法4</span></span><br><span class="line"><span class="comment">// 在SurfaceView里画图时创建Canvas对象      好像相机和推拉流也会使用这种方式</span></span><br><span class="line"></span><br><span class="line">        SurfaceView surfaceView = <span class="keyword">new</span> SurfaceView(<span class="keyword">this</span>);</span><br><span class="line">        <span class="comment">// 从SurfaceView的surfaceHolder里锁定获取Canvas</span></span><br><span class="line">        SurfaceHolder surfaceHolder = surfaceView.getHolder();</span><br><span class="line">        <span class="comment">//获取Canvas</span></span><br><span class="line">        Canvas c = surfaceHolder.lockCanvas();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// ...（进行Canvas操作）</span></span><br><span class="line">        <span class="comment">// Canvas操作结束之后解锁并执行Canvas</span></span><br><span class="line">        surfaceHolder.unlockCanvasAndPost(c);</span><br></pre></td></tr></table></figure>
+
+<h5 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h5><p><img src="canvas%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95.png" alt></p>
+<h5 id="关于坐标参数"><a href="#关于坐标参数" class="headerlink" title="关于坐标参数"></a>关于坐标参数</h5><ul>
+<li><p>android关于坐标系，屏幕左上角即原点</p>
+<p><img src="Android%E5%9D%90%E6%A0%87.jpg" alt></p>
+</li>
+<li><p>canvas.drawRect方法坐标与drawLines方法的直观展示</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">      canvas.drawRect(<span class="number">100</span>, <span class="number">100</span>, <span class="number">400</span>, <span class="number">400</span>, <span class="keyword">new</span> Paint());</span><br><span class="line"><span class="comment">//即   坐标 [100,100]   [400,400] 所贯穿的范围</span></span><br><span class="line">  </span><br><span class="line">      Paint mPaint = <span class="keyword">new</span> Paint();</span><br><span class="line">      mPaint.setStrokeWidth(<span class="number">10</span>);</span><br><span class="line">      mPaint.setColor(Color.RED);</span><br><span class="line">      canvas.drawLines(<span class="keyword">new</span> <span class="keyword">float</span>[]&#123;</span><br><span class="line">              <span class="number">100</span>, <span class="number">100</span>, <span class="number">400</span>, <span class="number">400</span></span><br><span class="line">      &#125;, mPaint);</span><br></pre></td></tr></table></figure>
+
+<p><img src="draw%E5%B1%95%E7%A4%BA.jpg" alt></p>
+</li>
+<li><p>drawArc的坐标和弧形角度</p>
+<p><img src="drawArc.jpg" alt></p>
+<ul>
+<li>RectF是一个序列化类，属性和Rect也一致</li>
+</ul>
+<p><img src="Rect%E5%92%8CRectF.jpg" alt></p>
+<ul>
+<li><p>由此可理解，<code>Arc</code>是在<code>RectF</code>里面做的操作</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">	RectF mRect = <span class="keyword">new</span> RectF(<span class="number">200</span>, <span class="number">100</span>, <span class="number">800</span>, <span class="number">500</span>);</span><br><span class="line"><span class="comment">//角度是顺时针，x正轴为 0</span></span><br><span class="line">         Paint mPaint = <span class="keyword">new</span> Paint();</span><br><span class="line">         mPaint.setColor(Color.RED);</span><br><span class="line">         canvas.drawRect(mRect,mPaint );</span><br><span class="line">    </span><br><span class="line">         canvas.drawArc(mRect, <span class="number">0</span>, -<span class="number">100</span>, <span class="keyword">true</span>, paint); <span class="comment">// 绘制扇形</span></span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+</li>
+</ul>
+<p>  <img src="%E7%9B%B4%E8%A7%82%E5%B1%95%E7%A4%BARectF%E5%92%8CArc.jpg" alt></p>
+<h4 id="Path"><a href="#Path" class="headerlink" title="Path"></a>Path</h4><p><a href="https://www.jianshu.com/p/2c19abde958c">Path类的最全面详解 - 自定义View应用系列</a></p>
+<h4 id="摘录来源"><a href="#摘录来源" class="headerlink" title="摘录来源"></a>摘录来源</h4><p><a href="https://hencoder.com/tag/hui-zhi/">HenCoder</a></p>
+<p><a href="https://www.jianshu.com/p/762b490403c3">Canvas类的最全面详解 - 自定义View应用系列</a></p>
+</div><div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>冷暖自知</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="/posts/42181/">https://www.wl960127.top/posts/42181/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本站内容均为个人学习笔记,不涉及商业用途，仅提供学习参考,第三方摘录已署名链接,未署名请评论添加,转载署名来源即可。</li></ul></div><br><script type="text/javascript" src="/js/share.js?v=1.4.5" async></script><a class="article-share-link" data-url="https://www.wl960127.top/posts/42181/" data-id="cklzcperk005m5hjxaq887z6y" data-qrcode="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABw0lEQVR42u3aS27DMAwFQN//0i7QbWDjkbQUIxitisZxRhuCv+OIz/l/kv+fH6f6zgcOLi7umHvens9X34OS7ybvvLwwLi7uRu59oLlC5N+dP4OLi/tObvJ8/ikuLu5vcPNEp3oxXFzcd3KT4icpe3rp0ZJaDRcXd8CtNkxX/L2wv4uLi1vknsXzbKlT/nVcXNwt3PtBaXWkmpdPedJz5AhcXNyHuL3xZ28johcEL0MYLi7uMm5vGWteFN0HrDyw4uLiruNOSqDJNZK0qdzfxcXFHXOr61Yr1i8KzRdcXNwt3CTOVQce+bCk2mTBxcXdwy1nQ8VhSfXJZmcXFxd3Gbe6klVtnubB7vJ6uLi4X+X2Upn7C1cvj4uL+wZuNZeYNE3ydAcXF3c/tzpMTdqaeQlUbari4uLu4ZbHGIOUJW/E4OLivoHbW6HIy5tjcHBxcb/F7a1kVT+djG2OJGri4uI+xO0tVRRCTzFV6q1x4OLiruAmwas6jk1aIc2FMFxc3I3c3hj1KXryu7i4uO/kzmuQvIFyeT1cXNwXc59KX/JWLC4u7n5unrLkq1T5lZJr4OLi7uRWk5VeG2U+uMXFxd3C/QP5anad/yvM5QAAAABJRU5ErkJggg==">分享</a><div class="tags"><a href="/tags/功能实现/">功能实现</a></div><div class="post-nav"><a class="pre" href="/posts/52221/">JVM简单学习</a><a class="next" href="/posts/23430/">网易笔记之组件化简单学习</a></div><div id="disqus_thread"><div class="btn_click_load"><button class="disqus_click_btn">阅读评论（请确保 Disqus 可以正常加载）</button></div><script type="text/javascript">var disqus_config = function () {
+    this.page.url = 'https://www.wl960127.top/posts/42181/';
+    this.page.identifier = 'posts/42181/';
+    this.page.title = '自定义View-绘制';
+  };</script><script type="text/javascript" id="disqus-lazy-load-script">$.ajax({
+url: 'https://disqus.com/next/config.json',
+timeout: 2500,
+type: 'GET',
+success: function(){
+  var d = document;
+  var s = d.createElement('script');
+  s.src = '//wuwangdaren.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', + new Date());
+  (d.head || d.body).appendChild(s);
+  $('.disqus_click_btn').css('display', 'none');
+},
+error: function() {
+  $('.disqus_click_btn').css('display', 'block');
+}
+});</script><script type="text/javascript" id="disqus-click-load">$('.btn_click_load').click(() => {  //click to load comments
+    (() => { // DON'T EDIT BELOW THIS LINE
+        var d = document;
+        var s = d.createElement('script');
+        s.src = '//wuwangdaren.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', + new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    $('.disqus_click_btn').css('display','none');
+});</script><script type="text/javascript" id="disqus-count-script">$(function() {
+     var xhr = new XMLHttpRequest();
+     xhr.open('GET', '//disqus.com/next/config.json', true);
+     xhr.timeout = 2500;
+     xhr.onreadystatechange = function () {
+       if (xhr.readyState === 4 && xhr.status === 200) {
+         $('.post-meta .post-comments-count').show();
+         var s = document.createElement('script');
+         s.id = 'dsq-count-scr';
+         s.src = 'https://wuwangdaren.disqus.com/count.js';
+         s.async = true;
+         (document.head || document.body).appendChild(s);
+       }
+     };
+     xhr.ontimeout = function () { xhr.abort(); };
+     xhr.send(null);
+   });
+</script></div><div id="lv-container" data-id="city" data-uid="MTAyMC8zMzgyMC8xMDM3Mw=="><script>(function(d, s) {
+   var j, e = d.getElementsByTagName(s)[0];
+   if (typeof LivereTower === 'function') { return; }
+   j = d.createElement(s);
+   j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+   j.async = true;
+   e.parentNode.insertBefore(j, e);
+})(document, 'script');
+</script></div></div></div></div><div class="pure-u-1 pure-u-md-1-4"><div id="sidebar"><div class="widget"><div class="search-form"><input id="local-search-input" placeholder="Search" type="text" name="q" results="0"><div id="local-search-result"></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">17</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android源码/">Android源码</a><span class="category-list-count">26</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flutter/">Flutter</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/React/">React</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术杂谈/">技术杂谈</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式学习/">设计模式学习</a><span class="category-list-count">9</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/react/" style="font-size: 14.43px; color: #527d8c">react</a> <a href="/tags/源码/" style="font-size: 23px; color: #00d6ff">源码</a> <a href="/tags/binder/" style="font-size: 17.29px; color: #379bb2">binder</a> <a href="/tags/设计模式/" style="font-size: 21.57px; color: #0ec7ec">设计模式</a> <a href="/tags/mqtt/" style="font-size: 14.43px; color: #527d8c">mqtt</a> <a href="/tags/工具/" style="font-size: 14.43px; color: #527d8c">工具</a> <a href="/tags/mysql/" style="font-size: 13px; color: #606e79">mysql</a> <a href="/tags/express/" style="font-size: 13px; color: #606e79">express</a> <a href="/tags/node/" style="font-size: 13px; color: #606e79">node</a> <a href="/tags/FFmpeg/" style="font-size: 15.86px; color: #458c9f">FFmpeg</a> <a href="/tags/Flutter/" style="font-size: 14.43px; color: #527d8c">Flutter</a> <a href="/tags/fragment/" style="font-size: 13px; color: #606e79">fragment</a> <a href="/tags/handler/" style="font-size: 13px; color: #606e79">handler</a> <a href="/tags/hexo/" style="font-size: 13px; color: #606e79">hexo</a> <a href="/tags/jvm/" style="font-size: 13px; color: #606e79">jvm</a> <a href="/tags/功能实现/" style="font-size: 20.14px; color: #1bb8d9">功能实现</a> <a href="/tags/ubuntu/" style="font-size: 17.29px; color: #379bb2">ubuntu</a> <a href="/tags/待完成/" style="font-size: 18.71px; color: #29a9c6">待完成</a> <a href="/tags/WebRTC/" style="font-size: 13px; color: #606e79">WebRTC</a> <a href="/tags/wifi/" style="font-size: 14.43px; color: #527d8c">wifi</a> <a href="/tags/dart/" style="font-size: 13px; color: #606e79">dart</a> <a href="/tags/HTTP/" style="font-size: 13px; color: #606e79">HTTP</a> <a href="/tags/内核/" style="font-size: 14.43px; color: #527d8c">内核</a> <a href="/tags/技术杂谈/" style="font-size: 17.29px; color: #379bb2">技术杂谈</a> <a href="/tags/Android源码/" style="font-size: 13px; color: #606e79">Android源码</a> <a href="/tags/service/" style="font-size: 13px; color: #606e79">service</a> <a href="/tags/jni/" style="font-size: 15.86px; color: #458c9f">jni</a> <a href="/tags/知识点/" style="font-size: 14.43px; color: #527d8c">知识点</a> <a href="/tags/组件化/" style="font-size: 13px; color: #606e79">组件化</a> <a href="/tags/go/" style="font-size: 13px; color: #606e79">go</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/posts/5a1e5c5f/">时序图测试</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/439ff1a0/">弹力设计笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/9d1d146e/">计算机网络学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/71959014/">操作系统学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/32d92359/">计算机组成原理学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/afdc1432/">加密算法基础</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/57192/">Flutter学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/34833/">算法与结构第二阶段学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/15227/">算法与结构第一阶段学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/51485/">反射与动态代理</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://qkmin.github.io" title="某康的博客" target="_blank">某康的博客</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">冷暖自知</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.4.5" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=1.4.5" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.css"><script type="text/javascript" src="/js/search.js?v=1.4.5"></script><script>var search_path = 'search.xml';
+if (search_path.length == 0) {
+   search_path = 'search.xml';
+}
+var path = '/' + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script><script type="text/javascript" color="100,99,98" opacity="0.7" zindex="-1" count="150" src="//lib.baomitu.com/canvas-nest.js/2.0.3/canvas-nest.umd.js"></script><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=1.4.5"></script><script>if (window.mermaid) {
+  var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
+  mermaid.initialize(options);
+}
+</script><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.4.5"></script><script type="text/javascript" src="/js/smartresize.js?v=1.4.5"></script></div></body></html>
