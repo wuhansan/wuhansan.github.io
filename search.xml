@@ -4,11 +4,345 @@
   
     
     <entry>
+      <title>行为型-模板模式</title>
+      <link href="posts/53f98d70/"/>
+      <url>posts/53f98d70/</url>
+      
+        <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>在方法中定义一个算法框架，并将某些步骤推迟到子类中实现</li><li>可以让子类在不改变算法整体结构的情况下，重新定义算法中的某些步骤</li></ul><h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><ul><li><p>复用</p><p>所有的子类可以复用父类中提供的模板方法的代码</p></li><li><p>拓展</p><p>框架通过模板模式提高功能拓展点，让用户在不修改框架源码的情况下，基于拓展定制化框架的功能</p></li></ul><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ul><li>将不变的流程抽象到父类定义的模板方法中 （模板方法中调用了抽象流程的函数）</li><li>子类继承后，可通过调用该模板方法间接执行子类自身实现的抽象流程 </li></ul><hr><h3 id="回调"><a href="#回调" class="headerlink" title="回调"></a>回调</h3><h4 id="类别"><a href="#类别" class="headerlink" title="类别"></a>类别</h4><h5 id="同步回调"><a href="#同步回调" class="headerlink" title="同步回调"></a>同步回调</h5><ul><li>函数返回之前执行回调函数</li><li>从场景上看像模板模式</li></ul><h5 id="异步回调"><a href="#异步回调" class="headerlink" title="异步回调"></a>异步回调</h5><ul><li>函数返回之后执行回调函数</li><li>从场景上看很像观察者模式</li></ul><hr><h3 id="模板模式-VS-回调"><a href="#模板模式-VS-回调" class="headerlink" title="模板模式 VS 回调"></a>模板模式 VS 回调</h3><ul><li>回调基于组合关系实现，将一个对象传递给另一个对象，是一种对象间的关系</li><li>模板模式基于继承关系来实现，子类重写父类的抽象方法，是一种类与类之间的关系</li><li>代码实现上，回调会比模板模式更加灵活</li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 设计模式 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>行为型-备忘模式</title>
+      <link href="posts/e4fae02c/"/>
+      <url>posts/e4fae02c/</url>
+      
+        <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>在不违背封装原则的前提下，捕获一个对象的内部状态，并在该对对象之外保存这个状态，以便恢复对象为之前的状态</li></ul><hr><h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><ul><li>针对大的备份而言，会占用大量的内存以及时间消耗。针对不同的场景，不同的业务场景需要不同的处理方式</li><li>只备份必要的恢复信息，结合最新的数据来恢复。再比如，全量备份和增量备份相结合，低频全量备份，高频全量备份，两者相结合</li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 设计模式 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>结构型-桥接模式</title>
+      <link href="posts/858c6e31/"/>
+      <url>posts/858c6e31/</url>
+      
+        <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>将抽象和实现解耦，让它们可以独立变化</li><li>通过组合关系来替代继承关系，避免继承层次的指数级爆炸</li></ul><hr><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ul><li>将骨架代码“抽象“出来，将真正的业务逻辑委派给定义中的”实现”完成</li><li>“抽象”与”实现“独立开发，通过对象的组合关系组装在一起</li></ul><hr>]]></content>
+      
+      
+      <categories>
+          
+          <category> 设计模式学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 设计模式 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>行为型-中介模式</title>
+      <link href="posts/46cbf5bc/"/>
+      <url>posts/46cbf5bc/</url>
+      
+        <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>定义一单独的中介对象，封装一组对象之间的交互，将这种对象之间的交互委派给与中介对象交互，从而避免直接交互</li></ul><hr><ul><li>中介者模式的场景中,参与者之间的关系错综复杂,既可以是消息的发送者也可以同时是消息的接收者</li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 设计模式 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>行为型-职责链模式</title>
+      <link href="posts/ed523091/"/>
+      <url>posts/ed523091/</url>
+      
+        <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>将请求的发送和接收解耦，让多个接收对象有机会处理这个请求。将这些接收对象串成一条链，并沿着这条链传递这个请求，直到链上的某个对象能够处理为止</li></ul><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ul><li>链表来存储</li><li>数组来存储</li></ul><h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><ul><li>常用于开发框架的过滤器和拦截器</li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 设计模式 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>行为型-命令模式</title>
+      <link href="posts/3ee4c01c/"/>
+      <url>posts/3ee4c01c/</url>
+      
+        <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>将请求封装为一个对象，这样可以使用不同的请求参数化其他对象（将不同请求依赖注入到其他对象），并且能够支持请求的排队执行、记录日志、撤销等功能</li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 设计模式 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>行为型-解释器模式</title>
+      <link href="posts/a665927f/"/>
+      <url>posts/a665927f/</url>
+      
+        <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>为某个语言定义它的语法表示，并定义一个解释器来处理这个语法</li></ul><h4 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h4><ul><li>将语法规则拆分成一些小的独立的单元，然后对每个单元进行解析，最终合并为对整个语法规则的解析</li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 设计模式 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>行为型-观察者模式</title>
+      <link href="posts/94a78128/"/>
+      <url>posts/94a78128/</url>
+      
+        <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li><p>在对象之间定义一个一对多的依赖，当一个对象状态改变的时候，所有的依赖都会收到消息</p></li><li><p>观察者模式的应用场景中,参与者之间的交互比较有,一般是单向的,一个参与者只有一个身份</p></li></ul><hr><h4 id="被观察者"><a href="#被观察者" class="headerlink" title="被观察者"></a>被观察者</h4><ul><li>Observable</li><li>被依赖的对象</li></ul><h4 id="观察者"><a href="#观察者" class="headerlink" title="观察者"></a>观察者</h4><ul><li>Observer</li><li>依赖的对象</li></ul><hr><h3 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h3><ul><li>同步阻塞（主要是代码解耦）</li><li>异步非阻塞 （实现解耦，以及提高执行效率）</li><li>进程间 （解耦更彻底，一般基于消息队列来实现）</li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 设计模式 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>行为型-访问者模式</title>
+      <link href="posts/f21f8074/"/>
+      <url>posts/f21f8074/</url>
+      
+        <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>允许一个或者多个操作应用到一组对象上，解耦操作和对象本身</li></ul><h3 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h3><p><img src="%E8%AE%BF%E9%97%AE%E8%80%85.png" alt=""></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Extractor extractor = <span class="keyword">new</span> Extractor();</span><br><span class="line">        <span class="keyword">for</span> (ResourceFile i : listAllResourceFiles()) &#123;</span><br><span class="line">            i.accept(extractor);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Compressor compressor = <span class="keyword">new</span> Compressor();</span><br><span class="line">        <span class="keyword">for</span> (ResourceFile i : listAllResourceFiles()) &#123;</span><br><span class="line">            i.accept(compressor);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> List&lt;ResourceFile&gt; <span class="title">listAllResourceFiles</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        List&lt;ResourceFile&gt; resourceFiles = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        resourceFiles.add(<span class="keyword">new</span> PdfFile(<span class="string">"a.pdf"</span>));</span><br><span class="line">        resourceFiles.add(<span class="keyword">new</span> WordFile(<span class="string">"b.word"</span>));</span><br><span class="line">        resourceFiles.add(<span class="keyword">new</span> PPTFile(<span class="string">"c.ppt"</span>));</span><br><span class="line">        <span class="keyword">return</span> resourceFiles;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><h3 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h3><ul><li><p>所谓的双分派和单分派的区分，指的是：执行哪对象的哪个方法，和几个因素的运行时类型有关</p><p>具体到编程语言的语法机制，双分派（<code>Double Dispatch</code>）和单分派（<code>Single Dispatch</code>）跟多态和函数重载直接相关</p></li></ul><h4 id="双分派"><a href="#双分派" class="headerlink" title="双分派"></a>双分派</h4><ul><li>执行哪个对象的哪个方法，跟<code>对象</code>和<code>方法参数</code>两者的运行时类型有关</li></ul><h4 id="单分派"><a href="#单分派" class="headerlink" title="单分派"></a>单分派</h4><ul><li><p>执行哪个对象的哪个方法，只跟<code>对象</code>的运行时类型有关</p></li><li><p>当前主流的面向对象编程语言（Java、C++、C#）都只支持Single Dispatch</p><ul><li>Java支持多态，代码可以在运行时候获取对象实际类型（即：运行时类型），然后跟根据实际类型调用哪个方法</li><li>尽管Java支持函数重载，但是Java函数重载的语法规则是：并不是在运行时候，根据传递函数的参数的声明类型（运行时类型），来决定调用哪个重载函数，而是编译时候，根据传递进函数的参数的声明类型（即：编译类型），来决定调用哪个重载函数</li><li>总的来说，具体来说，执行那个对象的哪个方法，只跟对象的运行时类型有关，跟参数的运行时类型无关</li></ul></li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 设计模式 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>行为型-迭代器模式</title>
+      <link href="posts/6ff4cba/"/>
+      <url>posts/6ff4cba/</url>
+      
+        <content type="html"><![CDATA[<h3 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h3><ul><li><p>完整的迭代器模式，一般会涉及容器和容器迭代器两部分内容</p></li><li><p>为了达到基于接口编程的目的，所以容器又包含容器接口、容器实现类迭代器又包含迭代器接口、迭代器实现类!</p><p><img src="%E8%BF%AD%E4%BB%A3%E5%99%A8.png" alt=""></p></li></ul><hr><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ul><li>迭代器定义 <code>hasNext()</code>、<code>currentItem()</code>、<code>next()</code>的基础方法</li><li>待遍历的容器对象通过依赖注入传递到迭代器容器中</li><li>容器中定义<code>iterator()</code>方法创建迭代器</li></ul><hr><h3 id="细节"><a href="#细节" class="headerlink" title="细节"></a>细节</h3><ul><li><code>foreach()</code>的底层也是基于迭代器实现的</li></ul><h4 id="意义"><a href="#意义" class="headerlink" title="意义"></a>意义</h4><ul><li>常规简单的数据结构，直接使用<code>for</code>循环来遍历是足够的</li><li>但是相对于<code>树、图</code>等复杂的数据结构，有着复杂的遍历方式。对于复杂性的结构，最好使用拆分形式，将遍历操作拆分到迭代器中，分别实现对应需求的遍历方式</li></ul><hr><h3 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h3><ul><li>封装集合内部的复杂数据结构，开发者不需要了解如何遍历，直接使用容提供的迭代器即可</li><li>将集合对象的遍历操作从集合类中拆分出来，放在迭代器中，让两者的职责更加单一</li><li>让添加新的遍历算法更容易，符合开闭原则</li><li>迭代器都实现自同样的接口，基于接口编程，替换更方便</li></ul><hr>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 设计模式 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>行为型-策略模式</title>
+      <link href="posts/3414386a/"/>
+      <url>posts/3414386a/</url>
+      
+        <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>定义一组算法类，将每个类分别封装起来，让它们可以互相替换，使算法的变化独立于被调用者</li></ul><h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><h4 id="策略定义"><a href="#策略定义" class="headerlink" title="策略定义"></a>策略定义</h4><ul><li>定义一个策略接口以及一组实现这个接口的策略类</li><li>客户端基于接口灵活替换不同策略</li></ul><h4 id="策略创建"><a href="#策略创建" class="headerlink" title="策略创建"></a>策略创建</h4><ul><li>使用工厂模式屏蔽创建细节，并根据类型判断使用对应策略</li><li>根据策略类是否有状态决定是否事先创建好缓存在工厂类中还是使用的时候进行实例化</li></ul><h4 id="策略使用"><a href="#策略使用" class="headerlink" title="策略使用"></a>策略使用</h4><ul><li>编译时候静态确定</li><li>运行时候动态决定 （典型运用场景）</li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 设计模式 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>结构型-组合模式</title>
+      <link href="posts/c39917f/"/>
+      <url>posts/c39917f/</url>
+      
+        <content type="html"><![CDATA[<ul><li>将一组对象组织成树形结构，以表示一种”部分-整体”的层次结构</li><li>让编写者可以统一单个对象和组合对象的处理逻辑</li></ul><hr><h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><ul><li>数据必须能表示成树形结构</li></ul><hr><h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ul><li>将一组对象组织成树形结构，将单个对象和组合对象都看作是树中的节点，以统一的处理逻辑，利用树形结构的特点，递遍历子树，依次简化代码实现</li><li>不是一种常用模式</li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 设计模式 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>结构型-装饰器模式</title>
+      <link href="posts/4060492b/"/>
+      <url>posts/4060492b/</url>
+      
+        <content type="html"><![CDATA[<ul><li>解决继承关系过于复杂的问题，通过组合来替代继承</li><li>主要作用是在不改变原始接口的情况下，给原始类附加相关的增强功能</li></ul><hr><h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><ul><li><p>可以对原始类嵌套使用多个装饰器，所以在设计时候，装饰器类需要跟原始类继承相同的抽象类或者接口</p></li><li><p>支持多个装饰器的嵌套使用</p></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 设计模式学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 设计模式 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>结构型-享元模式</title>
+      <link href="posts/3223afa7/"/>
+      <url>posts/3223afa7/</url>
+      
+        <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li><p>复用对象，节省内存（前提是享元对象是不可改变的对象）</p></li><li><p>将系统中的大量重复的<strong>不可变对象</strong>，使用享元模式，使其在内存中只保留一份实例，共多处代码使用。从而达到减少因过多实例化导致不必要的内存开销</p></li></ul><hr><h4 id="不可变对象"><a href="#不可变对象" class="headerlink" title="不可变对象"></a>不可变对象</h4><ul><li>通过构造函数初始化之后，成员变量和属性就不会被修改。因为不能暴露出<code>set()</code>等修改内部的方法，避免影响其他代码使用</li></ul><ul><li>棋子、文档格….</li></ul><hr><h4 id="Integer-享元"><a href="#Integer-享元" class="headerlink" title="Integer 享元"></a>Integer 享元</h4><ul><li>基本数据类型的装箱是为了<strong>将基础数据类型转换成包装类型</strong>，包装类型才能有对象的性质，才能操作属性和方法</li><li>Integer的享元对象实在类加载的时候就一次性创建好的。区间值为 <code>-128到127</code>的数值会从IntegerCache类直接返回，其余的通过new 方法创建</li></ul><hr><h4 id="String-享元"><a href="#String-享元" class="headerlink" title="String 享元"></a>String 享元</h4><ul><li>只有在第一次被使用的时候，存储到常量池中，第二次使用时候就是直接在常量池中引用即可，而不是重新创建</li></ul><hr><h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ul><li>抽取出原始类中的公有基础属性，封装成一个不可变的享元对象</li><li>使用不可变享元对象替换掉原始类的公有基础属性</li><li>使用工厂模式对已经创建过的享元对象使用Ma进行缓存处理，从而达到复用的目的</li></ul><hr><h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><ul><li>享元模式 VS 单例、缓存、对象池<ul><li>享元：实现对象复用，节省内存</li><li>单例：保证对象的全局唯一</li><li>缓存：提高访问率，而非复用</li><li>对象池：重复使用，主要是为了节省时间</li></ul></li></ul><h3 id="弊端"><a href="#弊端" class="headerlink" title="弊端"></a>弊端</h3><ul><li>对JVM的GC机制不友好，因为一直保存引用导致无法回收，所以不适用于生命周期短且不会被密集使用的对象</li></ul><hr>]]></content>
+      
+      
+      <categories>
+          
+          <category> 设计模式学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 设计模式 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>结构型-适配器模式</title>
+      <link href="posts/2e7c4fc7/"/>
+      <url>posts/2e7c4fc7/</url>
+      
+        <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>将不兼容的接口转换为可兼容的接口</li></ul><hr><h3 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h3><ul><li>类适配器 （使用继承来实现）</li><li>对象适配器 （组合关系实现）</li></ul><hr><h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><p>可以看作是一种<code>补偿模式</code>，用来补救设计上的缺陷</p><ul><li>对有缺陷的接口设计二次封装</li><li>某个功能的实现依赖多个外部类时候，将接口适配为统一的接口定义（即：均实现同一接口，使用时向上转型成接口）</li><li>把项目中依赖的一个外部系统替换为另一个外部系统（即：均实现同一接口，使用时向上转型成接口）</li><li>兼容老接口</li><li>适配不同格式数据</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 设计模式学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 设计模式 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>结构型-门面模式</title>
+      <link href="posts/2a133c38/"/>
+      <url>posts/2a133c38/</url>
+      
+        <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>为子系统提供一组统一的接口，定义一组高层接口让子系统更容易用</li></ul><hr><h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><ul><li>解决易用性</li><li>解决性能问题</li><li>解决分布式事务问题</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 设计模式学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 设计模式 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>结构型-代理模式</title>
       <link href="posts/a8ef08fd/"/>
       <url>posts/a8ef08fd/</url>
       
-        <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>在不改变原始类代码的情况下，通过引入代理类来给原始类附加功能</li><li>将框架代码与业务代码解耦</li></ul><hr><h3 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h3><p><img src="/%E4%BB%A3%E7%90%86.png" alt=""></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      SubjectImpl subject = <span class="keyword">new</span> SubjectImpl();</span><br><span class="line">      InvocationHandler subjectProxy = <span class="keyword">new</span> SubjectProxy(subject);</span><br><span class="line">      ISubject proxyInstance = (Subject) Proxy.newProxyInstance(subjectProxy.getClass().getClassLoader(), subjectProxy.getClass().getInterfaces(), subjectProxy);</span><br><span class="line">      proxyInstance.doSomeThing(<span class="string">"打铁"</span>);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure><hr><h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><ul><li>RPC、缓存、监控、Spring AOP（动态代理）…</li></ul><hr><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ul><li>让代理类和原始类实现同样接口</li><li>如果原始类没有定义接口，且原始类不是我们开发为维护，这种情况可以通过让代理类继承原始类来实现代理</li></ul><hr><h3 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h3><h4 id="静态代理"><a href="#静态代理" class="headerlink" title="静态代理"></a>静态代理</h4><h5 id="内部代码实现"><a href="#内部代码实现" class="headerlink" title="内部代码实现"></a>内部代码实现</h5><ul><li><p>基于接口和组合实现</p></li><li><p>代理类和原始类实现相同接口，代理类的实例参数为原始类（相当于，在代理类实现的接口方法中委托原始类实例调用实例方法）</p></li></ul><h5 id="外部代码拓展"><a href="#外部代码拓展" class="headerlink" title="外部代码拓展"></a>外部代码拓展</h5><ul><li>无法修改原始类定义情况下，采取继承方式</li><li>代理类继承原始类，直接使用<code>super.</code>方法，调用原始类方法</li></ul><h4 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h4><ul><li>解决常规代理下，大量复杂的附加类导致的大量代理类</li><li>在运行时候，动态的创建原始类对应的代理类，然后在系统中用代理类替换掉原始类</li></ul>]]></content>
+        <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>在不改变原始类代码的情况下，通过引入代理类来给原始类附加功能</li><li>将框架代码与业务代码解耦</li></ul><hr><h3 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h3><p><img src="%E4%BB%A3%E7%90%86.png" alt=""></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      SubjectImpl subject = <span class="keyword">new</span> SubjectImpl();</span><br><span class="line">      InvocationHandler subjectProxy = <span class="keyword">new</span> SubjectProxy(subject);</span><br><span class="line">      ISubject proxyInstance = (Subject) Proxy.newProxyInstance(subjectProxy.getClass().getClassLoader(), subjectProxy.getClass().getInterfaces(), subjectProxy);</span><br><span class="line">      proxyInstance.doSomeThing(<span class="string">"打铁"</span>);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure><hr><h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><ul><li>RPC、缓存、监控、Spring AOP（动态代理）…</li></ul><hr><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ul><li>让代理类和原始类实现同样接口</li><li>如果原始类没有定义接口，且原始类不是我们开发为维护，这种情况可以通过让代理类继承原始类来实现代理</li></ul><hr><h3 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h3><h4 id="静态代理"><a href="#静态代理" class="headerlink" title="静态代理"></a>静态代理</h4><h5 id="内部代码实现"><a href="#内部代码实现" class="headerlink" title="内部代码实现"></a>内部代码实现</h5><ul><li><p>基于接口和组合实现</p></li><li><p>代理类和原始类实现相同接口，代理类的实例参数为原始类（相当于，在代理类实现的接口方法中委托原始类实例调用实例方法）</p></li></ul><h5 id="外部代码拓展"><a href="#外部代码拓展" class="headerlink" title="外部代码拓展"></a>外部代码拓展</h5><ul><li>无法修改原始类定义情况下，采取继承方式</li><li>代理类继承原始类，直接使用<code>super.</code>方法，调用原始类方法</li></ul><h4 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h4><ul><li>解决常规代理下，大量复杂的附加类导致的大量代理类</li><li>在运行时候，动态的创建原始类对应的代理类，然后在系统中用代理类替换掉原始类</li></ul>]]></content>
       
       
       <categories>
@@ -161,19 +495,6 @@
             <tag> go </tag>
             
         </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>时序图测试</title>
-      <link href="posts/5a1e5c5f/"/>
-      <url>posts/5a1e5c5f/</url>
-      
-        <content type="html"><![CDATA[<pre class="mermaid">ganttdateFormat  YYYY-MM-DDtitle Adding GANTT diagram to mermaidsection A sectionCompleted task            :done,    des1, 2014-01-06,2014-01-08Active task               :active,  des2, 2014-01-09, 3dFuture task               :         des3, after des2, 5dFuture task2               :         des4, after des3, 5d</pre><pre class="mermaid">gitGraph:options{    "nodeSpacing": 150,    "nodeRadius": 10}endcommitbranch newbranchcheckout newbranchcommitcommitcheckout mastercommitcommitmerge newbranch</pre><pre class="mermaid">graph TD;    A-->B;    A-->C;    B-->D;    C-->D;</pre><pre class="mermaid">graph TD;A(Application) --> B(Kernel)B(Kernel) --> C(CPU)B(Kernel) -->D(MEORY)B(Kernel) --> E(Devices)</pre><pre class="mermaid">graph TD;Application --> KernelKernel --> CPUKernel -->MEORYKernel --> !!!</pre><pre class="mermaid">classDiagramISubject <|-- SublectImplInvocationHandler <|-- SubjectProxyISubject <|.. SubjectProxyclass ISubject{    <<interface>>    dsm(param):void}class SublectImpl{    dsm(param):void}class SubjectProxy {    SubjectProxy(Subject)}class InvocationHandler{    <<interface>>    + invoke(Object,Method,Object[]):Object}</pre><pre class="mermaid">sequenceDiagram    participant Alice    participant Bob    Alice->>John: Hello John, how are you?    loop Healthcheck        John->>John: Fight against hypochondria    end    Note right of John: Rational thoughts <br/>prevail...    John-->>Alice: Great!    John->>Bob: How about you?    Bob-->>John: Jolly good!</pre><pre class="mermaid">classDiagramClass01 <|-- AveryLongClass : CoolClass03 *-- Class04Class05 o-- Class06Class07 .. Class08Class09 --> C2 : Where am i?Class09 --* C3Class09 --|> Class07Class07 : equals()Class07 : Object[] elementDataClass01 : size()Class01 : int chimpClass01 : int gorillaClass08 <--> C2: Cool label</pre>]]></content>
-      
-      
       
     </entry>
     
@@ -1891,31 +2212,6 @@
     
     
     <entry>
-      <title>QQ弹窗消息</title>
-      <link href="posts/34068/"/>
-      <url>posts/34068/</url>
-      
-        <content type="html"><![CDATA[<p><strong>QQ弹窗消息</strong></p><ul><li><p>指定广播接收者</p></li><li><p>广播接收者接收到对应action，判断是否锁屏状态</p></li></ul><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (action.equals(<span class="string">"xxxxxxxxxxx"</span>)) &#123;</span><br><span class="line">        <span class="comment">//管理锁屏的一个服务</span></span><br><span class="line">        KeyguardManager km = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);</span><br><span class="line">        String text = km.inKeyguardRestrictedInputMode() ? <span class="string">"锁屏了"</span> : <span class="string">"屏幕亮着的"</span>;</span><br><span class="line">        Log.i(TAG, <span class="string">"text: "</span> + text);</span><br><span class="line">        <span class="keyword">if</span> (km.inKeyguardRestrictedInputMode()) &#123;</span><br><span class="line">            Log.i(TAG, <span class="string">"onReceive:锁屏了 "</span>);</span><br><span class="line">            <span class="comment">//判断是否锁屏</span></span><br><span class="line">            Intent alarmIntent = <span class="keyword">new</span> Intent(context, MessageActivity<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">            <span class="comment">//在广播中启动Activity的context可能不是Activity对象，所以需要添加NEW_TASK的标志，否则启动时可能会报错。</span></span><br><span class="line">            alarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);</span><br><span class="line">            context.startActivity(alarmIntent); <span class="comment">//启动显示锁屏消息的activity</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure><ul><li>如果是锁屏，弹出对应的消息提示界面</li></ul><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Context mContext;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">    Log.i(<span class="string">"tag"</span>, <span class="string">"onCreate:启动了消息内容的activity "</span>);</span><br><span class="line">    <span class="comment">//四个标志位顾名思义，分别是锁屏状态下显示，解锁，保持屏幕长亮，打开屏幕。这样当Activity启动的时候，它会解锁并亮屏显示。</span></span><br><span class="line">    Window win = getWindow();</span><br><span class="line">    win.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED <span class="comment">//锁屏状态下显示</span></span><br><span class="line">            | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD <span class="comment">//解锁</span></span><br><span class="line">            | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON <span class="comment">//保持屏幕长亮</span></span><br><span class="line">            | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON); <span class="comment">//打开屏幕</span></span><br><span class="line">    <span class="comment">//使用手机的背景</span></span><br><span class="line">    Drawable wallPaper = WallpaperManager.getInstance(<span class="keyword">this</span>).getDrawable();</span><br><span class="line">    win.setBackgroundDrawable(wallPaper);</span><br><span class="line">    setContentView(R.layout.activity_message);</span><br><span class="line"></span><br><span class="line">    mContext = <span class="keyword">this</span>;</span><br><span class="line">    initView();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onNewIntent</span><span class="params">(Intent intent)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onNewIntent(intent);</span><br><span class="line">    <span class="comment">//获取电源管理器对象</span></span><br><span class="line"><span class="comment">//        PowerManager pm = (PowerManager) this.getSystemService(Context.POWER_SERVICE);</span></span><br><span class="line"><span class="comment">//        if (!pm.isScreenOn()) &#123;</span></span><br><span class="line"><span class="comment">//            PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP |</span></span><br><span class="line"><span class="comment">//                    PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "bright");</span></span><br><span class="line"><span class="comment">//            wl.acquire();  //点亮屏幕</span></span><br><span class="line"><span class="comment">//            wl.release();  //任务结束后释放</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initView</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    findViewById(R.id.message_layout).setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View view)</span> </span>&#123;</span><br><span class="line">            <span class="comment">//先解锁系统自带锁屏服务，放在锁屏界面里面</span></span><br><span class="line">            KeyguardManager keyguardManager = (KeyguardManager) mContext.getSystemService(Context.KEYGUARD_SERVICE);</span><br><span class="line">            keyguardManager.newKeyguardLock(<span class="string">""</span>).disableKeyguard(); <span class="comment">//解锁</span></span><br><span class="line">            <span class="comment">//点击进入消息对应的页面</span></span><br><span class="line">            mContext.startActivity(<span class="keyword">new</span> Intent(mContext, DetailsActivity<span class="class">.<span class="keyword">class</span>))</span>;</span><br><span class="line">            finish();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure><ul><li>设置弹窗界面</li></ul>]]></content>
-      
-      
-      <categories>
-          
-          <category> Android </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 功能实现 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>Ubuntu编译Android源码</title>
       <link href="posts/48985/"/>
       <url>posts/48985/</url>
@@ -1935,6 +2231,31 @@
             <tag> 源码 </tag>
             
             <tag> ubuntu </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>QQ弹窗消息</title>
+      <link href="posts/34068/"/>
+      <url>posts/34068/</url>
+      
+        <content type="html"><![CDATA[<p><strong>QQ弹窗消息</strong></p><ul><li><p>指定广播接收者</p></li><li><p>广播接收者接收到对应action，判断是否锁屏状态</p></li></ul><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (action.equals(<span class="string">"xxxxxxxxxxx"</span>)) &#123;</span><br><span class="line">        <span class="comment">//管理锁屏的一个服务</span></span><br><span class="line">        KeyguardManager km = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);</span><br><span class="line">        String text = km.inKeyguardRestrictedInputMode() ? <span class="string">"锁屏了"</span> : <span class="string">"屏幕亮着的"</span>;</span><br><span class="line">        Log.i(TAG, <span class="string">"text: "</span> + text);</span><br><span class="line">        <span class="keyword">if</span> (km.inKeyguardRestrictedInputMode()) &#123;</span><br><span class="line">            Log.i(TAG, <span class="string">"onReceive:锁屏了 "</span>);</span><br><span class="line">            <span class="comment">//判断是否锁屏</span></span><br><span class="line">            Intent alarmIntent = <span class="keyword">new</span> Intent(context, MessageActivity<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">            <span class="comment">//在广播中启动Activity的context可能不是Activity对象，所以需要添加NEW_TASK的标志，否则启动时可能会报错。</span></span><br><span class="line">            alarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);</span><br><span class="line">            context.startActivity(alarmIntent); <span class="comment">//启动显示锁屏消息的activity</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure><ul><li>如果是锁屏，弹出对应的消息提示界面</li></ul><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Context mContext;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">    Log.i(<span class="string">"tag"</span>, <span class="string">"onCreate:启动了消息内容的activity "</span>);</span><br><span class="line">    <span class="comment">//四个标志位顾名思义，分别是锁屏状态下显示，解锁，保持屏幕长亮，打开屏幕。这样当Activity启动的时候，它会解锁并亮屏显示。</span></span><br><span class="line">    Window win = getWindow();</span><br><span class="line">    win.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED <span class="comment">//锁屏状态下显示</span></span><br><span class="line">            | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD <span class="comment">//解锁</span></span><br><span class="line">            | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON <span class="comment">//保持屏幕长亮</span></span><br><span class="line">            | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON); <span class="comment">//打开屏幕</span></span><br><span class="line">    <span class="comment">//使用手机的背景</span></span><br><span class="line">    Drawable wallPaper = WallpaperManager.getInstance(<span class="keyword">this</span>).getDrawable();</span><br><span class="line">    win.setBackgroundDrawable(wallPaper);</span><br><span class="line">    setContentView(R.layout.activity_message);</span><br><span class="line"></span><br><span class="line">    mContext = <span class="keyword">this</span>;</span><br><span class="line">    initView();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onNewIntent</span><span class="params">(Intent intent)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onNewIntent(intent);</span><br><span class="line">    <span class="comment">//获取电源管理器对象</span></span><br><span class="line"><span class="comment">//        PowerManager pm = (PowerManager) this.getSystemService(Context.POWER_SERVICE);</span></span><br><span class="line"><span class="comment">//        if (!pm.isScreenOn()) &#123;</span></span><br><span class="line"><span class="comment">//            PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP |</span></span><br><span class="line"><span class="comment">//                    PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "bright");</span></span><br><span class="line"><span class="comment">//            wl.acquire();  //点亮屏幕</span></span><br><span class="line"><span class="comment">//            wl.release();  //任务结束后释放</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initView</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    findViewById(R.id.message_layout).setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View view)</span> </span>&#123;</span><br><span class="line">            <span class="comment">//先解锁系统自带锁屏服务，放在锁屏界面里面</span></span><br><span class="line">            KeyguardManager keyguardManager = (KeyguardManager) mContext.getSystemService(Context.KEYGUARD_SERVICE);</span><br><span class="line">            keyguardManager.newKeyguardLock(<span class="string">""</span>).disableKeyguard(); <span class="comment">//解锁</span></span><br><span class="line">            <span class="comment">//点击进入消息对应的页面</span></span><br><span class="line">            mContext.startActivity(<span class="keyword">new</span> Intent(mContext, DetailsActivity<span class="class">.<span class="keyword">class</span>))</span>;</span><br><span class="line">            finish();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure><ul><li>设置弹窗界面</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Android </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 功能实现 </tag>
             
         </tags>
       
