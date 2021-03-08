@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.wl960127.top/"/>
-  <updated>2021-03-08T06:59:53.909Z</updated>
+  <updated>2021-03-08T07:41:46.832Z</updated>
   <id>https://www.wl960127.top/</id>
   
   <author>
@@ -17,13 +17,33 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>行为型-策略模式</title>
+    <link href="https://www.wl960127.top/posts/3414386a/"/>
+    <id>https://www.wl960127.top/posts/3414386a/</id>
+    <published>2021-03-08T03:43:20.469Z</published>
+    <updated>2021-03-08T07:41:46.832Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>定义一组算法类，将每个类分别封装起来，让它们可以互相替换，使算法的变化独立于被调用者</li></ul><h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><h4 id="策略定义"><a href="#策略定义" class="headerlink" title="策略定义"></a>策略定义</h4><ul><li>定义一个策略接口以及一组实现这个接口的策略类</li><li>客户端基于接口灵活替换不同策略</li></ul><h4 id="策略创建"><a href="#策略创建" class="headerlink" title="策略创建"></a>策略创建</h4><ul><li>使用工厂模式屏蔽创建细节，并根据类型判断使用对应策略</li><li>根据策略类是否有状态决定是否事先创建好缓存在工厂类中还是使用的时候进行实例化</li></ul><h4 id="策略使用"><a href="#策略使用" class="headerlink" title="策略使用"></a>策略使用</h4><ul><li>编译时候静态确定</li><li>运行时候动态决定 （典型运用场景）</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      设计模式之美学习笔记&lt;/br&gt;行为型模式主要解决类与对象之间的交互，将不同功能的代码解耦 &lt;/br&gt;策略模式则是：常见于避免冗长的if-else等分支判断，以及提高框架的拓展点
+    
+    </summary>
+    
+    
+      <category term="设计模式" scheme="https://www.wl960127.top/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
     <title>JVM类加载机制</title>
     <link href="https://www.wl960127.top/posts/de06556f/"/>
     <id>https://www.wl960127.top/posts/de06556f/</id>
-    <published>2021-03-08T06:55:27.000Z</published>
-    <updated>2021-03-08T06:59:53.909Z</updated>
+    <published>2021-02-08T06:55:27.000Z</published>
+    <updated>2021-03-08T07:25:08.607Z</updated>
     
-    <content type="html"><![CDATA[<h4 id="类加载过程"><a href="#类加载过程" class="headerlink" title="类加载过程"></a>类加载过程</h4> <pre class="mermaid">graph LR;A((加载)) --.class-->B[验证]-->C[准备]--在方区为类变量分配内存-->D[解析]--关联引用-->E[初始化]</pre><h4 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h4><h5 id="双亲委派机制"><a href="#双亲委派机制" class="headerlink" title="双亲委派机制"></a>双亲委派机制</h5><ul><li>除了顶层启动类加载器之外，其余的类加载器在加载之前，都会委派给它的父加载器进行加载，层层上递给最顶层时候，才会真正加载</li></ul><p><img src="%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE.png" alt=""></p><h5 id="自定义加载器"><a href="#自定义加载器" class="headerlink" title="自定义加载器"></a>自定义加载器</h5><ul><li>一般情况下，类加载是遵循双亲委派机制的。但是类加载器通过开放的API，让加载过程更加的灵活</li><li>对于远程存储字节码以及字节码加密，这种业务需求，实现一个新的类加载器就可以了</li></ul><h4 id="栈帧字节码流转"><a href="#栈帧字节码流转" class="headerlink" title="栈帧字节码流转"></a>栈帧字节码流转</h4><p><img src="%E5%AD%97%E8%8A%82%E7%A0%81%E6%B5%81%E8%BD%AC.png" alt=""></p>]]></content>
+    <content type="html"><![CDATA[<h4 id="类加载过程"><a href="#类加载过程" class="headerlink" title="类加载过程"></a>类加载过程</h4><p><img src="%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%B5%81%E7%A8%8B.png" alt=""></p><h4 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h4><h5 id="双亲委派机制"><a href="#双亲委派机制" class="headerlink" title="双亲委派机制"></a>双亲委派机制</h5><ul><li>除了顶层启动类加载器之外，其余的类加载器在加载之前，都会委派给它的父加载器进行加载，层层上递给最顶层时候，才会真正加载</li></ul><p><img src="%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE.png" alt=""></p><h5 id="自定义加载器"><a href="#自定义加载器" class="headerlink" title="自定义加载器"></a>自定义加载器</h5><ul><li>一般情况下，类加载是遵循双亲委派机制的。但是类加载器通过开放的API，让加载过程更加的灵活</li><li>对于远程存储字节码以及字节码加密，这种业务需求，实现一个新的类加载器就可以了</li></ul><h4 id="栈帧字节码流转"><a href="#栈帧字节码流转" class="headerlink" title="栈帧字节码流转"></a>栈帧字节码流转</h4><p><img src="%E5%AD%97%E8%8A%82%E7%A0%81%E6%B5%81%E8%BD%AC.png" alt=""></p>]]></content>
     
     <summary type="html">
     
@@ -42,8 +62,8 @@
     <title>JVM基础</title>
     <link href="https://www.wl960127.top/posts/8a392f6c/"/>
     <id>https://www.wl960127.top/posts/8a392f6c/</id>
-    <published>2021-03-08T06:51:40.000Z</published>
-    <updated>2021-03-08T06:54:58.407Z</updated>
+    <published>2021-02-03T06:51:40.000Z</published>
+    <updated>2021-03-08T07:29:21.369Z</updated>
     
     <content type="html"><![CDATA[<hr><h2 id="typora-root-url-01"><a href="#typora-root-url-01" class="headerlink" title="typora-root-url: 01"></a>typora-root-url: 01</h2><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><ul><li>上承开发语言，下接操作系统，中间的接口就是字节码。通过不停的翻译执行Java字节码，调用真正的操作系统函数<br>（ Java文件 -&gt; 编译器 -&gt; 字节码 -&gt; JVM -&gt; 机器码 ）</li><li>一次编译，处处运行</li><li>是一个规范，定义了.class文件的结构，加载机制，数据存储，运行时栈等诸多内容，最常见的JVM实现就是Hostpot</li></ul><p>Java虚拟机采用基于栈的架构，其指令由操作码和操作数组成。这些字节码指令，就叫做 <strong>opcode</strong></p><hr><h4 id="执行方式"><a href="#执行方式" class="headerlink" title="执行方式"></a>执行方式</h4><ul><li>解析执行：将opcode+操作数翻译成机器代码</li><li>即时编译 （JIT）：会在一定条件下，将字节码编译成机器码再执行</li></ul><p>这些.class文件会被加载，存放在元空间，等待被调用，这里会有一个类加载器的概念</p><hr><h4 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h4><ul><li>对于Java的自动内存管理机制，为了管理这些快速的内存申请释放操作，就必须引入一个池子（<strong>堆</strong>）来延迟这些内存区域的回收操作</li></ul><h5 id="内存布局"><a href="#内存布局" class="headerlink" title="内存布局"></a>内存布局</h5><ul><li>Java8及以后版本，彻底移除持久化，而是使用Metaspace来进行替代，即: -XX:PermSize等参数调优已经无意义</li></ul><p>[]<img src="JVM内存区域划分.png" style="zoom:80%;" /></p><p><img src="" alt=""></p><ul><li>JVM堆中的数据是共享的，是占用内存最大的一块区域</li><li>可以执行字节码的模块叫做执行引擎</li><li>程序计数器使得执行引擎在线程切换时候可以恢复</li><li>JVM的内存划分与多线程息息相关。程序运行时候用到的栈以及本地方法栈的维度都是线程</li><li>本地内存包含元数据去和一些直接内存</li></ul><h5 id="虚拟机栈"><a href="#虚拟机栈" class="headerlink" title="虚拟机栈"></a>虚拟机栈</h5><ul><li>Java虚拟机栈基于线程，栈的生命周期和线程一样</li><li>栈的每条数据就是栈帧，每个栈帧包含四个区域<ul><li>局部变量表</li><li>操作数栈</li><li>动态连接</li><li>返回地址</li></ul></li></ul><h5 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h5><ul><li>与虚拟机栈非常相似，服务的对象是native方法</li></ul><h5 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h5><ul><li>一块较小的内存空间，可以看作是当前线程所执行的字节码的行号指示器。保存着当前线程执行的进度</li><li>因为线程而产生，与虚拟机栈配合完成计算操作</li><li>还存储了当前正在运行的流程，包括正在执行的指令、跳转、分支、循环、异常处理等</li></ul><h5 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h5><ul><li><p>所有线程共享并存储对象（类实例和数组）的内存</p></li><li><p>JVM最大的内存区域，申请的几乎所有对象都是在这里存储。垃圾回收操作的对象就是堆</p></li><li><p>在程序启动的时候就申请了，但是不一定会全用</p></li><li><p>针对堆空间占用，对其不定期的清理机制叫做 GC（Garbage Collection）；不仅需要销毁对象还要空间整理</p></li></ul><h5 id="元空间"><a href="#元空间" class="headerlink" title="元空间"></a>元空间</h5><ul><li>作为方法区的物理存储容器，而方法区存储的内容有：类信息、常量池、方法数据、方法代码</li></ul><hr><h4 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h4><p>①对象的创建位置</p><ul><li>取决于对象的类型和在Java类中存在的位置</li><li>对象分为基本数据类型和普通对象；针对<strong>普通对象</strong>，JVM会首先在堆上创建对象，然后在其他地方使用的其实是它的引用，比如把这个引用保存在虚拟机栈的局部变量表中。针对<strong>基本数据类型</strong>，如果方法体内声明了基本数据类型的对象，它就会在栈上直接分配，其他情况都是在堆上分配</li><li>除方法内部的基本数据类型是直接在栈上分配（引用与值并存于此）；<strong>常规而言，栈一般只持有引用，堆只持有实例对象，常量池持有字符串常量以及基本类型常量（public、static、final）</strong></li></ul><p>②存在栈中的数据可以共享</p>]]></content>
     
@@ -61,64 +81,62 @@
   </entry>
   
   <entry>
-    <title>行为型-模板模式</title>
-    <link href="https://www.wl960127.top/posts/53f98d70/"/>
-    <id>https://www.wl960127.top/posts/53f98d70/</id>
-    <published>2021-03-08T04:16:01.000Z</published>
-    <updated>2021-03-08T04:17:54.327Z</updated>
+    <title>Go进阶</title>
+    <link href="https://www.wl960127.top/posts/4ecb59a/"/>
+    <id>https://www.wl960127.top/posts/4ecb59a/</id>
+    <published>2020-12-18T11:06:14.000Z</published>
+    <updated>2021-03-08T07:27:33.387Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>在方法中定义一个算法框架，并将某些步骤推迟到子类中实现</li><li>可以让子类在不改变算法整体结构的情况下，重新定义算法中的某些步骤</li></ul><h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><ul><li><p>复用</p><p>所有的子类可以复用父类中提供的模板方法的代码</p></li><li><p>拓展</p><p>框架通过模板模式提高功能拓展点，让用户在不修改框架源码的情况下，基于拓展定制化框架的功能</p></li></ul><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ul><li>将不变的流程抽象到父类定义的模板方法中 （模板方法中调用了抽象流程的函数）</li><li>子类继承后，可通过调用该模板方法间接执行子类自身实现的抽象流程 </li></ul><hr><h3 id="回调"><a href="#回调" class="headerlink" title="回调"></a>回调</h3><h4 id="类别"><a href="#类别" class="headerlink" title="类别"></a>类别</h4><h5 id="同步回调"><a href="#同步回调" class="headerlink" title="同步回调"></a>同步回调</h5><ul><li>函数返回之前执行回调函数</li><li>从场景上看像模板模式</li></ul><h5 id="异步回调"><a href="#异步回调" class="headerlink" title="异步回调"></a>异步回调</h5><ul><li>函数返回之后执行回调函数</li><li>从场景上看很像观察者模式</li></ul><hr><h3 id="模板模式-VS-回调"><a href="#模板模式-VS-回调" class="headerlink" title="模板模式 VS 回调"></a>模板模式 VS 回调</h3><ul><li>回调基于组合关系实现，将一个对象传递给另一个对象，是一种对象间的关系</li><li>模板模式基于继承关系来实现，子类重写父类的抽象方法，是一种类与类之间的关系</li><li>代码实现上，回调会比模板模式更加灵活</li></ul>]]></content>
+    <content type="html"><![CDATA[<h4 id="协程"><a href="#协程" class="headerlink" title="协程"></a>协程</h4><h5 id="协程池"><a href="#协程池" class="headerlink" title="协程池"></a>协程池</h5><ul><li>限制执行次数（单位时间上限及单个执行次数）<h4 id="Context"><a href="#Context" class="headerlink" title="Context"></a>Context</h4></li><li>传值</li><li>取消多个协程<h5 id="使用原则"><a href="#使用原则" class="headerlink" title="使用原则"></a>使用原则</h5></li><li>不要放在结构体，要以参数形式传递</li><li>作为函数参数时候，要放在第一位</li><li>使用conetxt.Backgroud函数生成得根节点Context，即最顶层Context</li><li>传值时候尽量少传</li><li>多协程中是安全的</li></ul><h4 id="高并发"><a href="#高并发" class="headerlink" title="高并发"></a>高并发</h4><h5 id="for-select"><a href="#for-select" class="headerlink" title="for select"></a>for select</h5><ul><li>常规使用<h5 id="select-timeout"><a href="#select-timeout" class="headerlink" title="select timeout"></a>select timeout</h5></li><li>设置超时时间，避免无限等待<h5 id="Pipeline"><a href="#Pipeline" class="headerlink" title="Pipeline"></a>Pipeline</h5></li><li>适用于工序相互依赖，顺序性的流水线模式<h5 id="扇出和扇入"><a href="#扇出和扇入" class="headerlink" title="扇出和扇入"></a>扇出和扇入</h5></li><li>优化型的Pipeline模式，通过多个协程并发，把多个channel合成一个</li><li>适用于针对流水线模型下，需要增加某个节点数量<h5 id="Futures"><a href="#Futures" class="headerlink" title="Futures"></a>Futures</h5></li><li>工序相互独立，可同时进行</li><li>区别与一般协程，可以通过<code>channel</code>返回结果</li></ul><h4 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h4><ul><li><code>var</code>声明的指针变量是不能直接赋值和取值的，因为此时仅仅是一个变量，还没有对应的内存地址，值为 <code>nil</code><h5 id="使用原则-1"><a href="#使用原则-1" class="headerlink" title="使用原则"></a>使用原则</h5></li><li>指针的接收者是map、slice、channel这类引用类型，不适用指针</li><li>如果需要修改接收者，那么需要使用指针</li><li>如果接收者是比较大的类型，那么需要考虑使用指针。因为内存拷贝廉价，所以效率高；对于int、bool等小数据类型没有必要使用</li><li>变量赋值，参数传值时候可以节省内存</li><li>并发安全的情况下，尽可能不适用指针，使用指针需要保证并发安全</li><li>指针不要嵌套，虽然允许，但是最好不要</li></ul><hr><h4 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h4><ul><li>单元测试</li><li>单元测试覆盖率</li><li>基准测试 （评估测量和评估软件性能指标）</li></ul><h4 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h4><ul><li>逃逸分析</li></ul><h5 id="技巧"><a href="#技巧" class="headerlink" title="技巧"></a>技巧</h5><ul><li>尽可能避免逃逸，因为栈内存效率更高，还不用GC。小对象的传参，array比slice效果好；如果无法避免逃逸，还是在堆上分配内存，对于频繁的内存申请操作，需要使用<code>sync.Pool</code>进行重用内存</li><li>结合合适的算法</li><li>可使用Go自带的性能剖析工具<code>pprof</code>，查看CPU分析、内存分析、阻塞分析、互斥锁分析</li></ul><hr><h3 id="RPC"><a href="#RPC" class="headerlink" title="RPC"></a>RPC</h3>]]></content>
     
     <summary type="html">
     
-      设计模式之美学习笔记&lt;/br&gt;行为型模式主要解决类与对象之间的交互，将不同功能的代码解耦 &lt;/br&gt;模板模式则是：解决复用和拓展问题
+      Golang语法学习笔记补充,待补充
     
     </summary>
     
+      <category term="Go" scheme="https://www.wl960127.top/categories/Go/"/>
     
-      <category term="设计模式" scheme="https://www.wl960127.top/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
   <entry>
-    <title>行为型-备忘模式</title>
-    <link href="https://www.wl960127.top/posts/e4fae02c/"/>
-    <id>https://www.wl960127.top/posts/e4fae02c/</id>
-    <published>2021-03-08T04:07:47.000Z</published>
-    <updated>2021-03-08T04:11:53.153Z</updated>
+    <title>操作系统之进程与线程</title>
+    <link href="https://www.wl960127.top/posts/89292719/"/>
+    <id>https://www.wl960127.top/posts/89292719/</id>
+    <published>2020-11-05T01:23:21.000Z</published>
+    <updated>2021-03-08T07:30:48.211Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>在不违背封装原则的前提下，捕获一个对象的内部状态，并在该对对象之外保存这个状态，以便恢复对象为之前的状态</li></ul><hr><h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><ul><li>针对大的备份而言，会占用大量的内存以及时间消耗。针对不同的场景，不同的业务场景需要不同的处理方式</li><li>只备份必要的恢复信息，结合最新的数据来恢复。再比如，全量备份和增量备份相结合，低频全量备份，高频全量备份，两者相结合</li></ul>]]></content>
+    <content type="html"><![CDATA[<h4 id="进程与线程"><a href="#进程与线程" class="headerlink" title="进程与线程"></a>进程与线程</h4><h5 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h5><p><strong>Process</strong> 正在执行的应用程序，软件执行副本，分配资源的基础单位<br><strong>Thread</strong> 轻量级进程，程序执行的基本单位</p><ul><li>操作系统的三个资源：计算资源（CPU）、内存资源、文件资源。后期为了避免一个应用开启多个进程过于耗费资源，所以在进程下面设计了一个仅仅被分配CPU资源的程序执行单位，线程</li><li>操作系统启动后，进程的入口被分配了一个主线程，而操作系统通过调用主线程及其子线程进行资源调度</li><li>创建进程开销大、成本高；创建线程开销小，成本低</li><li>操作系统中存在大量进程，为了不互相干扰所以分配了彼此完全隔离的内存区域，所以一般来说进程之间无法访问相互的内存，除非使用<strong>进程间通信</strong>。但是进程间的线程可以共享进程间的内存资源</li><li><code>用户态线程</code>和<code>内核态线程</code>，区别在于有一个在用户空间创建，一个是执行在内核态，可通过系统调用创造（内核线程是真正的线程，因为为会分配到CPU的执行资源）；<strong>用户态和内核态是为了保护内存资源，而线程划分是为了更好地使用计算资源</strong></li></ul><h5 id="开销对比"><a href="#开销对比" class="headerlink" title="开销对比"></a>开销对比</h5><hr><h4 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h4><ul><li>实现锁需要底层提供的原子操作（<strong>操作不可分</strong>）<h4 id="竞争条件"><a href="#竞争条件" class="headerlink" title="竞争条件"></a>竞争条件</h4></li><li>多线程+多核<h4 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h4></li><li>避免临界区</li><li>cas (Compare And Swap)</li><li>tas (Test And Set)</li></ul><h4 id="并发控制"><a href="#并发控制" class="headerlink" title="并发控制"></a>并发控制</h4><ul><li>目的在于达到同步(<strong>Synchronized</strong>)的状态<h5 id="加锁"><a href="#加锁" class="headerlink" title="加锁"></a>加锁</h5></li><li>悲观锁<ul><li><strong>Pressimistic Lock</strong></li><li>让<strong>临界区</strong>（访问共享资源的程序片段）互斥，每次只有一个线程可以进入临界区</li></ul></li><li>乐观锁<ul><li><strong>Optimistic Lock</strong></li><li>类似git操作，后提交的需要先确认是否有最新，再判断是否冲突，解决后再提交</li><li>类似 cas 指令</li></ul></li></ul><h5 id="去中心化"><a href="#去中心化" class="headerlink" title="去中心化"></a>去中心化</h5><ul><li>① 区块链形式，但是会分支太多</li><li>② 不是很清晰，大意是所有吞吐不直接由中心处理，而是用户与商家先处理。以商家和用户们为一个节点，后期在判断后逐级合并到主分支，一定程度暂缓高峰期中心处理的压力</li></ul><h4 id="调度"><a href="#调度" class="headerlink" title="调度"></a>调度</h4><h5 id="常规"><a href="#常规" class="headerlink" title="常规"></a>常规</h5><ul><li>先到先得 (First Come First Service) <ul><li>使用队列的先进先出，保证公平性和吞吐量</li></ul></li><li>短作业优先 (Shortest Job First)<ul><li>为了减少用户的平均等待时间</li></ul></li></ul><p><strong>缺点</strong></p><ul><li>无法处理紧急插队任务</li><li>等待太久的任务怎么插队</li><li>用时多的任务执行一半,又来了短作业</li></ul><h5 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h5><ul><li>优先级队列 (PriorityQueue) <ul><li>使用数据结构：堆，每次遍历优先级最高的任务，解决紧急插队问题</li></ul></li><li>抢占 (Preemption)<ul><li>执行能力分时，结合优先级队列构成基本线程调度</li></ul></li></ul><h5 id="二次优化"><a href="#二次优化" class="headerlink" title="二次优化"></a>二次优化</h5><ul><li>多级队列<br>多个队列执行调度</li></ul><h4 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h4><h5 id="基本条件"><a href="#基本条件" class="headerlink" title="基本条件"></a>基本条件</h5><ul><li>资源存在互斥逻辑：每次只有一个线程可以抢到资源</li><li>持有等待</li><li>禁止抢占：拿不到就会一直处于等待而不是释放已拥有的资源</li><li>循环等待</li></ul><h4 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h4><h4 id="空缺"><a href="#空缺" class="headerlink" title="空缺"></a>空缺</h4><ul><li>IPC （Intermediate Process Communication）</li><li></li></ul>]]></content>
     
     <summary type="html">
     
-      设计模式之美学习笔记&lt;/br&gt;行为型模式主要解决类与对象之间的交互，将不同功能的代码解耦 &lt;/br&gt;备忘模式则是：在不违背封装原则的前提下，进行对象的备份和恢复
+      拉勾教育之重学操作系统笔记
     
     </summary>
     
+      <category term="操作系统" scheme="https://www.wl960127.top/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
-      <category term="设计模式" scheme="https://www.wl960127.top/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
   <entry>
-    <title>结构型-桥接模式</title>
-    <link href="https://www.wl960127.top/posts/858c6e31/"/>
-    <id>https://www.wl960127.top/posts/858c6e31/</id>
-    <published>2021-03-08T04:03:10.000Z</published>
-    <updated>2021-03-08T04:04:29.317Z</updated>
+    <title>操作系统之基础知识</title>
+    <link href="https://www.wl960127.top/posts/6a0c4ab9/"/>
+    <id>https://www.wl960127.top/posts/6a0c4ab9/</id>
+    <published>2020-10-28T01:15:51.000Z</published>
+    <updated>2021-03-08T07:30:14.772Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>将抽象和实现解耦，让它们可以独立变化</li><li>通过组合关系来替代继承关系，避免继承层次的指数级爆炸</li></ul><hr><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ul><li>将骨架代码“抽象“出来，将真正的业务逻辑委派给定义中的”实现”完成</li><li>“抽象”与”实现“独立开发，通过对象的组合关系组装在一起</li></ul><hr>]]></content>
+    <content type="html"><![CDATA[<p>操作系统原则：进程向内核发起一个请求，然后将CPU执行权限让出给内核。内核接手CPU执行权限，然后完成请求，再转让出CPU执行权限给调用进程</p><h4 id="内核"><a href="#内核" class="headerlink" title="内核"></a>内核</h4><ul><li>操作系统中应用连接设备的桥梁</li><li>权限非常高，可以管理进程、可以直接访问所有的内存</li><li>进程调用内核的过程中，是存在资源共享的</li></ul><h5 id="能力"><a href="#能力" class="headerlink" title="能力"></a>能力</h5><ul><li>管理进程、线程（决定哪个进程、线程使用CPU）</li><li>管理内存（决定内存做什么）</li><li>连接硬件设备（为进程、和设备间提供通信能力）</li><li>提供系统调用（接收进程发送来的系统调用）</li></ul><hr><pre class="mermaid">graph TD;Application --> KernelKernel --> CPUKernel -->MEORYKernel --> DEVICE</pre><h4 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h4><h5 id="宏内核"><a href="#宏内核" class="headerlink" title="宏内核"></a>宏内核</h5><ul><li><p><strong>Monolithic Kernel</strong></p></li><li><p>有很多程序打包在内核中（文件系统、驱动、内存管理等）</p></li><li><p>Linux就是宏内核，且内核用最高权限来运行，内核模块可以动态加载</p></li></ul><h5 id="微内核"><a href="#微内核" class="headerlink" title="微内核"></a>微内核</h5><ul><li><p><strong>Microkenel</strong></p></li><li><p>只保留最基础能力（进程调度、虚拟内存、中断）</p></li><li><p>多数应用（甚包括驱动程序、文件系统）是在用户空间管理；驱动在内核外，驱动和硬件的交互就需要频繁做内核态切换</p></li></ul><h5 id="混合内核"><a href="#混合内核" class="headerlink" title="混合内核"></a>混合内核</h5><ul><li>Windows系统</li><li>Mac OS (使用 XNU内核)</li></ul><hr>]]></content>
     
     <summary type="html">
     
-      设计模式之美学习笔记&lt;/br&gt; 结构型模式主要解决类与对象的组合和组装，将不同功能的代码解耦 &lt;/br&gt;桥接模式则是：将接口和实现部分分离，从而让它们可以较为容易、也相对独立的加以改变
+      拉勾教育之重学操作系统笔记
     
     </summary>
     
-      <category term="设计模式学习" scheme="https://www.wl960127.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%AD%A6%E4%B9%A0/"/>
+      <category term="操作系统" scheme="https://www.wl960127.top/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
-    
-      <category term="设计模式" scheme="https://www.wl960127.top/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -126,8 +144,8 @@
     <title>行为型-中介模式</title>
     <link href="https://www.wl960127.top/posts/46cbf5bc/"/>
     <id>https://www.wl960127.top/posts/46cbf5bc/</id>
-    <published>2021-03-08T03:53:30.000Z</published>
-    <updated>2021-03-08T04:19:26.016Z</updated>
+    <published>2020-10-09T13:53:30.000Z</published>
+    <updated>2021-03-08T07:43:46.401Z</updated>
     
     <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>定义一单独的中介对象，封装一组对象之间的交互，将这种对象之间的交互委派给与中介对象交互，从而避免直接交互</li></ul><hr><ul><li>中介者模式的场景中,参与者之间的关系错综复杂,既可以是消息的发送者也可以同时是消息的接收者</li></ul>]]></content>
     
@@ -146,8 +164,8 @@
     <title>行为型-职责链模式</title>
     <link href="https://www.wl960127.top/posts/ed523091/"/>
     <id>https://www.wl960127.top/posts/ed523091/</id>
-    <published>2021-03-08T03:52:59.000Z</published>
-    <updated>2021-03-08T04:18:09.910Z</updated>
+    <published>2020-09-23T13:52:59.000Z</published>
+    <updated>2021-03-08T07:44:17.144Z</updated>
     
     <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>将请求的发送和接收解耦，让多个接收对象有机会处理这个请求。将这些接收对象串成一条链，并沿着这条链传递这个请求，直到链上的某个对象能够处理为止</li></ul><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ul><li>链表来存储</li><li>数组来存储</li></ul><h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><ul><li>常用于开发框架的过滤器和拦截器</li></ul>]]></content>
     
@@ -163,17 +181,17 @@
   </entry>
   
   <entry>
-    <title>行为型-命令模式</title>
-    <link href="https://www.wl960127.top/posts/3ee4c01c/"/>
-    <id>https://www.wl960127.top/posts/3ee4c01c/</id>
-    <published>2021-03-08T03:51:40.000Z</published>
-    <updated>2021-03-08T04:15:27.247Z</updated>
+    <title>行为型-模板模式</title>
+    <link href="https://www.wl960127.top/posts/53f98d70/"/>
+    <id>https://www.wl960127.top/posts/53f98d70/</id>
+    <published>2020-09-15T14:16:01.000Z</published>
+    <updated>2021-03-08T07:44:31.924Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>将请求封装为一个对象，这样可以使用不同的请求参数化其他对象（将不同请求依赖注入到其他对象），并且能够支持请求的排队执行、记录日志、撤销等功能</li></ul>]]></content>
+    <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>在方法中定义一个算法框架，并将某些步骤推迟到子类中实现</li><li>可以让子类在不改变算法整体结构的情况下，重新定义算法中的某些步骤</li></ul><h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><ul><li><p>复用</p><p>所有的子类可以复用父类中提供的模板方法的代码</p></li><li><p>拓展</p><p>框架通过模板模式提高功能拓展点，让用户在不修改框架源码的情况下，基于拓展定制化框架的功能</p></li></ul><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ul><li>将不变的流程抽象到父类定义的模板方法中 （模板方法中调用了抽象流程的函数）</li><li>子类继承后，可通过调用该模板方法间接执行子类自身实现的抽象流程 </li></ul><hr><h3 id="回调"><a href="#回调" class="headerlink" title="回调"></a>回调</h3><h4 id="类别"><a href="#类别" class="headerlink" title="类别"></a>类别</h4><h5 id="同步回调"><a href="#同步回调" class="headerlink" title="同步回调"></a>同步回调</h5><ul><li>函数返回之前执行回调函数</li><li>从场景上看像模板模式</li></ul><h5 id="异步回调"><a href="#异步回调" class="headerlink" title="异步回调"></a>异步回调</h5><ul><li>函数返回之后执行回调函数</li><li>从场景上看很像观察者模式</li></ul><hr><h3 id="模板模式-VS-回调"><a href="#模板模式-VS-回调" class="headerlink" title="模板模式 VS 回调"></a>模板模式 VS 回调</h3><ul><li>回调基于组合关系实现，将一个对象传递给另一个对象，是一种对象间的关系</li><li>模板模式基于继承关系来实现，子类重写父类的抽象方法，是一种类与类之间的关系</li><li>代码实现上，回调会比模板模式更加灵活</li></ul>]]></content>
     
     <summary type="html">
     
-      设计模式之美学习笔记&lt;/br&gt;行为型模式主要解决类与对象之间的交互，将不同功能的代码解耦 &lt;/br&gt;命令模式则是：主要作用和应用场景，是用来控制命令的执行
+      设计模式之美学习笔记&lt;/br&gt;行为型模式主要解决类与对象之间的交互，将不同功能的代码解耦 &lt;/br&gt;模板模式则是：解决复用和拓展问题
     
     </summary>
     
@@ -186,8 +204,8 @@
     <title>行为型-解释器模式</title>
     <link href="https://www.wl960127.top/posts/a665927f/"/>
     <id>https://www.wl960127.top/posts/a665927f/</id>
-    <published>2021-03-08T03:50:26.000Z</published>
-    <updated>2021-03-08T04:15:01.511Z</updated>
+    <published>2020-09-03T13:50:26.000Z</published>
+    <updated>2021-03-08T07:44:24.652Z</updated>
     
     <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>为某个语言定义它的语法表示，并定义一个解释器来处理这个语法</li></ul><h4 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h4><ul><li>将语法规则拆分成一些小的独立的单元，然后对每个单元进行解析，最终合并为对整个语法规则的解析</li></ul>]]></content>
     
@@ -206,8 +224,8 @@
     <title>行为型-观察者模式</title>
     <link href="https://www.wl960127.top/posts/94a78128/"/>
     <id>https://www.wl960127.top/posts/94a78128/</id>
-    <published>2021-03-08T03:49:47.000Z</published>
-    <updated>2021-03-08T04:14:38.616Z</updated>
+    <published>2020-08-23T12:49:47.000Z</published>
+    <updated>2021-03-08T07:42:51.362Z</updated>
     
     <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li><p>在对象之间定义一个一对多的依赖，当一个对象状态改变的时候，所有的依赖都会收到消息</p></li><li><p>观察者模式的应用场景中,参与者之间的交互比较有,一般是单向的,一个参与者只有一个身份</p></li></ul><hr><h4 id="被观察者"><a href="#被观察者" class="headerlink" title="被观察者"></a>被观察者</h4><ul><li>Observable</li><li>被依赖的对象</li></ul><h4 id="观察者"><a href="#观察者" class="headerlink" title="观察者"></a>观察者</h4><ul><li>Observer</li><li>依赖的对象</li></ul><hr><h3 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h3><ul><li>同步阻塞（主要是代码解耦）</li><li>异步非阻塞 （实现解耦，以及提高执行效率）</li><li>进程间 （解耦更彻底，一般基于消息队列来实现）</li></ul>]]></content>
     
@@ -223,11 +241,33 @@
   </entry>
   
   <entry>
+    <title>结构型-装饰器模式</title>
+    <link href="https://www.wl960127.top/posts/4060492b/"/>
+    <id>https://www.wl960127.top/posts/4060492b/</id>
+    <published>2020-08-21T13:41:21.000Z</published>
+    <updated>2021-03-08T07:37:30.804Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>解决继承关系过于复杂的问题，通过组合来替代继承</li><li>主要作用是在不改变原始接口的情况下，给原始类附加相关的增强功能</li></ul><hr><h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><ul><li><p>可以对原始类嵌套使用多个装饰器，所以在设计时候，装饰器类需要跟原始类继承相同的抽象类或者接口</p></li><li><p>支持多个装饰器的嵌套使用</p></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      设计模式之美学习笔记&lt;/br&gt;结构型模式主要解决类与对象的组合和组装，将不同功能的代码解耦 &lt;/br&gt;装饰器模式则是：解决过于继承过于复杂的问题
+    
+    </summary>
+    
+      <category term="设计模式学习" scheme="https://www.wl960127.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="设计模式" scheme="https://www.wl960127.top/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
     <title>行为型-访问者模式</title>
     <link href="https://www.wl960127.top/posts/f21f8074/"/>
     <id>https://www.wl960127.top/posts/f21f8074/</id>
-    <published>2021-03-08T03:47:04.000Z</published>
-    <updated>2021-03-08T04:14:02.977Z</updated>
+    <published>2020-08-21T13:03:04.000Z</published>
+    <updated>2021-03-08T07:42:28.547Z</updated>
     
     <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>允许一个或者多个操作应用到一组对象上，解耦操作和对象本身</li></ul><h3 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h3><p><img src="%E8%AE%BF%E9%97%AE%E8%80%85.png" alt=""></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Extractor extractor = <span class="keyword">new</span> Extractor();</span><br><span class="line">        <span class="keyword">for</span> (ResourceFile i : listAllResourceFiles()) &#123;</span><br><span class="line">            i.accept(extractor);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Compressor compressor = <span class="keyword">new</span> Compressor();</span><br><span class="line">        <span class="keyword">for</span> (ResourceFile i : listAllResourceFiles()) &#123;</span><br><span class="line">            i.accept(compressor);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> List&lt;ResourceFile&gt; <span class="title">listAllResourceFiles</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        List&lt;ResourceFile&gt; resourceFiles = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        resourceFiles.add(<span class="keyword">new</span> PdfFile(<span class="string">"a.pdf"</span>));</span><br><span class="line">        resourceFiles.add(<span class="keyword">new</span> WordFile(<span class="string">"b.word"</span>));</span><br><span class="line">        resourceFiles.add(<span class="keyword">new</span> PPTFile(<span class="string">"c.ppt"</span>));</span><br><span class="line">        <span class="keyword">return</span> resourceFiles;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><h3 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h3><ul><li><p>所谓的双分派和单分派的区分，指的是：执行哪对象的哪个方法，和几个因素的运行时类型有关</p><p>具体到编程语言的语法机制，双分派（<code>Double Dispatch</code>）和单分派（<code>Single Dispatch</code>）跟多态和函数重载直接相关</p></li></ul><h4 id="双分派"><a href="#双分派" class="headerlink" title="双分派"></a>双分派</h4><ul><li>执行哪个对象的哪个方法，跟<code>对象</code>和<code>方法参数</code>两者的运行时类型有关</li></ul><h4 id="单分派"><a href="#单分派" class="headerlink" title="单分派"></a>单分派</h4><ul><li><p>执行哪个对象的哪个方法，只跟<code>对象</code>的运行时类型有关</p></li><li><p>当前主流的面向对象编程语言（Java、C++、C#）都只支持Single Dispatch</p><ul><li>Java支持多态，代码可以在运行时候获取对象实际类型（即：运行时类型），然后跟根据实际类型调用哪个方法</li><li>尽管Java支持函数重载，但是Java函数重载的语法规则是：并不是在运行时候，根据传递函数的参数的声明类型（运行时类型），来决定调用哪个重载函数，而是编译时候，根据传递进函数的参数的声明类型（即：编译类型），来决定调用哪个重载函数</li><li>总的来说，具体来说，执行那个对象的哪个方法，只跟对象的运行时类型有关，跟参数的运行时类型无关</li></ul></li></ul>]]></content>
     
@@ -246,8 +286,8 @@
     <title>行为型-迭代器模式</title>
     <link href="https://www.wl960127.top/posts/6ff4cba/"/>
     <id>https://www.wl960127.top/posts/6ff4cba/</id>
-    <published>2021-03-08T03:43:47.000Z</published>
-    <updated>2021-03-08T04:13:30.178Z</updated>
+    <published>2020-08-19T13:03:47.000Z</published>
+    <updated>2021-03-08T07:42:04.204Z</updated>
     
     <content type="html"><![CDATA[<h3 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h3><ul><li><p>完整的迭代器模式，一般会涉及容器和容器迭代器两部分内容</p></li><li><p>为了达到基于接口编程的目的，所以容器又包含容器接口、容器实现类迭代器又包含迭代器接口、迭代器实现类!</p><p><img src="%E8%BF%AD%E4%BB%A3%E5%99%A8.png" alt=""></p></li></ul><hr><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ul><li>迭代器定义 <code>hasNext()</code>、<code>currentItem()</code>、<code>next()</code>的基础方法</li><li>待遍历的容器对象通过依赖注入传递到迭代器容器中</li><li>容器中定义<code>iterator()</code>方法创建迭代器</li></ul><hr><h3 id="细节"><a href="#细节" class="headerlink" title="细节"></a>细节</h3><ul><li><code>foreach()</code>的底层也是基于迭代器实现的</li></ul><h4 id="意义"><a href="#意义" class="headerlink" title="意义"></a>意义</h4><ul><li>常规简单的数据结构，直接使用<code>for</code>循环来遍历是足够的</li><li>但是相对于<code>树、图</code>等复杂的数据结构，有着复杂的遍历方式。对于复杂性的结构，最好使用拆分形式，将遍历操作拆分到迭代器中，分别实现对应需求的遍历方式</li></ul><hr><h3 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h3><ul><li>封装集合内部的复杂数据结构，开发者不需要了解如何遍历，直接使用容提供的迭代器即可</li><li>将集合对象的遍历操作从集合类中拆分出来，放在迭代器中，让两者的职责更加单一</li><li>让添加新的遍历算法更容易，符合开闭原则</li><li>迭代器都实现自同样的接口，基于接口编程，替换更方便</li></ul><hr>]]></content>
     
@@ -263,17 +303,17 @@
   </entry>
   
   <entry>
-    <title>行为型-策略模式</title>
-    <link href="https://www.wl960127.top/posts/3414386a/"/>
-    <id>https://www.wl960127.top/posts/3414386a/</id>
-    <published>2021-03-08T03:43:20.000Z</published>
-    <updated>2021-03-08T04:11:41.805Z</updated>
+    <title>行为型-备忘模式</title>
+    <link href="https://www.wl960127.top/posts/e4fae02c/"/>
+    <id>https://www.wl960127.top/posts/e4fae02c/</id>
+    <published>2020-08-13T14:07:47.000Z</published>
+    <updated>2021-03-08T07:41:31.572Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>定义一组算法类，将每个类分别封装起来，让它们可以互相替换，使算法的变化独立于被调用者</li></ul><h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><h4 id="策略定义"><a href="#策略定义" class="headerlink" title="策略定义"></a>策略定义</h4><ul><li>定义一个策略接口以及一组实现这个接口的策略类</li><li>客户端基于接口灵活替换不同策略</li></ul><h4 id="策略创建"><a href="#策略创建" class="headerlink" title="策略创建"></a>策略创建</h4><ul><li>使用工厂模式屏蔽创建细节，并根据类型判断使用对应策略</li><li>根据策略类是否有状态决定是否事先创建好缓存在工厂类中还是使用的时候进行实例化</li></ul><h4 id="策略使用"><a href="#策略使用" class="headerlink" title="策略使用"></a>策略使用</h4><ul><li>编译时候静态确定</li><li>运行时候动态决定 （典型运用场景）</li></ul>]]></content>
+    <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>在不违背封装原则的前提下，捕获一个对象的内部状态，并在该对对象之外保存这个状态，以便恢复对象为之前的状态</li></ul><hr><h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><ul><li>针对大的备份而言，会占用大量的内存以及时间消耗。针对不同的场景，不同的业务场景需要不同的处理方式</li><li>只备份必要的恢复信息，结合最新的数据来恢复。再比如，全量备份和增量备份相结合，低频全量备份，高频全量备份，两者相结合</li></ul>]]></content>
     
     <summary type="html">
     
-      设计模式之美学习笔记&lt;/br&gt;行为型模式主要解决类与对象之间的交互，将不同功能的代码解耦 &lt;/br&gt;策略模式则是：常见于避免冗长的if-else等分支判断，以及提高框架的拓展点
+      设计模式之美学习笔记&lt;/br&gt;行为型模式主要解决类与对象之间的交互，将不同功能的代码解耦 &lt;/br&gt;备忘模式则是：在不违背封装原则的前提下，进行对象的备份和恢复
     
     </summary>
     
@@ -286,8 +326,8 @@
     <title>结构型-组合模式</title>
     <link href="https://www.wl960127.top/posts/c39917f/"/>
     <id>https://www.wl960127.top/posts/c39917f/</id>
-    <published>2021-03-08T03:41:53.000Z</published>
-    <updated>2021-03-08T04:07:00.841Z</updated>
+    <published>2020-08-08T13:21:53.000Z</published>
+    <updated>2021-03-08T07:37:46.255Z</updated>
     
     <content type="html"><![CDATA[<ul><li>将一组对象组织成树形结构，以表示一种”部分-整体”的层次结构</li><li>让编写者可以统一单个对象和组合对象的处理逻辑</li></ul><hr><h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><ul><li>数据必须能表示成树形结构</li></ul><hr><h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ul><li>将一组对象组织成树形结构，将单个对象和组合对象都看作是树中的节点，以统一的处理逻辑，利用树形结构的特点，递遍历子树，依次简化代码实现</li><li>不是一种常用模式</li></ul>]]></content>
     
@@ -303,33 +343,11 @@
   </entry>
   
   <entry>
-    <title>结构型-装饰器模式</title>
-    <link href="https://www.wl960127.top/posts/4060492b/"/>
-    <id>https://www.wl960127.top/posts/4060492b/</id>
-    <published>2021-03-08T03:41:21.000Z</published>
-    <updated>2021-03-08T04:06:31.574Z</updated>
-    
-    <content type="html"><![CDATA[<ul><li>解决继承关系过于复杂的问题，通过组合来替代继承</li><li>主要作用是在不改变原始接口的情况下，给原始类附加相关的增强功能</li></ul><hr><h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><ul><li><p>可以对原始类嵌套使用多个装饰器，所以在设计时候，装饰器类需要跟原始类继承相同的抽象类或者接口</p></li><li><p>支持多个装饰器的嵌套使用</p></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      设计模式之美学习笔记&lt;/br&gt;结构型模式主要解决类与对象的组合和组装，将不同功能的代码解耦 &lt;/br&gt;装饰器模式则是：解决过于继承过于复杂的问题
-    
-    </summary>
-    
-      <category term="设计模式学习" scheme="https://www.wl960127.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%AD%A6%E4%B9%A0/"/>
-    
-    
-      <category term="设计模式" scheme="https://www.wl960127.top/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
     <title>结构型-享元模式</title>
     <link href="https://www.wl960127.top/posts/3223afa7/"/>
     <id>https://www.wl960127.top/posts/3223afa7/</id>
-    <published>2021-03-08T03:40:55.000Z</published>
-    <updated>2021-03-08T04:06:20.250Z</updated>
+    <published>2020-07-28T13:40:55.000Z</published>
+    <updated>2021-03-08T07:36:58.085Z</updated>
     
     <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li><p>复用对象，节省内存（前提是享元对象是不可改变的对象）</p></li><li><p>将系统中的大量重复的<strong>不可变对象</strong>，使用享元模式，使其在内存中只保留一份实例，共多处代码使用。从而达到减少因过多实例化导致不必要的内存开销</p></li></ul><hr><h4 id="不可变对象"><a href="#不可变对象" class="headerlink" title="不可变对象"></a>不可变对象</h4><ul><li>通过构造函数初始化之后，成员变量和属性就不会被修改。因为不能暴露出<code>set()</code>等修改内部的方法，避免影响其他代码使用</li></ul><ul><li>棋子、文档格….</li></ul><hr><h4 id="Integer-享元"><a href="#Integer-享元" class="headerlink" title="Integer 享元"></a>Integer 享元</h4><ul><li>基本数据类型的装箱是为了<strong>将基础数据类型转换成包装类型</strong>，包装类型才能有对象的性质，才能操作属性和方法</li><li>Integer的享元对象实在类加载的时候就一次性创建好的。区间值为 <code>-128到127</code>的数值会从IntegerCache类直接返回，其余的通过new 方法创建</li></ul><hr><h4 id="String-享元"><a href="#String-享元" class="headerlink" title="String 享元"></a>String 享元</h4><ul><li>只有在第一次被使用的时候，存储到常量池中，第二次使用时候就是直接在常量池中引用即可，而不是重新创建</li></ul><hr><h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ul><li>抽取出原始类中的公有基础属性，封装成一个不可变的享元对象</li><li>使用不可变享元对象替换掉原始类的公有基础属性</li><li>使用工厂模式对已经创建过的享元对象使用Ma进行缓存处理，从而达到复用的目的</li></ul><hr><h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><ul><li>享元模式 VS 单例、缓存、对象池<ul><li>享元：实现对象复用，节省内存</li><li>单例：保证对象的全局唯一</li><li>缓存：提高访问率，而非复用</li><li>对象池：重复使用，主要是为了节省时间</li></ul></li></ul><h3 id="弊端"><a href="#弊端" class="headerlink" title="弊端"></a>弊端</h3><ul><li>对JVM的GC机制不友好，因为一直保存引用导致无法回收，所以不适用于生命周期短且不会被密集使用的对象</li></ul><hr>]]></content>
     
@@ -350,8 +368,8 @@
     <title>结构型-适配器模式</title>
     <link href="https://www.wl960127.top/posts/2e7c4fc7/"/>
     <id>https://www.wl960127.top/posts/2e7c4fc7/</id>
-    <published>2021-03-08T03:40:07.000Z</published>
-    <updated>2021-03-08T04:04:49.116Z</updated>
+    <published>2020-07-11T13:40:07.000Z</published>
+    <updated>2021-03-08T07:35:42.747Z</updated>
     
     <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>将不兼容的接口转换为可兼容的接口</li></ul><hr><h3 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h3><ul><li>类适配器 （使用继承来实现）</li><li>对象适配器 （组合关系实现）</li></ul><hr><h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><p>可以看作是一种<code>补偿模式</code>，用来补救设计上的缺陷</p><ul><li>对有缺陷的接口设计二次封装</li><li>某个功能的实现依赖多个外部类时候，将接口适配为统一的接口定义（即：均实现同一接口，使用时向上转型成接口）</li><li>把项目中依赖的一个外部系统替换为另一个外部系统（即：均实现同一接口，使用时向上转型成接口）</li><li>兼容老接口</li><li>适配不同格式数据</li></ul>]]></content>
     
@@ -372,8 +390,8 @@
     <title>结构型-门面模式</title>
     <link href="https://www.wl960127.top/posts/2a133c38/"/>
     <id>https://www.wl960127.top/posts/2a133c38/</id>
-    <published>2021-03-08T03:38:42.000Z</published>
-    <updated>2021-03-08T04:01:04.057Z</updated>
+    <published>2020-07-11T13:38:42.000Z</published>
+    <updated>2021-03-08T07:35:15.068Z</updated>
     
     <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>为子系统提供一组统一的接口，定义一组高层接口让子系统更容易用</li></ul><hr><h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><ul><li>解决易用性</li><li>解决性能问题</li><li>解决分布式事务问题</li></ul>]]></content>
     
@@ -394,36 +412,14 @@
     <title>结构型-代理模式</title>
     <link href="https://www.wl960127.top/posts/a8ef08fd/"/>
     <id>https://www.wl960127.top/posts/a8ef08fd/</id>
-    <published>2021-03-08T02:20:10.000Z</published>
-    <updated>2021-03-08T04:00:21.306Z</updated>
+    <published>2020-07-08T13:20:10.000Z</published>
+    <updated>2021-03-08T07:35:00.780Z</updated>
     
     <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>在不改变原始类代码的情况下，通过引入代理类来给原始类附加功能</li><li>将框架代码与业务代码解耦</li></ul><hr><h3 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h3><p><img src="%E4%BB%A3%E7%90%86.png" alt=""></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      SubjectImpl subject = <span class="keyword">new</span> SubjectImpl();</span><br><span class="line">      InvocationHandler subjectProxy = <span class="keyword">new</span> SubjectProxy(subject);</span><br><span class="line">      ISubject proxyInstance = (Subject) Proxy.newProxyInstance(subjectProxy.getClass().getClassLoader(), subjectProxy.getClass().getInterfaces(), subjectProxy);</span><br><span class="line">      proxyInstance.doSomeThing(<span class="string">"打铁"</span>);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure><hr><h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><ul><li>RPC、缓存、监控、Spring AOP（动态代理）…</li></ul><hr><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ul><li>让代理类和原始类实现同样接口</li><li>如果原始类没有定义接口，且原始类不是我们开发为维护，这种情况可以通过让代理类继承原始类来实现代理</li></ul><hr><h3 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h3><h4 id="静态代理"><a href="#静态代理" class="headerlink" title="静态代理"></a>静态代理</h4><h5 id="内部代码实现"><a href="#内部代码实现" class="headerlink" title="内部代码实现"></a>内部代码实现</h5><ul><li><p>基于接口和组合实现</p></li><li><p>代理类和原始类实现相同接口，代理类的实例参数为原始类（相当于，在代理类实现的接口方法中委托原始类实例调用实例方法）</p></li></ul><h5 id="外部代码拓展"><a href="#外部代码拓展" class="headerlink" title="外部代码拓展"></a>外部代码拓展</h5><ul><li>无法修改原始类定义情况下，采取继承方式</li><li>代理类继承原始类，直接使用<code>super.</code>方法，调用原始类方法</li></ul><h4 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h4><ul><li>解决常规代理下，大量复杂的附加类导致的大量代理类</li><li>在运行时候，动态的创建原始类对应的代理类，然后在系统中用代理类替换掉原始类</li></ul>]]></content>
     
     <summary type="html">
     
       设计模式之美学习笔记&lt;/br&gt; 结构型模式主要解决类与对象的组合和组装，将不同功能的代码解耦 &lt;/br&gt;代理模式则是：不修改原始类代码情况下，为原始类定义代理类；主要目的是控制访问，而非加强功能
-    
-    </summary>
-    
-      <category term="设计模式学习" scheme="https://www.wl960127.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%AD%A6%E4%B9%A0/"/>
-    
-    
-      <category term="设计模式" scheme="https://www.wl960127.top/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>创建型-原型模式</title>
-    <link href="https://www.wl960127.top/posts/34963c84/"/>
-    <id>https://www.wl960127.top/posts/34963c84/</id>
-    <published>2021-03-08T02:17:25.000Z</published>
-    <updated>2021-03-08T03:58:55.704Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>创建对象的成本较大，而同一个类的不同对象之间差别不大（大部分字段相同），此时可以利用已有对象（原型）进行拷贝的的方式来创建新对象，以达到节省创建时间的目的一种基于原型创建对象的设计模式</li></ul><hr><h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><ul><li>对象中的数据需要经过复杂的计算才能得到（排序、计算哈希），或者是需要从RPC、网络、数据库、文件系统等非常慢的IO中读取</li></ul><hr><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><h4 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h4><ul><li>不仅会复制索引，还会复制数据本身</li></ul><h5 id="方式"><a href="#方式" class="headerlink" title="方式"></a>方式</h5><ul><li><p>递归拷贝对象、对象的引用对象以及引用对象的引用对象…</p></li><li><p>将对象序列化，再反序列化成新的对象</p><h5 id="弊端"><a href="#弊端" class="headerlink" title="弊端"></a>弊端</h5></li><li><p>两种实现方式都会比浅拷贝耗时、耗内存空间</p></li></ul><h4 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h4><ul><li>只会拷贝对象中的基本数据类型以及引用对象的内存地址，不会拷贝数据本身对象。相当于浅拷贝得到对象和被拷贝的对象实际上还是在共享同一个数据</li><li>Java中，<code>Object</code>的<code>clone()</code>方法就是浅拷贝</li></ul><h4 id="优化方式"><a href="#优化方式" class="headerlink" title="优化方式"></a>优化方式</h4><ul><li><p>先浅拷贝，再将需要更新的对象进行深度拷贝，替换掉浅拷贝中的老对象</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> HashMap&lt;String, SearchWord&gt; currentKeywords=<span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">long</span> lastUpdateTime = -<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">refresh</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//浅拷贝</span></span><br><span class="line">    HashMap&lt;String, SearchWord&gt; newKeywords = (HashMap&lt;String, SearchWord&gt;) currentKeywords.clone();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 从数据库中取出更新时间&gt;lastUpdateTime的数据，放入到newKeywords中</span></span><br><span class="line">    List&lt;SearchWord&gt; toBeUpdatedSearchWords = getSearchWords(lastUpdateTime);</span><br><span class="line">    <span class="keyword">long</span> maxNewUpdatedTime = lastUpdateTime;</span><br><span class="line">    <span class="keyword">for</span> (SearchWord searchWord : toBeUpdatedSearchWords) &#123;</span><br><span class="line">      <span class="keyword">if</span> (searchWord.getLastUpdateTime() &gt; maxNewUpdatedTime) &#123;</span><br><span class="line">        maxNewUpdatedTime = searchWord.getLastUpdateTime();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (newKeywords.containsKey(searchWord.getKeyword())) &#123;</span><br><span class="line">        newKeywords.remove(searchWord.getKeyword());</span><br><span class="line">      &#125;</span><br><span class="line">      newKeywords.put(searchWord.getKeyword(), searchWord);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    lastUpdateTime = maxNewUpdatedTime;</span><br><span class="line">    currentKeywords = newKeywords; <span class="comment">//替换</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">private</span> List&lt;SearchWord&gt; <span class="title">getSearchWords</span><span class="params">(<span class="keyword">long</span> lastUpdateTime)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// <span class="doctag">TODO:</span> 从数据库中取出更新时间&gt;lastUpdateTime的数据</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ul><hr><ul><li>尽量避免IO操作，而是宁愿选择内存操作与CPU计算这些耗时操作</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      设计模式之美学习笔记&lt;/br&gt; 创建型模式主要解决对象的创建问题，封装复杂的创建过程，解耦对象的创建代码和使用代码 &lt;/br&gt; 针对创建成本较大的对象，对已有对象复制的形式创建，以节省创建时间
     
     </summary>
     

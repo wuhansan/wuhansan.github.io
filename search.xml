@@ -4,11 +4,30 @@
   
     
     <entry>
+      <title>行为型-策略模式</title>
+      <link href="posts/3414386a/"/>
+      <url>posts/3414386a/</url>
+      
+        <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>定义一组算法类，将每个类分别封装起来，让它们可以互相替换，使算法的变化独立于被调用者</li></ul><h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><h4 id="策略定义"><a href="#策略定义" class="headerlink" title="策略定义"></a>策略定义</h4><ul><li>定义一个策略接口以及一组实现这个接口的策略类</li><li>客户端基于接口灵活替换不同策略</li></ul><h4 id="策略创建"><a href="#策略创建" class="headerlink" title="策略创建"></a>策略创建</h4><ul><li>使用工厂模式屏蔽创建细节，并根据类型判断使用对应策略</li><li>根据策略类是否有状态决定是否事先创建好缓存在工厂类中还是使用的时候进行实例化</li></ul><h4 id="策略使用"><a href="#策略使用" class="headerlink" title="策略使用"></a>策略使用</h4><ul><li>编译时候静态确定</li><li>运行时候动态决定 （典型运用场景）</li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 设计模式 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>JVM类加载机制</title>
       <link href="posts/de06556f/"/>
       <url>posts/de06556f/</url>
       
-        <content type="html"><![CDATA[<h4 id="类加载过程"><a href="#类加载过程" class="headerlink" title="类加载过程"></a>类加载过程</h4> <pre class="mermaid">graph LR;A((加载)) --.class-->B[验证]-->C[准备]--在方区为类变量分配内存-->D[解析]--关联引用-->E[初始化]</pre><h4 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h4><h5 id="双亲委派机制"><a href="#双亲委派机制" class="headerlink" title="双亲委派机制"></a>双亲委派机制</h5><ul><li>除了顶层启动类加载器之外，其余的类加载器在加载之前，都会委派给它的父加载器进行加载，层层上递给最顶层时候，才会真正加载</li></ul><p><img src="%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE.png" alt=""></p><h5 id="自定义加载器"><a href="#自定义加载器" class="headerlink" title="自定义加载器"></a>自定义加载器</h5><ul><li>一般情况下，类加载是遵循双亲委派机制的。但是类加载器通过开放的API，让加载过程更加的灵活</li><li>对于远程存储字节码以及字节码加密，这种业务需求，实现一个新的类加载器就可以了</li></ul><h4 id="栈帧字节码流转"><a href="#栈帧字节码流转" class="headerlink" title="栈帧字节码流转"></a>栈帧字节码流转</h4><p><img src="%E5%AD%97%E8%8A%82%E7%A0%81%E6%B5%81%E8%BD%AC.png" alt=""></p>]]></content>
+        <content type="html"><![CDATA[<h4 id="类加载过程"><a href="#类加载过程" class="headerlink" title="类加载过程"></a>类加载过程</h4><p><img src="%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%B5%81%E7%A8%8B.png" alt=""></p><h4 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h4><h5 id="双亲委派机制"><a href="#双亲委派机制" class="headerlink" title="双亲委派机制"></a>双亲委派机制</h5><ul><li>除了顶层启动类加载器之外，其余的类加载器在加载之前，都会委派给它的父加载器进行加载，层层上递给最顶层时候，才会真正加载</li></ul><p><img src="%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE.png" alt=""></p><h5 id="自定义加载器"><a href="#自定义加载器" class="headerlink" title="自定义加载器"></a>自定义加载器</h5><ul><li>一般情况下，类加载是遵循双亲委派机制的。但是类加载器通过开放的API，让加载过程更加的灵活</li><li>对于远程存储字节码以及字节码加密，这种业务需求，实现一个新的类加载器就可以了</li></ul><h4 id="栈帧字节码流转"><a href="#栈帧字节码流转" class="headerlink" title="栈帧字节码流转"></a>栈帧字节码流转</h4><p><img src="%E5%AD%97%E8%8A%82%E7%A0%81%E6%B5%81%E8%BD%AC.png" alt=""></p>]]></content>
       
       
       <categories>
@@ -54,63 +73,57 @@
     
     
     <entry>
-      <title>行为型-模板模式</title>
-      <link href="posts/53f98d70/"/>
-      <url>posts/53f98d70/</url>
+      <title>Go进阶</title>
+      <link href="posts/4ecb59a/"/>
+      <url>posts/4ecb59a/</url>
       
-        <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>在方法中定义一个算法框架，并将某些步骤推迟到子类中实现</li><li>可以让子类在不改变算法整体结构的情况下，重新定义算法中的某些步骤</li></ul><h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><ul><li><p>复用</p><p>所有的子类可以复用父类中提供的模板方法的代码</p></li><li><p>拓展</p><p>框架通过模板模式提高功能拓展点，让用户在不修改框架源码的情况下，基于拓展定制化框架的功能</p></li></ul><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ul><li>将不变的流程抽象到父类定义的模板方法中 （模板方法中调用了抽象流程的函数）</li><li>子类继承后，可通过调用该模板方法间接执行子类自身实现的抽象流程 </li></ul><hr><h3 id="回调"><a href="#回调" class="headerlink" title="回调"></a>回调</h3><h4 id="类别"><a href="#类别" class="headerlink" title="类别"></a>类别</h4><h5 id="同步回调"><a href="#同步回调" class="headerlink" title="同步回调"></a>同步回调</h5><ul><li>函数返回之前执行回调函数</li><li>从场景上看像模板模式</li></ul><h5 id="异步回调"><a href="#异步回调" class="headerlink" title="异步回调"></a>异步回调</h5><ul><li>函数返回之后执行回调函数</li><li>从场景上看很像观察者模式</li></ul><hr><h3 id="模板模式-VS-回调"><a href="#模板模式-VS-回调" class="headerlink" title="模板模式 VS 回调"></a>模板模式 VS 回调</h3><ul><li>回调基于组合关系实现，将一个对象传递给另一个对象，是一种对象间的关系</li><li>模板模式基于继承关系来实现，子类重写父类的抽象方法，是一种类与类之间的关系</li><li>代码实现上，回调会比模板模式更加灵活</li></ul>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>行为型-备忘模式</title>
-      <link href="posts/e4fae02c/"/>
-      <url>posts/e4fae02c/</url>
-      
-        <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>在不违背封装原则的前提下，捕获一个对象的内部状态，并在该对对象之外保存这个状态，以便恢复对象为之前的状态</li></ul><hr><h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><ul><li>针对大的备份而言，会占用大量的内存以及时间消耗。针对不同的场景，不同的业务场景需要不同的处理方式</li><li>只备份必要的恢复信息，结合最新的数据来恢复。再比如，全量备份和增量备份相结合，低频全量备份，高频全量备份，两者相结合</li></ul>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>结构型-桥接模式</title>
-      <link href="posts/858c6e31/"/>
-      <url>posts/858c6e31/</url>
-      
-        <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>将抽象和实现解耦，让它们可以独立变化</li><li>通过组合关系来替代继承关系，避免继承层次的指数级爆炸</li></ul><hr><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ul><li>将骨架代码“抽象“出来，将真正的业务逻辑委派给定义中的”实现”完成</li><li>“抽象”与”实现“独立开发，通过对象的组合关系组装在一起</li></ul><hr>]]></content>
+        <content type="html"><![CDATA[<h4 id="协程"><a href="#协程" class="headerlink" title="协程"></a>协程</h4><h5 id="协程池"><a href="#协程池" class="headerlink" title="协程池"></a>协程池</h5><ul><li>限制执行次数（单位时间上限及单个执行次数）<h4 id="Context"><a href="#Context" class="headerlink" title="Context"></a>Context</h4></li><li>传值</li><li>取消多个协程<h5 id="使用原则"><a href="#使用原则" class="headerlink" title="使用原则"></a>使用原则</h5></li><li>不要放在结构体，要以参数形式传递</li><li>作为函数参数时候，要放在第一位</li><li>使用conetxt.Backgroud函数生成得根节点Context，即最顶层Context</li><li>传值时候尽量少传</li><li>多协程中是安全的</li></ul><h4 id="高并发"><a href="#高并发" class="headerlink" title="高并发"></a>高并发</h4><h5 id="for-select"><a href="#for-select" class="headerlink" title="for select"></a>for select</h5><ul><li>常规使用<h5 id="select-timeout"><a href="#select-timeout" class="headerlink" title="select timeout"></a>select timeout</h5></li><li>设置超时时间，避免无限等待<h5 id="Pipeline"><a href="#Pipeline" class="headerlink" title="Pipeline"></a>Pipeline</h5></li><li>适用于工序相互依赖，顺序性的流水线模式<h5 id="扇出和扇入"><a href="#扇出和扇入" class="headerlink" title="扇出和扇入"></a>扇出和扇入</h5></li><li>优化型的Pipeline模式，通过多个协程并发，把多个channel合成一个</li><li>适用于针对流水线模型下，需要增加某个节点数量<h5 id="Futures"><a href="#Futures" class="headerlink" title="Futures"></a>Futures</h5></li><li>工序相互独立，可同时进行</li><li>区别与一般协程，可以通过<code>channel</code>返回结果</li></ul><h4 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h4><ul><li><code>var</code>声明的指针变量是不能直接赋值和取值的，因为此时仅仅是一个变量，还没有对应的内存地址，值为 <code>nil</code><h5 id="使用原则-1"><a href="#使用原则-1" class="headerlink" title="使用原则"></a>使用原则</h5></li><li>指针的接收者是map、slice、channel这类引用类型，不适用指针</li><li>如果需要修改接收者，那么需要使用指针</li><li>如果接收者是比较大的类型，那么需要考虑使用指针。因为内存拷贝廉价，所以效率高；对于int、bool等小数据类型没有必要使用</li><li>变量赋值，参数传值时候可以节省内存</li><li>并发安全的情况下，尽可能不适用指针，使用指针需要保证并发安全</li><li>指针不要嵌套，虽然允许，但是最好不要</li></ul><hr><h4 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h4><ul><li>单元测试</li><li>单元测试覆盖率</li><li>基准测试 （评估测量和评估软件性能指标）</li></ul><h4 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h4><ul><li>逃逸分析</li></ul><h5 id="技巧"><a href="#技巧" class="headerlink" title="技巧"></a>技巧</h5><ul><li>尽可能避免逃逸，因为栈内存效率更高，还不用GC。小对象的传参，array比slice效果好；如果无法避免逃逸，还是在堆上分配内存，对于频繁的内存申请操作，需要使用<code>sync.Pool</code>进行重用内存</li><li>结合合适的算法</li><li>可使用Go自带的性能剖析工具<code>pprof</code>，查看CPU分析、内存分析、阻塞分析、互斥锁分析</li></ul><hr><h3 id="RPC"><a href="#RPC" class="headerlink" title="RPC"></a>RPC</h3>]]></content>
       
       
       <categories>
           
-          <category> 设计模式学习 </category>
+          <category> Go </category>
           
       </categories>
       
       
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
+    </entry>
+    
+    
+    
+    <entry>
+      <title>操作系统之进程与线程</title>
+      <link href="posts/89292719/"/>
+      <url>posts/89292719/</url>
+      
+        <content type="html"><![CDATA[<h4 id="进程与线程"><a href="#进程与线程" class="headerlink" title="进程与线程"></a>进程与线程</h4><h5 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h5><p><strong>Process</strong> 正在执行的应用程序，软件执行副本，分配资源的基础单位<br><strong>Thread</strong> 轻量级进程，程序执行的基本单位</p><ul><li>操作系统的三个资源：计算资源（CPU）、内存资源、文件资源。后期为了避免一个应用开启多个进程过于耗费资源，所以在进程下面设计了一个仅仅被分配CPU资源的程序执行单位，线程</li><li>操作系统启动后，进程的入口被分配了一个主线程，而操作系统通过调用主线程及其子线程进行资源调度</li><li>创建进程开销大、成本高；创建线程开销小，成本低</li><li>操作系统中存在大量进程，为了不互相干扰所以分配了彼此完全隔离的内存区域，所以一般来说进程之间无法访问相互的内存，除非使用<strong>进程间通信</strong>。但是进程间的线程可以共享进程间的内存资源</li><li><code>用户态线程</code>和<code>内核态线程</code>，区别在于有一个在用户空间创建，一个是执行在内核态，可通过系统调用创造（内核线程是真正的线程，因为为会分配到CPU的执行资源）；<strong>用户态和内核态是为了保护内存资源，而线程划分是为了更好地使用计算资源</strong></li></ul><h5 id="开销对比"><a href="#开销对比" class="headerlink" title="开销对比"></a>开销对比</h5><hr><h4 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h4><ul><li>实现锁需要底层提供的原子操作（<strong>操作不可分</strong>）<h4 id="竞争条件"><a href="#竞争条件" class="headerlink" title="竞争条件"></a>竞争条件</h4></li><li>多线程+多核<h4 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h4></li><li>避免临界区</li><li>cas (Compare And Swap)</li><li>tas (Test And Set)</li></ul><h4 id="并发控制"><a href="#并发控制" class="headerlink" title="并发控制"></a>并发控制</h4><ul><li>目的在于达到同步(<strong>Synchronized</strong>)的状态<h5 id="加锁"><a href="#加锁" class="headerlink" title="加锁"></a>加锁</h5></li><li>悲观锁<ul><li><strong>Pressimistic Lock</strong></li><li>让<strong>临界区</strong>（访问共享资源的程序片段）互斥，每次只有一个线程可以进入临界区</li></ul></li><li>乐观锁<ul><li><strong>Optimistic Lock</strong></li><li>类似git操作，后提交的需要先确认是否有最新，再判断是否冲突，解决后再提交</li><li>类似 cas 指令</li></ul></li></ul><h5 id="去中心化"><a href="#去中心化" class="headerlink" title="去中心化"></a>去中心化</h5><ul><li>① 区块链形式，但是会分支太多</li><li>② 不是很清晰，大意是所有吞吐不直接由中心处理，而是用户与商家先处理。以商家和用户们为一个节点，后期在判断后逐级合并到主分支，一定程度暂缓高峰期中心处理的压力</li></ul><h4 id="调度"><a href="#调度" class="headerlink" title="调度"></a>调度</h4><h5 id="常规"><a href="#常规" class="headerlink" title="常规"></a>常规</h5><ul><li>先到先得 (First Come First Service) <ul><li>使用队列的先进先出，保证公平性和吞吐量</li></ul></li><li>短作业优先 (Shortest Job First)<ul><li>为了减少用户的平均等待时间</li></ul></li></ul><p><strong>缺点</strong></p><ul><li>无法处理紧急插队任务</li><li>等待太久的任务怎么插队</li><li>用时多的任务执行一半,又来了短作业</li></ul><h5 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h5><ul><li>优先级队列 (PriorityQueue) <ul><li>使用数据结构：堆，每次遍历优先级最高的任务，解决紧急插队问题</li></ul></li><li>抢占 (Preemption)<ul><li>执行能力分时，结合优先级队列构成基本线程调度</li></ul></li></ul><h5 id="二次优化"><a href="#二次优化" class="headerlink" title="二次优化"></a>二次优化</h5><ul><li>多级队列<br>多个队列执行调度</li></ul><h4 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h4><h5 id="基本条件"><a href="#基本条件" class="headerlink" title="基本条件"></a>基本条件</h5><ul><li>资源存在互斥逻辑：每次只有一个线程可以抢到资源</li><li>持有等待</li><li>禁止抢占：拿不到就会一直处于等待而不是释放已拥有的资源</li><li>循环等待</li></ul><h4 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h4><h4 id="空缺"><a href="#空缺" class="headerlink" title="空缺"></a>空缺</h4><ul><li>IPC （Intermediate Process Communication）</li><li></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 操作系统 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>操作系统之基础知识</title>
+      <link href="posts/6a0c4ab9/"/>
+      <url>posts/6a0c4ab9/</url>
+      
+        <content type="html"><![CDATA[<p>操作系统原则：进程向内核发起一个请求，然后将CPU执行权限让出给内核。内核接手CPU执行权限，然后完成请求，再转让出CPU执行权限给调用进程</p><h4 id="内核"><a href="#内核" class="headerlink" title="内核"></a>内核</h4><ul><li>操作系统中应用连接设备的桥梁</li><li>权限非常高，可以管理进程、可以直接访问所有的内存</li><li>进程调用内核的过程中，是存在资源共享的</li></ul><h5 id="能力"><a href="#能力" class="headerlink" title="能力"></a>能力</h5><ul><li>管理进程、线程（决定哪个进程、线程使用CPU）</li><li>管理内存（决定内存做什么）</li><li>连接硬件设备（为进程、和设备间提供通信能力）</li><li>提供系统调用（接收进程发送来的系统调用）</li></ul><hr><pre class="mermaid">graph TD;Application --> KernelKernel --> CPUKernel -->MEORYKernel --> DEVICE</pre><h4 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h4><h5 id="宏内核"><a href="#宏内核" class="headerlink" title="宏内核"></a>宏内核</h5><ul><li><p><strong>Monolithic Kernel</strong></p></li><li><p>有很多程序打包在内核中（文件系统、驱动、内存管理等）</p></li><li><p>Linux就是宏内核，且内核用最高权限来运行，内核模块可以动态加载</p></li></ul><h5 id="微内核"><a href="#微内核" class="headerlink" title="微内核"></a>微内核</h5><ul><li><p><strong>Microkenel</strong></p></li><li><p>只保留最基础能力（进程调度、虚拟内存、中断）</p></li><li><p>多数应用（甚包括驱动程序、文件系统）是在用户空间管理；驱动在内核外，驱动和硬件的交互就需要频繁做内核态切换</p></li></ul><h5 id="混合内核"><a href="#混合内核" class="headerlink" title="混合内核"></a>混合内核</h5><ul><li>Windows系统</li><li>Mac OS (使用 XNU内核)</li></ul><hr>]]></content>
+      
+      
+      <categories>
+          
+          <category> 操作系统 </category>
+          
+      </categories>
+      
       
     </entry>
     
@@ -155,11 +168,11 @@
     
     
     <entry>
-      <title>行为型-命令模式</title>
-      <link href="posts/3ee4c01c/"/>
-      <url>posts/3ee4c01c/</url>
+      <title>行为型-模板模式</title>
+      <link href="posts/53f98d70/"/>
+      <url>posts/53f98d70/</url>
       
-        <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>将请求封装为一个对象，这样可以使用不同的请求参数化其他对象（将不同请求依赖注入到其他对象），并且能够支持请求的排队执行、记录日志、撤销等功能</li></ul>]]></content>
+        <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>在方法中定义一个算法框架，并将某些步骤推迟到子类中实现</li><li>可以让子类在不改变算法整体结构的情况下，重新定义算法中的某些步骤</li></ul><h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><ul><li><p>复用</p><p>所有的子类可以复用父类中提供的模板方法的代码</p></li><li><p>拓展</p><p>框架通过模板模式提高功能拓展点，让用户在不修改框架源码的情况下，基于拓展定制化框架的功能</p></li></ul><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ul><li>将不变的流程抽象到父类定义的模板方法中 （模板方法中调用了抽象流程的函数）</li><li>子类继承后，可通过调用该模板方法间接执行子类自身实现的抽象流程 </li></ul><hr><h3 id="回调"><a href="#回调" class="headerlink" title="回调"></a>回调</h3><h4 id="类别"><a href="#类别" class="headerlink" title="类别"></a>类别</h4><h5 id="同步回调"><a href="#同步回调" class="headerlink" title="同步回调"></a>同步回调</h5><ul><li>函数返回之前执行回调函数</li><li>从场景上看像模板模式</li></ul><h5 id="异步回调"><a href="#异步回调" class="headerlink" title="异步回调"></a>异步回调</h5><ul><li>函数返回之后执行回调函数</li><li>从场景上看很像观察者模式</li></ul><hr><h3 id="模板模式-VS-回调"><a href="#模板模式-VS-回调" class="headerlink" title="模板模式 VS 回调"></a>模板模式 VS 回调</h3><ul><li>回调基于组合关系实现，将一个对象传递给另一个对象，是一种对象间的关系</li><li>模板模式基于继承关系来实现，子类重写父类的抽象方法，是一种类与类之间的关系</li><li>代码实现上，回调会比模板模式更加灵活</li></ul>]]></content>
       
       
       
@@ -212,6 +225,31 @@
     
     
     <entry>
+      <title>结构型-装饰器模式</title>
+      <link href="posts/4060492b/"/>
+      <url>posts/4060492b/</url>
+      
+        <content type="html"><![CDATA[<ul><li>解决继承关系过于复杂的问题，通过组合来替代继承</li><li>主要作用是在不改变原始接口的情况下，给原始类附加相关的增强功能</li></ul><hr><h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><ul><li><p>可以对原始类嵌套使用多个装饰器，所以在设计时候，装饰器类需要跟原始类继承相同的抽象类或者接口</p></li><li><p>支持多个装饰器的嵌套使用</p></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 设计模式学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 设计模式 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>行为型-访问者模式</title>
       <link href="posts/f21f8074/"/>
       <url>posts/f21f8074/</url>
@@ -250,11 +288,11 @@
     
     
     <entry>
-      <title>行为型-策略模式</title>
-      <link href="posts/3414386a/"/>
-      <url>posts/3414386a/</url>
+      <title>行为型-备忘模式</title>
+      <link href="posts/e4fae02c/"/>
+      <url>posts/e4fae02c/</url>
       
-        <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>定义一组算法类，将每个类分别封装起来，让它们可以互相替换，使算法的变化独立于被调用者</li></ul><h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><h4 id="策略定义"><a href="#策略定义" class="headerlink" title="策略定义"></a>策略定义</h4><ul><li>定义一个策略接口以及一组实现这个接口的策略类</li><li>客户端基于接口灵活替换不同策略</li></ul><h4 id="策略创建"><a href="#策略创建" class="headerlink" title="策略创建"></a>策略创建</h4><ul><li>使用工厂模式屏蔽创建细节，并根据类型判断使用对应策略</li><li>根据策略类是否有状态决定是否事先创建好缓存在工厂类中还是使用的时候进行实例化</li></ul><h4 id="策略使用"><a href="#策略使用" class="headerlink" title="策略使用"></a>策略使用</h4><ul><li>编译时候静态确定</li><li>运行时候动态决定 （典型运用场景）</li></ul>]]></content>
+        <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>在不违背封装原则的前提下，捕获一个对象的内部状态，并在该对对象之外保存这个状态，以便恢复对象为之前的状态</li></ul><hr><h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><ul><li>针对大的备份而言，会占用大量的内存以及时间消耗。针对不同的场景，不同的业务场景需要不同的处理方式</li><li>只备份必要的恢复信息，结合最新的数据来恢复。再比如，全量备份和增量备份相结合，低频全量备份，高频全量备份，两者相结合</li></ul>]]></content>
       
       
       
@@ -275,31 +313,6 @@
       
         <content type="html"><![CDATA[<ul><li>将一组对象组织成树形结构，以表示一种”部分-整体”的层次结构</li><li>让编写者可以统一单个对象和组合对象的处理逻辑</li></ul><hr><h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><ul><li>数据必须能表示成树形结构</li></ul><hr><h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ul><li>将一组对象组织成树形结构，将单个对象和组合对象都看作是树中的节点，以统一的处理逻辑，利用树形结构的特点，递遍历子树，依次简化代码实现</li><li>不是一种常用模式</li></ul>]]></content>
       
-      
-      
-        <tags>
-            
-            <tag> 设计模式 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>结构型-装饰器模式</title>
-      <link href="posts/4060492b/"/>
-      <url>posts/4060492b/</url>
-      
-        <content type="html"><![CDATA[<ul><li>解决继承关系过于复杂的问题，通过组合来替代继承</li><li>主要作用是在不改变原始接口的情况下，给原始类附加相关的增强功能</li></ul><hr><h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><ul><li><p>可以对原始类嵌套使用多个装饰器，所以在设计时候，装饰器类需要跟原始类继承相同的抽象类或者接口</p></li><li><p>支持多个装饰器的嵌套使用</p></li></ul>]]></content>
-      
-      
-      <categories>
-          
-          <category> 设计模式学习 </category>
-          
-      </categories>
       
       
         <tags>
@@ -413,11 +426,11 @@
     
     
     <entry>
-      <title>创建型-原型模式</title>
-      <link href="posts/34963c84/"/>
-      <url>posts/34963c84/</url>
+      <title>结构型-桥接模式</title>
+      <link href="posts/858c6e31/"/>
+      <url>posts/858c6e31/</url>
       
-        <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>创建对象的成本较大，而同一个类的不同对象之间差别不大（大部分字段相同），此时可以利用已有对象（原型）进行拷贝的的方式来创建新对象，以达到节省创建时间的目的一种基于原型创建对象的设计模式</li></ul><hr><h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><ul><li>对象中的数据需要经过复杂的计算才能得到（排序、计算哈希），或者是需要从RPC、网络、数据库、文件系统等非常慢的IO中读取</li></ul><hr><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><h4 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h4><ul><li>不仅会复制索引，还会复制数据本身</li></ul><h5 id="方式"><a href="#方式" class="headerlink" title="方式"></a>方式</h5><ul><li><p>递归拷贝对象、对象的引用对象以及引用对象的引用对象…</p></li><li><p>将对象序列化，再反序列化成新的对象</p><h5 id="弊端"><a href="#弊端" class="headerlink" title="弊端"></a>弊端</h5></li><li><p>两种实现方式都会比浅拷贝耗时、耗内存空间</p></li></ul><h4 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h4><ul><li>只会拷贝对象中的基本数据类型以及引用对象的内存地址，不会拷贝数据本身对象。相当于浅拷贝得到对象和被拷贝的对象实际上还是在共享同一个数据</li><li>Java中，<code>Object</code>的<code>clone()</code>方法就是浅拷贝</li></ul><h4 id="优化方式"><a href="#优化方式" class="headerlink" title="优化方式"></a>优化方式</h4><ul><li><p>先浅拷贝，再将需要更新的对象进行深度拷贝，替换掉浅拷贝中的老对象</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> HashMap&lt;String, SearchWord&gt; currentKeywords=<span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">long</span> lastUpdateTime = -<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">refresh</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//浅拷贝</span></span><br><span class="line">    HashMap&lt;String, SearchWord&gt; newKeywords = (HashMap&lt;String, SearchWord&gt;) currentKeywords.clone();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 从数据库中取出更新时间&gt;lastUpdateTime的数据，放入到newKeywords中</span></span><br><span class="line">    List&lt;SearchWord&gt; toBeUpdatedSearchWords = getSearchWords(lastUpdateTime);</span><br><span class="line">    <span class="keyword">long</span> maxNewUpdatedTime = lastUpdateTime;</span><br><span class="line">    <span class="keyword">for</span> (SearchWord searchWord : toBeUpdatedSearchWords) &#123;</span><br><span class="line">      <span class="keyword">if</span> (searchWord.getLastUpdateTime() &gt; maxNewUpdatedTime) &#123;</span><br><span class="line">        maxNewUpdatedTime = searchWord.getLastUpdateTime();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (newKeywords.containsKey(searchWord.getKeyword())) &#123;</span><br><span class="line">        newKeywords.remove(searchWord.getKeyword());</span><br><span class="line">      &#125;</span><br><span class="line">      newKeywords.put(searchWord.getKeyword(), searchWord);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    lastUpdateTime = maxNewUpdatedTime;</span><br><span class="line">    currentKeywords = newKeywords; <span class="comment">//替换</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">private</span> List&lt;SearchWord&gt; <span class="title">getSearchWords</span><span class="params">(<span class="keyword">long</span> lastUpdateTime)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// <span class="doctag">TODO:</span> 从数据库中取出更新时间&gt;lastUpdateTime的数据</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ul><hr><ul><li>尽量避免IO操作，而是宁愿选择内存操作与CPU计算这些耗时操作</li></ul>]]></content>
+        <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>将抽象和实现解耦，让它们可以独立变化</li><li>通过组合关系来替代继承关系，避免继承层次的指数级爆炸</li></ul><hr><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ul><li>将骨架代码“抽象“出来，将真正的业务逻辑委派给定义中的”实现”完成</li><li>“抽象”与”实现“独立开发，通过对象的组合关系组装在一起</li></ul><hr>]]></content>
       
       
       <categories>
@@ -438,11 +451,11 @@
     
     
     <entry>
-      <title>设计模式之面向对象</title>
-      <link href="posts/c308e44d/"/>
-      <url>posts/c308e44d/</url>
+      <title>创建型-原型模式</title>
+      <link href="posts/34963c84/"/>
+      <url>posts/34963c84/</url>
       
-        <content type="html"><![CDATA[<h3 id="三剑客"><a href="#三剑客" class="headerlink" title="三剑客"></a>三剑客</h3><h4 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h4><ul><li>信息隐藏或者数据保护</li><li>类通过暴露有限的访问接口，授权外部仅能通过类提供的方式来访问内部信息或者数据</li><li>通过访问权限来控制 （private…）</li></ul><h4 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h4><ul><li>关键字（extends）java只支持单继承</li><li>可以代码复用，但是推荐 <strong>多用组合少用继承</strong></li><li>结构稳定继承层次较浅使用继承，不稳定且继承层次深尽量使用组合来替代继承</li></ul><h4 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h4><ul><li>子类可替换父类</li><li>实现方式：1：继承加方法重写  2：接口类语法  3：duck-typing语法 （动态语言才支持）</li><li>提高代码的可拓展性和复用性</li></ul><hr><h3 id="接口与抽象"><a href="#接口与抽象" class="headerlink" title="接口与抽象"></a>接口与抽象</h3><h4 id="抽象"><a href="#抽象" class="headerlink" title="抽象"></a>抽象</h4><ul><li>隐藏方法的具体实现，让调用者只关心提供了哪些功能，而无需知道如何实现</li><li>关键字实现 （interface、abstract）语法机制，实现抽象特性</li><li>只关注功能点不关注实现</li><li>只能被继承，不能被实例化</li><li>可包含属性和方法，方法可含代码实现也可以abstract定义</li><li>子类必须实现抽象父类的所有抽象方法</li></ul><h4 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h4><ul><li>不能含有属性</li><li>只能声明方法</li><li>实现类必须实现接口中所有方法</li></ul><h5 id="基于接口编程"><a href="#基于接口编程" class="headerlink" title="基于接口编程"></a>基于接口编程</h5><ul><li>函数命名不能暴露任何细节（泛笼统化）</li><li>封装具体细节实现</li><li>抽取统一依赖的接口定义，让使用者依赖接口操作。将接口与实现相分离</li></ul><h4 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h4><ul><li><strong>接口侧重于解耦，而抽象为了代码复用</strong></li><li>is-a 且为了解决复用，就使用抽象</li><li>has-a 且为了解决抽象，就是使用接口</li><li>抽象自下而上，先有子类代码重复，而后抽象成上层抽象父类</li><li>接口自上而下，先设计接口，而后考虑具体实现</li></ul><hr><h3 id="贫血模型"><a href="#贫血模型" class="headerlink" title="贫血模型"></a>贫血模型</h3><ul><li>只含数据，不含业务逻辑，将数据与操作分离破坏了面向对象的封装特性</li><li>违反了OOP特性，实际是面向过程</li><li>适用于业务简单的系统开发</li></ul><h3 id="充血模型"><a href="#充血模型" class="headerlink" title="充血模型"></a>充血模型</h3><ul><li>数据与对应业务逻辑封装在一起</li><li>适用于业务复杂的系统开发</li></ul><h3 id="领域驱动设计"><a href="#领域驱动设计" class="headerlink" title="领域驱动设计"></a>领域驱动设计</h3><ul><li><p>DDD，主要是用来指导解耦业务系统，划分业务模块，定义业务领域及其交互</p></li><li><p>基于贫血模型的DDD，重Service轻业务对象。而基于充血模型的，轻Service重Domain</p></li></ul><h4 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h4><ul><li>理清所有业务，定义领域模型所包含的属性与方法，将数据与操作结合</li><li>领域模型相当于可复用的因为中间层，新开发基于之前定义号的领域模型来自完成</li><li>单一职责</li></ul><hr><h3 id="面向对象开发"><a href="#面向对象开发" class="headerlink" title="面向对象开发"></a>面向对象开发</h3><h4 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h4><h5 id="OOA"><a href="#OOA" class="headerlink" title="OOA"></a>OOA</h5><ul><li>面向对象分析</li></ul><h5 id="OOD"><a href="#OOD" class="headerlink" title="OOD"></a>OOD</h5><ul><li>面向对象设计</li></ul><h5 id="OOP"><a href="#OOP" class="headerlink" title="OOP"></a>OOP</h5><ul><li>面向对象编程</li></ul><h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><h5 id="划分职责"><a href="#划分职责" class="headerlink" title="划分职责"></a>划分职责</h5><ul><li>根据需求点，罗列功能点，将判断功能点相近及操作同样属性是否可归为同一类</li></ul><h5 id="定义类及属性和方法"><a href="#定义类及属性和方法" class="headerlink" title="定义类及属性和方法"></a>定义类及属性和方法</h5><ul><li>需求描述中的动词作为函数名，涉及的名词作为候选属性</li></ul><h5 id="定义交互关系"><a href="#定义交互关系" class="headerlink" title="定义交互关系"></a>定义交互关系</h5><ul><li>UML定义了六种关系：泛化、实现、关联、聚合、组合、依赖</li><li>保留四个关系：泛化、实现、组合、依赖</li></ul><h5 id="组装并提供入口"><a href="#组装并提供入口" class="headerlink" title="组装并提供入口"></a>组装并提供入口</h5>]]></content>
+        <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>创建对象的成本较大，而同一个类的不同对象之间差别不大（大部分字段相同），此时可以利用已有对象（原型）进行拷贝的的方式来创建新对象，以达到节省创建时间的目的一种基于原型创建对象的设计模式</li></ul><hr><h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><ul><li>对象中的数据需要经过复杂的计算才能得到（排序、计算哈希），或者是需要从RPC、网络、数据库、文件系统等非常慢的IO中读取</li></ul><hr><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><h4 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h4><ul><li>不仅会复制索引，还会复制数据本身</li></ul><h5 id="方式"><a href="#方式" class="headerlink" title="方式"></a>方式</h5><ul><li><p>递归拷贝对象、对象的引用对象以及引用对象的引用对象…</p></li><li><p>将对象序列化，再反序列化成新的对象</p><h5 id="弊端"><a href="#弊端" class="headerlink" title="弊端"></a>弊端</h5></li><li><p>两种实现方式都会比浅拷贝耗时、耗内存空间</p></li></ul><h4 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h4><ul><li>只会拷贝对象中的基本数据类型以及引用对象的内存地址，不会拷贝数据本身对象。相当于浅拷贝得到对象和被拷贝的对象实际上还是在共享同一个数据</li><li>Java中，<code>Object</code>的<code>clone()</code>方法就是浅拷贝</li></ul><h4 id="优化方式"><a href="#优化方式" class="headerlink" title="优化方式"></a>优化方式</h4><ul><li><p>先浅拷贝，再将需要更新的对象进行深度拷贝，替换掉浅拷贝中的老对象</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> HashMap&lt;String, SearchWord&gt; currentKeywords=<span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">long</span> lastUpdateTime = -<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">refresh</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//浅拷贝</span></span><br><span class="line">    HashMap&lt;String, SearchWord&gt; newKeywords = (HashMap&lt;String, SearchWord&gt;) currentKeywords.clone();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 从数据库中取出更新时间&gt;lastUpdateTime的数据，放入到newKeywords中</span></span><br><span class="line">    List&lt;SearchWord&gt; toBeUpdatedSearchWords = getSearchWords(lastUpdateTime);</span><br><span class="line">    <span class="keyword">long</span> maxNewUpdatedTime = lastUpdateTime;</span><br><span class="line">    <span class="keyword">for</span> (SearchWord searchWord : toBeUpdatedSearchWords) &#123;</span><br><span class="line">      <span class="keyword">if</span> (searchWord.getLastUpdateTime() &gt; maxNewUpdatedTime) &#123;</span><br><span class="line">        maxNewUpdatedTime = searchWord.getLastUpdateTime();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (newKeywords.containsKey(searchWord.getKeyword())) &#123;</span><br><span class="line">        newKeywords.remove(searchWord.getKeyword());</span><br><span class="line">      &#125;</span><br><span class="line">      newKeywords.put(searchWord.getKeyword(), searchWord);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    lastUpdateTime = maxNewUpdatedTime;</span><br><span class="line">    currentKeywords = newKeywords; <span class="comment">//替换</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">private</span> List&lt;SearchWord&gt; <span class="title">getSearchWords</span><span class="params">(<span class="keyword">long</span> lastUpdateTime)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// <span class="doctag">TODO:</span> 从数据库中取出更新时间&gt;lastUpdateTime的数据</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ul><hr><ul><li>尽量避免IO操作，而是宁愿选择内存操作与CPU计算这些耗时操作</li></ul>]]></content>
       
       
       <categories>
@@ -488,57 +501,25 @@
     
     
     <entry>
-      <title>操作系统之进程与线程</title>
-      <link href="posts/89292719/"/>
-      <url>posts/89292719/</url>
+      <title>设计模式之面向对象</title>
+      <link href="posts/c308e44d/"/>
+      <url>posts/c308e44d/</url>
       
-        <content type="html"><![CDATA[<h4 id="进程与线程"><a href="#进程与线程" class="headerlink" title="进程与线程"></a>进程与线程</h4><h5 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h5><p><strong>Process</strong> 正在执行的应用程序，软件执行副本，分配资源的基础单位<br><strong>Thread</strong> 轻量级进程，程序执行的基本单位</p><ul><li>操作系统的三个资源：计算资源（CPU）、内存资源、文件资源。后期为了避免一个应用开启多个进程过于耗费资源，所以在进程下面设计了一个仅仅被分配CPU资源的程序执行单位，线程</li><li>操作系统启动后，进程的入口被分配了一个主线程，而操作系统通过调用主线程及其子线程进行资源调度</li><li>创建进程开销大、成本高；创建线程开销小，成本低</li><li>操作系统中存在大量进程，为了不互相干扰所以分配了彼此完全隔离的内存区域，所以一般来说进程之间无法访问相互的内存，除非使用<strong>进程间通信</strong>。但是进程间的线程可以共享进程间的内存资源</li><li><code>用户态线程</code>和<code>内核态线程</code>，区别在于有一个在用户空间创建，一个是执行在内核态，可通过系统调用创造（内核线程是真正的线程，因为为会分配到CPU的执行资源）；<strong>用户态和内核态是为了保护内存资源，而线程划分是为了更好地使用计算资源</strong></li></ul><h5 id="开销对比"><a href="#开销对比" class="headerlink" title="开销对比"></a>开销对比</h5><hr><h4 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h4><ul><li>实现锁需要底层提供的原子操作（<strong>操作不可分</strong>）<h4 id="竞争条件"><a href="#竞争条件" class="headerlink" title="竞争条件"></a>竞争条件</h4></li><li>多线程+多核<h4 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h4></li><li>避免临界区</li><li>cas (Compare And Swap)</li><li>tas (Test And Set)</li></ul><h4 id="并发控制"><a href="#并发控制" class="headerlink" title="并发控制"></a>并发控制</h4><ul><li>目的在于达到同步(<strong>Synchronized</strong>)的状态<h5 id="加锁"><a href="#加锁" class="headerlink" title="加锁"></a>加锁</h5></li><li>悲观锁<ul><li><strong>Pressimistic Lock</strong></li><li>让<strong>临界区</strong>（访问共享资源的程序片段）互斥，每次只有一个线程可以进入临界区</li></ul></li><li>乐观锁<ul><li><strong>Optimistic Lock</strong></li><li>类似git操作，后提交的需要先确认是否有最新，再判断是否冲突，解决后再提交</li><li>类似 cas 指令</li></ul></li></ul><h5 id="去中心化"><a href="#去中心化" class="headerlink" title="去中心化"></a>去中心化</h5><ul><li>① 区块链形式，但是会分支太多</li><li>② 不是很清晰，大意是所有吞吐不直接由中心处理，而是用户与商家先处理。以商家和用户们为一个节点，后期在判断后逐级合并到主分支，一定程度暂缓高峰期中心处理的压力</li></ul><h4 id="调度"><a href="#调度" class="headerlink" title="调度"></a>调度</h4><h5 id="常规"><a href="#常规" class="headerlink" title="常规"></a>常规</h5><ul><li>先到先得 (First Come First Service) <ul><li>使用队列的先进先出，保证公平性和吞吐量</li></ul></li><li>短作业优先 (Shortest Job First)<ul><li>为了减少用户的平均等待时间</li></ul></li></ul><p><strong>缺点</strong></p><ul><li>无法处理紧急插队任务</li><li>等待太久的任务怎么插队</li><li>用时多的任务执行一半,又来了短作业</li></ul><h5 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h5><ul><li>优先级队列 (PriorityQueue) <ul><li>使用数据结构：堆，每次遍历优先级最高的任务，解决紧急插队问题</li></ul></li><li>抢占 (Preemption)<ul><li>执行能力分时，结合优先级队列构成基本线程调度</li></ul></li></ul><h5 id="二次优化"><a href="#二次优化" class="headerlink" title="二次优化"></a>二次优化</h5><ul><li>多级队列<br>多个队列执行调度</li></ul><h4 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h4><h5 id="基本条件"><a href="#基本条件" class="headerlink" title="基本条件"></a>基本条件</h5><ul><li>资源存在互斥逻辑：每次只有一个线程可以抢到资源</li><li>持有等待</li><li>禁止抢占：拿不到就会一直处于等待而不是释放已拥有的资源</li><li>循环等待</li></ul><h4 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h4><h4 id="空缺"><a href="#空缺" class="headerlink" title="空缺"></a>空缺</h4><ul><li>IPC （Intermediate Process Communication）</li><li></li></ul>]]></content>
-      
-      
-      <categories>
-          
-          <category> 操作系统 </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>操作系统之基础知识</title>
-      <link href="posts/6a0c4ab9/"/>
-      <url>posts/6a0c4ab9/</url>
-      
-        <content type="html"><![CDATA[<p>操作系统原则：进程向内核发起一个请求，然后将CPU执行权限让出给内核。内核接手CPU执行权限，然后完成请求，再转让出CPU执行权限给调用进程</p><h4 id="内核"><a href="#内核" class="headerlink" title="内核"></a>内核</h4><ul><li>操作系统中应用连接设备的桥梁</li><li>权限非常高，可以管理进程、可以直接访问所有的内存</li><li>进程调用内核的过程中，是存在资源共享的</li></ul><h5 id="能力"><a href="#能力" class="headerlink" title="能力"></a>能力</h5><ul><li>管理进程、线程（决定哪个进程、线程使用CPU）</li><li>管理内存（决定内存做什么）</li><li>连接硬件设备（为进程、和设备间提供通信能力）</li><li>提供系统调用（接收进程发送来的系统调用）</li></ul><hr><pre class="mermaid">graph TD;Application --> KernelKernel --> CPUKernel -->MEORYKernel --> DEVICE</pre><h4 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h4><h5 id="宏内核"><a href="#宏内核" class="headerlink" title="宏内核"></a>宏内核</h5><ul><li><p><strong>Monolithic Kernel</strong></p></li><li><p>有很多程序打包在内核中（文件系统、驱动、内存管理等）</p></li><li><p>Linux就是宏内核，且内核用最高权限来运行，内核模块可以动态加载</p></li></ul><h5 id="微内核"><a href="#微内核" class="headerlink" title="微内核"></a>微内核</h5><ul><li><p><strong>Microkenel</strong></p></li><li><p>只保留最基础能力（进程调度、虚拟内存、中断）</p></li><li><p>多数应用（甚包括驱动程序、文件系统）是在用户空间管理；驱动在内核外，驱动和硬件的交互就需要频繁做内核态切换</p></li></ul><h5 id="混合内核"><a href="#混合内核" class="headerlink" title="混合内核"></a>混合内核</h5><ul><li>Windows系统</li><li>Mac OS (使用 XNU内核)</li></ul><hr>]]></content>
+        <content type="html"><![CDATA[<h3 id="三剑客"><a href="#三剑客" class="headerlink" title="三剑客"></a>三剑客</h3><h4 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h4><ul><li>信息隐藏或者数据保护</li><li>类通过暴露有限的访问接口，授权外部仅能通过类提供的方式来访问内部信息或者数据</li><li>通过访问权限来控制 （private…）</li></ul><h4 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h4><ul><li>关键字（extends）java只支持单继承</li><li>可以代码复用，但是推荐 <strong>多用组合少用继承</strong></li><li>结构稳定继承层次较浅使用继承，不稳定且继承层次深尽量使用组合来替代继承</li></ul><h4 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h4><ul><li>子类可替换父类</li><li>实现方式：1：继承加方法重写  2：接口类语法  3：duck-typing语法 （动态语言才支持）</li><li>提高代码的可拓展性和复用性</li></ul><hr><h3 id="接口与抽象"><a href="#接口与抽象" class="headerlink" title="接口与抽象"></a>接口与抽象</h3><h4 id="抽象"><a href="#抽象" class="headerlink" title="抽象"></a>抽象</h4><ul><li>隐藏方法的具体实现，让调用者只关心提供了哪些功能，而无需知道如何实现</li><li>关键字实现 （interface、abstract）语法机制，实现抽象特性</li><li>只关注功能点不关注实现</li><li>只能被继承，不能被实例化</li><li>可包含属性和方法，方法可含代码实现也可以abstract定义</li><li>子类必须实现抽象父类的所有抽象方法</li></ul><h4 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h4><ul><li>不能含有属性</li><li>只能声明方法</li><li>实现类必须实现接口中所有方法</li></ul><h5 id="基于接口编程"><a href="#基于接口编程" class="headerlink" title="基于接口编程"></a>基于接口编程</h5><ul><li>函数命名不能暴露任何细节（泛笼统化）</li><li>封装具体细节实现</li><li>抽取统一依赖的接口定义，让使用者依赖接口操作。将接口与实现相分离</li></ul><h4 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h4><ul><li><strong>接口侧重于解耦，而抽象为了代码复用</strong></li><li>is-a 且为了解决复用，就使用抽象</li><li>has-a 且为了解决抽象，就是使用接口</li><li>抽象自下而上，先有子类代码重复，而后抽象成上层抽象父类</li><li>接口自上而下，先设计接口，而后考虑具体实现</li></ul><hr><h3 id="贫血模型"><a href="#贫血模型" class="headerlink" title="贫血模型"></a>贫血模型</h3><ul><li>只含数据，不含业务逻辑，将数据与操作分离破坏了面向对象的封装特性</li><li>违反了OOP特性，实际是面向过程</li><li>适用于业务简单的系统开发</li></ul><h3 id="充血模型"><a href="#充血模型" class="headerlink" title="充血模型"></a>充血模型</h3><ul><li>数据与对应业务逻辑封装在一起</li><li>适用于业务复杂的系统开发</li></ul><h3 id="领域驱动设计"><a href="#领域驱动设计" class="headerlink" title="领域驱动设计"></a>领域驱动设计</h3><ul><li><p>DDD，主要是用来指导解耦业务系统，划分业务模块，定义业务领域及其交互</p></li><li><p>基于贫血模型的DDD，重Service轻业务对象。而基于充血模型的，轻Service重Domain</p></li></ul><h4 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h4><ul><li>理清所有业务，定义领域模型所包含的属性与方法，将数据与操作结合</li><li>领域模型相当于可复用的因为中间层，新开发基于之前定义号的领域模型来自完成</li><li>单一职责</li></ul><hr><h3 id="面向对象开发"><a href="#面向对象开发" class="headerlink" title="面向对象开发"></a>面向对象开发</h3><h4 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h4><h5 id="OOA"><a href="#OOA" class="headerlink" title="OOA"></a>OOA</h5><ul><li>面向对象分析</li></ul><h5 id="OOD"><a href="#OOD" class="headerlink" title="OOD"></a>OOD</h5><ul><li>面向对象设计</li></ul><h5 id="OOP"><a href="#OOP" class="headerlink" title="OOP"></a>OOP</h5><ul><li>面向对象编程</li></ul><h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><h5 id="划分职责"><a href="#划分职责" class="headerlink" title="划分职责"></a>划分职责</h5><ul><li>根据需求点，罗列功能点，将判断功能点相近及操作同样属性是否可归为同一类</li></ul><h5 id="定义类及属性和方法"><a href="#定义类及属性和方法" class="headerlink" title="定义类及属性和方法"></a>定义类及属性和方法</h5><ul><li>需求描述中的动词作为函数名，涉及的名词作为候选属性</li></ul><h5 id="定义交互关系"><a href="#定义交互关系" class="headerlink" title="定义交互关系"></a>定义交互关系</h5><ul><li>UML定义了六种关系：泛化、实现、关联、聚合、组合、依赖</li><li>保留四个关系：泛化、实现、组合、依赖</li></ul><h5 id="组装并提供入口"><a href="#组装并提供入口" class="headerlink" title="组装并提供入口"></a>组装并提供入口</h5>]]></content>
       
       
       <categories>
           
-          <category> 操作系统 </category>
+          <category> 设计模式学习 </category>
           
       </categories>
       
       
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Go进阶</title>
-      <link href="posts/4ecb59a/"/>
-      <url>posts/4ecb59a/</url>
-      
-        <content type="html"><![CDATA[<h4 id="协程"><a href="#协程" class="headerlink" title="协程"></a>协程</h4><h5 id="协程池"><a href="#协程池" class="headerlink" title="协程池"></a>协程池</h5><ul><li>限制执行次数（单位时间上限及单个执行次数）<h4 id="Context"><a href="#Context" class="headerlink" title="Context"></a>Context</h4></li><li>传值</li><li>取消多个协程<h5 id="使用原则"><a href="#使用原则" class="headerlink" title="使用原则"></a>使用原则</h5></li><li>不要放在结构体，要以参数形式传递</li><li>作为函数参数时候，要放在第一位</li><li>使用conetxt.Backgroud函数生成得根节点Context，即最顶层Context</li><li>传值时候尽量少传</li><li>多协程中是安全的</li></ul><h4 id="高并发"><a href="#高并发" class="headerlink" title="高并发"></a>高并发</h4><h5 id="for-select"><a href="#for-select" class="headerlink" title="for select"></a>for select</h5><ul><li>常规使用<h5 id="select-timeout"><a href="#select-timeout" class="headerlink" title="select timeout"></a>select timeout</h5></li><li>设置超时时间，避免无限等待<h5 id="Pipeline"><a href="#Pipeline" class="headerlink" title="Pipeline"></a>Pipeline</h5></li><li>适用于工序相互依赖，顺序性的流水线模式<h5 id="扇出和扇入"><a href="#扇出和扇入" class="headerlink" title="扇出和扇入"></a>扇出和扇入</h5></li><li>优化型的Pipeline模式，通过多个协程并发，把多个channel合成一个</li><li>适用于针对流水线模型下，需要增加某个节点数量<h5 id="Futures"><a href="#Futures" class="headerlink" title="Futures"></a>Futures</h5></li><li>工序相互独立，可同时进行</li><li>区别与一般协程，可以通过<code>channel</code>返回结果</li></ul><h4 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h4><ul><li><code>var</code>声明的指针变量是不能直接赋值和取值的，因为此时仅仅是一个变量，还没有对应的内存地址，值为 <code>nil</code><h5 id="使用原则-1"><a href="#使用原则-1" class="headerlink" title="使用原则"></a>使用原则</h5></li><li>指针的接收者是map、slice、channel这类引用类型，不适用指针</li><li>如果需要修改接收者，那么需要使用指针</li><li>如果接收者是比较大的类型，那么需要考虑使用指针。因为内存拷贝廉价，所以效率高；对于int、bool等小数据类型没有必要使用</li><li>变量赋值，参数传值时候可以节省内存</li><li>并发安全的情况下，尽可能不适用指针，使用指针需要保证并发安全</li><li>指针不要嵌套，虽然允许，但是最好不要</li></ul><hr><h4 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h4><ul><li>单元测试</li><li>单元测试覆盖率</li><li>基准测试 （评估测量和评估软件性能指标）</li></ul><h4 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h4><ul><li>逃逸分析</li></ul><h5 id="技巧"><a href="#技巧" class="headerlink" title="技巧"></a>技巧</h5><ul><li>尽可能避免逃逸，因为栈内存效率更高，还不用GC。小对象的传参，array比slice效果好；如果无法避免逃逸，还是在堆上分配内存，对于频繁的内存申请操作，需要使用<code>sync.Pool</code>进行重用内存</li><li>结合合适的算法</li><li>可使用Go自带的性能剖析工具<code>pprof</code>，查看CPU分析、内存分析、阻塞分析、互斥锁分析</li></ul><hr><h3 id="RPC"><a href="#RPC" class="headerlink" title="RPC"></a>RPC</h3>]]></content>
-      
-      
-      <categories>
-          
-          <category> Go </category>
-          
-      </categories>
-      
+        <tags>
+            
+            <tag> 设计模式 </tag>
+            
+        </tags>
       
     </entry>
     
@@ -809,11 +790,11 @@
     
     
     <entry>
-      <title>WebRTC学习 第一章</title>
+      <title>WebRTC学习</title>
       <link href="posts/10120/"/>
       <url>posts/10120/</url>
       
-        <content type="html"><![CDATA[<ul><li>在任何网络环境下都能够建立网络连接，交换会话信息后，由客户端直接点对点通讯</li></ul><h4 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h4><h5 id="P2P"><a href="#P2P" class="headerlink" title="P2P"></a>P2P</h5><ul><li>Point to Point ,指数据的传输不再通过服务器，而是网络用户之间直接传递数据</li></ul><h5 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h5><ul><li><strong>Basic NAT（Network Address Translation）</strong><ul><li>内网IP地址和端口向外部发送请求时（例如Socket请求），NAT设备只转换IP地址，端口保持不变 （基本淘汰）</li></ul></li><li><strong>NAPT（Network Address/Port Translator）</strong><ul><li>内网IP地址和端口向外部发送请求时，NAT设备同时将IP和端口映射为外部IP地址和外部端口  （目前主流）</li><li><a href="https://www.ietf.org/rfc/rfc3489.txt">STUN 协议</a>  第五章有详细关于 <code>NAT的分类</code></li></ul></li></ul><h5 id="STUN"><a href="#STUN" class="headerlink" title="STUN"></a>STUN</h5><p><img src="STUN_Algorithm.jpg" alt=""></p><ul><li>Session Traversal Utilities for NAT，NAT会话穿越应用程序</li><li><a href="https://www.ietf.org/rfc/rfc3489.txt">STUN 协议</a></li><li>在应用中，采取了STUN方式实现了<strong>P2P</strong>,采用了辅助的方式探测NAT的IP和端口</li><li>探测和发现通讯对方是否躲在防火墙或者NAT路由器后面</li><li>确定内网客户端所暴露在外的广域网的IP和端口以及NAT类型等信息，STUN服务器利用这些信息协助不同内网的计算机之间建立点对点的UDP通讯 </li></ul><h5 id="TURN"><a href="#TURN" class="headerlink" title="TURN"></a>TURN</h5><ul><li>Traversal Using Relay NAT，通过中继穿透NAT</li><li>在复杂的NAT实现下，STUN无法穿透NAT，这时就要通过中继服务器来实现穿透</li><li>会占用大量的带宽资源</li></ul><h5 id="SDP"><a href="#SDP" class="headerlink" title="SDP"></a>SDP</h5><ul><li>SDP 完全是一种会话描述格式 ,它不属于传输协议,只使用不同的适当的传输协议</li><li><a href="https://www.cnblogs.com/idignew/p/7249056.html">SDP协议介绍</a></li></ul><h5 id="Signal-Server"><a href="#Signal-Server" class="headerlink" title="Signal Server"></a>Signal Server</h5><ul><li>给客户端之间传送彼此的SDP信息和candidate信息，客户端通过这些信息建立P2P连接来传送音视频数据</li></ul><hr><h4 id="业务流程"><a href="#业务流程" class="headerlink" title="业务流程"></a>业务流程</h4><p><img src="%E9%80%9A%E8%AE%AF%E6%B5%81%E7%A8%8B.png" alt=""></p><hr><h4 id="STUN-TURN服务器的搭建"><a href="#STUN-TURN服务器的搭建" class="headerlink" title="STUN/TURN服务器的搭建"></a>STUN/TURN服务器的搭建</h4><ul><li>暂未作处理</li></ul><hr><h4 id="实现Demo"><a href="#实现Demo" class="headerlink" title="实现Demo"></a>实现Demo</h4><p>代码基于Flutter_webrtc官方案例及开源的后台源码，简单作了结合，以便后期拓展；后台部分中间件因为不熟悉使用，已作注释处理</p><p><a href="https://github.com/wl960127/mvvm_app">客户端</a></p><p><a href="https://github.com/wl960127/rtc_admin">服务器端</a></p><hr><p><img src="/%E6%9C%BA%E7%81%B5%E7%8C%AB.gif" alt=""></p><h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a href="http://www.mamicode.com/info-detail-1907841.html">webrtcclient与TURN和信令server通讯流程图</a></p><p><a href="https://www.jzgwind.com/?p=973"><a href="https://www.jzgwind.com/?p=973">P2P网络节点间如何互访——详解STUN方式NAT穿透</a></a></p>]]></content>
+        <content type="html"><![CDATA[<ul><li>在任何网络环境下都能够建立网络连接，交换会话信息后，由客户端直接点对点通讯</li></ul><h4 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h4><h5 id="P2P"><a href="#P2P" class="headerlink" title="P2P"></a>P2P</h5><ul><li>Point to Point ,指数据的传输不再通过服务器，而是网络用户之间直接传递数据</li></ul><h5 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h5><ul><li><strong>Basic NAT（Network Address Translation）</strong><ul><li>内网IP地址和端口向外部发送请求时（例如Socket请求），NAT设备只转换IP地址，端口保持不变 （基本淘汰）</li></ul></li><li><strong>NAPT（Network Address/Port Translator）</strong><ul><li>内网IP地址和端口向外部发送请求时，NAT设备同时将IP和端口映射为外部IP地址和外部端口  （目前主流）</li><li><a href="https://www.ietf.org/rfc/rfc3489.txt">STUN 协议</a>  第五章有详细关于 <code>NAT的分类</code></li></ul></li></ul><h5 id="STUN"><a href="#STUN" class="headerlink" title="STUN"></a>STUN</h5><p><img src="STUN_Algorithm.jpg" alt=""></p><ul><li>Session Traversal Utilities for NAT，NAT会话穿越应用程序</li><li><a href="https://www.ietf.org/rfc/rfc3489.txt">STUN 协议</a></li><li>在应用中，采取了STUN方式实现了<strong>P2P</strong>,采用了辅助的方式探测NAT的IP和端口</li><li>探测和发现通讯对方是否躲在防火墙或者NAT路由器后面</li><li>确定内网客户端所暴露在外的广域网的IP和端口以及NAT类型等信息，STUN服务器利用这些信息协助不同内网的计算机之间建立点对点的UDP通讯 </li></ul><h5 id="TURN"><a href="#TURN" class="headerlink" title="TURN"></a>TURN</h5><ul><li>Traversal Using Relay NAT，通过中继穿透NAT</li><li>在复杂的NAT实现下，STUN无法穿透NAT，这时就要通过中继服务器来实现穿透</li><li>会占用大量的带宽资源</li></ul><h5 id="SDP"><a href="#SDP" class="headerlink" title="SDP"></a>SDP</h5><ul><li>SDP 完全是一种会话描述格式 ,它不属于传输协议,只使用不同的适当的传输协议</li><li><a href="https://www.cnblogs.com/idignew/p/7249056.html">SDP协议介绍</a></li></ul><h5 id="Signal-Server"><a href="#Signal-Server" class="headerlink" title="Signal Server"></a>Signal Server</h5><ul><li>给客户端之间传送彼此的SDP信息和candidate信息，客户端通过这些信息建立P2P连接来传送音视频数据</li></ul><hr><h4 id="业务流程"><a href="#业务流程" class="headerlink" title="业务流程"></a>业务流程</h4><p><img src="%E9%80%9A%E8%AE%AF%E6%B5%81%E7%A8%8B.png" alt=""></p><hr><h4 id="STUN-TURN服务器的搭建"><a href="#STUN-TURN服务器的搭建" class="headerlink" title="STUN/TURN服务器的搭建"></a>STUN/TURN服务器的搭建</h4><ul><li>暂未作处理</li></ul><hr><h4 id="实现Demo"><a href="#实现Demo" class="headerlink" title="实现Demo"></a>实现Demo</h4><p>代码基于Flutter_webrtc官方案例及开源的后台源码，简单作了结合，以便后期拓展；后台部分中间件因为不熟悉使用，已作注释处理</p><p><a href="https://github.com/wl960127/mvvm_app">客户端</a></p><p><a href="https://github.com/wl960127/rtc_admin">服务器端</a></p><hr><p><img src="%E6%9C%BA%E7%81%B5%E7%8C%AB.gif" alt=""></p><h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a href="http://www.mamicode.com/info-detail-1907841.html">webrtcclient与TURN和信令server通讯流程图</a></p><p><a href="https://www.jzgwind.com/?p=973"><a href="https://www.jzgwind.com/?p=973">P2P网络节点间如何互访——详解STUN方式NAT穿透</a></a></p>]]></content>
       
       
       <categories>
@@ -1267,11 +1248,11 @@
     
     
     <entry>
-      <title>命令模式</title>
+      <title>行为型-命令模式</title>
       <link href="posts/22977/"/>
       <url>posts/22977/</url>
       
-        <content type="html"><![CDATA[<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p><img src="Light.png" alt=""></p><h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><ul><li><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Light</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">on</span><span class="params">()</span> </span>&#123;</span><br><span class="line">System.out.println(<span class="string">"开灯"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">off</span><span class="params">()</span> </span>&#123;</span><br><span class="line">System.out.println(<span class="string">"关灯"</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Command</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LightOnCommand</span> <span class="keyword">implements</span> <span class="title">Command</span> </span>&#123;</span><br><span class="line">Light light;</span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">LightOnCommand</span><span class="params">(Light light)</span> </span>&#123;</span><br><span class="line"><span class="keyword">this</span>.light = light;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">()</span> </span>&#123;</span><br><span class="line">light.on();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SimpleRemoteControl</span> </span>&#123;</span><br><span class="line">Command slot;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">SimpleRemoteControl</span><span class="params">()</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">serCommand</span><span class="params">(Command command)</span> </span>&#123;</span><br><span class="line">slot = command;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">buttonWasPressed</span><span class="params">()</span> </span>&#123;</span><br><span class="line">slot.execute();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">        SimpleRemoteControl simpleRemoteControl = <span class="keyword">new</span> SimpleRemoteControl();</span><br><span class="line">Light light = <span class="keyword">new</span> Light();</span><br><span class="line"></span><br><span class="line">LightOnCommand lightOnCommand = <span class="keyword">new</span> LightOnCommand(light);</span><br><span class="line"></span><br><span class="line"><span class="comment">//serCommand 的参数类型是 Command， 但是LightOnCommand 实现了 Command </span></span><br><span class="line"><span class="comment">//接口允许通过创建一个能被向上转型为多种基类的类型，来实现多种某种类似多重继变种的特性</span></span><br><span class="line">simpleRemoteControl.serCommand(lightOnCommand);</span><br><span class="line"></span><br><span class="line">simpleRemoteControl.buttonWasPressed();</span><br></pre></td></tr></table></figure></li></ul><h4 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h4><p><img src="result.jpg" alt=""></p><h4 id="用处"><a href="#用处" class="headerlink" title="用处"></a>用处</h4><ul><li>队列请求</li><li>日志请求</li></ul>]]></content>
+        <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>将请求封装为一个对象，这样可以使用不同的请求参数化其他对象（将不同请求依赖注入到其他对象），并且能够支持请求的排队执行、记录日志、撤销等功能</li></ul><h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p><img src="Light.png" alt=""></p><h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><ul><li><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Light</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">on</span><span class="params">()</span> </span>&#123;</span><br><span class="line">System.out.println(<span class="string">"开灯"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">off</span><span class="params">()</span> </span>&#123;</span><br><span class="line">System.out.println(<span class="string">"关灯"</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Command</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LightOnCommand</span> <span class="keyword">implements</span> <span class="title">Command</span> </span>&#123;</span><br><span class="line">Light light;</span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">LightOnCommand</span><span class="params">(Light light)</span> </span>&#123;</span><br><span class="line"><span class="keyword">this</span>.light = light;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">()</span> </span>&#123;</span><br><span class="line">light.on();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SimpleRemoteControl</span> </span>&#123;</span><br><span class="line">Command slot;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">SimpleRemoteControl</span><span class="params">()</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">serCommand</span><span class="params">(Command command)</span> </span>&#123;</span><br><span class="line">slot = command;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">buttonWasPressed</span><span class="params">()</span> </span>&#123;</span><br><span class="line">slot.execute();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">        SimpleRemoteControl simpleRemoteControl = <span class="keyword">new</span> SimpleRemoteControl();</span><br><span class="line">Light light = <span class="keyword">new</span> Light();</span><br><span class="line"></span><br><span class="line">LightOnCommand lightOnCommand = <span class="keyword">new</span> LightOnCommand(light);</span><br><span class="line"></span><br><span class="line"><span class="comment">//serCommand 的参数类型是 Command， 但是LightOnCommand 实现了 Command </span></span><br><span class="line"><span class="comment">//接口允许通过创建一个能被向上转型为多种基类的类型，来实现多种某种类似多重继变种的特性</span></span><br><span class="line">simpleRemoteControl.serCommand(lightOnCommand);</span><br><span class="line"></span><br><span class="line">simpleRemoteControl.buttonWasPressed();</span><br></pre></td></tr></table></figure></li></ul><h4 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h4><p><img src="result.jpg" alt=""></p><h4 id="用处"><a href="#用处" class="headerlink" title="用处"></a>用处</h4><ul><li>队列请求</li><li>日志请求</li></ul>]]></content>
       
       
       <categories>
@@ -2228,6 +2209,31 @@
     
     
     <entry>
+      <title>Android 源码中创建App</title>
+      <link href="posts/42241/"/>
+      <url>posts/42241/</url>
+      
+        <content type="html"><![CDATA[<h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><ul><li>参看　<code>Ubuntu编译Android源码并刷机</code>，配置环境</li><li><a href="https://github.com/wl960127/HelloWrold">Demo传送</a> </li></ul><h4 id="Android-mk"><a href="#Android-mk" class="headerlink" title="Android.mk"></a>Android.mk</h4><ul><li><p>参考的老罗的，但是有点问题，后来就在网上找了</p></li><li><p>链接如下 <a href="https://blog.csdn.net/zhonglunshun/article/details/70256727">移植HelloWorld</a></p><ul><li>LOCAL_MODULE_TAGS的备选值有user，eng，tests，optional，本示例中使用的TAGS值为eng（工程模式，自带root），因此，仅当用户指定的编译选项为eng时才会编译该工程。否则会停止编译，默认值为optional </li><li><strong>Android.mk</strong></li></ul><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">LOCAL_PATH:= <span class="variable">$(<span class="built_in">call</span> my-<span class="built_in">dir</span>)</span></span><br><span class="line"><span class="comment">#清理缓存变量</span></span><br><span class="line"><span class="keyword">include</span> <span class="variable">$(CLEAR_VARS)</span></span><br><span class="line"><span class="comment">#表示目标模式</span></span><br><span class="line">LOCAL_MODULE_TAGS := samples</span><br><span class="line"><span class="comment">#表示源文件编译路径 这个应用里面只有java源文件</span></span><br><span class="line">LOCAL_SRC_FILES := <span class="variable">$(<span class="built_in">call</span> all-java-files-under, src)</span></span><br><span class="line"><span class="comment">#表示项目包名也就是模块名，在项目中唯一,就是你apk的名字。</span></span><br><span class="line">LOCAL_PACKAGE_NAME := HelloWorld</span><br><span class="line"><span class="comment">#指定编译sdk版本为当前版本</span></span><br><span class="line">LOCAL_SDK_VERSION := current</span><br><span class="line"><span class="comment"># 使用该指令编译目标Apk.</span></span><br><span class="line"><span class="keyword">include</span> <span class="variable">$(BUILD_PACKAGE)</span></span><br><span class="line"><span class="comment">#搜索编译该源码目录下所有的mk文件，如果没有可以不写</span></span><br><span class="line"><span class="keyword">include</span> <span class="variable">$(<span class="built_in">call</span> all-makefiles-under,<span class="variable">$(LOCAL_PATH)</span>)</span></span><br></pre></td></tr></table></figure><ul><li><p><strong>build/target/product/core.mk</strong></p><ul><li><p>忽略了你是没办法在编译成的system.img里面找到这个工程的</p></li><li><p>如果你是想打包在镜像中的话，所以下一步是不一定要执行</p></li><li><p>把mk文件中的标识名填上（LOCAL_PACKAGE_NAME或者LOCAL_MODULE  的值！！！！ 比如这里的是  HelloWorld \）</p></li></ul></li></ul><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">PRODUCT_PACKAGES := \ </span><br><span class="line">DeskClock \ </span><br><span class="line">Calculator \ </span><br><span class="line">Calendar \ </span><br><span class="line">Camera2 \ </span><br><span class="line">Email \ </span><br><span class="line">HelloWorld \   <span class="comment">#这个是创建的工程</span></span><br></pre></td></tr></table></figure></li></ul><h4 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h4><ul><li><p>在packages/apps 下创建例子 Hello文件夹</p><ul><li>AndroidManifest.xml</li><li>Android.mk</li><li>src<ul><li>com/wl/hello  (包名随意，这是一个三级目录)<ul><li>HelloAndroid.java</li></ul></li></ul></li><li>res<ul><li>layout<ul><li>main.xml</li></ul></li><li>values<ul><li>strings.xml</li></ul></li><li>drawable<ul><li>icon.png</li></ul></li></ul></li></ul></li></ul><h4 id="打包镜像"><a href="#打包镜像" class="headerlink" title="打包镜像"></a>打包镜像</h4><ul><li><p>根目录下先 source build/envsetup.sh  (否则没有mmm指令)</p></li><li><p>编译App</p><ul><li>在新建项目的目录下输入make 项目名</li><li>或者切换到Android源码根目录下执行下面任意一条命令即可：mmm packages/apps/项目名</li></ul></li><li><p>测试方法</p><ul><li><p>真机运行</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> adb shell</span><br><span class="line"> su </span><br><span class="line"> mount -o remount,rw /system    (挂载手机磁盘，并设置可读写)</span><br><span class="line">- 退出adb指令</span><br><span class="line"> adb push 本地路径  手机app路径（/sdcard）</span><br><span class="line">- 再用 复制或者移动到 (/system/app)  </span><br><span class="line"> chmod 777 .apk (操作过程中，没有执行这一步导致，开机没有被安装)</span><br><span class="line"> adb shell reboot</span><br></pre></td></tr></table></figure></li><li><p>虚拟机运行</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">方法一：　</span><br><span class="line"> make snod</span><br><span class="line"> emulator</span><br><span class="line"> </span><br><span class="line">方法二：　Android模拟器运行编译之后的镜像</span><br><span class="line">/xxx/Sdk/emulator/emulator -avd MyPhone -system android/out/target/product/generic/system.img </span><br><span class="line"></span><br><span class="line">   - android/是Android源码位置；</span><br><span class="line">   - system.img是编译好的Android镜像；</span><br><span class="line">   - MyPhone是刚创建的模拟器名称；</span><br><span class="line">   - system选项表示在模拟器上运行指定Android镜像</span><br></pre></td></tr></table></figure></li></ul></li></ul><h4 id="Android-系统签名"><a href="#Android-系统签名" class="headerlink" title="Android 系统签名"></a>Android 系统签名</h4><ul><li>build/target/product/security<ul><li>testkey <ul><li>默认使用，如果Android.mk不设置LOCAL_CERTIFICATE变量</li></ul></li><li>platform<ul><li>使用该签名的系统应用可以执行平台的核心功能</li></ul></li><li>shared<ul><li>使用该签名的系统应用可以和 home/contacts进程共享数据</li></ul></li><li>media<ul><li>使用该签名的系统应用将成为media/download 系统的一部分</li></ul></li></ul></li></ul><h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><ul><li>在java文件中，使用了什么就一定要添加依赖</li><li>xml中，所有的string都要在strings.xml中定义</li><li>基于　<code>Android版本 4.4.4_r1_KTU84P</code></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Android源码 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 源码 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>QQ弹窗消息</title>
       <link href="posts/34068/"/>
       <url>posts/34068/</url>
@@ -2270,31 +2276,6 @@
         <tags>
             
             <tag> 功能实现 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Android 源码中创建App</title>
-      <link href="posts/42241/"/>
-      <url>posts/42241/</url>
-      
-        <content type="html"><![CDATA[<h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><ul><li>参看　<code>Ubuntu编译Android源码并刷机</code>，配置环境</li><li><a href="https://github.com/wl960127/HelloWrold">Demo传送</a> </li></ul><h4 id="Android-mk"><a href="#Android-mk" class="headerlink" title="Android.mk"></a>Android.mk</h4><ul><li><p>参考的老罗的，但是有点问题，后来就在网上找了</p></li><li><p>链接如下 <a href="https://blog.csdn.net/zhonglunshun/article/details/70256727">移植HelloWorld</a></p><ul><li>LOCAL_MODULE_TAGS的备选值有user，eng，tests，optional，本示例中使用的TAGS值为eng（工程模式，自带root），因此，仅当用户指定的编译选项为eng时才会编译该工程。否则会停止编译，默认值为optional </li><li><strong>Android.mk</strong></li></ul><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">LOCAL_PATH:= <span class="variable">$(<span class="built_in">call</span> my-<span class="built_in">dir</span>)</span></span><br><span class="line"><span class="comment">#清理缓存变量</span></span><br><span class="line"><span class="keyword">include</span> <span class="variable">$(CLEAR_VARS)</span></span><br><span class="line"><span class="comment">#表示目标模式</span></span><br><span class="line">LOCAL_MODULE_TAGS := samples</span><br><span class="line"><span class="comment">#表示源文件编译路径 这个应用里面只有java源文件</span></span><br><span class="line">LOCAL_SRC_FILES := <span class="variable">$(<span class="built_in">call</span> all-java-files-under, src)</span></span><br><span class="line"><span class="comment">#表示项目包名也就是模块名，在项目中唯一,就是你apk的名字。</span></span><br><span class="line">LOCAL_PACKAGE_NAME := HelloWorld</span><br><span class="line"><span class="comment">#指定编译sdk版本为当前版本</span></span><br><span class="line">LOCAL_SDK_VERSION := current</span><br><span class="line"><span class="comment"># 使用该指令编译目标Apk.</span></span><br><span class="line"><span class="keyword">include</span> <span class="variable">$(BUILD_PACKAGE)</span></span><br><span class="line"><span class="comment">#搜索编译该源码目录下所有的mk文件，如果没有可以不写</span></span><br><span class="line"><span class="keyword">include</span> <span class="variable">$(<span class="built_in">call</span> all-makefiles-under,<span class="variable">$(LOCAL_PATH)</span>)</span></span><br></pre></td></tr></table></figure><ul><li><p><strong>build/target/product/core.mk</strong></p><ul><li><p>忽略了你是没办法在编译成的system.img里面找到这个工程的</p></li><li><p>如果你是想打包在镜像中的话，所以下一步是不一定要执行</p></li><li><p>把mk文件中的标识名填上（LOCAL_PACKAGE_NAME或者LOCAL_MODULE  的值！！！！ 比如这里的是  HelloWorld \）</p></li></ul></li></ul><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">PRODUCT_PACKAGES := \ </span><br><span class="line">DeskClock \ </span><br><span class="line">Calculator \ </span><br><span class="line">Calendar \ </span><br><span class="line">Camera2 \ </span><br><span class="line">Email \ </span><br><span class="line">HelloWorld \   <span class="comment">#这个是创建的工程</span></span><br></pre></td></tr></table></figure></li></ul><h4 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h4><ul><li><p>在packages/apps 下创建例子 Hello文件夹</p><ul><li>AndroidManifest.xml</li><li>Android.mk</li><li>src<ul><li>com/wl/hello  (包名随意，这是一个三级目录)<ul><li>HelloAndroid.java</li></ul></li></ul></li><li>res<ul><li>layout<ul><li>main.xml</li></ul></li><li>values<ul><li>strings.xml</li></ul></li><li>drawable<ul><li>icon.png</li></ul></li></ul></li></ul></li></ul><h4 id="打包镜像"><a href="#打包镜像" class="headerlink" title="打包镜像"></a>打包镜像</h4><ul><li><p>根目录下先 source build/envsetup.sh  (否则没有mmm指令)</p></li><li><p>编译App</p><ul><li>在新建项目的目录下输入make 项目名</li><li>或者切换到Android源码根目录下执行下面任意一条命令即可：mmm packages/apps/项目名</li></ul></li><li><p>测试方法</p><ul><li><p>真机运行</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> adb shell</span><br><span class="line"> su </span><br><span class="line"> mount -o remount,rw /system    (挂载手机磁盘，并设置可读写)</span><br><span class="line">- 退出adb指令</span><br><span class="line"> adb push 本地路径  手机app路径（/sdcard）</span><br><span class="line">- 再用 复制或者移动到 (/system/app)  </span><br><span class="line"> chmod 777 .apk (操作过程中，没有执行这一步导致，开机没有被安装)</span><br><span class="line"> adb shell reboot</span><br></pre></td></tr></table></figure></li><li><p>虚拟机运行</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">方法一：　</span><br><span class="line"> make snod</span><br><span class="line"> emulator</span><br><span class="line"> </span><br><span class="line">方法二：　Android模拟器运行编译之后的镜像</span><br><span class="line">/xxx/Sdk/emulator/emulator -avd MyPhone -system android/out/target/product/generic/system.img </span><br><span class="line"></span><br><span class="line">   - android/是Android源码位置；</span><br><span class="line">   - system.img是编译好的Android镜像；</span><br><span class="line">   - MyPhone是刚创建的模拟器名称；</span><br><span class="line">   - system选项表示在模拟器上运行指定Android镜像</span><br></pre></td></tr></table></figure></li></ul></li></ul><h4 id="Android-系统签名"><a href="#Android-系统签名" class="headerlink" title="Android 系统签名"></a>Android 系统签名</h4><ul><li>build/target/product/security<ul><li>testkey <ul><li>默认使用，如果Android.mk不设置LOCAL_CERTIFICATE变量</li></ul></li><li>platform<ul><li>使用该签名的系统应用可以执行平台的核心功能</li></ul></li><li>shared<ul><li>使用该签名的系统应用可以和 home/contacts进程共享数据</li></ul></li><li>media<ul><li>使用该签名的系统应用将成为media/download 系统的一部分</li></ul></li></ul></li></ul><h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><ul><li>在java文件中，使用了什么就一定要添加依赖</li><li>xml中，所有的string都要在strings.xml中定义</li><li>基于　<code>Android版本 4.4.4_r1_KTU84P</code></li></ul>]]></content>
-      
-      
-      <categories>
-          
-          <category> Android源码 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 源码 </tag>
             
         </tags>
       
