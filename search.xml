@@ -4,6 +4,56 @@
   
     
     <entry>
+      <title>JVM类加载机制</title>
+      <link href="posts/de06556f/"/>
+      <url>posts/de06556f/</url>
+      
+        <content type="html"><![CDATA[<h4 id="类加载过程"><a href="#类加载过程" class="headerlink" title="类加载过程"></a>类加载过程</h4> <pre class="mermaid">graph LR;A((加载)) --.class-->B[验证]-->C[准备]--在方区为类变量分配内存-->D[解析]--关联引用-->E[初始化]</pre><h4 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h4><h5 id="双亲委派机制"><a href="#双亲委派机制" class="headerlink" title="双亲委派机制"></a>双亲委派机制</h5><ul><li>除了顶层启动类加载器之外，其余的类加载器在加载之前，都会委派给它的父加载器进行加载，层层上递给最顶层时候，才会真正加载</li></ul><p><img src="%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE.png" alt=""></p><h5 id="自定义加载器"><a href="#自定义加载器" class="headerlink" title="自定义加载器"></a>自定义加载器</h5><ul><li>一般情况下，类加载是遵循双亲委派机制的。但是类加载器通过开放的API，让加载过程更加的灵活</li><li>对于远程存储字节码以及字节码加密，这种业务需求，实现一个新的类加载器就可以了</li></ul><h4 id="栈帧字节码流转"><a href="#栈帧字节码流转" class="headerlink" title="栈帧字节码流转"></a>栈帧字节码流转</h4><p><img src="%E5%AD%97%E8%8A%82%E7%A0%81%E6%B5%81%E8%BD%AC.png" alt=""></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Jvm </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>JVM基础</title>
+      <link href="posts/8a392f6c/"/>
+      <url>posts/8a392f6c/</url>
+      
+        <content type="html"><![CDATA[<hr><h2 id="typora-root-url-01"><a href="#typora-root-url-01" class="headerlink" title="typora-root-url: 01"></a>typora-root-url: 01</h2><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><ul><li>上承开发语言，下接操作系统，中间的接口就是字节码。通过不停的翻译执行Java字节码，调用真正的操作系统函数<br>（ Java文件 -&gt; 编译器 -&gt; 字节码 -&gt; JVM -&gt; 机器码 ）</li><li>一次编译，处处运行</li><li>是一个规范，定义了.class文件的结构，加载机制，数据存储，运行时栈等诸多内容，最常见的JVM实现就是Hostpot</li></ul><p>Java虚拟机采用基于栈的架构，其指令由操作码和操作数组成。这些字节码指令，就叫做 <strong>opcode</strong></p><hr><h4 id="执行方式"><a href="#执行方式" class="headerlink" title="执行方式"></a>执行方式</h4><ul><li>解析执行：将opcode+操作数翻译成机器代码</li><li>即时编译 （JIT）：会在一定条件下，将字节码编译成机器码再执行</li></ul><p>这些.class文件会被加载，存放在元空间，等待被调用，这里会有一个类加载器的概念</p><hr><h4 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h4><ul><li>对于Java的自动内存管理机制，为了管理这些快速的内存申请释放操作，就必须引入一个池子（<strong>堆</strong>）来延迟这些内存区域的回收操作</li></ul><h5 id="内存布局"><a href="#内存布局" class="headerlink" title="内存布局"></a>内存布局</h5><ul><li>Java8及以后版本，彻底移除持久化，而是使用Metaspace来进行替代，即: -XX:PermSize等参数调优已经无意义</li></ul><p>[]<img src="JVM内存区域划分.png" style="zoom:80%;" /></p><p><img src="" alt=""></p><ul><li>JVM堆中的数据是共享的，是占用内存最大的一块区域</li><li>可以执行字节码的模块叫做执行引擎</li><li>程序计数器使得执行引擎在线程切换时候可以恢复</li><li>JVM的内存划分与多线程息息相关。程序运行时候用到的栈以及本地方法栈的维度都是线程</li><li>本地内存包含元数据去和一些直接内存</li></ul><h5 id="虚拟机栈"><a href="#虚拟机栈" class="headerlink" title="虚拟机栈"></a>虚拟机栈</h5><ul><li>Java虚拟机栈基于线程，栈的生命周期和线程一样</li><li>栈的每条数据就是栈帧，每个栈帧包含四个区域<ul><li>局部变量表</li><li>操作数栈</li><li>动态连接</li><li>返回地址</li></ul></li></ul><h5 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h5><ul><li>与虚拟机栈非常相似，服务的对象是native方法</li></ul><h5 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h5><ul><li>一块较小的内存空间，可以看作是当前线程所执行的字节码的行号指示器。保存着当前线程执行的进度</li><li>因为线程而产生，与虚拟机栈配合完成计算操作</li><li>还存储了当前正在运行的流程，包括正在执行的指令、跳转、分支、循环、异常处理等</li></ul><h5 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h5><ul><li><p>所有线程共享并存储对象（类实例和数组）的内存</p></li><li><p>JVM最大的内存区域，申请的几乎所有对象都是在这里存储。垃圾回收操作的对象就是堆</p></li><li><p>在程序启动的时候就申请了，但是不一定会全用</p></li><li><p>针对堆空间占用，对其不定期的清理机制叫做 GC（Garbage Collection）；不仅需要销毁对象还要空间整理</p></li></ul><h5 id="元空间"><a href="#元空间" class="headerlink" title="元空间"></a>元空间</h5><ul><li>作为方法区的物理存储容器，而方法区存储的内容有：类信息、常量池、方法数据、方法代码</li></ul><hr><h4 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h4><p>①对象的创建位置</p><ul><li>取决于对象的类型和在Java类中存在的位置</li><li>对象分为基本数据类型和普通对象；针对<strong>普通对象</strong>，JVM会首先在堆上创建对象，然后在其他地方使用的其实是它的引用，比如把这个引用保存在虚拟机栈的局部变量表中。针对<strong>基本数据类型</strong>，如果方法体内声明了基本数据类型的对象，它就会在栈上直接分配，其他情况都是在堆上分配</li><li>除方法内部的基本数据类型是直接在栈上分配（引用与值并存于此）；<strong>常规而言，栈一般只持有引用，堆只持有实例对象，常量池持有字符串常量以及基本类型常量（public、static、final）</strong></li></ul><p>②存在栈中的数据可以共享</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Jvm </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>行为型-模板模式</title>
       <link href="posts/53f98d70/"/>
       <url>posts/53f98d70/</url>
@@ -461,7 +511,7 @@
       <link href="posts/6a0c4ab9/"/>
       <url>posts/6a0c4ab9/</url>
       
-        <content type="html"><![CDATA[<p>操作系统原则：进程向内核发起一个请求，然后将CPU执行权限让出给内核。内核接手CPU执行权限，然后完成请求，再转让出CPU执行权限给调用进程</p><h4 id="内核"><a href="#内核" class="headerlink" title="内核"></a>内核</h4><ul><li>操作系统中应用连接设备的桥梁</li><li>权限非常高，可以管理进程、可以直接访问所有的内存</li><li>进程调用内核的过程中，是存在资源共享的</li></ul><h5 id="能力"><a href="#能力" class="headerlink" title="能力"></a>能力</h5><ul><li>管理进程、线程（决定哪个进程、线程使用CPU）</li><li>管理内存（决定内存做什么）</li><li>连接硬件设备（为进程、和设备间提供通信能力）</li><li>提供系统调用（接收进程发送来的系统调用）</li></ul><pre class="mermaid">graph TD;Application --> KernelKernel --> CPUKernel -->MEORYKernel --> DEVICE</pre><h4 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h4><h5 id="宏内核"><a href="#宏内核" class="headerlink" title="宏内核"></a>宏内核</h5><ul><li><p><strong>Monolithic Kernel</strong></p></li><li><p>有很多程序打包在内核中（文件系统、驱动、内存管理等）</p></li><li><p>Linux就是宏内核，且内核用最高权限来运行，内核模块可以动态加载</p></li></ul><h5 id="微内核"><a href="#微内核" class="headerlink" title="微内核"></a>微内核</h5><ul><li><p><strong>Microkenel</strong></p></li><li><p>只保留最基础能力（进程调度、虚拟内存、中断）</p></li><li><p>多数应用（甚包括驱动程序、文件系统）是在用户空间管理；驱动在内核外，驱动和硬件的交互就需要频繁做内核态切换</p></li></ul><h5 id="混合内核"><a href="#混合内核" class="headerlink" title="混合内核"></a>混合内核</h5><ul><li>Windows系统</li><li>Mac OS (使用 XNU内核)</li></ul><hr>]]></content>
+        <content type="html"><![CDATA[<p>操作系统原则：进程向内核发起一个请求，然后将CPU执行权限让出给内核。内核接手CPU执行权限，然后完成请求，再转让出CPU执行权限给调用进程</p><h4 id="内核"><a href="#内核" class="headerlink" title="内核"></a>内核</h4><ul><li>操作系统中应用连接设备的桥梁</li><li>权限非常高，可以管理进程、可以直接访问所有的内存</li><li>进程调用内核的过程中，是存在资源共享的</li></ul><h5 id="能力"><a href="#能力" class="headerlink" title="能力"></a>能力</h5><ul><li>管理进程、线程（决定哪个进程、线程使用CPU）</li><li>管理内存（决定内存做什么）</li><li>连接硬件设备（为进程、和设备间提供通信能力）</li><li>提供系统调用（接收进程发送来的系统调用）</li></ul><hr><pre class="mermaid">graph TD;Application --> KernelKernel --> CPUKernel -->MEORYKernel --> DEVICE</pre><h4 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h4><h5 id="宏内核"><a href="#宏内核" class="headerlink" title="宏内核"></a>宏内核</h5><ul><li><p><strong>Monolithic Kernel</strong></p></li><li><p>有很多程序打包在内核中（文件系统、驱动、内存管理等）</p></li><li><p>Linux就是宏内核，且内核用最高权限来运行，内核模块可以动态加载</p></li></ul><h5 id="微内核"><a href="#微内核" class="headerlink" title="微内核"></a>微内核</h5><ul><li><p><strong>Microkenel</strong></p></li><li><p>只保留最基础能力（进程调度、虚拟内存、中断）</p></li><li><p>多数应用（甚包括驱动程序、文件系统）是在用户空间管理；驱动在内核外，驱动和硬件的交互就需要频繁做内核态切换</p></li></ul><h5 id="混合内核"><a href="#混合内核" class="headerlink" title="混合内核"></a>混合内核</h5><ul><li>Windows系统</li><li>Mac OS (使用 XNU内核)</li></ul><hr>]]></content>
       
       
       <categories>
@@ -505,9 +555,9 @@
       
         <tags>
             
-            <tag> 待完成 </tag>
-            
             <tag> 技术杂谈 </tag>
+            
+            <tag> 待完成 </tag>
             
         </tags>
       
@@ -545,9 +595,9 @@
       
         <tags>
             
-            <tag> 待完成 </tag>
-            
             <tag> 技术杂谈 </tag>
+            
+            <tag> 待完成 </tag>
             
         </tags>
       
@@ -566,9 +616,9 @@
       
         <tags>
             
-            <tag> 待完成 </tag>
-            
             <tag> 技术杂谈 </tag>
+            
+            <tag> 待完成 </tag>
             
         </tags>
       
@@ -759,11 +809,11 @@
     
     
     <entry>
-      <title>WebRTC粗滤学习 第一章</title>
+      <title>WebRTC学习 第一章</title>
       <link href="posts/10120/"/>
       <url>posts/10120/</url>
       
-        <content type="html"><![CDATA[<ul><li>在任何网络环境下都能够建立网络连接，交换会话信息后，由客户端直接点对点通讯</li></ul><h4 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h4><h5 id="P2P"><a href="#P2P" class="headerlink" title="P2P"></a>P2P</h5><ul><li>Point to Point ,指数据的传输不再通过服务器，而是网络用户之间直接传递数据</li></ul><h5 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h5><ul><li><strong>Basic NAT（Network Address Translation）</strong><ul><li>内网IP地址和端口向外部发送请求时（例如Socket请求），NAT设备只转换IP地址，端口保持不变 （基本淘汰）</li></ul></li><li><strong>NAPT（Network Address/Port Translator）</strong><ul><li>内网IP地址和端口向外部发送请求时，NAT设备同时将IP和端口映射为外部IP地址和外部端口  （目前主流）</li><li><a href="https://www.ietf.org/rfc/rfc3489.txt">STUN 协议</a>  第五章有详细关于 <code>NAT的分类</code></li></ul></li></ul><h5 id="STUN"><a href="#STUN" class="headerlink" title="STUN"></a>STUN</h5><p><img src="STUN_Algorithm.jpg" alt=""></p><ul><li>Session Traversal Utilities for NAT，NAT会话穿越应用程序</li><li><a href="https://www.ietf.org/rfc/rfc3489.txt">STUN 协议</a></li><li>在应用中，采取了STUN方式实现了<strong>P2P</strong>,采用了辅助的方式探测NAT的IP和端口</li><li>探测和发现通讯对方是否躲在防火墙或者NAT路由器后面</li><li>确定内网客户端所暴露在外的广域网的IP和端口以及NAT类型等信息，STUN服务器利用这些信息协助不同内网的计算机之间建立点对点的UDP通讯 </li></ul><h5 id="TURN"><a href="#TURN" class="headerlink" title="TURN"></a>TURN</h5><ul><li>Traversal Using Relay NAT，通过中继穿透NAT</li><li>在复杂的NAT实现下，STUN无法穿透NAT，这时就要通过中继服务器来实现穿透</li><li>会占用大量的带宽资源</li></ul><h5 id="SDP"><a href="#SDP" class="headerlink" title="SDP"></a>SDP</h5><ul><li>SDP 完全是一种会话描述格式 ,它不属于传输协议,只使用不同的适当的传输协议</li><li><a href="https://www.cnblogs.com/idignew/p/7249056.html">SDP协议介绍</a></li></ul><h5 id="Signal-Server"><a href="#Signal-Server" class="headerlink" title="Signal Server"></a>Signal Server</h5><ul><li>给客户端之间传送彼此的SDP信息和candidate信息，客户端通过这些信息建立P2P连接来传送音视频数据</li></ul><hr><h4 id="业务流程"><a href="#业务流程" class="headerlink" title="业务流程"></a>业务流程</h4><p><img src="%E9%80%9A%E8%AE%AF%E6%B5%81%E7%A8%8B.png" alt=""></p><hr><h4 id="STUN-TURN服务器的搭建"><a href="#STUN-TURN服务器的搭建" class="headerlink" title="STUN/TURN服务器的搭建"></a>STUN/TURN服务器的搭建</h4><hr><h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a href="http://www.mamicode.com/info-detail-1907841.html">webrtcclient与TURN和信令server通讯流程图</a></p><p><a href="https://www.jzgwind.com/?p=973"><a href="https://www.jzgwind.com/?p=973">P2P网络节点间如何互访——详解STUN方式NAT穿透</a></a></p>]]></content>
+        <content type="html"><![CDATA[<ul><li>在任何网络环境下都能够建立网络连接，交换会话信息后，由客户端直接点对点通讯</li></ul><h4 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h4><h5 id="P2P"><a href="#P2P" class="headerlink" title="P2P"></a>P2P</h5><ul><li>Point to Point ,指数据的传输不再通过服务器，而是网络用户之间直接传递数据</li></ul><h5 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h5><ul><li><strong>Basic NAT（Network Address Translation）</strong><ul><li>内网IP地址和端口向外部发送请求时（例如Socket请求），NAT设备只转换IP地址，端口保持不变 （基本淘汰）</li></ul></li><li><strong>NAPT（Network Address/Port Translator）</strong><ul><li>内网IP地址和端口向外部发送请求时，NAT设备同时将IP和端口映射为外部IP地址和外部端口  （目前主流）</li><li><a href="https://www.ietf.org/rfc/rfc3489.txt">STUN 协议</a>  第五章有详细关于 <code>NAT的分类</code></li></ul></li></ul><h5 id="STUN"><a href="#STUN" class="headerlink" title="STUN"></a>STUN</h5><p><img src="STUN_Algorithm.jpg" alt=""></p><ul><li>Session Traversal Utilities for NAT，NAT会话穿越应用程序</li><li><a href="https://www.ietf.org/rfc/rfc3489.txt">STUN 协议</a></li><li>在应用中，采取了STUN方式实现了<strong>P2P</strong>,采用了辅助的方式探测NAT的IP和端口</li><li>探测和发现通讯对方是否躲在防火墙或者NAT路由器后面</li><li>确定内网客户端所暴露在外的广域网的IP和端口以及NAT类型等信息，STUN服务器利用这些信息协助不同内网的计算机之间建立点对点的UDP通讯 </li></ul><h5 id="TURN"><a href="#TURN" class="headerlink" title="TURN"></a>TURN</h5><ul><li>Traversal Using Relay NAT，通过中继穿透NAT</li><li>在复杂的NAT实现下，STUN无法穿透NAT，这时就要通过中继服务器来实现穿透</li><li>会占用大量的带宽资源</li></ul><h5 id="SDP"><a href="#SDP" class="headerlink" title="SDP"></a>SDP</h5><ul><li>SDP 完全是一种会话描述格式 ,它不属于传输协议,只使用不同的适当的传输协议</li><li><a href="https://www.cnblogs.com/idignew/p/7249056.html">SDP协议介绍</a></li></ul><h5 id="Signal-Server"><a href="#Signal-Server" class="headerlink" title="Signal Server"></a>Signal Server</h5><ul><li>给客户端之间传送彼此的SDP信息和candidate信息，客户端通过这些信息建立P2P连接来传送音视频数据</li></ul><hr><h4 id="业务流程"><a href="#业务流程" class="headerlink" title="业务流程"></a>业务流程</h4><p><img src="%E9%80%9A%E8%AE%AF%E6%B5%81%E7%A8%8B.png" alt=""></p><hr><h4 id="STUN-TURN服务器的搭建"><a href="#STUN-TURN服务器的搭建" class="headerlink" title="STUN/TURN服务器的搭建"></a>STUN/TURN服务器的搭建</h4><ul><li>暂未作处理</li></ul><hr><h4 id="实现Demo"><a href="#实现Demo" class="headerlink" title="实现Demo"></a>实现Demo</h4><p>代码基于Flutter_webrtc官方案例及开源的后台源码，简单作了结合，以便后期拓展；后台部分中间件因为不熟悉使用，已作注释处理</p><p><a href="https://github.com/wl960127/mvvm_app">客户端</a></p><p><a href="https://github.com/wl960127/rtc_admin">服务器端</a></p><hr><p><img src="/%E6%9C%BA%E7%81%B5%E7%8C%AB.gif" alt=""></p><h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a href="http://www.mamicode.com/info-detail-1907841.html">webrtcclient与TURN和信令server通讯流程图</a></p><p><a href="https://www.jzgwind.com/?p=973"><a href="https://www.jzgwind.com/?p=973">P2P网络节点间如何互访——详解STUN方式NAT穿透</a></a></p>]]></content>
       
       
       <categories>
@@ -776,31 +826,6 @@
         <tags>
             
             <tag> WebRTC </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>WebRTC学习规划</title>
-      <link href="posts/17011/"/>
-      <url>posts/17011/</url>
-      
-        <content type="html"><![CDATA[<p><img src="%E6%9C%BA%E7%81%B5%E7%8C%AB.gif" alt=""></p><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><ul><li>本着学习的心态定的一个长期计划吧，空闲慢慢完成</li></ul><h4 id="笼统规划"><a href="#笼统规划" class="headerlink" title="笼统规划"></a>笼统规划</h4><p><img src="%E7%AC%BC%E7%BB%9F%E8%A7%84%E5%88%92.png" alt=""></p><hr><h4 id="WebRTC学习资料"><a href="#WebRTC学习资料" class="headerlink" title="WebRTC学习资料"></a>WebRTC学习资料</h4><ul><li><a href="https://www.jianshu.com/p/2a760b56e3a9?from=groupmessage">WebRTC 实现Android点到点互连（含Demo）</a></li><li><a href="https://github.com/ddssingsong/webrtc_server_node"><strong>webrtc_server_node</strong></a></li><li><a href="https://github.com/pengMaster/BestNote/blob/master/docs/android/AndroidNote/VideoDevelopment/Android%20WebRTC简介.md">WebRTC简介 Github</a></li><li><a href="https://github.com/pchab/AndroidRTC">AndroidRTC</a></li><li><a href="https://www.jianshu.com/c/00c213b8368f">WebRTC简书专题</a></li></ul><h5 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h5><ul><li><p>同一个账号密码？不同通讯管道？？</p></li><li><p>信令服务器安装数据库的作用</p></li></ul><hr>]]></content>
-      
-      
-      <categories>
-          
-          <category> 技术杂谈 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 待完成 </tag>
             
         </tags>
       
@@ -1006,7 +1031,7 @@
       
         <tags>
             
-            <tag> mqtt </tag>
+            <tag> MQTT </tag>
             
             <tag> 工具 </tag>
             
@@ -1035,7 +1060,7 @@
             
             <tag> 功能实现 </tag>
             
-            <tag> jni </tag>
+            <tag> Jni </tag>
             
         </tags>
       
@@ -1504,7 +1529,7 @@
             
             <tag> FFmpeg </tag>
             
-            <tag> ubuntu </tag>
+            <tag> Ubuntu </tag>
             
         </tags>
       
@@ -1531,9 +1556,9 @@
             
             <tag> FFmpeg </tag>
             
-            <tag> ubuntu </tag>
+            <tag> Ubuntu </tag>
             
-            <tag> jni </tag>
+            <tag> Jni </tag>
             
         </tags>
       
@@ -2092,7 +2117,7 @@
             
             <tag> 源码 </tag>
             
-            <tag> jni </tag>
+            <tag> Jni </tag>
             
         </tags>
       
@@ -2176,6 +2201,33 @@
     
     
     <entry>
+      <title>Ubuntu编译Android源码</title>
+      <link href="posts/48985/"/>
+      <url>posts/48985/</url>
+      
+        <content type="html"><![CDATA[<h4 id="安装Ubuntu"><a href="#安装Ubuntu" class="headerlink" title="安装Ubuntu"></a>安装Ubuntu</h4><ul><li>不好意思,自行百度</li><li>反正最好分个 150G以上，然后内存起码 4G</li></ul><hr><h4 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h4><ul><li><p>一般默认 python 版本是 2.x的，所以3.x是会报错</p></li><li><p>Android6的话 ,直接安装openjdk7</p></li><li><p>其他的话，查看下下面的编译环境配置和编译要求。</p><ul><li>先终端输入 java -version<ul><li>有的话，它会告诉你是哪个版本<ul><li>没有的话，它会提示你安装指令，照抄呗</li></ul></li><li><strong>sudo apt-get install openjdk-7-jdk</strong> </li><li>配置一下 JAVA_HOME <ul><li>echo $JAVA_HOME</li><li>没有输出的话 - 设置呗</li></ul></li><li>echo export JAVA_HOME=”/usr/lib/jvm/java-7-openjdk-amd64/“ &gt;&gt; ~/.bashrc</li><li>重启一下终端设置 <ul><li>source ~/.bashrc</li><li>输入$JAVA_HOME 看下是不是有输出</li></ul></li></ul></li></ul></li><li><p>git </p><ul><li>sudo apt-get install git<ul><li>git config –global user.name “Github的名字” </li><li>git config –global user.email “Github的Email” </li></ul></li></ul></li><li><p><a href="https://blog.csdn.net/carina_cao/article/details/91376042">修改清华镜像源</a>  (否则安装依赖会有问题)</p></li><li><p>安装依赖</p> <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install -y git flex bison gperf build-essential libncurses5-dev:i386 \</span><br><span class="line">libx11-dev:i386 libreadline6-dev:i386 libgl1-mesa-dev g++-multilib \</span><br><span class="line">tofrodos python-markdown libxml2-utils xsltproc zlib1g-dev:i386 \</span><br><span class="line">dpkg-dev libsdl1.2-dev libesd0-dev \</span><br><span class="line">git-core gnupg flex bison gperf build-essential  \</span><br><span class="line">zip curl zlib1g-dev gcc-multilib g++-multilib \</span><br><span class="line">libc6-dev-i386 \</span><br><span class="line">lib32ncurses5-dev x11proto-core-dev libx11-dev \</span><br><span class="line">lib32z-dev ccache \</span><br><span class="line">libgl1-mesa-dev libxml2-utils xsltproc unzip m4</span><br></pre></td></tr></table></figure></li></ul><hr><h4 id="下载源码"><a href="#下载源码" class="headerlink" title="下载源码"></a>下载源码</h4><ul><li><p><a href="https://lug.ustc.edu.cn/wiki/mirrors/help/aosp#%E5%88%9D%E5%A7%8B%E5%90%8C%E6%AD%A5%E6%96%B9%E6%B3%951">初始化源码环境</a></p></li><li><p>首先下载 repo 工具</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mkdir ~/bin</span><br><span class="line">PATH=~/bin:$PATH</span><br><span class="line">curl https://storage.googleapis.com/git-repo-downloads/repo &gt; ~/bin/repo</span><br><span class="line">如果上述 URL 不可访问，可以用下面的：</span><br><span class="line">curl -sSL  &apos;https://gerrit-googlesource.proxy.ustclug.org/git-repo/+/master/repo?format=TEXT&apos; |base64 -d &gt; ~/bin/repo</span><br><span class="line">chmod a+x ~/bin/repo</span><br></pre></td></tr></table></figure></li></ul><ul><li><p>然后建立一个工作目录（名字任意）</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir WORKING_DIRECTORY</span><br><span class="line">cd WORKING_DIRECTORY</span><br></pre></td></tr></table></figure></li><li><p>初始化仓库</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">repo init -u git://mirrors.ustc.edu.cn/aosp/platform/manifest</span><br><span class="line">如果提示无法连接到 gerrit.googlesource.com，可以编辑 ~/bin/repo，把 REPO_URL 一行替换成下面的：</span><br><span class="line"> REPO_URL = &apos;https://gerrit-googlesource.proxy.ustclug.org/git-repo&apos;</span><br></pre></td></tr></table></figure></li><li><p>如果需要某个特定的<code>Android 版本分支</code> （<a href="https://source.android.com/source/build-numbers.html#source-code-tags-and-builds">Android 版本列表</a>）：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">repo init -u git://mirrors.ustc.edu.cn/aosp/platform/manifest -b android-4.0.1_r1(比如4.0)</span><br></pre></td></tr></table></figure></li><li><p>同步源码树（以后只需执行这条命令来同步）：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">repo sync</span><br></pre></td></tr></table></figure></li></ul><hr><ul><li>版本分支很重要,别忘了!!!<ul><li>实在不行,你就把源码目录写成分支名字，因为你要根据这个 <strong>分支名字</strong> 获取 <strong>细分版本号</strong></li><li>根据 <strong>细分版本号</strong> 才能下载到对应的驱动文件<br><img src="%E7%BB%86%E5%88%86%E7%89%88%E6%9C%AC%E5%8F%B7.png" alt="细分版本号"></li><li>啥?不想,那当我没说过!</li></ul></li></ul><h4 id="下载驱动"><a href="#下载驱动" class="headerlink" title="下载驱动"></a>下载驱动</h4><ul><li>这时候，聪明可爱的你肯定已经在开始同步了。</li><li>下载驱动！！！ 没有这个你是没法开机的，会一直在 Google 这个logo无法开机。<ul><li><a href="https://developers.google.com/android/drivers">驱动链接</a> <ul><li>找到你 <strong>对应的手机机型</strong>，根据上面的 <strong>细分版本号</strong> 下载驱动 - 两个或者三个，都下载下来。<br><img src="%E5%AF%B9%E5%BA%94%E9%A9%B1%E5%8A%A8.png" alt="对应驱动"></li></ul></li></ul></li></ul><hr><h4 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h4><h5 id="驱动设置"><a href="#驱动设置" class="headerlink" title="驱动设置"></a>驱动设置</h5><ul><li><p>这时候你已经下载完了把，把刚刚<strong>下载的驱动解压到源码目录下</strong>。</p><ul><li><p>会是多个.sh文件 <strong>像这样</strong>：</p><ul><li>extract-lge-hammerhead.sh </li><li>extract-broadcom-hammerhead.sh</li><li>extract-qcom-hammerhead.sh</li></ul></li><li><p>源码目录下执行 .sh 文件。 </p></li><li><p>像这样 ./extract-lge-hammerhead.sh</p><ul><li>然后就出现一堆英文，不要管它。直接 <strong>按Enter一路向下，直到你看到第8条</strong>，然后注意 继续Enter，最后会有一个什么什么的，<strong>需要你输入 I ACCEPT</strong>，一定要全部大写，不然再执行一边呗。</li><li>三个都要这样操作 - 这时候，源码路径下就会有一个 <strong>vendor</strong> 的文件夹- 然后开始编译了 ，假设你环境配置正确。没配置正确？那就慢慢编译呗，再挨个看报错修改东西呗。<h5 id="正式编译"><a href="#正式编译" class="headerlink" title="正式编译"></a>正式编译</h5></li></ul></li><li><p><a href="https://source.android.com/setup/initializing#installing-required-packages-ubuntu-1404">Linux编译环境配置</a></p></li><li><p><a href="https://source.android.com/setup/requirements">编译要求</a></p><ul><li>这里会告诉你哪个Android版本需要哪个jdk版本 - 在Ubuntu 14.04 64位的基础上，编译4.4和6.0实际上只是一个使用jdk6一个使用openjdk7的区别。起码在我自己编译的时候是这样子</li><li>还有就是如果开始编译6.0 使用的 apt-get install openjdk7，后面你又打算编译4.4。那么在你安装jdk1.6.0_xxx.bin的时候，记得apt-get remove openjdk-7-jre 什么的，有三个反正不知道啥你就 tab 键，否则 jdk-version 一直是1.7，就算你修改了 /erc/profile 还是 ~/.bashrc 官方说是Android7-8使用<strong>openjdk8</strong>，5-6使用<strong>openjdk7</strong>,2.3-4.4使用<strong>jdk6</strong> - 编译前配置  </li></ul></li></ul></li><li><p>编译优化</p><ul><li>在 .bashrc文件中添加：export USE_CCACHE = 1 <ul><li>echo export USE_CCACE=1 &gt;&gt; ~/.bashrc </li><li>为了提高编译效率，设置编译器高速缓存。  </li><li>执行以下命令： <ul><li>prebuilts/misc/linux-x86/ccache/ccache -M 30G  （如果系统没有的话，好像是sdk还是ndk里面有这个文件，都没有就算了吧🤔）</li><li>这个 30G 根据自己的硬盘空间大小继续调整 </li></ul></li></ul></li></ul></li><li><p>开始编译</p><ul><li><p>源码路径下 </p></li><li><p>source . build/envsetup.sh </p></li></ul><ul><li><p>lunch </p></li><li><p>make -j4 或者 make -j8 或者 make -j16,看你配置了</p></li></ul></li></ul><hr><ul><li><p>关于  <strong>lunch</strong>   比如我是Nexus5，所以选择 19</p><ul><li>aosp_hammerhead_userdebug  <img src="%E5%AF%B9%E5%BA%94%E9%95%9C%E5%83%8F%E7%BC%96%E5%8F%B7.png" alt="image"><br><img src="%E5%90%8E%E7%BC%80%E5%8C%BA%E5%88%86.png" alt="image"></li></ul><ul><li>user 用于正式产品 </li></ul></li><li><p>userdebug 和user类似，但是有root权限，并且可以调试，主要用于调试</p><ul><li><p>eng 开发用的选项，配有额外的调试工具。</p></li><li><p>如果编译后只在模拟器上运行，则lunch后可以就直接输入：1</p></li><li><p><strong><a href="https://source.android.com/source/running">特定设备上运行编译系统的详细信息 </a></strong></p></li></ul></li><li><p>我是两三个小时直接编译成功，看配置和人品吧，啊哈哈哈哈。</p></li></ul><hr><h4 id="刷机"><a href="#刷机" class="headerlink" title="刷机"></a>刷机</h4><ul><li><p>sudo adb reboot bootloader</p><ul><li><p>这个时候可能adb devices 你会发现找不到设备</p></li><li><p>如果是虚拟机的话，点开上面那个 <strong>虚拟机</strong> 选项，<strong>可移动设备</strong></p></li><li><p>然后 <strong>连接</strong></p></li></ul></li></ul><ul><li><p>可以执行下解锁命令</p><ul><li>fastboot oem unlock </li></ul></li><li><p>fastboot -w flashall </p></li><li><p>然后就会自动重启，开机。</p></li></ul><hr><p> <img src="%E5%A4%B1%E8%B4%A5.jpg" alt="失败"></p><hr><h4 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h4><h5 id="Building-Android-from-sources-unsupported-reloc-43"><a href="#Building-Android-from-sources-unsupported-reloc-43" class="headerlink" title="Building Android from sources: unsupported reloc 43"></a>Building Android from sources: unsupported reloc 43</h5><ul><li><p>Ubuntu16.04  64位编译５.1时候出现的一个问题</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">libnativehelper/JniInvocation.cpp:165: error: unsupported reloc 43</span><br><span class="line">libnativehelper/JniInvocation.cpp:165: error: unsupported reloc 43</span><br><span class="line">libnativehelper/JniInvocation.cpp:165: error: unsupported reloc 43</span><br><span class="line">libnativehelper/JniInvocation.cpp:165: error: unsupported reloc 43</span><br><span class="line">clang: error: linker command failed with exit code 1 (use -v to see invocation)</span><br><span class="line">build/core/host_shared_library_internal.mk:44: recipe for target &apos;out/host/linux-x86/obj32/lib/libnativehelper.so&apos; failed</span><br><span class="line">make: *** [out/host/linux-x86/obj32/lib/libnativehelper.so] Error 1</span><br></pre></td></tr></table></figure><ul><li><p>解决方法</p><ul><li><p>方法一：　源码目录/art/build/Android.common_build.mk</p><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Host.</span></span><br><span class="line">ART_HOST_CLANG := false</span><br><span class="line"><span class="keyword">ifneq</span> (<span class="variable">$(WITHOUT_HOST_CLANG)</span>,true)</span><br><span class="line">  <span class="comment"># By default, host builds use clang for better warnings.</span></span><br><span class="line">  ART_HOST_CLANG := true</span><br><span class="line"><span class="keyword">endif</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改成 ifeq ($(WITHOUT_HOST_CLANG),false)　</span></span><br><span class="line"><span class="comment"># 但是对我的问题没有卵用</span></span><br><span class="line"><span class="comment"># Host.</span></span><br><span class="line">ART_HOST_CLANG := false</span><br><span class="line"><span class="keyword">ifeq</span> (<span class="variable">$(WITHOUT_HOST_CLANG)</span>,false)　</span><br><span class="line">  <span class="comment"># By default, host builds use clang for better warnings.</span></span><br><span class="line">  ART_HOST_CLANG := true</span><br><span class="line"><span class="keyword">endif</span></span><br></pre></td></tr></table></figure></li></ul></li></ul></li></ul><pre><code>-    方法二  cp /usr/bin/ld.gold   源码目录/prebuilts/gcc/linux-x86/host/x86_64-linux-glibc2.11-4.6/x86_64-linux/bin/ld</code></pre><ul><li>原文链接　<a href="https://stackoverflow.com/questions/36048358/building-android-from-sources-unsupported-reloc-43">Building Android from sources: unsupported reloc 43</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Android源码 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 源码 </tag>
+            
+            <tag> Ubuntu </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>QQ弹窗消息</title>
       <link href="posts/34068/"/>
       <url>posts/34068/</url>
@@ -2251,33 +2303,6 @@
     
     
     <entry>
-      <title>Ubuntu编译Android源码</title>
-      <link href="posts/48985/"/>
-      <url>posts/48985/</url>
-      
-        <content type="html"><![CDATA[<h4 id="安装Ubuntu"><a href="#安装Ubuntu" class="headerlink" title="安装Ubuntu"></a>安装Ubuntu</h4><ul><li>不好意思,自行百度</li><li>反正最好分个 150G以上，然后内存起码 4G</li></ul><hr><h4 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h4><ul><li><p>一般默认 python 版本是 2.x的，所以3.x是会报错</p></li><li><p>Android6的话 ,直接安装openjdk7</p></li><li><p>其他的话，查看下下面的编译环境配置和编译要求。</p><ul><li>先终端输入 java -version<ul><li>有的话，它会告诉你是哪个版本<ul><li>没有的话，它会提示你安装指令，照抄呗</li></ul></li><li><strong>sudo apt-get install openjdk-7-jdk</strong> </li><li>配置一下 JAVA_HOME <ul><li>echo $JAVA_HOME</li><li>没有输出的话 - 设置呗</li></ul></li><li>echo export JAVA_HOME=”/usr/lib/jvm/java-7-openjdk-amd64/“ &gt;&gt; ~/.bashrc</li><li>重启一下终端设置 <ul><li>source ~/.bashrc</li><li>输入$JAVA_HOME 看下是不是有输出</li></ul></li></ul></li></ul></li><li><p>git </p><ul><li>sudo apt-get install git<ul><li>git config –global user.name “Github的名字” </li><li>git config –global user.email “Github的Email” </li></ul></li></ul></li><li><p><a href="https://blog.csdn.net/carina_cao/article/details/91376042">修改清华镜像源</a>  (否则安装依赖会有问题)</p></li><li><p>安装依赖</p> <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install -y git flex bison gperf build-essential libncurses5-dev:i386 \</span><br><span class="line">libx11-dev:i386 libreadline6-dev:i386 libgl1-mesa-dev g++-multilib \</span><br><span class="line">tofrodos python-markdown libxml2-utils xsltproc zlib1g-dev:i386 \</span><br><span class="line">dpkg-dev libsdl1.2-dev libesd0-dev \</span><br><span class="line">git-core gnupg flex bison gperf build-essential  \</span><br><span class="line">zip curl zlib1g-dev gcc-multilib g++-multilib \</span><br><span class="line">libc6-dev-i386 \</span><br><span class="line">lib32ncurses5-dev x11proto-core-dev libx11-dev \</span><br><span class="line">lib32z-dev ccache \</span><br><span class="line">libgl1-mesa-dev libxml2-utils xsltproc unzip m4</span><br></pre></td></tr></table></figure></li></ul><hr><h4 id="下载源码"><a href="#下载源码" class="headerlink" title="下载源码"></a>下载源码</h4><ul><li><p><a href="https://lug.ustc.edu.cn/wiki/mirrors/help/aosp#%E5%88%9D%E5%A7%8B%E5%90%8C%E6%AD%A5%E6%96%B9%E6%B3%951">初始化源码环境</a></p></li><li><p>首先下载 repo 工具</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mkdir ~/bin</span><br><span class="line">PATH=~/bin:$PATH</span><br><span class="line">curl https://storage.googleapis.com/git-repo-downloads/repo &gt; ~/bin/repo</span><br><span class="line">如果上述 URL 不可访问，可以用下面的：</span><br><span class="line">curl -sSL  &apos;https://gerrit-googlesource.proxy.ustclug.org/git-repo/+/master/repo?format=TEXT&apos; |base64 -d &gt; ~/bin/repo</span><br><span class="line">chmod a+x ~/bin/repo</span><br></pre></td></tr></table></figure></li></ul><ul><li><p>然后建立一个工作目录（名字任意）</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir WORKING_DIRECTORY</span><br><span class="line">cd WORKING_DIRECTORY</span><br></pre></td></tr></table></figure></li><li><p>初始化仓库</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">repo init -u git://mirrors.ustc.edu.cn/aosp/platform/manifest</span><br><span class="line">如果提示无法连接到 gerrit.googlesource.com，可以编辑 ~/bin/repo，把 REPO_URL 一行替换成下面的：</span><br><span class="line"> REPO_URL = &apos;https://gerrit-googlesource.proxy.ustclug.org/git-repo&apos;</span><br></pre></td></tr></table></figure></li><li><p>如果需要某个特定的<code>Android 版本分支</code> （<a href="https://source.android.com/source/build-numbers.html#source-code-tags-and-builds">Android 版本列表</a>）：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">repo init -u git://mirrors.ustc.edu.cn/aosp/platform/manifest -b android-4.0.1_r1(比如4.0)</span><br></pre></td></tr></table></figure></li><li><p>同步源码树（以后只需执行这条命令来同步）：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">repo sync</span><br></pre></td></tr></table></figure></li></ul><hr><ul><li>版本分支很重要,别忘了!!!<ul><li>实在不行,你就把源码目录写成分支名字，因为你要根据这个 <strong>分支名字</strong> 获取 <strong>细分版本号</strong></li><li>根据 <strong>细分版本号</strong> 才能下载到对应的驱动文件<br><img src="%E7%BB%86%E5%88%86%E7%89%88%E6%9C%AC%E5%8F%B7.png" alt="细分版本号"></li><li>啥?不想,那当我没说过!</li></ul></li></ul><h4 id="下载驱动"><a href="#下载驱动" class="headerlink" title="下载驱动"></a>下载驱动</h4><ul><li>这时候，聪明可爱的你肯定已经在开始同步了。</li><li>下载驱动！！！ 没有这个你是没法开机的，会一直在 Google 这个logo无法开机。<ul><li><a href="https://developers.google.com/android/drivers">驱动链接</a> <ul><li>找到你 <strong>对应的手机机型</strong>，根据上面的 <strong>细分版本号</strong> 下载驱动 - 两个或者三个，都下载下来。<br><img src="%E5%AF%B9%E5%BA%94%E9%A9%B1%E5%8A%A8.png" alt="对应驱动"></li></ul></li></ul></li></ul><hr><h4 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h4><h5 id="驱动设置"><a href="#驱动设置" class="headerlink" title="驱动设置"></a>驱动设置</h5><ul><li><p>这时候你已经下载完了把，把刚刚<strong>下载的驱动解压到源码目录下</strong>。</p><ul><li><p>会是多个.sh文件 <strong>像这样</strong>：</p><ul><li>extract-lge-hammerhead.sh </li><li>extract-broadcom-hammerhead.sh</li><li>extract-qcom-hammerhead.sh</li></ul></li><li><p>源码目录下执行 .sh 文件。 </p></li><li><p>像这样 ./extract-lge-hammerhead.sh</p><ul><li>然后就出现一堆英文，不要管它。直接 <strong>按Enter一路向下，直到你看到第8条</strong>，然后注意 继续Enter，最后会有一个什么什么的，<strong>需要你输入 I ACCEPT</strong>，一定要全部大写，不然再执行一边呗。</li><li>三个都要这样操作 - 这时候，源码路径下就会有一个 <strong>vendor</strong> 的文件夹- 然后开始编译了 ，假设你环境配置正确。没配置正确？那就慢慢编译呗，再挨个看报错修改东西呗。<h5 id="正式编译"><a href="#正式编译" class="headerlink" title="正式编译"></a>正式编译</h5></li></ul></li><li><p><a href="https://source.android.com/setup/initializing#installing-required-packages-ubuntu-1404">Linux编译环境配置</a></p></li><li><p><a href="https://source.android.com/setup/requirements">编译要求</a></p><ul><li>这里会告诉你哪个Android版本需要哪个jdk版本 - 在Ubuntu 14.04 64位的基础上，编译4.4和6.0实际上只是一个使用jdk6一个使用openjdk7的区别。起码在我自己编译的时候是这样子</li><li>还有就是如果开始编译6.0 使用的 apt-get install openjdk7，后面你又打算编译4.4。那么在你安装jdk1.6.0_xxx.bin的时候，记得apt-get remove openjdk-7-jre 什么的，有三个反正不知道啥你就 tab 键，否则 jdk-version 一直是1.7，就算你修改了 /erc/profile 还是 ~/.bashrc 官方说是Android7-8使用<strong>openjdk8</strong>，5-6使用<strong>openjdk7</strong>,2.3-4.4使用<strong>jdk6</strong> - 编译前配置  </li></ul></li></ul></li><li><p>编译优化</p><ul><li>在 .bashrc文件中添加：export USE_CCACHE = 1 <ul><li>echo export USE_CCACE=1 &gt;&gt; ~/.bashrc </li><li>为了提高编译效率，设置编译器高速缓存。  </li><li>执行以下命令： <ul><li>prebuilts/misc/linux-x86/ccache/ccache -M 30G  （如果系统没有的话，好像是sdk还是ndk里面有这个文件，都没有就算了吧🤔）</li><li>这个 30G 根据自己的硬盘空间大小继续调整 </li></ul></li></ul></li></ul></li><li><p>开始编译</p><ul><li><p>源码路径下 </p></li><li><p>source . build/envsetup.sh </p></li></ul><ul><li><p>lunch </p></li><li><p>make -j4 或者 make -j8 或者 make -j16,看你配置了</p></li></ul></li></ul><hr><ul><li><p>关于  <strong>lunch</strong>   比如我是Nexus5，所以选择 19</p><ul><li>aosp_hammerhead_userdebug  <img src="%E5%AF%B9%E5%BA%94%E9%95%9C%E5%83%8F%E7%BC%96%E5%8F%B7.png" alt="image"><br><img src="%E5%90%8E%E7%BC%80%E5%8C%BA%E5%88%86.png" alt="image"></li></ul><ul><li>user 用于正式产品 </li></ul></li><li><p>userdebug 和user类似，但是有root权限，并且可以调试，主要用于调试</p><ul><li><p>eng 开发用的选项，配有额外的调试工具。</p></li><li><p>如果编译后只在模拟器上运行，则lunch后可以就直接输入：1</p></li><li><p><strong><a href="https://source.android.com/source/running">特定设备上运行编译系统的详细信息 </a></strong></p></li></ul></li><li><p>我是两三个小时直接编译成功，看配置和人品吧，啊哈哈哈哈。</p></li></ul><hr><h4 id="刷机"><a href="#刷机" class="headerlink" title="刷机"></a>刷机</h4><ul><li><p>sudo adb reboot bootloader</p><ul><li><p>这个时候可能adb devices 你会发现找不到设备</p></li><li><p>如果是虚拟机的话，点开上面那个 <strong>虚拟机</strong> 选项，<strong>可移动设备</strong></p></li><li><p>然后 <strong>连接</strong></p></li></ul></li></ul><ul><li><p>可以执行下解锁命令</p><ul><li>fastboot oem unlock </li></ul></li><li><p>fastboot -w flashall </p></li><li><p>然后就会自动重启，开机。</p></li></ul><hr><p> <img src="%E5%A4%B1%E8%B4%A5.jpg" alt="失败"></p><hr><h4 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h4><h5 id="Building-Android-from-sources-unsupported-reloc-43"><a href="#Building-Android-from-sources-unsupported-reloc-43" class="headerlink" title="Building Android from sources: unsupported reloc 43"></a>Building Android from sources: unsupported reloc 43</h5><ul><li><p>Ubuntu16.04  64位编译５.1时候出现的一个问题</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">libnativehelper/JniInvocation.cpp:165: error: unsupported reloc 43</span><br><span class="line">libnativehelper/JniInvocation.cpp:165: error: unsupported reloc 43</span><br><span class="line">libnativehelper/JniInvocation.cpp:165: error: unsupported reloc 43</span><br><span class="line">libnativehelper/JniInvocation.cpp:165: error: unsupported reloc 43</span><br><span class="line">clang: error: linker command failed with exit code 1 (use -v to see invocation)</span><br><span class="line">build/core/host_shared_library_internal.mk:44: recipe for target &apos;out/host/linux-x86/obj32/lib/libnativehelper.so&apos; failed</span><br><span class="line">make: *** [out/host/linux-x86/obj32/lib/libnativehelper.so] Error 1</span><br></pre></td></tr></table></figure><ul><li><p>解决方法</p><ul><li><p>方法一：　源码目录/art/build/Android.common_build.mk</p><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Host.</span></span><br><span class="line">ART_HOST_CLANG := false</span><br><span class="line"><span class="keyword">ifneq</span> (<span class="variable">$(WITHOUT_HOST_CLANG)</span>,true)</span><br><span class="line">  <span class="comment"># By default, host builds use clang for better warnings.</span></span><br><span class="line">  ART_HOST_CLANG := true</span><br><span class="line"><span class="keyword">endif</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改成 ifeq ($(WITHOUT_HOST_CLANG),false)　</span></span><br><span class="line"><span class="comment"># 但是对我的问题没有卵用</span></span><br><span class="line"><span class="comment"># Host.</span></span><br><span class="line">ART_HOST_CLANG := false</span><br><span class="line"><span class="keyword">ifeq</span> (<span class="variable">$(WITHOUT_HOST_CLANG)</span>,false)　</span><br><span class="line">  <span class="comment"># By default, host builds use clang for better warnings.</span></span><br><span class="line">  ART_HOST_CLANG := true</span><br><span class="line"><span class="keyword">endif</span></span><br></pre></td></tr></table></figure></li></ul></li></ul></li></ul><pre><code>-    方法二  cp /usr/bin/ld.gold   源码目录/prebuilts/gcc/linux-x86/host/x86_64-linux-glibc2.11-4.6/x86_64-linux/bin/ld</code></pre><ul><li>原文链接　<a href="https://stackoverflow.com/questions/36048358/building-android-from-sources-unsupported-reloc-43">Building Android from sources: unsupported reloc 43</a></li></ul>]]></content>
-      
-      
-      <categories>
-          
-          <category> Android源码 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 源码 </tag>
-            
-            <tag> ubuntu </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>Txt本地阅读器</title>
       <link href="posts/18711/"/>
       <url>posts/18711/</url>
@@ -2319,7 +2344,7 @@
       
         <tags>
             
-            <tag> ubuntu </tag>
+            <tag> Ubuntu </tag>
             
         </tags>
       
