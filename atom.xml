@@ -209,35 +209,13 @@
   </entry>
   
   <entry>
-    <title>行为型-观察者模式</title>
-    <link href="https://www.wl960127.top/posts/94a78128/"/>
-    <id>https://www.wl960127.top/posts/94a78128/</id>
-    <published>2020-08-23T12:49:47.000Z</published>
-    <updated>2021-03-10T07:26:29.221Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li><p>在对象之间定义一个一对多的依赖，当一个对象状态改变的时候，所有的依赖都会收到消息</p></li><li><p>观察者模式的应用场景中,参与者之间的交互比较有,一般是单向的,一个参与者只有一个身份</p></li></ul><hr><h4 id="被观察者"><a href="#被观察者" class="headerlink" title="被观察者"></a>被观察者</h4><ul><li>Observable</li><li>被依赖的对象</li></ul><h4 id="观察者"><a href="#观察者" class="headerlink" title="观察者"></a>观察者</h4><ul><li>Observer</li><li>依赖的对象</li></ul><hr><h3 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h3><ul><li>同步阻塞（主要是代码解耦）</li><li>异步非阻塞 （实现解耦，以及提高执行效率）</li><li>进程间 （解耦更彻底，一般基于消息队列来实现）</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      设计模式之美学习笔记&lt;/br&gt;行为型模式主要解决类与对象之间的交互，将不同功能的代码解耦 &lt;/br&gt;观察者模式则是：将观察者与被观察者解耦
-    
-    </summary>
-    
-      <category term="设计模式" scheme="https://www.wl960127.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-      <category term="待完成" scheme="https://www.wl960127.top/tags/%E5%BE%85%E5%AE%8C%E6%88%90/"/>
-    
-  </entry>
-  
-  <entry>
     <title>行为型-访问者模式</title>
     <link href="https://www.wl960127.top/posts/f21f8074/"/>
     <id>https://www.wl960127.top/posts/f21f8074/</id>
     <published>2020-08-21T13:03:04.000Z</published>
-    <updated>2021-03-10T07:27:21.656Z</updated>
+    <updated>2021-03-10T07:29:21.606Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><pre class="mermaid">classDiagramResourceFile <|-- PdfFileVisitor <.. ResourceFileVisitor <|.. ExtractorVisitor <|.. Compressorclass ResourceFile{    <<abstract>>    #filePath : String    +ResouceFile (filePath)    +accept(Visitor) *}class Visitor{    <<interface>>    visitor(PdfFile)}class PdfFile{    +PdfFile(filePath)    +accept(Visitor)}class Extractor{    + visitor(PdfFile)}class Compressor{    + visitor(PdfFile)}</pre><ul><li>允许一个或者多个操作应用到一组对象上，解耦操作和对象本身</li></ul><h3 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h3><p><img src="%E8%AE%BF%E9%97%AE%E8%80%85.png" alt=""></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Extractor extractor = <span class="keyword">new</span> Extractor();</span><br><span class="line">        <span class="keyword">for</span> (ResourceFile i : listAllResourceFiles()) &#123;</span><br><span class="line">            i.accept(extractor);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Compressor compressor = <span class="keyword">new</span> Compressor();</span><br><span class="line">        <span class="keyword">for</span> (ResourceFile i : listAllResourceFiles()) &#123;</span><br><span class="line">            i.accept(compressor);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> List&lt;ResourceFile&gt; <span class="title">listAllResourceFiles</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        List&lt;ResourceFile&gt; resourceFiles = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        resourceFiles.add(<span class="keyword">new</span> PdfFile(<span class="string">"a.pdf"</span>));</span><br><span class="line">        resourceFiles.add(<span class="keyword">new</span> WordFile(<span class="string">"b.word"</span>));</span><br><span class="line">        resourceFiles.add(<span class="keyword">new</span> PPTFile(<span class="string">"c.ppt"</span>));</span><br><span class="line">        <span class="keyword">return</span> resourceFiles;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><h3 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h3><ul><li><p>所谓的双分派和单分派的区分，指的是：执行哪对象的哪个方法，和几个因素的运行时类型有关</p><p>具体到编程语言的语法机制，双分派（<code>Double Dispatch</code>）和单分派（<code>Single Dispatch</code>）跟多态和函数重载直接相关</p></li></ul><h4 id="双分派"><a href="#双分派" class="headerlink" title="双分派"></a>双分派</h4><ul><li>执行哪个对象的哪个方法，跟<code>对象</code>和<code>方法参数</code>两者的运行时类型有关</li></ul><h4 id="单分派"><a href="#单分派" class="headerlink" title="单分派"></a>单分派</h4><ul><li><p>执行哪个对象的哪个方法，只跟<code>对象</code>的运行时类型有关</p></li><li><p>当前主流的面向对象编程语言（Java、C++、C#）都只支持Single Dispatch</p><ul><li>Java支持多态，代码可以在运行时候获取对象实际类型（即：运行时类型），然后跟根据实际类型调用哪个方法</li><li>尽管Java支持函数重载，但是Java函数重载的语法规则是：并不是在运行时候，根据传递函数的参数的声明类型（运行时类型），来决定调用哪个重载函数，而是编译时候，根据传递进函数的参数的声明类型（即：编译类型），来决定调用哪个重载函数</li><li>总的来说，具体来说，执行那个对象的哪个方法，只跟对象的运行时类型有关，跟参数的运行时类型无关</li></ul></li></ul>]]></content>
+    <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>允许一个或者多个操作应用到一组对象上，解耦操作和对象本身</li></ul><h3 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h3><p><img src="%E8%AE%BF%E9%97%AE%E8%80%85.png" alt=""></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Extractor extractor = <span class="keyword">new</span> Extractor();</span><br><span class="line">        <span class="keyword">for</span> (ResourceFile i : listAllResourceFiles()) &#123;</span><br><span class="line">            i.accept(extractor);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Compressor compressor = <span class="keyword">new</span> Compressor();</span><br><span class="line">        <span class="keyword">for</span> (ResourceFile i : listAllResourceFiles()) &#123;</span><br><span class="line">            i.accept(compressor);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> List&lt;ResourceFile&gt; <span class="title">listAllResourceFiles</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        List&lt;ResourceFile&gt; resourceFiles = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        resourceFiles.add(<span class="keyword">new</span> PdfFile(<span class="string">"a.pdf"</span>));</span><br><span class="line">        resourceFiles.add(<span class="keyword">new</span> WordFile(<span class="string">"b.word"</span>));</span><br><span class="line">        resourceFiles.add(<span class="keyword">new</span> PPTFile(<span class="string">"c.ppt"</span>));</span><br><span class="line">        <span class="keyword">return</span> resourceFiles;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><h3 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h3><ul><li><p>所谓的双分派和单分派的区分，指的是：执行哪对象的哪个方法，和几个因素的运行时类型有关</p><p>具体到编程语言的语法机制，双分派（<code>Double Dispatch</code>）和单分派（<code>Single Dispatch</code>）跟多态和函数重载直接相关</p></li></ul><h4 id="双分派"><a href="#双分派" class="headerlink" title="双分派"></a>双分派</h4><ul><li>执行哪个对象的哪个方法，跟<code>对象</code>和<code>方法参数</code>两者的运行时类型有关</li></ul><h4 id="单分派"><a href="#单分派" class="headerlink" title="单分派"></a>单分派</h4><ul><li><p>执行哪个对象的哪个方法，只跟<code>对象</code>的运行时类型有关</p></li><li><p>当前主流的面向对象编程语言（Java、C++、C#）都只支持Single Dispatch</p><ul><li>Java支持多态，代码可以在运行时候获取对象实际类型（即：运行时类型），然后跟根据实际类型调用哪个方法</li><li>尽管Java支持函数重载，但是Java函数重载的语法规则是：并不是在运行时候，根据传递函数的参数的声明类型（运行时类型），来决定调用哪个重载函数，而是编译时候，根据传递进函数的参数的声明类型（即：编译类型），来决定调用哪个重载函数</li><li>总的来说，具体来说，执行那个对象的哪个方法，只跟对象的运行时类型有关，跟参数的运行时类型无关</li></ul></li></ul>]]></content>
     
     <summary type="html">
     
@@ -295,7 +273,7 @@
     <link href="https://www.wl960127.top/posts/e4fae02c/"/>
     <id>https://www.wl960127.top/posts/e4fae02c/</id>
     <published>2020-08-13T14:07:47.000Z</published>
-    <updated>2021-03-08T11:34:07.585Z</updated>
+    <updated>2021-03-10T07:35:06.258Z</updated>
     
     <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>在不违背封装原则的前提下，捕获一个对象的内部状态，并在该对对象之外保存这个状态，以便恢复对象为之前的状态</li></ul><hr><h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><ul><li>针对大的备份而言，会占用大量的内存以及时间消耗。针对不同的场景，不同的业务场景需要不同的处理方式</li><li>只备份必要的恢复信息，结合最新的数据来恢复。再比如，全量备份和增量备份相结合，低频全量备份，高频全量备份，两者相结合</li></ul>]]></content>
     
@@ -308,6 +286,8 @@
       <category term="设计模式" scheme="https://www.wl960127.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
+      <category term="待完成" scheme="https://www.wl960127.top/tags/%E5%BE%85%E5%AE%8C%E6%88%90/"/>
+    
   </entry>
   
   <entry>
@@ -315,7 +295,7 @@
     <link href="https://www.wl960127.top/posts/c39917f/"/>
     <id>https://www.wl960127.top/posts/c39917f/</id>
     <published>2020-08-08T13:21:53.000Z</published>
-    <updated>2021-03-08T11:33:44.422Z</updated>
+    <updated>2021-03-10T07:35:23.145Z</updated>
     
     <content type="html"><![CDATA[<ul><li>将一组对象组织成树形结构，以表示一种”部分-整体”的层次结构</li><li>让编写者可以统一单个对象和组合对象的处理逻辑</li></ul><hr><h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><ul><li>数据必须能表示成树形结构</li></ul><hr><h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ul><li>将一组对象组织成树形结构，将单个对象和组合对象都看作是树中的节点，以统一的处理逻辑，利用树形结构的特点，递遍历子树，依次简化代码实现</li><li>不是一种常用模式</li></ul>]]></content>
     
@@ -328,6 +308,8 @@
       <category term="设计模式" scheme="https://www.wl960127.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
+      <category term="待完成" scheme="https://www.wl960127.top/tags/%E5%BE%85%E5%AE%8C%E6%88%90/"/>
+    
   </entry>
   
   <entry>
@@ -335,7 +317,7 @@
     <link href="https://www.wl960127.top/posts/3223afa7/"/>
     <id>https://www.wl960127.top/posts/3223afa7/</id>
     <published>2020-07-28T13:40:55.000Z</published>
-    <updated>2021-03-08T11:33:34.882Z</updated>
+    <updated>2021-03-10T07:35:36.005Z</updated>
     
     <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li><p>复用对象，节省内存（前提是享元对象是不可改变的对象）</p></li><li><p>将系统中的大量重复的<strong>不可变对象</strong>，使用享元模式，使其在内存中只保留一份实例，共多处代码使用。从而达到减少因过多实例化导致不必要的内存开销</p></li></ul><hr><h4 id="不可变对象"><a href="#不可变对象" class="headerlink" title="不可变对象"></a>不可变对象</h4><ul><li>通过构造函数初始化之后，成员变量和属性就不会被修改。因为不能暴露出<code>set()</code>等修改内部的方法，避免影响其他代码使用</li></ul><ul><li>棋子、文档格….</li></ul><hr><h4 id="Integer-享元"><a href="#Integer-享元" class="headerlink" title="Integer 享元"></a>Integer 享元</h4><ul><li>基本数据类型的装箱是为了<strong>将基础数据类型转换成包装类型</strong>，包装类型才能有对象的性质，才能操作属性和方法</li><li>Integer的享元对象实在类加载的时候就一次性创建好的。区间值为 <code>-128到127</code>的数值会从IntegerCache类直接返回，其余的通过new 方法创建</li></ul><hr><h4 id="String-享元"><a href="#String-享元" class="headerlink" title="String 享元"></a>String 享元</h4><ul><li>只有在第一次被使用的时候，存储到常量池中，第二次使用时候就是直接在常量池中引用即可，而不是重新创建</li></ul><hr><h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ul><li>抽取出原始类中的公有基础属性，封装成一个不可变的享元对象</li><li>使用不可变享元对象替换掉原始类的公有基础属性</li><li>使用工厂模式对已经创建过的享元对象使用Ma进行缓存处理，从而达到复用的目的</li></ul><hr><h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><ul><li>享元模式 VS 单例、缓存、对象池<ul><li>享元：实现对象复用，节省内存</li><li>单例：保证对象的全局唯一</li><li>缓存：提高访问率，而非复用</li><li>对象池：重复使用，主要是为了节省时间</li></ul></li></ul><h3 id="弊端"><a href="#弊端" class="headerlink" title="弊端"></a>弊端</h3><ul><li>对JVM的GC机制不友好，因为一直保存引用导致无法回收，所以不适用于生命周期短且不会被密集使用的对象</li></ul><hr>]]></content>
     
@@ -348,6 +330,8 @@
       <category term="设计模式" scheme="https://www.wl960127.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
+      <category term="待完成" scheme="https://www.wl960127.top/tags/%E5%BE%85%E5%AE%8C%E6%88%90/"/>
+    
   </entry>
   
   <entry>
@@ -355,7 +339,7 @@
     <link href="https://www.wl960127.top/posts/2e7c4fc7/"/>
     <id>https://www.wl960127.top/posts/2e7c4fc7/</id>
     <published>2020-07-11T13:40:07.000Z</published>
-    <updated>2021-03-08T11:33:31.870Z</updated>
+    <updated>2021-03-10T07:35:48.765Z</updated>
     
     <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>将不兼容的接口转换为可兼容的接口</li></ul><hr><h3 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h3><ul><li>类适配器 （使用继承来实现）</li><li>对象适配器 （组合关系实现）</li></ul><hr><h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><p>可以看作是一种<code>补偿模式</code>，用来补救设计上的缺陷</p><ul><li>对有缺陷的接口设计二次封装</li><li>某个功能的实现依赖多个外部类时候，将接口适配为统一的接口定义（即：均实现同一接口，使用时向上转型成接口）</li><li>把项目中依赖的一个外部系统替换为另一个外部系统（即：均实现同一接口，使用时向上转型成接口）</li><li>兼容老接口</li><li>适配不同格式数据</li></ul>]]></content>
     
@@ -368,6 +352,8 @@
       <category term="设计模式" scheme="https://www.wl960127.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
+      <category term="待完成" scheme="https://www.wl960127.top/tags/%E5%BE%85%E5%AE%8C%E6%88%90/"/>
+    
   </entry>
   
   <entry>
@@ -375,7 +361,7 @@
     <link href="https://www.wl960127.top/posts/2a133c38/"/>
     <id>https://www.wl960127.top/posts/2a133c38/</id>
     <published>2020-07-11T13:38:42.000Z</published>
-    <updated>2021-03-08T11:33:23.603Z</updated>
+    <updated>2021-03-10T07:35:54.728Z</updated>
     
     <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>为子系统提供一组统一的接口，定义一组高层接口让子系统更容易用</li></ul><hr><h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><ul><li>解决易用性</li><li>解决性能问题</li><li>解决分布式事务问题</li></ul>]]></content>
     
@@ -388,6 +374,8 @@
       <category term="设计模式" scheme="https://www.wl960127.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
+      <category term="待完成" scheme="https://www.wl960127.top/tags/%E5%BE%85%E5%AE%8C%E6%88%90/"/>
+    
   </entry>
   
   <entry>
@@ -395,9 +383,9 @@
     <link href="https://www.wl960127.top/posts/a8ef08fd/"/>
     <id>https://www.wl960127.top/posts/a8ef08fd/</id>
     <published>2020-07-08T13:20:10.000Z</published>
-    <updated>2021-03-08T11:33:18.671Z</updated>
+    <updated>2021-03-10T07:52:36.297Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>在不改变原始类代码的情况下，通过引入代理类来给原始类附加功能</li><li>将框架代码与业务代码解耦</li></ul><hr><h3 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h3><p><img src="%E4%BB%A3%E7%90%86.png" alt=""></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      SubjectImpl subject = <span class="keyword">new</span> SubjectImpl();</span><br><span class="line">      InvocationHandler subjectProxy = <span class="keyword">new</span> SubjectProxy(subject);</span><br><span class="line">      ISubject proxyInstance = (Subject) Proxy.newProxyInstance(subjectProxy.getClass().getClassLoader(), subjectProxy.getClass().getInterfaces(), subjectProxy);</span><br><span class="line">      proxyInstance.doSomeThing(<span class="string">"打铁"</span>);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure><hr><h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><ul><li>RPC、缓存、监控、Spring AOP（动态代理）…</li></ul><hr><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ul><li>让代理类和原始类实现同样接口</li><li>如果原始类没有定义接口，且原始类不是我们开发为维护，这种情况可以通过让代理类继承原始类来实现代理</li></ul><hr><h3 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h3><h4 id="静态代理"><a href="#静态代理" class="headerlink" title="静态代理"></a>静态代理</h4><h5 id="内部代码实现"><a href="#内部代码实现" class="headerlink" title="内部代码实现"></a>内部代码实现</h5><ul><li><p>基于接口和组合实现</p></li><li><p>代理类和原始类实现相同接口，代理类的实例参数为原始类（相当于，在代理类实现的接口方法中委托原始类实例调用实例方法）</p></li></ul><h5 id="外部代码拓展"><a href="#外部代码拓展" class="headerlink" title="外部代码拓展"></a>外部代码拓展</h5><ul><li>无法修改原始类定义情况下，采取继承方式</li><li>代理类继承原始类，直接使用<code>super.</code>方法，调用原始类方法</li></ul><h4 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h4><ul><li>解决常规代理下，大量复杂的附加类导致的大量代理类</li><li>在运行时候，动态的创建原始类对应的代理类，然后在系统中用代理类替换掉原始类</li></ul>]]></content>
+    <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>在不改变原始类代码的情况下，通过引入代理类来给原始类附加功能</li><li>将框架代码与业务代码解耦</li></ul><hr><h3 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h3><p><img src="%E4%BB%A3%E7%90%86.png" alt=""></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      SubjectImpl subject = <span class="keyword">new</span> SubjectImpl();</span><br><span class="line">      InvocationHandler subjectProxy = <span class="keyword">new</span> SubjectProxy(subject);</span><br><span class="line">      ISubject proxyInstance = (Subject) Proxy.newProxyInstance(subjectProxy.getClass().getClassLoader(), subjectProxy.getClass().getInterfaces(), subjectProxy);</span><br><span class="line">      proxyInstance.doSomeThing(<span class="string">"打铁"</span>);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure><hr><h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><ul><li>RPC、缓存、监控、Spring AOP（动态代理）…</li></ul><hr><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ul><li>让代理类和原始类实现同样接口</li><li>如果原始类没有定义接口，且原始类不是我们开发为维护，这种情况可以通过让代理类继承原始类来实现代理</li></ul><hr><h3 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h3><h4 id="静态代理"><a href="#静态代理" class="headerlink" title="静态代理"></a>静态代理</h4><h5 id="内部代码实现"><a href="#内部代码实现" class="headerlink" title="内部代码实现"></a>内部代码实现</h5><ul><li><p>基于接口和组合实现</p></li><li><p>代理类和原始类实现相同接口，代理类的实例参数为原始类（相当于，在代理类实现的接口方法中委托原始类实例调用实例方法）</p></li></ul><h5 id="外部代码拓展"><a href="#外部代码拓展" class="headerlink" title="外部代码拓展"></a>外部代码拓展</h5><ul><li>无法修改原始类定义情况下，采取继承方式</li><li>代理类继承原始类，直接使用<code>super.</code>方法，调用原始类方法</li></ul><h4 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h4><ul><li><p>解决常规代理下，大量复杂的附加类导致的大量代理类</p></li><li><p>在运行时候，动态的创建原始类对应的代理类，然后在系统中用代理类替换掉原始类</p></li></ul>]]></content>
     
     <summary type="html">
     
@@ -415,13 +403,35 @@
     <link href="https://www.wl960127.top/posts/858c6e31/"/>
     <id>https://www.wl960127.top/posts/858c6e31/</id>
     <published>2020-07-03T14:03:10.000Z</published>
-    <updated>2021-03-08T11:33:27.871Z</updated>
+    <updated>2021-03-10T07:53:46.723Z</updated>
     
     <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>将抽象和实现解耦，让它们可以独立变化</li><li>通过组合关系来替代继承关系，避免继承层次的指数级爆炸</li></ul><hr><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ul><li>将骨架代码“抽象“出来，将真正的业务逻辑委派给定义中的”实现”完成</li><li>“抽象”与”实现“独立开发，通过对象的组合关系组装在一起</li></ul><hr>]]></content>
     
     <summary type="html">
     
       设计模式之美学习笔记&lt;/br&gt; 结构型模式主要解决类与对象的组合和组装，将不同功能的代码解耦 &lt;/br&gt;桥接模式则是：将接口和实现部分分离，从而让它们可以较为容易、也相对独立的加以改变
+    
+    </summary>
+    
+      <category term="设计模式" scheme="https://www.wl960127.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+      <category term="待完成" scheme="https://www.wl960127.top/tags/%E5%BE%85%E5%AE%8C%E6%88%90/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>创建型-原型模式</title>
+    <link href="https://www.wl960127.top/posts/34963c84/"/>
+    <id>https://www.wl960127.top/posts/34963c84/</id>
+    <published>2020-06-13T02:17:25.000Z</published>
+    <updated>2021-03-08T11:32:33.760Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>创建对象的成本较大，而同一个类的不同对象之间差别不大（大部分字段相同），此时可以利用已有对象（原型）进行拷贝的的方式来创建新对象，以达到节省创建时间的目的一种基于原型创建对象的设计模式</li></ul><hr><h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><ul><li>对象中的数据需要经过复杂的计算才能得到（排序、计算哈希），或者是需要从RPC、网络、数据库、文件系统等非常慢的IO中读取</li></ul><hr><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><h4 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h4><ul><li>不仅会复制索引，还会复制数据本身</li></ul><h5 id="方式"><a href="#方式" class="headerlink" title="方式"></a>方式</h5><ul><li><p>递归拷贝对象、对象的引用对象以及引用对象的引用对象…</p></li><li><p>将对象序列化，再反序列化成新的对象</p><h5 id="弊端"><a href="#弊端" class="headerlink" title="弊端"></a>弊端</h5></li><li><p>两种实现方式都会比浅拷贝耗时、耗内存空间</p></li></ul><h4 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h4><ul><li>只会拷贝对象中的基本数据类型以及引用对象的内存地址，不会拷贝数据本身对象。相当于浅拷贝得到对象和被拷贝的对象实际上还是在共享同一个数据</li><li>Java中，<code>Object</code>的<code>clone()</code>方法就是浅拷贝</li></ul><h4 id="优化方式"><a href="#优化方式" class="headerlink" title="优化方式"></a>优化方式</h4><ul><li><p>先浅拷贝，再将需要更新的对象进行深度拷贝，替换掉浅拷贝中的老对象</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> HashMap&lt;String, SearchWord&gt; currentKeywords=<span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">long</span> lastUpdateTime = -<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">refresh</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//浅拷贝</span></span><br><span class="line">    HashMap&lt;String, SearchWord&gt; newKeywords = (HashMap&lt;String, SearchWord&gt;) currentKeywords.clone();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 从数据库中取出更新时间&gt;lastUpdateTime的数据，放入到newKeywords中</span></span><br><span class="line">    List&lt;SearchWord&gt; toBeUpdatedSearchWords = getSearchWords(lastUpdateTime);</span><br><span class="line">    <span class="keyword">long</span> maxNewUpdatedTime = lastUpdateTime;</span><br><span class="line">    <span class="keyword">for</span> (SearchWord searchWord : toBeUpdatedSearchWords) &#123;</span><br><span class="line">      <span class="keyword">if</span> (searchWord.getLastUpdateTime() &gt; maxNewUpdatedTime) &#123;</span><br><span class="line">        maxNewUpdatedTime = searchWord.getLastUpdateTime();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (newKeywords.containsKey(searchWord.getKeyword())) &#123;</span><br><span class="line">        newKeywords.remove(searchWord.getKeyword());</span><br><span class="line">      &#125;</span><br><span class="line">      newKeywords.put(searchWord.getKeyword(), searchWord);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    lastUpdateTime = maxNewUpdatedTime;</span><br><span class="line">    currentKeywords = newKeywords; <span class="comment">//替换</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">private</span> List&lt;SearchWord&gt; <span class="title">getSearchWords</span><span class="params">(<span class="keyword">long</span> lastUpdateTime)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// <span class="doctag">TODO:</span> 从数据库中取出更新时间&gt;lastUpdateTime的数据</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ul><hr><ul><li>尽量避免IO操作，而是宁愿选择内存操作与CPU计算这些耗时操作</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      设计模式之美学习笔记&lt;/br&gt; 创建型模式主要解决对象的创建问题，封装复杂的创建过程，解耦对象的创建代码和使用代码 &lt;/br&gt; 针对创建成本较大的对象，对已有对象复制的形式创建，以节省创建时间
     
     </summary>
     
