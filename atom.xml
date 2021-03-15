@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.wl960127.top/"/>
-  <updated>2021-03-12T03:57:44.155Z</updated>
+  <updated>2021-03-08T07:48:50.205Z</updated>
   <id>https://www.wl960127.top/</id>
   
   <author>
@@ -15,28 +15,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>基础夯实指南</title>
-    <link href="https://www.wl960127.top/posts/2e381328/"/>
-    <id>https://www.wl960127.top/posts/2e381328/</id>
-    <published>2021-03-11T14:35:00.000Z</published>
-    <updated>2021-03-12T03:57:44.155Z</updated>
-    
-    <content type="html"><![CDATA[<p>总的来说，作为新年的学习计划吧</p><h4 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h4><h5 id="Android"><a href="#Android" class="headerlink" title="Android"></a>Android</h5><ul><li><input disabled="" type="checkbox"> 底层原理</li><li><input checked="" disabled="" type="checkbox"> AOSP</li></ul><h5 id="C"><a href="#C" class="headerlink" title="C"></a>C</h5><ul><li><input disabled="" type="checkbox"> Unix编程</li></ul><h5 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h5><ul><li><input disabled="" type="checkbox"> JVM</li><li><input disabled="" type="checkbox"> 设计模式</li></ul><h5 id="工程学"><a href="#工程学" class="headerlink" title="工程学"></a>工程学</h5><ul><li><input disabled="" type="checkbox"> 反编译</li><li><input disabled="" type="checkbox"> 测试开发入门与实战</li><li><input disabled="" type="checkbox"> 抓包</li></ul><h4 id="系统"><a href="#系统" class="headerlink" title="系统"></a>系统</h4><h5 id="图形学"><a href="#图形学" class="headerlink" title="图形学"></a>图形学</h5><ul><li><input disabled="" type="checkbox"> 音视频</li></ul><h5 id="ROM"><a href="#ROM" class="headerlink" title="ROM"></a>ROM</h5><h5 id="编译原理"><a href="#编译原理" class="headerlink" title="编译原理"></a>编译原理</h5><h5 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h5><h5 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h5><ul><li><input disabled="" type="checkbox"> 重学操作系统</li></ul><h4 id="数学思维"><a href="#数学思维" class="headerlink" title="数学思维"></a>数学思维</h4><h5 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h5><ul><li><input disabled="" type="checkbox"> 数据结构与算法之美</li></ul><h5 id="数学"><a href="#数学" class="headerlink" title="数学"></a>数学</h5><ul><li><input disabled="" type="checkbox"> 程序员的基础高数</li></ul><hr><h4 id="继续保持"><a href="#继续保持" class="headerlink" title="继续保持"></a>继续保持</h4><ul><li>Flutter</li><li>Compose</li><li>Golang</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      BAT大佬告知的一些系统进阶要点，结合自己的情况列的一个学习计划
-    
-    </summary>
-    
-      <category term="技术杂谈" scheme="https://www.wl960127.top/categories/%E6%8A%80%E6%9C%AF%E6%9D%82%E8%B0%88/"/>
-    
-    
-      <category term="待完成" scheme="https://www.wl960127.top/tags/%E5%BE%85%E5%AE%8C%E6%88%90/"/>
-    
-  </entry>
   
   <entry>
     <title>JVM类加载机制</title>
@@ -439,6 +417,26 @@
     
     
       <category term="待完成" scheme="https://www.wl960127.top/tags/%E5%BE%85%E5%AE%8C%E6%88%90/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>创建型-原型模式</title>
+    <link href="https://www.wl960127.top/posts/34963c84/"/>
+    <id>https://www.wl960127.top/posts/34963c84/</id>
+    <published>2020-06-13T02:17:25.000Z</published>
+    <updated>2021-03-08T11:32:33.760Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>创建对象的成本较大，而同一个类的不同对象之间差别不大（大部分字段相同），此时可以利用已有对象（原型）进行拷贝的的方式来创建新对象，以达到节省创建时间的目的一种基于原型创建对象的设计模式</li></ul><hr><h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><ul><li>对象中的数据需要经过复杂的计算才能得到（排序、计算哈希），或者是需要从RPC、网络、数据库、文件系统等非常慢的IO中读取</li></ul><hr><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><h4 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h4><ul><li>不仅会复制索引，还会复制数据本身</li></ul><h5 id="方式"><a href="#方式" class="headerlink" title="方式"></a>方式</h5><ul><li><p>递归拷贝对象、对象的引用对象以及引用对象的引用对象…</p></li><li><p>将对象序列化，再反序列化成新的对象</p><h5 id="弊端"><a href="#弊端" class="headerlink" title="弊端"></a>弊端</h5></li><li><p>两种实现方式都会比浅拷贝耗时、耗内存空间</p></li></ul><h4 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h4><ul><li>只会拷贝对象中的基本数据类型以及引用对象的内存地址，不会拷贝数据本身对象。相当于浅拷贝得到对象和被拷贝的对象实际上还是在共享同一个数据</li><li>Java中，<code>Object</code>的<code>clone()</code>方法就是浅拷贝</li></ul><h4 id="优化方式"><a href="#优化方式" class="headerlink" title="优化方式"></a>优化方式</h4><ul><li><p>先浅拷贝，再将需要更新的对象进行深度拷贝，替换掉浅拷贝中的老对象</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> HashMap&lt;String, SearchWord&gt; currentKeywords=<span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">long</span> lastUpdateTime = -<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">refresh</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//浅拷贝</span></span><br><span class="line">    HashMap&lt;String, SearchWord&gt; newKeywords = (HashMap&lt;String, SearchWord&gt;) currentKeywords.clone();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 从数据库中取出更新时间&gt;lastUpdateTime的数据，放入到newKeywords中</span></span><br><span class="line">    List&lt;SearchWord&gt; toBeUpdatedSearchWords = getSearchWords(lastUpdateTime);</span><br><span class="line">    <span class="keyword">long</span> maxNewUpdatedTime = lastUpdateTime;</span><br><span class="line">    <span class="keyword">for</span> (SearchWord searchWord : toBeUpdatedSearchWords) &#123;</span><br><span class="line">      <span class="keyword">if</span> (searchWord.getLastUpdateTime() &gt; maxNewUpdatedTime) &#123;</span><br><span class="line">        maxNewUpdatedTime = searchWord.getLastUpdateTime();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (newKeywords.containsKey(searchWord.getKeyword())) &#123;</span><br><span class="line">        newKeywords.remove(searchWord.getKeyword());</span><br><span class="line">      &#125;</span><br><span class="line">      newKeywords.put(searchWord.getKeyword(), searchWord);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    lastUpdateTime = maxNewUpdatedTime;</span><br><span class="line">    currentKeywords = newKeywords; <span class="comment">//替换</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">private</span> List&lt;SearchWord&gt; <span class="title">getSearchWords</span><span class="params">(<span class="keyword">long</span> lastUpdateTime)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// <span class="doctag">TODO:</span> 从数据库中取出更新时间&gt;lastUpdateTime的数据</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ul><hr><ul><li>尽量避免IO操作，而是宁愿选择内存操作与CPU计算这些耗时操作</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      设计模式之美学习笔记&lt;/br&gt; 创建型模式主要解决对象的创建问题，封装复杂的创建过程，解耦对象的创建代码和使用代码 &lt;/br&gt; 针对创建成本较大的对象，对已有对象复制的形式创建，以节省创建时间
+    
+    </summary>
+    
+      <category term="设计模式" scheme="https://www.wl960127.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
     
   </entry>
   
