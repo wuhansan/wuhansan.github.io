@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>明朝那些事第二部分</title>
+      <link href="posts/2b893cfe/"/>
+      <url>posts/2b893cfe/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> 读书笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 明朝 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>关于学习的第五篇-学霸养成</title>
       <link href="posts/95b53bcb/"/>
       <url>posts/95b53bcb/</url>
@@ -99,7 +124,7 @@
     
     
     <entry>
-      <title>明朝那些事-朱元璋</title>
+      <title>明朝那些事第一部分</title>
       <link href="posts/6f3535f0/"/>
       <url>posts/6f3535f0/</url>
       
@@ -2030,31 +2055,6 @@
     
     
     <entry>
-      <title>Android 源码中创建App</title>
-      <link href="posts/42241/"/>
-      <url>posts/42241/</url>
-      
-        <content type="html"><![CDATA[<h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><ul><li>参看　<code>Ubuntu编译Android源码并刷机</code>，配置环境</li><li><a href="https://github.com/wl960127/HelloWrold">Demo传送</a> </li></ul><h4 id="Android-mk"><a href="#Android-mk" class="headerlink" title="Android.mk"></a>Android.mk</h4><ul><li><p>参考的老罗的，但是有点问题，后来就在网上找了</p></li><li><p>链接如下 <a href="https://blog.csdn.net/zhonglunshun/article/details/70256727">移植HelloWorld</a></p><ul><li>LOCAL_MODULE_TAGS的备选值有user，eng，tests，optional，本示例中使用的TAGS值为eng（工程模式，自带root），因此，仅当用户指定的编译选项为eng时才会编译该工程。否则会停止编译，默认值为optional </li><li><strong>Android.mk</strong></li></ul><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">LOCAL_PATH:= <span class="variable">$(<span class="built_in">call</span> my-<span class="built_in">dir</span>)</span></span><br><span class="line"><span class="comment">#清理缓存变量</span></span><br><span class="line"><span class="keyword">include</span> <span class="variable">$(CLEAR_VARS)</span></span><br><span class="line"><span class="comment">#表示目标模式</span></span><br><span class="line">LOCAL_MODULE_TAGS := samples</span><br><span class="line"><span class="comment">#表示源文件编译路径 这个应用里面只有java源文件</span></span><br><span class="line">LOCAL_SRC_FILES := <span class="variable">$(<span class="built_in">call</span> all-java-files-under, src)</span></span><br><span class="line"><span class="comment">#表示项目包名也就是模块名，在项目中唯一,就是你apk的名字。</span></span><br><span class="line">LOCAL_PACKAGE_NAME := HelloWorld</span><br><span class="line"><span class="comment">#指定编译sdk版本为当前版本</span></span><br><span class="line">LOCAL_SDK_VERSION := current</span><br><span class="line"><span class="comment"># 使用该指令编译目标Apk.</span></span><br><span class="line"><span class="keyword">include</span> <span class="variable">$(BUILD_PACKAGE)</span></span><br><span class="line"><span class="comment">#搜索编译该源码目录下所有的mk文件，如果没有可以不写</span></span><br><span class="line"><span class="keyword">include</span> <span class="variable">$(<span class="built_in">call</span> all-makefiles-under,<span class="variable">$(LOCAL_PATH)</span>)</span></span><br></pre></td></tr></table></figure><ul><li><p><strong>build/target/product/core.mk</strong></p><ul><li><p>忽略了你是没办法在编译成的system.img里面找到这个工程的</p></li><li><p>如果你是想打包在镜像中的话，所以下一步是不一定要执行</p></li><li><p>把mk文件中的标识名填上（LOCAL_PACKAGE_NAME或者LOCAL_MODULE  的值！！！！ 比如这里的是  HelloWorld \）</p></li></ul></li></ul><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">PRODUCT_PACKAGES := \ </span><br><span class="line">DeskClock \ </span><br><span class="line">Calculator \ </span><br><span class="line">Calendar \ </span><br><span class="line">Camera2 \ </span><br><span class="line">Email \ </span><br><span class="line">HelloWorld \   <span class="comment">#这个是创建的工程</span></span><br></pre></td></tr></table></figure></li></ul><h4 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h4><ul><li><p>在packages/apps 下创建例子 Hello文件夹</p><ul><li>AndroidManifest.xml</li><li>Android.mk</li><li>src<ul><li>com/wl/hello  (包名随意，这是一个三级目录)<ul><li>HelloAndroid.java</li></ul></li></ul></li><li>res<ul><li>layout<ul><li>main.xml</li></ul></li><li>values<ul><li>strings.xml</li></ul></li><li>drawable<ul><li>icon.png</li></ul></li></ul></li></ul></li></ul><h4 id="打包镜像"><a href="#打包镜像" class="headerlink" title="打包镜像"></a>打包镜像</h4><ul><li><p>根目录下先 source build/envsetup.sh  (否则没有mmm指令)</p></li><li><p>编译App</p><ul><li>在新建项目的目录下输入make 项目名</li><li>或者切换到Android源码根目录下执行下面任意一条命令即可：mmm packages/apps/项目名</li></ul></li><li><p>测试方法</p><ul><li><p>真机运行</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> adb shell</span><br><span class="line"> su </span><br><span class="line"> mount -o remount,rw /system    (挂载手机磁盘，并设置可读写)</span><br><span class="line">- 退出adb指令</span><br><span class="line"> adb push 本地路径  手机app路径（/sdcard）</span><br><span class="line">- 再用 复制或者移动到 (/system/app)  </span><br><span class="line"> chmod 777 .apk (操作过程中，没有执行这一步导致，开机没有被安装)</span><br><span class="line"> adb shell reboot</span><br></pre></td></tr></table></figure></li><li><p>虚拟机运行</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">方法一：　</span><br><span class="line"> make snod</span><br><span class="line"> emulator</span><br><span class="line"> </span><br><span class="line">方法二：　Android模拟器运行编译之后的镜像</span><br><span class="line">/xxx/Sdk/emulator/emulator -avd MyPhone -system android/out/target/product/generic/system.img </span><br><span class="line"></span><br><span class="line">   - android/是Android源码位置；</span><br><span class="line">   - system.img是编译好的Android镜像；</span><br><span class="line">   - MyPhone是刚创建的模拟器名称；</span><br><span class="line">   - system选项表示在模拟器上运行指定Android镜像</span><br></pre></td></tr></table></figure></li></ul></li></ul><h4 id="Android-系统签名"><a href="#Android-系统签名" class="headerlink" title="Android 系统签名"></a>Android 系统签名</h4><ul><li>build/target/product/security<ul><li>testkey <ul><li>默认使用，如果Android.mk不设置LOCAL_CERTIFICATE变量</li></ul></li><li>platform<ul><li>使用该签名的系统应用可以执行平台的核心功能</li></ul></li><li>shared<ul><li>使用该签名的系统应用可以和 home/contacts进程共享数据</li></ul></li><li>media<ul><li>使用该签名的系统应用将成为media/download 系统的一部分</li></ul></li></ul></li></ul><h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><ul><li>在java文件中，使用了什么就一定要添加依赖</li><li>xml中，所有的string都要在strings.xml中定义</li><li>基于　<code>Android版本 4.4.4_r1_KTU84P</code></li></ul>]]></content>
-      
-      
-      <categories>
-          
-          <category> Android源码 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 源码 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>Android角标提示</title>
       <link href="posts/38069/"/>
       <url>posts/38069/</url>
@@ -2072,6 +2072,31 @@
         <tags>
             
             <tag> 功能实现 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Android 源码中创建App</title>
+      <link href="posts/42241/"/>
+      <url>posts/42241/</url>
+      
+        <content type="html"><![CDATA[<h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><ul><li>参看　<code>Ubuntu编译Android源码并刷机</code>，配置环境</li><li><a href="https://github.com/wl960127/HelloWrold">Demo传送</a> </li></ul><h4 id="Android-mk"><a href="#Android-mk" class="headerlink" title="Android.mk"></a>Android.mk</h4><ul><li><p>参考的老罗的，但是有点问题，后来就在网上找了</p></li><li><p>链接如下 <a href="https://blog.csdn.net/zhonglunshun/article/details/70256727">移植HelloWorld</a></p><ul><li>LOCAL_MODULE_TAGS的备选值有user，eng，tests，optional，本示例中使用的TAGS值为eng（工程模式，自带root），因此，仅当用户指定的编译选项为eng时才会编译该工程。否则会停止编译，默认值为optional </li><li><strong>Android.mk</strong></li></ul><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">LOCAL_PATH:= <span class="variable">$(<span class="built_in">call</span> my-<span class="built_in">dir</span>)</span></span><br><span class="line"><span class="comment">#清理缓存变量</span></span><br><span class="line"><span class="keyword">include</span> <span class="variable">$(CLEAR_VARS)</span></span><br><span class="line"><span class="comment">#表示目标模式</span></span><br><span class="line">LOCAL_MODULE_TAGS := samples</span><br><span class="line"><span class="comment">#表示源文件编译路径 这个应用里面只有java源文件</span></span><br><span class="line">LOCAL_SRC_FILES := <span class="variable">$(<span class="built_in">call</span> all-java-files-under, src)</span></span><br><span class="line"><span class="comment">#表示项目包名也就是模块名，在项目中唯一,就是你apk的名字。</span></span><br><span class="line">LOCAL_PACKAGE_NAME := HelloWorld</span><br><span class="line"><span class="comment">#指定编译sdk版本为当前版本</span></span><br><span class="line">LOCAL_SDK_VERSION := current</span><br><span class="line"><span class="comment"># 使用该指令编译目标Apk.</span></span><br><span class="line"><span class="keyword">include</span> <span class="variable">$(BUILD_PACKAGE)</span></span><br><span class="line"><span class="comment">#搜索编译该源码目录下所有的mk文件，如果没有可以不写</span></span><br><span class="line"><span class="keyword">include</span> <span class="variable">$(<span class="built_in">call</span> all-makefiles-under,<span class="variable">$(LOCAL_PATH)</span>)</span></span><br></pre></td></tr></table></figure><ul><li><p><strong>build/target/product/core.mk</strong></p><ul><li><p>忽略了你是没办法在编译成的system.img里面找到这个工程的</p></li><li><p>如果你是想打包在镜像中的话，所以下一步是不一定要执行</p></li><li><p>把mk文件中的标识名填上（LOCAL_PACKAGE_NAME或者LOCAL_MODULE  的值！！！！ 比如这里的是  HelloWorld \）</p></li></ul></li></ul><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">PRODUCT_PACKAGES := \ </span><br><span class="line">DeskClock \ </span><br><span class="line">Calculator \ </span><br><span class="line">Calendar \ </span><br><span class="line">Camera2 \ </span><br><span class="line">Email \ </span><br><span class="line">HelloWorld \   <span class="comment">#这个是创建的工程</span></span><br></pre></td></tr></table></figure></li></ul><h4 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h4><ul><li><p>在packages/apps 下创建例子 Hello文件夹</p><ul><li>AndroidManifest.xml</li><li>Android.mk</li><li>src<ul><li>com/wl/hello  (包名随意，这是一个三级目录)<ul><li>HelloAndroid.java</li></ul></li></ul></li><li>res<ul><li>layout<ul><li>main.xml</li></ul></li><li>values<ul><li>strings.xml</li></ul></li><li>drawable<ul><li>icon.png</li></ul></li></ul></li></ul></li></ul><h4 id="打包镜像"><a href="#打包镜像" class="headerlink" title="打包镜像"></a>打包镜像</h4><ul><li><p>根目录下先 source build/envsetup.sh  (否则没有mmm指令)</p></li><li><p>编译App</p><ul><li>在新建项目的目录下输入make 项目名</li><li>或者切换到Android源码根目录下执行下面任意一条命令即可：mmm packages/apps/项目名</li></ul></li><li><p>测试方法</p><ul><li><p>真机运行</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> adb shell</span><br><span class="line"> su </span><br><span class="line"> mount -o remount,rw /system    (挂载手机磁盘，并设置可读写)</span><br><span class="line">- 退出adb指令</span><br><span class="line"> adb push 本地路径  手机app路径（/sdcard）</span><br><span class="line">- 再用 复制或者移动到 (/system/app)  </span><br><span class="line"> chmod 777 .apk (操作过程中，没有执行这一步导致，开机没有被安装)</span><br><span class="line"> adb shell reboot</span><br></pre></td></tr></table></figure></li><li><p>虚拟机运行</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">方法一：　</span><br><span class="line"> make snod</span><br><span class="line"> emulator</span><br><span class="line"> </span><br><span class="line">方法二：　Android模拟器运行编译之后的镜像</span><br><span class="line">/xxx/Sdk/emulator/emulator -avd MyPhone -system android/out/target/product/generic/system.img </span><br><span class="line"></span><br><span class="line">   - android/是Android源码位置；</span><br><span class="line">   - system.img是编译好的Android镜像；</span><br><span class="line">   - MyPhone是刚创建的模拟器名称；</span><br><span class="line">   - system选项表示在模拟器上运行指定Android镜像</span><br></pre></td></tr></table></figure></li></ul></li></ul><h4 id="Android-系统签名"><a href="#Android-系统签名" class="headerlink" title="Android 系统签名"></a>Android 系统签名</h4><ul><li>build/target/product/security<ul><li>testkey <ul><li>默认使用，如果Android.mk不设置LOCAL_CERTIFICATE变量</li></ul></li><li>platform<ul><li>使用该签名的系统应用可以执行平台的核心功能</li></ul></li><li>shared<ul><li>使用该签名的系统应用可以和 home/contacts进程共享数据</li></ul></li><li>media<ul><li>使用该签名的系统应用将成为media/download 系统的一部分</li></ul></li></ul></li></ul><h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><ul><li>在java文件中，使用了什么就一定要添加依赖</li><li>xml中，所有的string都要在strings.xml中定义</li><li>基于　<code>Android版本 4.4.4_r1_KTU84P</code></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Android源码 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 源码 </tag>
             
         </tags>
       
