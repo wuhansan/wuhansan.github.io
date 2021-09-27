@@ -1,0 +1,249 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content><title>Android源码Build系统模块学习 | 冷暖自知</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.4.5"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/8.0.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/3.3.1/jquery.min.js"></script><link rel="icon" mask sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Android源码Build系统模块学习</h1><a id="logo" href="/.">冷暖自知</a><p class="description">足够自律，足够自由</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">Android源码Build系统模块学习</h1><div class="post-meta">Sep 6, 2018<span> | </span><span class="category"><a href="/categories/Android源码/">Android源码</a></span><script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> 阅读</span></span><span class="post-time"><span class="post-meta-item-text"> | </span><span class="post-meta-item-icon"><i class="fa fa-keyboard-o"></i><span class="post-count"> 1.2k</span><span class="post-meta-item-text"> 字</span></span></span><span class="post-time"> | <span class="post-meta-item-icon"><i class="fa fa-hourglass-half"></i><span class="post-count"> 4</span><span class="post-meta-item-text"> 分钟</span></span></span></div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#模块区分"><span class="toc-number">1.</span> <span class="toc-text">模块区分</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#核心模块"><span class="toc-number">1.1.</span> <span class="toc-text">核心模块</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#针对机型厂商"><span class="toc-number">1.2.</span> <span class="toc-text">针对机型厂商</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#单独模块"><span class="toc-number">1.3.</span> <span class="toc-text">单独模块</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Build结果"><span class="toc-number">2.</span> <span class="toc-text">Build结果</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#位置"><span class="toc-number">2.1.</span> <span class="toc-text">位置:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#包含"><span class="toc-number">2.2.</span> <span class="toc-text">包含</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Build生成的镜像"><span class="toc-number">3.</span> <span class="toc-text">Build生成的镜像</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#out-target-product"><span class="toc-number">3.1.</span> <span class="toc-text">/out/target/product</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MK-文件"><span class="toc-number">4.</span> <span class="toc-text">MK　文件</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Android-mk-便捷函数"><span class="toc-number">4.1.</span> <span class="toc-text">Android.mk　便捷函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#编译一个-APK-文件示例"><span class="toc-number">4.2.</span> <span class="toc-text">编译一个 APK 文件示例</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#编译一个-Java-的静态库示例"><span class="toc-number">4.3.</span> <span class="toc-text">编译一个 Java 的静态库示例</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#摘录自"><span class="toc-number">5.</span> <span class="toc-text">摘录自</span></a></li></ol></div></div><div class="post-content"><h4 id="模块区分"><a href="#模块区分" class="headerlink" title="模块区分"></a>模块区分</h4><h5 id="核心模块"><a href="#核心模块" class="headerlink" title="核心模块"></a>核心模块</h5><ul>
+<li>build/core</li>
+</ul>
+<h5 id="针对机型厂商"><a href="#针对机型厂商" class="headerlink" title="针对机型厂商"></a>针对机型厂商</h5><ul>
+<li>device</li>
+</ul>
+<h5 id="单独模块"><a href="#单独模块" class="headerlink" title="单独模块"></a>单独模块</h5><ul>
+<li><p>比较常见一般在　源码新建app时使用</p>
+</li>
+<li><p>单独模块的Build是依赖Android核心的Build模块的，所以编译时候流程为:</p>
+<ul>
+<li>源码根目录执行　<code>source ./build/envsetup.sh</code>,初始化各种环境变量以及shell函数</li>
+<li>执行任意一条指令<ul>
+<li>mmm 模块包名</li>
+<li>mmm package/apps/模块包名</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>./build/envsetup.sh</code> 完成的事情</p>
+<ul>
+<li>定义m、 mm、 mmm、 lunch等函数</li>
+<li>检查当前shell环境是否是bash</li>
+<li>添加编译目标，搜索　vendor/*/ 和device下面的一些vendorsetup.sh文件(驱动配置脚本)</li>
+</ul>
+</li>
+<li><p><code>envsetup.sh</code>定义的常用shell指令</p>
+<table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">contact-button</td>
+<td align="center">指定当前编译的产品</td>
+</tr>
+<tr>
+<td align="center">croot</td>
+<td align="center">快速切换到源码的根目录，方便开始编译</td>
+</tr>
+<tr>
+<td align="center">m</td>
+<td align="center">编译整个源码，但不用将当前的目录切换到源码的根目录</td>
+</tr>
+<tr>
+<td align="center">mm</td>
+<td align="center">编译当前目录下的所有模块，但是不编译他们的依赖项</td>
+</tr>
+<tr>
+<td align="center">mmm</td>
+<td align="center">编译当前目录下的所有模块，但是不编译他们的依赖项</td>
+</tr>
+<tr>
+<td align="center">cgrep</td>
+<td align="center">对系统中所有的C/C++文件执行grep命令</td>
+</tr>
+<tr>
+<td align="center">sgrep</td>
+<td align="center">对系统中所有的源文件执行grep命令</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h4 id="Build结果"><a href="#Build结果" class="headerlink" title="Build结果"></a>Build结果</h4><h5 id="位置"><a href="#位置" class="headerlink" title="位置:"></a>位置:</h5><ul>
+<li>/out</li>
+</ul>
+<h5 id="包含"><a href="#包含" class="headerlink" title="包含"></a>包含</h5><ul>
+<li>/out/host <ul>
+<li>该目录下包含了针对主机的 Android 开发工具的产物。即 SDK 中的各种工具，例如：emulator，adb，aapt 等</li>
+</ul>
+</li>
+<li>/out/target/common<ul>
+<li>该目录下包含了针对设备的共通的编译产物，主要是 Java 应用代码和 Java 库</li>
+</ul>
+</li>
+<li>/out/target/product<ul>
+<li>包含了针对特定设备的编译结果以及平台相关的 C/C++ 库和二进制文件。其中，是具体目标设备的名称</li>
+</ul>
+</li>
+<li>/out/dist<ul>
+<li>包含了为多种分发而准备的包，通过“make disttarget”将文件拷贝到该目录，默认的编译目标不会产生该目录</li>
+</ul>
+</li>
+</ul>
+<h4 id="Build生成的镜像"><a href="#Build生成的镜像" class="headerlink" title="Build生成的镜像"></a>Build生成的镜像</h4><h5 id="out-target-product"><a href="#out-target-product" class="headerlink" title="/out/target/product"></a>/out/target/product</h5><ul>
+<li>system.img<ul>
+<li>包含了 Android OS 的系统文件，库，可执行文件以及预置的应用程序，将被挂载为根分区</li>
+</ul>
+</li>
+<li>ramdisk.img<ul>
+<li>在启动时将被 Linux 内核挂载为只读分区，它包含了 /init文件和一些配置文件。它用来挂载其他系统镜像并启动 init 进程</li>
+</ul>
+</li>
+<li>userdata.img<ul>
+<li>将被挂载为 /data，包含了应用程序相关的数据以及和用户相关的数据</li>
+</ul>
+</li>
+</ul>
+<h4 id="MK-文件"><a href="#MK-文件" class="headerlink" title="MK　文件"></a>MK　文件</h4><ul>
+<li><p>常规我们新增或修改mk文件，一般都是在我们新加了app的时候</p>
+<ul>
+<li><p>在package/apps/xxx/Android.mk        <em>新建</em></p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LOCAL_PATH := <span class="variable">$(<span class="built_in">call</span> my-<span class="built_in">dir</span>)</span></span><br><span class="line"><span class="keyword">include</span> <span class="variable">$(CLEAR_VARS)</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>设置当前模块的编译路径为当前文件夹路径</li>
+<li>清理（可能由其他模块设置过的）编译环境中用到的变量</li>
+</ul>
+</li>
+<li><p>在build/target/product/core.mk 　  <em>新增</em></p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PRODUCT_PACKAGES := \ </span><br><span class="line">DeskClock \ </span><br><span class="line">xxx \   <span class="comment">#这个是创建的工程</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>package/apps/xxx/Android.mk  常用的一些变量</p>
+<table>
+<thead>
+<tr>
+<th align="center">变量</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">LOCAL_MODULE</td>
+<td>当前模块的名称，这个名称应当是唯一的，模块间的依赖关系就是通过这个名称来引用的。</td>
+</tr>
+<tr>
+<td align="center">LOCAL_SRC_FILES</td>
+<td>当前模块包含的所有源代码文件</td>
+</tr>
+<tr>
+<td align="center">LOCAL_C_INCLUDES</td>
+<td>C 或 C++ 语言需要的头文件的路径</td>
+</tr>
+<tr>
+<td align="center">LOCAL_STATIC_LIBRARIES</td>
+<td>当前模块在静态链接时需要的库的名称</td>
+</tr>
+<tr>
+<td align="center">LOCAL_SHARED_LIBRARIES</td>
+<td>当前模块在运行时依赖的动态库的名称</td>
+</tr>
+<tr>
+<td align="center">LOCAL_CFLAGS</td>
+<td>提供给 C/C++ 编译器的额外编译参数</td>
+</tr>
+<tr>
+<td align="center">LOCAL_JAVA_LIBRARIES</td>
+<td>当前模块依赖的 Java 共享库</td>
+</tr>
+<tr>
+<td align="center">LOCAL_STATIC_JAVA_LIBRARIES</td>
+<td>当前模块依赖的 Java 静态库</td>
+</tr>
+<tr>
+<td align="center">LOCAL_PACKAGE_NAME</td>
+<td>当前 APK 应用的名称</td>
+</tr>
+<tr>
+<td align="center">LOCAL_CERTIFICATE</td>
+<td>签署当前应用的证书名称</td>
+</tr>
+<tr>
+<td align="center">LOCAL_MODULE_TAGS</td>
+<td>当前模块所包含的标签,一个模块可以包含多个标签。默认　optional</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<p><a href="https://blog.csdn.net/roland_sun/article/details/30466105">详情可参看－－Android.mk语法解释</a></p>
+<h5 id="Android-mk-便捷函数"><a href="#Android-mk-便捷函数" class="headerlink" title="Android.mk　便捷函数"></a>Android.mk　便捷函数</h5><ul>
+<li>$(call my-dir)：获取当前文件夹路径。</li>
+<li>$(call all-java-files-under, <src>)：获取指定目录下的所有 Java 文件。</src></li>
+<li>$(call all-c-files-under, <src>)：获取指定目录下的所有 C 语言文件。</src></li>
+<li>$(call all-Iaidl-files-under, <src>) ：获取指定目录下的所有 AIDL 文件。</src></li>
+<li>$(call all-makefiles-under, <folder>)：获取指定目录下的所有 Make 文件。</folder></li>
+<li>$(call intermediates-dir-for, <class>, <app_name>, <host or target>, &lt;common?&gt; )：获取 Build 输出的目标文件夹路径。</host></app_name></class></li>
+</ul>
+<h5 id="编译一个-APK-文件示例"><a href="#编译一个-APK-文件示例" class="headerlink" title="编译一个 APK 文件示例"></a>编译一个 APK 文件示例</h5><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">LOCAL_PATH := <span class="variable">$(<span class="built_in">call</span> my-<span class="built_in">dir</span>)</span></span><br><span class="line"><span class="keyword">include</span> <span class="variable">$(CLEAR_VARS)</span></span><br><span class="line"><span class="comment"># 获取所有子目录中的 Java 文件</span></span><br><span class="line">LOCAL_SRC_FILES := <span class="variable">$(<span class="built_in">call</span> all-subdir-java-files)</span>         </span><br><span class="line"><span class="comment"># 当前模块依赖的静态 Java 库，如果有多个以空格分隔</span></span><br><span class="line">LOCAL_STATIC_JAVA_LIBRARIES := static-library</span><br><span class="line"><span class="comment"># 当前模块的名称</span></span><br><span class="line">LOCAL_PACKAGE_NAME := LocalPackage</span><br><span class="line"><span class="comment"># 编译 APK 文件</span></span><br><span class="line"><span class="keyword">include</span> <span class="variable">$(BUILD_PACKAGE)</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="编译一个-Java-的静态库示例"><a href="#编译一个-Java-的静态库示例" class="headerlink" title="编译一个 Java 的静态库示例"></a>编译一个 Java 的静态库示例</h5><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">LOCAL_PATH := <span class="variable">$(<span class="built_in">call</span> my-<span class="built_in">dir</span>)</span></span><br><span class="line"><span class="keyword">include</span> <span class="variable">$(CLEAR_VARS)</span></span><br><span class="line"><span class="comment"># 获取所有子目录中的 Java 文件</span></span><br><span class="line">LOCAL_SRC_FILES := <span class="variable">$(<span class="built_in">call</span> all-subdir-java-files)</span></span><br><span class="line"><span class="comment"># 当前模块依赖的动态 Java 库名称</span></span><br><span class="line">LOCAL_JAVA_LIBRARIES := android.test.runner</span><br><span class="line"><span class="comment"># 当前模块的名称</span></span><br><span class="line">LOCAL_MODULE := sample</span><br><span class="line"><span class="comment"># 将当前模块编译成一个静态的 Java 库</span></span><br><span class="line"><span class="keyword">include</span> <span class="variable">$(BUILD_STATIC_JAVA_LIBRARY)</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="摘录自"><a href="#摘录自" class="headerlink" title="摘录自"></a>摘录自</h4><p><a href="https://blog.csdn.net/eliot_shao/article/details/79121234">android build 系统</a></p>
+</div><div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>冷暖自知</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="/posts/63968/">https://www.wl960127.top/posts/63968/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本站内容均为个人学习笔记,不涉及商业用途，仅提供学习参考,第三方摘录已署名链接,未署名请评论添加,转载署名来源即可。</li></ul></div><br><script type="text/javascript" src="/js/share.js?v=1.4.5" async></script><a class="article-share-link" data-url="https://www.wl960127.top/posts/63968/" data-id="cku2sw7lv000axioiokp1egac" data-qrcode="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABvklEQVR42u3aS46DMBAFwNz/0sw2G+A9G1tkVF5FEekULFr94fOJz/F1vr+5vvLsmusIDxxcXNxp7nF5rq9JIicREgMuLu5+bvJnbWpLiLkBFxf3d7lnCQgXF/d/c8+IbbGCi4v7fm5ejuQDjjzZLenVcHFxJ7j5lHLd5yXzXVxc3CHuUZ68jRlbutz8Oy4u7hZunlCeXZq2yxhcXNz93LauaJNRi5hqfnBxcae5M2OIeeJjFRkuLu6j3PZnydCzTYLt8AUXF3c1t21m2hJnLJGd/goXF3cjNx99tiOSNuUVzQ8uLu4ybvuaVH5LY5Ti0eDi4m7htimmLXryR5OvaXFxcVdw26B5mZKvTwo6Li7uFu7YoDMvX2aWrKePABcXdyO3ZbXJrh2m3CQyXFzcLdwkkY0loOLViqScwsXFfQF3jNKWNXkThYuLu5p7lOepJWvbYuHi4u7k5id/kaKNeR1n8GZwcXGnuXnyaludvJUqyiZcXNyN3LEhabuUbZsfXFzc3+K2I9EkRRYdGy4u7su4Y3Hy0epNZFxc3I3csSFpMgbNRx5RgsPFxd3CHRtuJqvZ+cXJ1HwXFxd3hPsHJr5xsD/aFEgAAAAASUVORK5CYII=">分享</a><div class="tags"><a href="/tags/源码/">源码</a></div><div class="post-nav"><a class="pre" href="/posts/1936/">Android Bionic</a><a class="next" href="/posts/17591/">ServiceManager学习</a></div><div id="disqus_thread"><div class="btn_click_load"><button class="disqus_click_btn">阅读评论（请确保 Disqus 可以正常加载）</button></div><script type="text/javascript">var disqus_config = function () {
+    this.page.url = 'https://www.wl960127.top/posts/63968/';
+    this.page.identifier = 'posts/63968/';
+    this.page.title = 'Android源码Build系统模块学习';
+  };</script><script type="text/javascript" id="disqus-lazy-load-script">$.ajax({
+url: 'https://disqus.com/next/config.json',
+timeout: 2500,
+type: 'GET',
+success: function(){
+  var d = document;
+  var s = d.createElement('script');
+  s.src = '//wuwangdaren.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', + new Date());
+  (d.head || d.body).appendChild(s);
+  $('.disqus_click_btn').css('display', 'none');
+},
+error: function() {
+  $('.disqus_click_btn').css('display', 'block');
+}
+});</script><script type="text/javascript" id="disqus-click-load">$('.btn_click_load').click(() => {  //click to load comments
+    (() => { // DON'T EDIT BELOW THIS LINE
+        var d = document;
+        var s = d.createElement('script');
+        s.src = '//wuwangdaren.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', + new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    $('.disqus_click_btn').css('display','none');
+});</script><script type="text/javascript" id="disqus-count-script">$(function() {
+     var xhr = new XMLHttpRequest();
+     xhr.open('GET', '//disqus.com/next/config.json', true);
+     xhr.timeout = 2500;
+     xhr.onreadystatechange = function () {
+       if (xhr.readyState === 4 && xhr.status === 200) {
+         $('.post-meta .post-comments-count').show();
+         var s = document.createElement('script');
+         s.id = 'dsq-count-scr';
+         s.src = 'https://wuwangdaren.disqus.com/count.js';
+         s.async = true;
+         (document.head || document.body).appendChild(s);
+       }
+     };
+     xhr.ontimeout = function () { xhr.abort(); };
+     xhr.send(null);
+   });
+</script></div><div id="lv-container" data-id="city" data-uid="MTAyMC8zMzgyMC8xMDM3Mw=="><script>(function(d, s) {
+   var j, e = d.getElementsByTagName(s)[0];
+   if (typeof LivereTower === 'function') { return; }
+   j = d.createElement(s);
+   j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+   j.async = true;
+   e.parentNode.insertBefore(j, e);
+})(document, 'script');
+</script></div></div></div></div><div class="pure-u-1 pure-u-md-1-4"><div id="sidebar"><div class="widget"><div class="search-form"><input id="local-search-input" placeholder="Search" type="text" name="q" results="0"><div id="local-search-result"></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android源码/">Android源码</a><span class="category-list-count">26</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flutter/">Flutter</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术杂谈/">技术杂谈</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/操作系统/">操作系统</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">23</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书笔记/">读书笔记</a><span class="category-list-count">7</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/源码/" style="font-size: 23px; color: #00d6ff">源码</a> <a href="/tags/待完成/" style="font-size: 21.33px; color: #10c5e9">待完成</a> <a href="/tags/功能实现/" style="font-size: 19.67px; color: #20b3d2">功能实现</a> <a href="/tags/binder/" style="font-size: 18px; color: #30a2bc">binder</a> <a href="/tags/MQTT/" style="font-size: 14.67px; color: #507f8f">MQTT</a> <a href="/tags/工具/" style="font-size: 14.67px; color: #507f8f">工具</a> <a href="/tags/FFmpeg/" style="font-size: 16.33px; color: #4091a6">FFmpeg</a> <a href="/tags/Flutter/" style="font-size: 13px; color: #606e79">Flutter</a> <a href="/tags/Hexo/" style="font-size: 13px; color: #606e79">Hexo</a> <a href="/tags/Jvm/" style="font-size: 16.33px; color: #4091a6">Jvm</a> <a href="/tags/Ubuntu/" style="font-size: 18px; color: #30a2bc">Ubuntu</a> <a href="/tags/WebRTC/" style="font-size: 13px; color: #606e79">WebRTC</a> <a href="/tags/Dart/" style="font-size: 13px; color: #606e79">Dart</a> <a href="/tags/Http/" style="font-size: 13px; color: #606e79">Http</a> <a href="/tags/开源框架/" style="font-size: 13px; color: #606e79">开源框架</a> <a href="/tags/内核/" style="font-size: 14.67px; color: #507f8f">内核</a> <a href="/tags/技术杂谈/" style="font-size: 16.33px; color: #4091a6">技术杂谈</a> <a href="/tags/Framework/" style="font-size: 13px; color: #606e79">Framework</a> <a href="/tags/明朝/" style="font-size: 14.67px; color: #507f8f">明朝</a> <a href="/tags/Jni/" style="font-size: 16.33px; color: #4091a6">Jni</a> <a href="/tags/知识点/" style="font-size: 14.67px; color: #507f8f">知识点</a> <a href="/tags/组件化/" style="font-size: 13px; color: #606e79">组件化</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/posts/81db0242/">知行合一王阳明</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/2b893cfe/">明朝那些事第二部分</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/95b53bcb/">关于学习的第五篇-学霸养成</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/858effef/">关于学习的第四篇-时间管理</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/cf03b6bc/">关于学习的第三篇-高度自律</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/2726a13e/">关于学习的第二篇-高效学习</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/7ae29eec/">关于学习的第一篇-底层思维</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/6f3535f0/">明朝那些事第一部分</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/de06556f/">JVM类加载机制</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/8a392f6c/">JVM基础</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://qkmin.github.io" title="某康的博客" target="_blank">某康的博客</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">冷暖自知</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.4.5" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=1.4.5" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.css"><script type="text/javascript" src="/js/search.js?v=1.4.5"></script><script>var search_path = 'search.xml';
+if (search_path.length == 0) {
+   search_path = 'search.xml';
+}
+var path = '/' + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script><script type="text/javascript" color="100,99,98" opacity="0.7" zindex="-1" count="150" src="//lib.baomitu.com/canvas-nest.js/2.0.3/canvas-nest.umd.js"></script><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=1.4.5"></script><script>if (window.mermaid) {
+  var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
+  mermaid.initialize(options);
+}
+</script><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.4.5"></script><script type="text/javascript" src="/js/smartresize.js?v=1.4.5"></script></div></body></html>

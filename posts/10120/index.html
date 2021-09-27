@@ -1,0 +1,115 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content><title>WebRTC学习 | 冷暖自知</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.4.5"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/8.0.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/3.3.1/jquery.min.js"></script><link rel="icon" mask sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">WebRTC学习</h1><a id="logo" href="/.">冷暖自知</a><p class="description">足够自律，足够自由</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">WebRTC学习</h1><div class="post-meta">Sep 21, 2019<span> | </span><span class="category"><a href="/categories/技术杂谈/">技术杂谈</a></span><script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> 阅读</span></span><span class="post-time"><span class="post-meta-item-text"> | </span><span class="post-meta-item-icon"><i class="fa fa-keyboard-o"></i><span class="post-count"> 534</span><span class="post-meta-item-text"> 字</span></span></span><span class="post-time"> | <span class="post-meta-item-icon"><i class="fa fa-hourglass-half"></i><span class="post-count"> 1</span><span class="post-meta-item-text"> 分钟</span></span></span></div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#名词解释"><span class="toc-number">1.</span> <span class="toc-text">名词解释</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#P2P"><span class="toc-number">1.1.</span> <span class="toc-text">P2P</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#NAT"><span class="toc-number">1.2.</span> <span class="toc-text">NAT</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#STUN"><span class="toc-number">1.3.</span> <span class="toc-text">STUN</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#TURN"><span class="toc-number">1.4.</span> <span class="toc-text">TURN</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#SDP"><span class="toc-number">1.5.</span> <span class="toc-text">SDP</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Signal-Server"><span class="toc-number">1.6.</span> <span class="toc-text">Signal Server</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#业务流程"><span class="toc-number">2.</span> <span class="toc-text">业务流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#STUN-TURN"><span class="toc-number">3.</span> <span class="toc-text">STUN/TURN</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#实现Demo"><span class="toc-number">4.</span> <span class="toc-text">实现Demo</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参考"><span class="toc-number">5.</span> <span class="toc-text">参考</span></a></li></ol></div></div><div class="post-content"><ul>
+<li>在任何网络环境下都能够建立网络连接，交换会话信息后，由客户端直接点对点通讯</li>
+</ul>
+<h4 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h4><h5 id="P2P"><a href="#P2P" class="headerlink" title="P2P"></a>P2P</h5><ul>
+<li>Point to Point ,指数据的传输不再通过服务器，而是网络用户之间直接传递数据</li>
+</ul>
+<h5 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h5><ul>
+<li><strong>Basic NAT（Network Address Translation）</strong><ul>
+<li>内网IP地址和端口向外部发送请求时（例如Socket请求），NAT设备只转换IP地址，端口保持不变 （基本淘汰）</li>
+</ul>
+</li>
+<li><strong>NAPT（Network Address/Port Translator）</strong><ul>
+<li>内网IP地址和端口向外部发送请求时，NAT设备同时将IP和端口映射为外部IP地址和外部端口  （目前主流）</li>
+<li><a href="https://www.ietf.org/rfc/rfc3489.txt">STUN 协议</a>  第五章有详细关于 <code>NAT的分类</code></li>
+</ul>
+</li>
+</ul>
+<h5 id="STUN"><a href="#STUN" class="headerlink" title="STUN"></a>STUN</h5><p><img src="STUN_Algorithm.jpg" alt></p>
+<ul>
+<li>Session Traversal Utilities for NAT，NAT会话穿越应用程序</li>
+<li><a href="https://www.ietf.org/rfc/rfc3489.txt">STUN 协议</a></li>
+<li>在应用中，采取了STUN方式实现了<strong>P2P</strong>,采用了辅助的方式探测NAT的IP和端口</li>
+<li>探测和发现通讯对方是否躲在防火墙或者NAT路由器后面</li>
+<li>确定内网客户端所暴露在外的广域网的IP和端口以及NAT类型等信息，STUN服务器利用这些信息协助不同内网的计算机之间建立点对点的UDP通讯 </li>
+</ul>
+<h5 id="TURN"><a href="#TURN" class="headerlink" title="TURN"></a>TURN</h5><ul>
+<li>Traversal Using Relay NAT，通过中继穿透NAT</li>
+<li>在复杂的NAT实现下，STUN无法穿透NAT，这时就要通过中继服务器来实现穿透</li>
+<li>会占用大量的带宽资源</li>
+</ul>
+<h5 id="SDP"><a href="#SDP" class="headerlink" title="SDP"></a>SDP</h5><ul>
+<li>SDP 完全是一种会话描述格式 ,它不属于传输协议,只使用不同的适当的传输协议</li>
+<li><a href="https://www.cnblogs.com/idignew/p/7249056.html">SDP协议介绍</a></li>
+</ul>
+<h5 id="Signal-Server"><a href="#Signal-Server" class="headerlink" title="Signal Server"></a>Signal Server</h5><ul>
+<li>给客户端之间传送彼此的SDP信息和candidate信息，客户端通过这些信息建立P2P连接来传送音视频数据</li>
+</ul>
+<hr>
+<h4 id="业务流程"><a href="#业务流程" class="headerlink" title="业务流程"></a>业务流程</h4><p><img src="%E9%80%9A%E8%AE%AF%E6%B5%81%E7%A8%8B.png" alt></p>
+<hr>
+<h4 id="STUN-TURN"><a href="#STUN-TURN" class="headerlink" title="STUN/TURN"></a>STUN/TURN</h4><ul>
+<li>暂未作处理</li>
+</ul>
+<hr>
+<h4 id="实现Demo"><a href="#实现Demo" class="headerlink" title="实现Demo"></a>实现Demo</h4><p>客户端代码基于 <a href="https://github.com/flutter-webrtc/flutter-webrtc">flutter-webrtc</a>  及开源的后台源码，简单作了结合，以便后期拓展；后台部分中间件因为不熟悉使用，已作注释处理</p>
+<p><a href="https://github.com/wl960127/mvvm_app">客户端</a></p>
+<p><a href="https://github.com/wl960127/rtc_admin">服务器端</a></p>
+<hr>
+<p><img src="%E6%9C%BA%E7%81%B5%E7%8C%AB.gif" alt></p>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a href="http://www.mamicode.com/info-detail-1907841.html">webrtcclient与TURN和信令server通讯流程图</a></p>
+<p><a href="https://www.jzgwind.com/?p=973"><a href="https://www.jzgwind.com/?p=973">P2P网络节点间如何互访——详解STUN方式NAT穿透</a></a></p>
+</div><div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>冷暖自知</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="/posts/10120/">https://www.wl960127.top/posts/10120/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本站内容均为个人学习笔记,不涉及商业用途，仅提供学习参考,第三方摘录已署名链接,未署名请评论添加,转载署名来源即可。</li></ul></div><br><script type="text/javascript" src="/js/share.js?v=1.4.5" async></script><a class="article-share-link" data-url="https://www.wl960127.top/posts/10120/" data-id="cku2sw7mt003ixioizf7370cl" data-qrcode="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABwUlEQVR42u3aQYrDMAwF0Nz/0h2Y1UBJ58uKlRSeV4WmyUsXH0vWccTr9bveP59d+Xcl97x44eLitrmvj6vPTe6TGHBxcee5SXhFt4tfr3oNLi7uM7nv9HxbsxaOuLi4z+fmhU1yZ1xc3Odzk6Ilb3PkwbexVsPFxW1wOw3Tqz4P9XdxcXHbpxJ5qHXKp8LTcXFxR7hnD+u0OKubmOpfgIuLu5t7Bl0boagetCTfRhGGi4t7KTdpYSSPWRuzyGP09D/GxcUd4SZRkgRW3gqpPh0XF3eS2xmh2Pfb030ZLi7uZu7aUWgSTHnhlB/l4uLiznB3xFD+knm7FhcXd55bjao1aM49vQYXF/cmbnVT8jkQ88GL6JVwcXE3c8tDUfGxSr6RKgx44eLijnDz4mf3yEXeiMHFxd3NXRu9SgqhPOaSUgoXF3eeWy1sqtF2NBYuLu5d3GoJ1G+qLr4YLi7uCLcaKHlb5KoDlejYFRcXdwM3D688BPONUbXxiouLO8ldK2nywYt+QxYXF/eZ3MJRaGNc45/Xw8XF/RJuteVRjT9cXNy7uHkZs3Z9PmxxWVsEFxe3wV1rmPYfnEcYLi7uIPcH7IYlC86udvkAAAAASUVORK5CYII=">分享</a><div class="tags"><a href="/tags/WebRTC/">WebRTC</a></div><div class="post-nav"><a class="pre" href="/posts/36103/">Android的第一个进程之init</a><a class="next" href="/posts/63527/">Android线程池</a></div><div id="disqus_thread"><div class="btn_click_load"><button class="disqus_click_btn">阅读评论（请确保 Disqus 可以正常加载）</button></div><script type="text/javascript">var disqus_config = function () {
+    this.page.url = 'https://www.wl960127.top/posts/10120/';
+    this.page.identifier = 'posts/10120/';
+    this.page.title = 'WebRTC学习';
+  };</script><script type="text/javascript" id="disqus-lazy-load-script">$.ajax({
+url: 'https://disqus.com/next/config.json',
+timeout: 2500,
+type: 'GET',
+success: function(){
+  var d = document;
+  var s = d.createElement('script');
+  s.src = '//wuwangdaren.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', + new Date());
+  (d.head || d.body).appendChild(s);
+  $('.disqus_click_btn').css('display', 'none');
+},
+error: function() {
+  $('.disqus_click_btn').css('display', 'block');
+}
+});</script><script type="text/javascript" id="disqus-click-load">$('.btn_click_load').click(() => {  //click to load comments
+    (() => { // DON'T EDIT BELOW THIS LINE
+        var d = document;
+        var s = d.createElement('script');
+        s.src = '//wuwangdaren.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', + new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    $('.disqus_click_btn').css('display','none');
+});</script><script type="text/javascript" id="disqus-count-script">$(function() {
+     var xhr = new XMLHttpRequest();
+     xhr.open('GET', '//disqus.com/next/config.json', true);
+     xhr.timeout = 2500;
+     xhr.onreadystatechange = function () {
+       if (xhr.readyState === 4 && xhr.status === 200) {
+         $('.post-meta .post-comments-count').show();
+         var s = document.createElement('script');
+         s.id = 'dsq-count-scr';
+         s.src = 'https://wuwangdaren.disqus.com/count.js';
+         s.async = true;
+         (document.head || document.body).appendChild(s);
+       }
+     };
+     xhr.ontimeout = function () { xhr.abort(); };
+     xhr.send(null);
+   });
+</script></div><div id="lv-container" data-id="city" data-uid="MTAyMC8zMzgyMC8xMDM3Mw=="><script>(function(d, s) {
+   var j, e = d.getElementsByTagName(s)[0];
+   if (typeof LivereTower === 'function') { return; }
+   j = d.createElement(s);
+   j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+   j.async = true;
+   e.parentNode.insertBefore(j, e);
+})(document, 'script');
+</script></div></div></div></div><div class="pure-u-1 pure-u-md-1-4"><div id="sidebar"><div class="widget"><div class="search-form"><input id="local-search-input" placeholder="Search" type="text" name="q" results="0"><div id="local-search-result"></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android源码/">Android源码</a><span class="category-list-count">26</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flutter/">Flutter</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术杂谈/">技术杂谈</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/操作系统/">操作系统</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">23</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书笔记/">读书笔记</a><span class="category-list-count">7</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/源码/" style="font-size: 23px; color: #00d6ff">源码</a> <a href="/tags/待完成/" style="font-size: 21.33px; color: #10c5e9">待完成</a> <a href="/tags/功能实现/" style="font-size: 19.67px; color: #20b3d2">功能实现</a> <a href="/tags/binder/" style="font-size: 18px; color: #30a2bc">binder</a> <a href="/tags/MQTT/" style="font-size: 14.67px; color: #507f8f">MQTT</a> <a href="/tags/工具/" style="font-size: 14.67px; color: #507f8f">工具</a> <a href="/tags/FFmpeg/" style="font-size: 16.33px; color: #4091a6">FFmpeg</a> <a href="/tags/Flutter/" style="font-size: 13px; color: #606e79">Flutter</a> <a href="/tags/Hexo/" style="font-size: 13px; color: #606e79">Hexo</a> <a href="/tags/Jvm/" style="font-size: 16.33px; color: #4091a6">Jvm</a> <a href="/tags/Ubuntu/" style="font-size: 18px; color: #30a2bc">Ubuntu</a> <a href="/tags/WebRTC/" style="font-size: 13px; color: #606e79">WebRTC</a> <a href="/tags/Dart/" style="font-size: 13px; color: #606e79">Dart</a> <a href="/tags/Http/" style="font-size: 13px; color: #606e79">Http</a> <a href="/tags/开源框架/" style="font-size: 13px; color: #606e79">开源框架</a> <a href="/tags/内核/" style="font-size: 14.67px; color: #507f8f">内核</a> <a href="/tags/技术杂谈/" style="font-size: 16.33px; color: #4091a6">技术杂谈</a> <a href="/tags/Framework/" style="font-size: 13px; color: #606e79">Framework</a> <a href="/tags/明朝/" style="font-size: 14.67px; color: #507f8f">明朝</a> <a href="/tags/Jni/" style="font-size: 16.33px; color: #4091a6">Jni</a> <a href="/tags/知识点/" style="font-size: 14.67px; color: #507f8f">知识点</a> <a href="/tags/组件化/" style="font-size: 13px; color: #606e79">组件化</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/posts/81db0242/">知行合一王阳明</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/2b893cfe/">明朝那些事第二部分</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/95b53bcb/">关于学习的第五篇-学霸养成</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/858effef/">关于学习的第四篇-时间管理</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/cf03b6bc/">关于学习的第三篇-高度自律</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/2726a13e/">关于学习的第二篇-高效学习</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/7ae29eec/">关于学习的第一篇-底层思维</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/6f3535f0/">明朝那些事第一部分</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/de06556f/">JVM类加载机制</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/8a392f6c/">JVM基础</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://qkmin.github.io" title="某康的博客" target="_blank">某康的博客</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">冷暖自知</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.4.5" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=1.4.5" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.css"><script type="text/javascript" src="/js/search.js?v=1.4.5"></script><script>var search_path = 'search.xml';
+if (search_path.length == 0) {
+   search_path = 'search.xml';
+}
+var path = '/' + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script><script type="text/javascript" color="100,99,98" opacity="0.7" zindex="-1" count="150" src="//lib.baomitu.com/canvas-nest.js/2.0.3/canvas-nest.umd.js"></script><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=1.4.5"></script><script>if (window.mermaid) {
+  var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
+  mermaid.initialize(options);
+}
+</script><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.4.5"></script><script type="text/javascript" src="/js/smartresize.js?v=1.4.5"></script></div></body></html>
