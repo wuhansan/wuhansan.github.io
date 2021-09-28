@@ -1,0 +1,171 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content><title>Android 源码中创建App | 冷暖自知</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.4.5"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/8.0.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/3.3.1/jquery.min.js"></script><link rel="icon" mask sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Android 源码中创建App</h1><a id="logo" href="/.">冷暖自知</a><p class="description">足够自律，足够自由</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">Android 源码中创建App</h1><div class="post-meta">Jun 14, 2018<span> | </span><span class="category"><a href="/categories/Android源码/">Android源码</a></span><script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> 阅读</span></span><span class="post-time"><span class="post-meta-item-text"> | </span><span class="post-meta-item-icon"><i class="fa fa-keyboard-o"></i><span class="post-count"> 745</span><span class="post-meta-item-text"> 字</span></span></span><span class="post-time"> | <span class="post-meta-item-icon"><i class="fa fa-hourglass-half"></i><span class="post-count"> 2</span><span class="post-meta-item-text"> 分钟</span></span></span></div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#概述"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Android-mk"><span class="toc-number">2.</span> <span class="toc-text">Android.mk</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#操作"><span class="toc-number">3.</span> <span class="toc-text">操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#打包镜像"><span class="toc-number">4.</span> <span class="toc-text">打包镜像</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Android-系统签名"><span class="toc-number">5.</span> <span class="toc-text">Android 系统签名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#小结"><span class="toc-number">6.</span> <span class="toc-text">小结</span></a></li></ol></div></div><div class="post-content"><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><ul>
+<li>参看　<code>Ubuntu编译Android源码并刷机</code>，配置环境</li>
+<li><a href="https://github.com/wl960127/HelloWrold">Demo传送</a> </li>
+</ul>
+<h4 id="Android-mk"><a href="#Android-mk" class="headerlink" title="Android.mk"></a>Android.mk</h4><ul>
+<li><p>参考的老罗的，但是有点问题，后来就在网上找了</p>
+</li>
+<li><p>链接如下 <a href="https://blog.csdn.net/zhonglunshun/article/details/70256727">移植HelloWorld</a></p>
+<ul>
+<li>LOCAL_MODULE_TAGS的备选值有user，eng，tests，optional，本示例中使用的TAGS值为eng（工程模式，自带root），因此，仅当用户指定的编译选项为eng时才会编译该工程。否则会停止编译，默认值为optional </li>
+<li><strong>Android.mk</strong></li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">LOCAL_PATH:= <span class="variable">$(<span class="built_in">call</span> my-<span class="built_in">dir</span>)</span></span><br><span class="line"><span class="comment">#清理缓存变量</span></span><br><span class="line"><span class="keyword">include</span> <span class="variable">$(CLEAR_VARS)</span></span><br><span class="line"><span class="comment">#表示目标模式</span></span><br><span class="line">LOCAL_MODULE_TAGS := samples</span><br><span class="line"><span class="comment">#表示源文件编译路径 这个应用里面只有java源文件</span></span><br><span class="line">LOCAL_SRC_FILES := <span class="variable">$(<span class="built_in">call</span> all-java-files-under, src)</span></span><br><span class="line"><span class="comment">#表示项目包名也就是模块名，在项目中唯一,就是你apk的名字。</span></span><br><span class="line">LOCAL_PACKAGE_NAME := HelloWorld</span><br><span class="line"><span class="comment">#指定编译sdk版本为当前版本</span></span><br><span class="line">LOCAL_SDK_VERSION := current</span><br><span class="line"><span class="comment"># 使用该指令编译目标Apk.</span></span><br><span class="line"><span class="keyword">include</span> <span class="variable">$(BUILD_PACKAGE)</span></span><br><span class="line"><span class="comment">#搜索编译该源码目录下所有的mk文件，如果没有可以不写</span></span><br><span class="line"><span class="keyword">include</span> <span class="variable">$(<span class="built_in">call</span> all-makefiles-under,<span class="variable">$(LOCAL_PATH)</span>)</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>build/target/product/core.mk</strong></p>
+<ul>
+<li><p>忽略了你是没办法在编译成的system.img里面找到这个工程的</p>
+</li>
+<li><p>如果你是想打包在镜像中的话，所以下一步是不一定要执行</p>
+</li>
+<li><p>把mk文件中的标识名填上（LOCAL_PACKAGE_NAME或者LOCAL_MODULE  的值！！！！ 比如这里的是  HelloWorld \）</p>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">PRODUCT_PACKAGES := \ </span><br><span class="line">DeskClock \ </span><br><span class="line">Calculator \ </span><br><span class="line">Calendar \ </span><br><span class="line">Camera2 \ </span><br><span class="line">Email \ </span><br><span class="line">HelloWorld \   <span class="comment">#这个是创建的工程</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h4><ul>
+<li><p>在packages/apps 下创建例子 Hello文件夹</p>
+<ul>
+<li>AndroidManifest.xml</li>
+<li>Android.mk</li>
+<li>src<ul>
+<li>com/wl/hello  (包名随意，这是一个三级目录)<ul>
+<li>HelloAndroid.java</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>res<ul>
+<li>layout<ul>
+<li>main.xml</li>
+</ul>
+</li>
+<li>values<ul>
+<li>strings.xml</li>
+</ul>
+</li>
+<li>drawable<ul>
+<li>icon.png</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="打包镜像"><a href="#打包镜像" class="headerlink" title="打包镜像"></a>打包镜像</h4><ul>
+<li><p>根目录下先 source build/envsetup.sh  (否则没有mmm指令)</p>
+</li>
+<li><p>编译App</p>
+<ul>
+<li>在新建项目的目录下输入make 项目名</li>
+<li>或者切换到Android源码根目录下执行下面任意一条命令即可：mmm packages/apps/项目名</li>
+</ul>
+</li>
+<li><p>测试方法</p>
+<ul>
+<li><p>真机运行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> adb shell</span><br><span class="line"> su </span><br><span class="line"> mount -o remount,rw /system    (挂载手机磁盘，并设置可读写)</span><br><span class="line">- 退出adb指令</span><br><span class="line"> adb push 本地路径  手机app路径（/sdcard）</span><br><span class="line">- 再用 复制或者移动到 (/system/app)  </span><br><span class="line"> chmod 777 .apk (操作过程中，没有执行这一步导致，开机没有被安装)</span><br><span class="line"> adb shell reboot</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>虚拟机运行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">方法一：　</span><br><span class="line"> make snod</span><br><span class="line"> emulator</span><br><span class="line"> </span><br><span class="line">方法二：　Android模拟器运行编译之后的镜像</span><br><span class="line">/xxx/Sdk/emulator/emulator -avd MyPhone -system android/out/target/product/generic/system.img </span><br><span class="line"></span><br><span class="line">   - android/是Android源码位置；</span><br><span class="line">   - system.img是编译好的Android镜像；</span><br><span class="line">   - MyPhone是刚创建的模拟器名称；</span><br><span class="line">   - system选项表示在模拟器上运行指定Android镜像</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Android-系统签名"><a href="#Android-系统签名" class="headerlink" title="Android 系统签名"></a>Android 系统签名</h4><ul>
+<li>build/target/product/security<ul>
+<li>testkey <ul>
+<li>默认使用，如果Android.mk不设置LOCAL_CERTIFICATE变量</li>
+</ul>
+</li>
+<li>platform<ul>
+<li>使用该签名的系统应用可以执行平台的核心功能</li>
+</ul>
+</li>
+<li>shared<ul>
+<li>使用该签名的系统应用可以和 home/contacts进程共享数据</li>
+</ul>
+</li>
+<li>media<ul>
+<li>使用该签名的系统应用将成为media/download 系统的一部分</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><ul>
+<li>在java文件中，使用了什么就一定要添加依赖</li>
+<li>xml中，所有的string都要在strings.xml中定义</li>
+<li>基于　<code>Android版本 4.4.4_r1_KTU84P</code></li>
+</ul>
+</div><div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>冷暖自知</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="/posts/42241/">https://www.wl960127.top/posts/42241/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本站内容均为个人学习笔记,不涉及商业用途，仅提供学习参考,第三方摘录已署名链接,未署名请评论添加,转载署名来源即可。</li></ul></div><br><script type="text/javascript" src="/js/share.js?v=1.4.5" async></script><a class="article-share-link" data-url="https://www.wl960127.top/posts/42241/" data-id="cku49x7nz000hv5oiclczdjs7" data-qrcode="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABy0lEQVR42u3a0W7CMAwFUP7/p5m0p02j5dppTDWdPCEg6UkfrNjO4xGP5/f4+fnvOPo1WfPigYuLu8x9no4jbrKZ87nJK3ixJVxc3EHuevA6n5usHwU7XFzcm3GT/+e/4uLi/g9uNcnp0XFxce/DzYsd1WNNvtrFuRouLu4Ct1cwvfbz9vouLi7uRV2JvFlyHtSq5dHD9XFxcUe4ydK9tmh1k3k6hIuLu5tbbX+utFt6pdXDEIaLizvCrQasXjm1Wl759Q0uLu4It4fIQ1JSCjlf882Lw8XF3cCtPqZXIumlQy9m4eLijnCTOJc3U6vNkl5YxMXFneFWl1uvYVYPPbi4uJPcpDBaLXpWW7BJOHtxIsPFxd3GXX9MniAlFy8KRyVcXNxt3F7rdD3w5ccdXFzceW51QjUk5dc4kqfg4uLOcKuPrKY91SIpLi7ufbh5yWPlKNMbuLi4n+Lmoxqw8qsV0cZwcXFHuCsN16V869JrHLi4uDu4vRRoBZoEsjeXMHBxcUe4vYZKDs2PMoX6Li4u7g24hYtT8cElfwW4uLj35+ZbyhOb6EXg4uIOcgvNztbljHzWZWURXFzcBW61YJonP73Ah4uL+1HuFy7cdp1ywt2mAAAAAElFTkSuQmCC">分享</a><div class="tags"><a href="/tags/源码/">源码</a></div><div class="post-nav"><a class="pre" href="/posts/28190/">系统APP</a><a class="next" href="/posts/38069/">Android角标提示</a></div><div id="disqus_thread"><div class="btn_click_load"><button class="disqus_click_btn">阅读评论（请确保 Disqus 可以正常加载）</button></div><script type="text/javascript">var disqus_config = function () {
+    this.page.url = 'https://www.wl960127.top/posts/42241/';
+    this.page.identifier = 'posts/42241/';
+    this.page.title = 'Android 源码中创建App';
+  };</script><script type="text/javascript" id="disqus-lazy-load-script">$.ajax({
+url: 'https://disqus.com/next/config.json',
+timeout: 2500,
+type: 'GET',
+success: function(){
+  var d = document;
+  var s = d.createElement('script');
+  s.src = '//wuwangdaren.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', + new Date());
+  (d.head || d.body).appendChild(s);
+  $('.disqus_click_btn').css('display', 'none');
+},
+error: function() {
+  $('.disqus_click_btn').css('display', 'block');
+}
+});</script><script type="text/javascript" id="disqus-click-load">$('.btn_click_load').click(() => {  //click to load comments
+    (() => { // DON'T EDIT BELOW THIS LINE
+        var d = document;
+        var s = d.createElement('script');
+        s.src = '//wuwangdaren.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', + new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    $('.disqus_click_btn').css('display','none');
+});</script><script type="text/javascript" id="disqus-count-script">$(function() {
+     var xhr = new XMLHttpRequest();
+     xhr.open('GET', '//disqus.com/next/config.json', true);
+     xhr.timeout = 2500;
+     xhr.onreadystatechange = function () {
+       if (xhr.readyState === 4 && xhr.status === 200) {
+         $('.post-meta .post-comments-count').show();
+         var s = document.createElement('script');
+         s.id = 'dsq-count-scr';
+         s.src = 'https://wuwangdaren.disqus.com/count.js';
+         s.async = true;
+         (document.head || document.body).appendChild(s);
+       }
+     };
+     xhr.ontimeout = function () { xhr.abort(); };
+     xhr.send(null);
+   });
+</script></div><div id="lv-container" data-id="city" data-uid="MTAyMC8zMzgyMC8xMDM3Mw=="><script>(function(d, s) {
+   var j, e = d.getElementsByTagName(s)[0];
+   if (typeof LivereTower === 'function') { return; }
+   j = d.createElement(s);
+   j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+   j.async = true;
+   e.parentNode.insertBefore(j, e);
+})(document, 'script');
+</script></div></div></div></div><div class="pure-u-1 pure-u-md-1-4"><div id="sidebar"><div class="widget"><div class="search-form"><input id="local-search-input" placeholder="Search" type="text" name="q" results="0"><div id="local-search-result"></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android源码/">Android源码</a><span class="category-list-count">26</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flutter/">Flutter</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术杂谈/">技术杂谈</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/操作系统/">操作系统</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">23</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书笔记/">读书笔记</a><span class="category-list-count">8</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/源码/" style="font-size: 23px; color: #00d6ff">源码</a> <a href="/tags/待完成/" style="font-size: 21.33px; color: #10c5e9">待完成</a> <a href="/tags/功能实现/" style="font-size: 19.67px; color: #20b3d2">功能实现</a> <a href="/tags/binder/" style="font-size: 18px; color: #30a2bc">binder</a> <a href="/tags/MQTT/" style="font-size: 14.67px; color: #507f8f">MQTT</a> <a href="/tags/工具/" style="font-size: 14.67px; color: #507f8f">工具</a> <a href="/tags/Flutter/" style="font-size: 13px; color: #606e79">Flutter</a> <a href="/tags/FFmpeg/" style="font-size: 16.33px; color: #4091a6">FFmpeg</a> <a href="/tags/Hexo/" style="font-size: 13px; color: #606e79">Hexo</a> <a href="/tags/Jvm/" style="font-size: 16.33px; color: #4091a6">Jvm</a> <a href="/tags/Ubuntu/" style="font-size: 18px; color: #30a2bc">Ubuntu</a> <a href="/tags/WebRTC/" style="font-size: 13px; color: #606e79">WebRTC</a> <a href="/tags/Dart/" style="font-size: 13px; color: #606e79">Dart</a> <a href="/tags/Http/" style="font-size: 13px; color: #606e79">Http</a> <a href="/tags/开源框架/" style="font-size: 13px; color: #606e79">开源框架</a> <a href="/tags/内核/" style="font-size: 14.67px; color: #507f8f">内核</a> <a href="/tags/技术杂谈/" style="font-size: 16.33px; color: #4091a6">技术杂谈</a> <a href="/tags/Framework/" style="font-size: 13px; color: #606e79">Framework</a> <a href="/tags/明朝/" style="font-size: 16.33px; color: #4091a6">明朝</a> <a href="/tags/Jni/" style="font-size: 16.33px; color: #4091a6">Jni</a> <a href="/tags/知识点/" style="font-size: 14.67px; color: #507f8f">知识点</a> <a href="/tags/组件化/" style="font-size: 13px; color: #606e79">组件化</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/posts/81db0242/">知行合一王阳明</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/2b893cfe/">明朝那些事第二部分</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/95b53bcb/">关于学习的第五篇-学霸养成</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/858effef/">关于学习的第四篇-时间管理</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/cf03b6bc/">关于学习的第三篇-高度自律</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/2726a13e/">关于学习的第二篇-高效学习</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/7ae29eec/">关于学习的第一篇-底层思维</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/6f3535f0/">明朝那些事第一部分</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/de06556f/">JVM类加载机制</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/8a392f6c/">JVM基础</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://qkmin.github.io" title="某康的博客" target="_blank">某康的博客</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">冷暖自知</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.4.5" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=1.4.5" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.css"><script type="text/javascript" src="/js/search.js?v=1.4.5"></script><script>var search_path = 'search.xml';
+if (search_path.length == 0) {
+   search_path = 'search.xml';
+}
+var path = '/' + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script><script type="text/javascript" color="100,99,98" opacity="0.7" zindex="-1" count="150" src="//lib.baomitu.com/canvas-nest.js/2.0.3/canvas-nest.umd.js"></script><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=1.4.5"></script><script>if (window.mermaid) {
+  var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
+  mermaid.initialize(options);
+}
+</script><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.4.5"></script><script type="text/javascript" src="/js/smartresize.js?v=1.4.5"></script></div></body></html>
