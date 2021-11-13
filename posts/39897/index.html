@@ -1,0 +1,206 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content><title>Golang语法学习笔记 | 冷暖自知</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.4.5"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/8.0.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/3.3.1/jquery.min.js"></script><link rel="icon" mask sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Golang语法学习笔记</h1><a id="logo" href="/.">冷暖自知</a><p class="description">足够自律，足够自由</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">Golang语法学习笔记</h1><div class="post-meta">Oct 15, 2019<span> | </span><span class="category"><a href="/categories/Go/">Go</a></span><script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> 阅读</span></span><span class="post-time"><span class="post-meta-item-text"> | </span><span class="post-meta-item-icon"><i class="fa fa-keyboard-o"></i><span class="post-count"> 2.1k</span><span class="post-meta-item-text"> 字</span></span></span><span class="post-time"> | <span class="post-meta-item-icon"><i class="fa fa-hourglass-half"></i><span class="post-count"> 7</span><span class="post-meta-item-text"> 分钟</span></span></span></div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#完整第三方资料"><span class="toc-number">1.</span> <span class="toc-text">完整第三方资料</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#基础"><span class="toc-number">2.</span> <span class="toc-text">基础</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#函数调用"><span class="toc-number">2.1.</span> <span class="toc-text">函数调用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#变量定义"><span class="toc-number">2.2.</span> <span class="toc-text">变量定义</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#访问修饰符的定义"><span class="toc-number">2.3.</span> <span class="toc-text">访问修饰符的定义</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#数组与切片"><span class="toc-number">2.4.</span> <span class="toc-text">数组与切片</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#实例创建"><span class="toc-number">2.5.</span> <span class="toc-text">实例创建</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#函数"><span class="toc-number">3.</span> <span class="toc-text">函数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#传值与传指针"><span class="toc-number">3.1.</span> <span class="toc-text">传值与传指针</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#defer"><span class="toc-number">3.2.</span> <span class="toc-text">defer</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#保留函数"><span class="toc-number">3.3.</span> <span class="toc-text">保留函数</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方法"><span class="toc-number">4.</span> <span class="toc-text">方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#interface-🛫"><span class="toc-number">5.</span> <span class="toc-text">interface 🛫</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#接口函数参数"><span class="toc-number">5.1.</span> <span class="toc-text">接口函数参数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#接口实现"><span class="toc-number">5.2.</span> <span class="toc-text">接口实现</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#并发"><span class="toc-number">6.</span> <span class="toc-text">并发</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#goroutine"><span class="toc-number">6.1.</span> <span class="toc-text">goroutine</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#channel"><span class="toc-number">6.2.</span> <span class="toc-text">channel</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#range"><span class="toc-number">6.3.</span> <span class="toc-text">range</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#select"><span class="toc-number">6.4.</span> <span class="toc-text">select</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Sync"><span class="toc-number">7.</span> <span class="toc-text">Sync</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#sync-Mutex"><span class="toc-number">7.1.</span> <span class="toc-text">sync.Mutex</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#sync-Once"><span class="toc-number">7.2.</span> <span class="toc-text">sync.Once</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#sync-WaitGroup"><span class="toc-number">7.3.</span> <span class="toc-text">sync.WaitGroup</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#sync-RWMutex"><span class="toc-number">7.4.</span> <span class="toc-text">sync.RWMutex</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Context"><span class="toc-number">8.</span> <span class="toc-text">Context</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#知识点"><span class="toc-number">9.</span> <span class="toc-text">知识点</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#变量逃逸分析"><span class="toc-number">9.1.</span> <span class="toc-text">变量逃逸分析</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#sync-Map"><span class="toc-number">9.2.</span> <span class="toc-text">sync.Map</span></a></li></ol></li></ol></div></div><div class="post-content"><hr>
+<h4 id="完整第三方资料"><a href="#完整第三方资料" class="headerlink" title="完整第三方资料"></a><a href="https://github.com/astaxie/build-web-application-with-golang/blob/master/zh/preface.md">完整第三方资料</a></h4><ul>
+<li>基于此资料做的笔记，看不到其中文档的图片示例的话，那就只能小✈全开</li>
+</ul>
+<hr>
+<h4 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h4><ul>
+<li>访问控制只有公开和私有两种</li>
+<li>所有首字母大写的类型、结构体、字段、变量、函数、方法等都是公开的，可供其他包使用。而小写的则是私有的，只能在包内使用。</li>
+</ul>
+<h5 id="函数调用"><a href="#函数调用" class="headerlink" title="函数调用"></a>函数调用</h5><p>函数是通过<strong>&lt;pkgName&gt;.&lt;funcName&gt;</strong>的方式调用的，这一点和Python十分相似。包名和包所在的文件夹名可以是不同的，此处的<strong>&lt;pkgName&gt;</strong>即为通过<strong>package &lt;pkgName&gt;</strong>声明的包名，而非文件夹名。</p>
+<h5 id="变量定义"><a href="#变量定义" class="headerlink" title="变量定义"></a>变量定义</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//初始化“variableName”的变量为“value”值，类型是“type” 适用于全局变量</span></span><br><span class="line"><span class="keyword">var</span> variableName <span class="keyword">type</span> = value</span><br><span class="line"><span class="comment">// :=  依次赋值，编译器会根据初始化的值自动推导出相应的类型，只能在函数内部定义</span></span><br><span class="line">vname1, vname2, vname3 := v1, v2, v3</span><br><span class="line"><span class="comment">// _ </span></span><br><span class="line">_, b := <span class="number">34</span>, <span class="number">35</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>:=</code>这个符号直接取代了<code>var</code>和<code>type</code>,这种形式叫做简短声明。不过它有一个限制，那就是它只能用在函数内部；在函数外部使用则会无法编译通过，所以一般用<code>var</code>方式来定义全局变量</li>
+<li><code>_</code>（下划线）是个特殊的变量名，任何赋予它的值都会被丢弃 </li>
+</ul>
+<h5 id="访问修饰符的定义"><a href="#访问修饰符的定义" class="headerlink" title="访问修饰符的定义"></a>访问修饰符的定义</h5><ul>
+<li>大写字母开头的变量是可导出的，也就是其它包可以读取的，是<strong>公有变量</strong>；小写字母开头的就是不可导出的，是<strong>私有变量</strong>，只能在包内使用</li>
+<li>大写字母开头的函数也是一样，相当于<code>class</code>中的带<code>public</code>关键词的<strong>公有函数</strong>；小写字母开头的就是有<code>private</code>关键词的<strong>私有函数</strong></li>
+</ul>
+<h5 id="数组与切片"><a href="#数组与切片" class="headerlink" title="数组与切片"></a>数组与切片</h5><ul>
+<li>数组是一种 <strong>值类型</strong>（不像 C/C++ 中是指向首元素的指针），所以也可以通过 <code>new()</code> 来创建：<ul>
+<li><code>var arr1 = new([5]int)</code></li>
+<li>那么这种方式和 <code>var arr2 [5]int</code> 的区别是什么呢？arr1 的类型是 <code>*[5]int</code>，而 arr2的类型是 <code>[5]int</code>。这样的结果就是当把一个数组赋值给另一个时，需要再做一次数组内存的拷贝操作</li>
+</ul>
+</li>
+<li><strong>切片</strong>是一种引用类型<ul>
+<li>声明切片的格式是： <code>var identifier []type</code>（不需要说明长度）一个切片在未初始化之前默认为 nil，长度为 0</li>
+<li>切片的初始化格式是：<code>var slice1 []type = arr1[start:end]</code>。</li>
+</ul>
+</li>
+<li>slice   可理解为<code>动态数组</code>，即初始定义时候不明确长度，但是实际是一个引用类型。<code>slice</code>总是指向一个底层<code>array</code></li>
+<li>map 常规字典</li>
+</ul>
+<h5 id="实例创建"><a href="#实例创建" class="headerlink" title="实例创建"></a>实例创建</h5><p>  都是用于内存分配</p>
+<ul>
+<li>*<em>make(T) *</em>返回一个类型为 T 的初始值，它只适用于3种内建的引用类型：slice、map 和 channel</li>
+<li><strong>new(T) *<em>为每个新的类型T分配一片内存，初始化为 0 并且返回类型为</em>T的内存地址：这种方法 **返回一个指向类型为 T，值为 0 的地址的指针</strong>，它适用于值类型如数组和结构体）；它相当于 <code>&amp;T{}</code>，且需要显示返回指针情况，不常用</li>
+<li><em>new 函数分配内存，make 函数初始化</em></li>
+</ul>
+<hr>
+<h4 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h4><h5 id="传值与传指针"><a href="#传值与传指针" class="headerlink" title="传值与传指针"></a>传值与传指针</h5><ul>
+<li><p><code>channel</code>，<code>slice</code>，<code>map</code>这三种类型的实现机制类似指针，所以可以直接传递，而不用取地址后传递指针。（注：若函数需改变<code>slice</code>的长度，则仍需要取地址传递指针）</p>
+</li>
+<li><p>常规操作时候，需要操作某个变量的值。使用<code>&amp;v</code>将实际地址传向参数类型为<code>*T</code>的函数中</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//简单的一个函数，实现了参数+1的操作</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">add1</span><span class="params">(a *<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123; <span class="comment">// 请注意，</span></span><br><span class="line">	*a = *a+<span class="number">1</span> <span class="comment">// 修改了a的值</span></span><br><span class="line">	<span class="keyword">return</span> *a <span class="comment">// 返回新值</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	x := <span class="number">3</span></span><br><span class="line">	fmt.Println(<span class="string">"x = "</span>, x)  <span class="comment">// 应该输出 "x = 3"</span></span><br><span class="line">	</span><br><span class="line">	x1 := add1(&amp;x)  <span class="comment">// 调用 add1(&amp;x) 传x的地址</span></span><br><span class="line">	</span><br><span class="line">	fmt.Println(<span class="string">"x+1 = "</span>, x1) <span class="comment">// 应该输出 "x+1 = 4"</span></span><br><span class="line">	fmt.Println(<span class="string">"x = "</span>, x)    <span class="comment">// 应该输出 "x = 4"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h5 id="defer"><a href="#defer" class="headerlink" title="defer"></a>defer</h5><ul>
+<li>延迟语句，函数执行到最后的时候会按照逆序执行这些个<code>defer</code>修饰的操作。后进先出，最先写的方法最后才会被调用</li>
+<li>常用来做关闭资源等操作</li>
+</ul>
+<h5 id="保留函数"><a href="#保留函数" class="headerlink" title="保留函数"></a>保留函数</h5><ul>
+<li>Go里面有两个保留的函数：<code>init</code>函数（能够应用于所有的<code>package</code>）和<code>main</code>函数（只能应用于<code>package main</code>）。这两个函数在定义时不能有任何的参数和返回值</li>
+<li>如果 <code>package main</code>中同时存在<code>main</code>和<code>init</code>函数，那么会先执行<code>init</code>再执行<code>main</code></li>
+</ul>
+<hr>
+<h4 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h4><ul>
+<li>与函数不同的是，方法是一种带有指定接收者的函数</li>
+<li>虽然method的名字一模一样，但是如果接收者不一样，那么method就不一样。即：只有对应的接收者才能够调用该函数</li>
+<li>method里面可以访问接收者的字段</li>
+<li>调用method通过<code>.</code>访问，就像struct里面访问字段一样</li>
+</ul>
+<hr>
+<h4 id="interface-🛫"><a href="#interface-🛫" class="headerlink" title="interface 🛫"></a>interface 🛫</h4><ul>
+<li><p>是一组<strong>方法组合</strong>，我们通过interface来定义对象的一组行为</p>
+</li>
+<li><p>interface就是一组抽象方法的集合，它必须由其他非interface类型实现，而不能自我实现</p>
+</li>
+</ul>
+<h5 id="接口函数参数"><a href="#接口函数参数" class="headerlink" title="接口函数参数"></a>接口函数参数</h5><ul>
+<li>interface的变量可以持有任意实现该interface类型的对象，通过定义interface参数，让函数接受各种类型的参数</li>
+</ul>
+<h5 id="接口实现"><a href="#接口实现" class="headerlink" title="接口实现"></a>接口实现</h5><ul>
+<li><p>给实现者定义方法，方法与接口里面的签名（名称、参数、返回值）一样，就是实现了接口</p>
+</li>
+<li><p>接口的实现者必须是一个具体的类型，且必须实现了接口所有的方法才算是实现了接口</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Stringer <span class="keyword">interface</span> &#123;</span><br><span class="line">    String() <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p person)</span> <span class="title">String</span><span class="params">()</span>  <span class="title">string</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> fmt.Sprintf(<span class="string">"the name is %s,age is %d"</span>,p.name,p.age)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<hr>
+<h4 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h4><h5 id="goroutine"><a href="#goroutine" class="headerlink" title="goroutine"></a>goroutine</h5><ul>
+<li><p>goroutine是通过Go的runtime管理的一个线程管理器。goroutine通过<code>go</code>关键字实现了，其实就是一个普通的函数</p>
+</li>
+<li><p>说白了就是协程，运行在相同的地址空间、内存共享的，但是<strong>不要通过共享来通信，而要通过通信来共享</strong></p>
+</li>
+</ul>
+<h5 id="channel"><a href="#channel" class="headerlink" title="channel"></a>channel</h5><ul>
+<li>提供给goroutine作为数据通信的一种通信机制</li>
+<li>非缓存类型，容量是0，不能存任何数据，只起传输作用，不做数据停留</li>
+<li>使用内置的make直接声明即可，内置 close函数关闭</li>
+<li>chan只有两个操作（发送和接收）</li>
+</ul>
+<p><strong>Buffered Channel</strong></p>
+<ul>
+<li>缓冲型Channel，类似可阻塞队列，允许指定缓冲大小，先进先出</li>
+<li>通过make的函数的第二个函数即可指定容</li>
+</ul>
+<p><strong>单向 channel</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">onlySend := make(chan&lt;- int)</span><br><span class="line">onlyReceive:=make(&lt;-chan int)</span><br></pre></td></tr></table></figure>
+
+<h5 id="range"><a href="#range" class="headerlink" title="range"></a>range</h5><ul>
+<li>用于读取slice、map、channel数据</li>
+</ul>
+<h5 id="select"><a href="#select" class="headerlink" title="select"></a>select</h5><ul>
+<li>用于选择不同类型的通讯，监听Channel</li>
+<li>设置超时</li>
+</ul>
+<hr>
+<h4 id="Sync"><a href="#Sync" class="headerlink" title="Sync"></a>Sync</h4><h5 id="sync-Mutex"><a href="#sync-Mutex" class="headerlink" title="sync.Mutex"></a>sync.Mutex</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span>(</span><br><span class="line">   sum <span class="keyword">int</span></span><br><span class="line">   mutex sync.Mutex <span class="comment">//声明互斥锁</span></span><br><span class="line">)</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">add</span><span class="params">(i <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">   mutex.Lock() <span class="comment">//加锁</span></span><br><span class="line">   sum += i</span><br><span class="line">   mutex.Unlock() <span class="comment">//解锁</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="sync-Once"><a href="#sync-Once" class="headerlink" title="sync.Once"></a>sync.Once</h5><ul>
+<li>用以让代码只执行一次</li>
+</ul>
+<h5 id="sync-WaitGroup"><a href="#sync-WaitGroup" class="headerlink" title="sync.WaitGroup"></a>sync.WaitGroup</h5><ul>
+<li>确保协程执行完毕后，及时退出</li>
+</ul>
+<h5 id="sync-RWMutex"><a href="#sync-RWMutex" class="headerlink" title="sync.RWMutex"></a>sync.RWMutex</h5><ul>
+<li>解决资源竞争，提高性能</li>
+</ul>
+<hr>
+<h4 id="Context"><a href="#Context" class="headerlink" title="Context"></a>Context</h4><ul>
+<li>作为一个并发安全的接口，具备手动、定时、超时发出取消信号、传值等功能，主要用于控制多个协程之间的协作；尤其是取消操作</li>
+</ul>
+<hr>
+<h4 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h4><h5 id="变量逃逸分析"><a href="#变量逃逸分析" class="headerlink" title="变量逃逸分析"></a>变量逃逸分析</h5><ul>
+<li>栈用于内存分配，栈的分配和回收速度非常快</li>
+<li>堆分配内存和栈分配内存相比，堆适合不可预知大小的内存分配，但是为此付出的代价是分配速度较慢，而且会形成内存碎片</li>
+<li>通过编译器分析代码特征何代码的生命周期，决定应该使用堆还是栈来进行内存分配</li>
+<li>编译器觉得应该分配在堆和栈的原则是：<ul>
+<li>变量是否被取地址</li>
+<li>变量是否发生逃逸</li>
+</ul>
+</li>
+</ul>
+<h5 id="sync-Map"><a href="#sync-Map" class="headerlink" title="sync.Map"></a>sync.Map</h5><ul>
+<li>map在并发情况下，只读是安全的，同时读写是线程不安全的。一般做法是加锁，但是性能不高。</li>
+<li>1.9版本添加了<code>sync</code>包下的 <code>Map</code>，使用方法与常规的Map不一样，且没有提供获取map数量的方法.替代方法是在获取 sync.Map时遍历自行提取</li>
+<li>sync.Map为了保证并发安全会有一些性能损失。因此在非并发的情况下，推荐使用常规map</li>
+</ul>
+</div><div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>冷暖自知</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="/posts/39897/">https://www.wl960127.top/posts/39897/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本站内容均为个人学习笔记,不涉及商业用途，仅提供学习参考,第三方摘录已署名链接,未署名请评论添加,转载署名来源即可。</li></ul></div><br><script type="text/javascript" src="/js/share.js?v=1.4.5" async></script><a class="article-share-link" data-url="https://www.wl960127.top/posts/39897/" data-id="ckvxm5518001jp7oisewskdfp" data-qrcode="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABt0lEQVR42u3aUY4CIRAEUO9/afcARqyaFpxsHl9mQvDxU4FuHo94PN+MZOZ6zceOgYuLO+Y+l+N1TstKNpwYcHFxz3PXQfM6Z/0l2dh6/bffcXFxb8lNWOsgw8XF/X/cBJEcVnBxce/PTS4n+XFnzTp0V8PFxR1w8yrlvt9b6ru4uLiXuM9yTAoiX/h3XFzcI9w8UOZbWl+Zipm4uLibuUkkzQsiLbeIMFxc3G3c9hHVpFmSl0KiExkuLu427iSekktR0kqJCii4uLg/5U6Kp2tceyQqLj+4uLhf5eYBlCDa+Cu2jYuLe5A7ufBca9C2h563uYuLi7uNO0G3pZDRmri4uMe5k4iZH4bqIMPFxd3GvVbsyOmTJuuHoxUuLu5mbhJDkwNN/hhrXVTFxcU9z82bo5P4q9snr0JcXNzj3PlzikmQRcVZXFzczdx53FwrmrRxiYuLe5LbNkrz8ui15usk/nBxcb/LTcIrD7J1aePad1xc3F9x5w+zcvRkHVxc3Hty2wDKI7K4seHi4t6M2/5N+zjjgxAXF/cgN4mbNp7a5koUcLi4uEe4dZSMS59thOHi4h7k/gEaJQEvmi1qNQAAAABJRU5ErkJggg==">分享</a><div class="tags"></div><div class="post-nav"><a class="pre" href="/posts/13021/">UML简单笔记</a><a class="next" href="/posts/36103/">Android的第一个进程之init</a></div><div id="disqus_thread"><div class="btn_click_load"><button class="disqus_click_btn">阅读评论（请确保 Disqus 可以正常加载）</button></div><script type="text/javascript">var disqus_config = function () {
+    this.page.url = 'https://www.wl960127.top/posts/39897/';
+    this.page.identifier = 'posts/39897/';
+    this.page.title = 'Golang语法学习笔记';
+  };</script><script type="text/javascript" id="disqus-lazy-load-script">$.ajax({
+url: 'https://disqus.com/next/config.json',
+timeout: 2500,
+type: 'GET',
+success: function(){
+  var d = document;
+  var s = d.createElement('script');
+  s.src = '//wuwangdaren.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', + new Date());
+  (d.head || d.body).appendChild(s);
+  $('.disqus_click_btn').css('display', 'none');
+},
+error: function() {
+  $('.disqus_click_btn').css('display', 'block');
+}
+});</script><script type="text/javascript" id="disqus-click-load">$('.btn_click_load').click(() => {  //click to load comments
+    (() => { // DON'T EDIT BELOW THIS LINE
+        var d = document;
+        var s = d.createElement('script');
+        s.src = '//wuwangdaren.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', + new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    $('.disqus_click_btn').css('display','none');
+});</script><script type="text/javascript" id="disqus-count-script">$(function() {
+     var xhr = new XMLHttpRequest();
+     xhr.open('GET', '//disqus.com/next/config.json', true);
+     xhr.timeout = 2500;
+     xhr.onreadystatechange = function () {
+       if (xhr.readyState === 4 && xhr.status === 200) {
+         $('.post-meta .post-comments-count').show();
+         var s = document.createElement('script');
+         s.id = 'dsq-count-scr';
+         s.src = 'https://wuwangdaren.disqus.com/count.js';
+         s.async = true;
+         (document.head || document.body).appendChild(s);
+       }
+     };
+     xhr.ontimeout = function () { xhr.abort(); };
+     xhr.send(null);
+   });
+</script></div><div id="lv-container" data-id="city" data-uid="MTAyMC8zMzgyMC8xMDM3Mw=="><script>(function(d, s) {
+   var j, e = d.getElementsByTagName(s)[0];
+   if (typeof LivereTower === 'function') { return; }
+   j = d.createElement(s);
+   j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+   j.async = true;
+   e.parentNode.insertBefore(j, e);
+})(document, 'script');
+</script></div></div></div></div><div class="pure-u-1 pure-u-md-1-4"><div id="sidebar"><div class="widget"><div class="search-form"><input id="local-search-input" placeholder="Search" type="text" name="q" results="0"><div id="local-search-result"></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">18</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android源码/">Android源码</a><span class="category-list-count">26</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flutter/">Flutter</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术杂谈/">技术杂谈</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/操作系统/">操作系统</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">23</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书笔记/">读书笔记</a><span class="category-list-count">7</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/源码/" style="font-size: 23px; color: #00d6ff">源码</a> <a href="/tags/待完成/" style="font-size: 21px; color: #13c1e4">待完成</a> <a href="/tags/功能实现/" style="font-size: 21px; color: #13c1e4">功能实现</a> <a href="/tags/binder/" style="font-size: 19px; color: #26acc9">binder</a> <a href="/tags/MQTT/" style="font-size: 15px; color: #4d8394">MQTT</a> <a href="/tags/工具/" style="font-size: 15px; color: #4d8394">工具</a> <a href="/tags/FFmpeg/" style="font-size: 17px; color: #3a98af">FFmpeg</a> <a href="/tags/Flutter/" style="font-size: 13px; color: #606e79">Flutter</a> <a href="/tags/Hexo/" style="font-size: 13px; color: #606e79">Hexo</a> <a href="/tags/知识点/" style="font-size: 17px; color: #3a98af">知识点</a> <a href="/tags/Jvm/" style="font-size: 17px; color: #3a98af">Jvm</a> <a href="/tags/Compose/" style="font-size: 13px; color: #606e79">Compose</a> <a href="/tags/Ubuntu/" style="font-size: 19px; color: #26acc9">Ubuntu</a> <a href="/tags/WebRTC/" style="font-size: 13px; color: #606e79">WebRTC</a> <a href="/tags/Dart/" style="font-size: 13px; color: #606e79">Dart</a> <a href="/tags/Http/" style="font-size: 13px; color: #606e79">Http</a> <a href="/tags/开源框架/" style="font-size: 13px; color: #606e79">开源框架</a> <a href="/tags/内核/" style="font-size: 15px; color: #4d8394">内核</a> <a href="/tags/技术杂谈/" style="font-size: 17px; color: #3a98af">技术杂谈</a> <a href="/tags/Framework/" style="font-size: 13px; color: #606e79">Framework</a> <a href="/tags/明朝/" style="font-size: 13px; color: #606e79">明朝</a> <a href="/tags/Jni/" style="font-size: 17px; color: #3a98af">Jni</a> <a href="/tags/组件化/" style="font-size: 13px; color: #606e79">组件化</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/posts/40b4dd29/">2021读书记录</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/2218b608/">IO与Socket简单笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/755b22cf/">Android简单涂鸦记录</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/ab760be3/">Jetpack与Compose使用</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/95b53bcb/">关于学习的第五篇-学霸养成</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/858effef/">关于学习的第四篇-时间管理</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/cf03b6bc/">关于学习的第三篇-高度自律</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/2726a13e/">关于学习的第二篇-高效学习</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/7ae29eec/">关于学习的第一篇-底层思维</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/6f3535f0/">明朝那些事第一部分</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://qkmin.github.io" title="某康的博客" target="_blank">某康的博客</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">冷暖自知</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.4.5" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=1.4.5" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.css"><script type="text/javascript" src="/js/search.js?v=1.4.5"></script><script>var search_path = 'search.xml';
+if (search_path.length == 0) {
+   search_path = 'search.xml';
+}
+var path = '/' + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script><script type="text/javascript" color="100,99,98" opacity="0.7" zindex="-1" count="150" src="//lib.baomitu.com/canvas-nest.js/2.0.3/canvas-nest.umd.js"></script><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=1.4.5"></script><script>if (window.mermaid) {
+  var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
+  mermaid.initialize(options);
+}
+</script><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.4.5"></script><script type="text/javascript" src="/js/smartresize.js?v=1.4.5"></script></div></body></html>

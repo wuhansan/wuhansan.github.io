@@ -1,0 +1,117 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content><title>硬件与软件是如何成就android系统 | 冷暖自知</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.4.5"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/8.0.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/3.3.1/jquery.min.js"></script><link rel="icon" mask sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">硬件与软件是如何成就android系统</h1><a id="logo" href="/.">冷暖自知</a><p class="description">足够自律，足够自由</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">硬件与软件是如何成就android系统</h1><div class="post-meta">Feb 18, 2019<span> | </span><span class="category"><a href="/categories/Android/">Android</a></span><script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> 阅读</span></span><span class="post-time"><span class="post-meta-item-text"> | </span><span class="post-meta-item-icon"><i class="fa fa-keyboard-o"></i><span class="post-count"> 833</span><span class="post-meta-item-text"> 字</span></span></span><span class="post-time"> | <span class="post-meta-item-icon"><i class="fa fa-hourglass-half"></i><span class="post-count"> 3</span><span class="post-meta-item-text"> 分钟</span></span></span></div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#架构简介"><span class="toc-number">1.</span> <span class="toc-text">架构简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#概述"><span class="toc-number">2.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Linux内核"><span class="toc-number">3.</span> <span class="toc-text">Linux内核</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#驱动的使用"><span class="toc-number">3.1.</span> <span class="toc-text">驱动的使用</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Android启动架构"><span class="toc-number">4.</span> <span class="toc-text">Android启动架构</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Loader-层"><span class="toc-number">4.1.</span> <span class="toc-text">Loader 层</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Kernel-层"><span class="toc-number">4.2.</span> <span class="toc-text">Kernel 层</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Native-层"><span class="toc-number">4.3.</span> <span class="toc-text">Native 层</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Framework-层"><span class="toc-number">4.4.</span> <span class="toc-text">Framework 层</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Zygote-进程"><span class="toc-number">4.5.</span> <span class="toc-text">Zygote 进程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#System-Server-进程"><span class="toc-number">4.6.</span> <span class="toc-text">System Server 进程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Media-Server-进程"><span class="toc-number">4.7.</span> <span class="toc-text">Media Server 进程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#App-层"><span class="toc-number">4.8.</span> <span class="toc-text">App 层</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Syscall-和-JNI"><span class="toc-number">4.9.</span> <span class="toc-text">Syscall 和 JNI</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#备注"><span class="toc-number">5.</span> <span class="toc-text">备注</span></a></li></ol></div></div><div class="post-content"><h4 id="架构简介"><a href="#架构简介" class="headerlink" title="架构简介"></a>架构简介</h4><p><img src="Android%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84.png" alt></p>
+<h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><ul>
+<li>从上面可知，google的经典四层架构分别为 <strong>Linux内核</strong>、<strong>系统库和Android运行时环境</strong>、<strong>framework层</strong>、<strong>应用层</strong></li>
+</ul>
+<h4 id="Linux内核"><a href="#Linux内核" class="headerlink" title="Linux内核"></a>Linux内核</h4><ul>
+<li><p>可知Linux内核中基本都为硬件驱动，硬件驱动对应设备的硬件设备。这就是为什么<a href="https://wuhansan.github.io/2018/06/14/Ubuntu%E7%BC%96%E8%AF%91Android%E6%BA%90%E7%A0%81%E5%88%B7%E6%9C%BA/">Ubuntu编译Android源码并刷机</a>，需要先下载驱动的原因。因为就算有系统本身就是一个硬件为载体运行软件的容器，没有刷入驱动的情况下，主板是可以正常运行刷入的不涉及硬件(usb…)的应用。</p>
+</li>
+<li><p>所谓驱动就是基础的电子元器件而成，类似于单片机设备（个人理解而已），所以驱动也基本都是c编写而成。</p>
+</li>
+</ul>
+<h5 id="驱动的使用"><a href="#驱动的使用" class="headerlink" title="驱动的使用"></a>驱动的使用</h5><p>由<a href="https://wuhansan.github.io/2018/09/05/MediaServer%E7%90%86%E8%A7%A3Binder/">MediaServer理解Binder</a>可知</p>
+<ul>
+<li><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> fd = open(<span class="string">"/dev/binder"</span>, O_RDWR); <span class="comment">// arg1:驱动路径  arg2:方式(读/写/读写)</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ioctl(fd, BINDER_SET_MAX_THREADS, &amp;maxThreads); <span class="comment">//最大线程</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//分配虚拟空间</span></span><br><span class="line">mmap(<span class="number">0</span>, BINDER_VM_SIZE, PROT_READ, MAP_PRIVATE | MAP_NORESERVE, mDriverFD, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">读写操作</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="Android启动架构"><a href="#Android启动架构" class="headerlink" title="Android启动架构"></a>Android启动架构</h4><ul>
+<li><img src="Android%E5%90%AF%E5%8A%A8%E6%9E%B6%E6%9E%84.jpg" alt></li>
+</ul>
+<h5 id="Loader-层"><a href="#Loader-层" class="headerlink" title="Loader 层"></a>Loader 层</h5><ul>
+<li><strong>Boot Rom：</strong>当手机处于关机状态时，长按开机键开机，会引导芯片开始从固化在<code>Rom</code>里预设的代码开始执行，然后加载引导程序到<code>Ram</code>.</li>
+<li><strong>Boot Loader：</strong>这是启动<code>Android</code>系统之前的引导程序，主要是检查<code>Ram</code>、初始化参数等功能。</li>
+</ul>
+<h5 id="Kernel-层"><a href="#Kernel-层" class="headerlink" title="Kernel 层"></a>Kernel 层</h5><p><code>kernel</code>层指的就是<code>Android</code>内核层，到这里才刚刚进入<code>Android</code>系统</p>
+<ol>
+<li>启动<code>Kernel</code>层的<code>swapper</code>进程（pid=1），系统初始化过程Kernel创建的第一个进程，用于初始化进程管理、内存管理，加载<code>Display</code>、<code>Camera</code>、<code>Binder</code>等驱动相关工作。</li>
+<li>启动<code>kthreadd</code>（pid=2），这是<code>Linux</code>系统的内核进程，会创建内核工作线程<code>kworkder</code>、软中断线程<code>ksoftirqd</code>和<code>thermal</code>等内核守护进程。<code>kthreadd</code>是所有内核进程的鼻祖。</li>
+</ol>
+<h5 id="Native-层"><a href="#Native-层" class="headerlink" title="Native 层"></a>Native 层</h5><p>这里的<code>Native</code>层主要包括<code>init</code>孵化来的用户空间的守护进程、HAL层及开机动画等。启动<code>init</code>进程（pid=1），是<code>Linux</code>系统的用户进程，<strong>init进程是所有用户进程的鼻祖。</strong></p>
+<ul>
+<li><code>init</code>进程会孵化出<code>ueventd</code>、<code>logd</code>、<code>healthd</code>、<code>installd</code>、<code>adbd</code>、<code>lmkd</code>等用户守护进程；</li>
+<li><code>init</code>进程还会启动<code>ServiceManager</code>（Binder服务管家）、<code>bootanim</code>（开机动画）等重要服务。</li>
+<li><code>init</code>进程孵化出<code>Zygote</code>进程，<code>Zygote</code>进程是Android系统第一个<code>Java</code>进程（虚拟机进程），<strong>zygote进程是所有Java进程的父进程。</strong></li>
+</ul>
+<h5 id="Framework-层"><a href="#Framework-层" class="headerlink" title="Framework 层"></a>Framework 层</h5><p><code>framework</code>主要包括<code>Zygote进程</code>、<code>SystemServer进程和</code>MediaServer进程`。</p>
+<h5 id="Zygote-进程"><a href="#Zygote-进程" class="headerlink" title="Zygote 进程"></a>Zygote 进程</h5><p><code>Zygote</code>进程是由<code>init</code>进程通过解析<code>init.rc</code>文件后<code>fork</code>生成的。<code>Zygote</code>的任务主要包括：</p>
+<ol>
+<li>加载<code>ZygoteInit</code>类，注册<code>Zygote Socket</code>服务端套接字。</li>
+<li>加载虚拟机</li>
+<li><code>preloadClassses</code></li>
+<li><code>preloadResources</code></li>
+</ol>
+<h5 id="System-Server-进程"><a href="#System-Server-进程" class="headerlink" title="System Server 进程"></a>System Server 进程</h5><p><code>System Server</code>进程是由<code>Zygote</code>进程<code>fork</code>而来，<strong>System Server是Zygote孵化的第一个进程</strong>。<code>System Server</code>负责启动和管理整个<code>Java Framework</code>，包含<code>ActivityManager</code>、<code>PowerManager</code>等服务。</p>
+<h5 id="Media-Server-进程"><a href="#Media-Server-进程" class="headerlink" title="Media Server 进程"></a>Media Server 进程</h5><p><code>Media Server</code> 进程由<code>init</code>进程<code>fork</code>而来，负责管理整个<code>C++ Framework</code>，包含<code>AudioFlinger</code>、<code>Camera Service</code>等服务。</p>
+<h5 id="App-层"><a href="#App-层" class="headerlink" title="App 层"></a>App 层</h5><p><code>Zygote</code>进程孵化出的第一个<code>App</code>进程是<code>Launcher</code>，也就是用户看到的<code>桌面App</code>。同时<code>Zygote</code>进程还会创建<code>Browser</code>、<code>Phone</code>、<code>Email</code>等<code>App</code>进程。也就是说<strong>所有的App进程都是由Zygote进程fork生成的。</strong></p>
+<h5 id="Syscall-和-JNI"><a href="#Syscall-和-JNI" class="headerlink" title="Syscall 和 JNI"></a>Syscall 和 JNI</h5><p><code>Native</code>层和<code>Kernel</code>层有一个系统调用层，也就是<code>Syscall</code>。<code>Java</code>层和<code>native</code>层之间的纽带是<code>JNI</code>。</p>
+<h4 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h4><p>部分摘录自 <a href="http://gityuan.com/android/">gityuan</a></p>
+</div><div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>冷暖自知</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="/posts/16113/">https://www.wl960127.top/posts/16113/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本站内容均为个人学习笔记,不涉及商业用途，仅提供学习参考,第三方摘录已署名链接,未署名请评论添加,转载署名来源即可。</li></ul></div><br><script type="text/javascript" src="/js/share.js?v=1.4.5" async></script><a class="article-share-link" data-url="https://www.wl960127.top/posts/16113/" data-id="ckvxm552o006ip7oiuactq4e6" data-qrcode="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAAB0UlEQVR42u3aMW7DMBAEwPz/0wqQKkAiepekaRXDyjBsaaRicbzj11e8rp91983fz79Xfs1tCxcXd5l7DdcYN75a8mC5ARcX9zx3HDRJMLWBlbwCXFzc53OT0BlfrQ1HXFzc53PzQie5Mi4u7vO5yean3dgkV3vjXg0XF3eB225g3vH5jf1dXFzcknuVK2+RJJFX3x0XF/cINxmgjpOk5bZFTz3vxcXF3cQdx1OLm2ue1i8FFxf3o9xx2K0cs8hj9EUvBxcXdys3H4ckzdO2jZK8iBfbHlxc3Ldxx8XN3G3Wt0P//AsXF/cIN9/GrA9d5sqmyeEKLi7uJm5+PCKJtvy/ebsWFxf3JHfumFRbyrTF0+1vcHFxj3Dnype5B8uHLri4uJ/iJset2oZpOzrNwxEXF/cMdy5cVoYrK8e5cHFxz3BXKqMrXnNFEi4u7me5bejkYTS5xxrPhHFxcY9w20hqC5q2YKonwLi4uFu5e1ulxX6rHLXWD4OLi7vMnRuHzB3ayIPs9o3i4uIe5LZHtXbFWX1fXFzch3GToif/Jt8aTQYZLi7uQW4+DlkZz9zacHFxD3LXm6R5qzTBbWiL4OLiLnBXGqZt8M1FGC4u7kHuN5iCvlX0xSt4AAAAAElFTkSuQmCC">分享</a><div class="tags"><a href="/tags/知识点/">知识点</a><a href="/tags/内核/">内核</a></div><div class="post-nav"><a class="pre" href="/posts/47283/">OkHttp框架学习笔记</a><a class="next" href="/posts/60510/">Dart简单学习</a></div><div id="disqus_thread"><div class="btn_click_load"><button class="disqus_click_btn">阅读评论（请确保 Disqus 可以正常加载）</button></div><script type="text/javascript">var disqus_config = function () {
+    this.page.url = 'https://www.wl960127.top/posts/16113/';
+    this.page.identifier = 'posts/16113/';
+    this.page.title = '硬件与软件是如何成就android系统';
+  };</script><script type="text/javascript" id="disqus-lazy-load-script">$.ajax({
+url: 'https://disqus.com/next/config.json',
+timeout: 2500,
+type: 'GET',
+success: function(){
+  var d = document;
+  var s = d.createElement('script');
+  s.src = '//wuwangdaren.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', + new Date());
+  (d.head || d.body).appendChild(s);
+  $('.disqus_click_btn').css('display', 'none');
+},
+error: function() {
+  $('.disqus_click_btn').css('display', 'block');
+}
+});</script><script type="text/javascript" id="disqus-click-load">$('.btn_click_load').click(() => {  //click to load comments
+    (() => { // DON'T EDIT BELOW THIS LINE
+        var d = document;
+        var s = d.createElement('script');
+        s.src = '//wuwangdaren.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', + new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    $('.disqus_click_btn').css('display','none');
+});</script><script type="text/javascript" id="disqus-count-script">$(function() {
+     var xhr = new XMLHttpRequest();
+     xhr.open('GET', '//disqus.com/next/config.json', true);
+     xhr.timeout = 2500;
+     xhr.onreadystatechange = function () {
+       if (xhr.readyState === 4 && xhr.status === 200) {
+         $('.post-meta .post-comments-count').show();
+         var s = document.createElement('script');
+         s.id = 'dsq-count-scr';
+         s.src = 'https://wuwangdaren.disqus.com/count.js';
+         s.async = true;
+         (document.head || document.body).appendChild(s);
+       }
+     };
+     xhr.ontimeout = function () { xhr.abort(); };
+     xhr.send(null);
+   });
+</script></div><div id="lv-container" data-id="city" data-uid="MTAyMC8zMzgyMC8xMDM3Mw=="><script>(function(d, s) {
+   var j, e = d.getElementsByTagName(s)[0];
+   if (typeof LivereTower === 'function') { return; }
+   j = d.createElement(s);
+   j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+   j.async = true;
+   e.parentNode.insertBefore(j, e);
+})(document, 'script');
+</script></div></div></div></div><div class="pure-u-1 pure-u-md-1-4"><div id="sidebar"><div class="widget"><div class="search-form"><input id="local-search-input" placeholder="Search" type="text" name="q" results="0"><div id="local-search-result"></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">18</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android源码/">Android源码</a><span class="category-list-count">26</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flutter/">Flutter</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术杂谈/">技术杂谈</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/操作系统/">操作系统</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">23</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书笔记/">读书笔记</a><span class="category-list-count">7</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/源码/" style="font-size: 23px; color: #00d6ff">源码</a> <a href="/tags/待完成/" style="font-size: 21px; color: #13c1e4">待完成</a> <a href="/tags/功能实现/" style="font-size: 21px; color: #13c1e4">功能实现</a> <a href="/tags/binder/" style="font-size: 19px; color: #26acc9">binder</a> <a href="/tags/MQTT/" style="font-size: 15px; color: #4d8394">MQTT</a> <a href="/tags/工具/" style="font-size: 15px; color: #4d8394">工具</a> <a href="/tags/FFmpeg/" style="font-size: 17px; color: #3a98af">FFmpeg</a> <a href="/tags/Flutter/" style="font-size: 13px; color: #606e79">Flutter</a> <a href="/tags/Hexo/" style="font-size: 13px; color: #606e79">Hexo</a> <a href="/tags/知识点/" style="font-size: 17px; color: #3a98af">知识点</a> <a href="/tags/Jvm/" style="font-size: 17px; color: #3a98af">Jvm</a> <a href="/tags/Compose/" style="font-size: 13px; color: #606e79">Compose</a> <a href="/tags/Ubuntu/" style="font-size: 19px; color: #26acc9">Ubuntu</a> <a href="/tags/WebRTC/" style="font-size: 13px; color: #606e79">WebRTC</a> <a href="/tags/Dart/" style="font-size: 13px; color: #606e79">Dart</a> <a href="/tags/Http/" style="font-size: 13px; color: #606e79">Http</a> <a href="/tags/开源框架/" style="font-size: 13px; color: #606e79">开源框架</a> <a href="/tags/内核/" style="font-size: 15px; color: #4d8394">内核</a> <a href="/tags/技术杂谈/" style="font-size: 17px; color: #3a98af">技术杂谈</a> <a href="/tags/Framework/" style="font-size: 13px; color: #606e79">Framework</a> <a href="/tags/明朝/" style="font-size: 13px; color: #606e79">明朝</a> <a href="/tags/Jni/" style="font-size: 17px; color: #3a98af">Jni</a> <a href="/tags/组件化/" style="font-size: 13px; color: #606e79">组件化</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/posts/40b4dd29/">2021读书记录</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/2218b608/">IO与Socket简单笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/755b22cf/">Android简单涂鸦记录</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/ab760be3/">Jetpack与Compose使用</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/95b53bcb/">关于学习的第五篇-学霸养成</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/858effef/">关于学习的第四篇-时间管理</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/cf03b6bc/">关于学习的第三篇-高度自律</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/2726a13e/">关于学习的第二篇-高效学习</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/7ae29eec/">关于学习的第一篇-底层思维</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/6f3535f0/">明朝那些事第一部分</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://qkmin.github.io" title="某康的博客" target="_blank">某康的博客</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">冷暖自知</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.4.5" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=1.4.5" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.css"><script type="text/javascript" src="/js/search.js?v=1.4.5"></script><script>var search_path = 'search.xml';
+if (search_path.length == 0) {
+   search_path = 'search.xml';
+}
+var path = '/' + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script><script type="text/javascript" color="100,99,98" opacity="0.7" zindex="-1" count="150" src="//lib.baomitu.com/canvas-nest.js/2.0.3/canvas-nest.umd.js"></script><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=1.4.5"></script><script>if (window.mermaid) {
+  var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
+  mermaid.initialize(options);
+}
+</script><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.4.5"></script><script type="text/javascript" src="/js/smartresize.js?v=1.4.5"></script></div></body></html>

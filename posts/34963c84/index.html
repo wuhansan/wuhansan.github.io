@@ -1,0 +1,100 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content><title>创建型-原型模式 | 冷暖自知</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.4.5"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/8.0.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/3.3.1/jquery.min.js"></script><link rel="icon" mask sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">创建型-原型模式</h1><a id="logo" href="/.">冷暖自知</a><p class="description">足够自律，足够自由</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">创建型-原型模式</h1><div class="post-meta">Jun 13, 2020<span> | </span><span class="category"><a href="/categories/设计模式/">设计模式</a></span><script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> 阅读</span></span><span class="post-time"><span class="post-meta-item-text"> | </span><span class="post-meta-item-icon"><i class="fa fa-keyboard-o"></i><span class="post-count"> 562</span><span class="post-meta-item-text"> 字</span></span></span><span class="post-time"> | <span class="post-meta-item-icon"><i class="fa fa-hourglass-half"></i><span class="post-count"> 2</span><span class="post-meta-item-text"> 分钟</span></span></span></div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#定义"><span class="toc-number">1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#应用场景"><span class="toc-number">2.</span> <span class="toc-text">应用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实现"><span class="toc-number">3.</span> <span class="toc-text">实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#深拷贝"><span class="toc-number">3.1.</span> <span class="toc-text">深拷贝</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#方式"><span class="toc-number">3.1.1.</span> <span class="toc-text">方式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#弊端"><span class="toc-number">3.1.2.</span> <span class="toc-text">弊端</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#浅拷贝"><span class="toc-number">3.2.</span> <span class="toc-text">浅拷贝</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#优化方式"><span class="toc-number">3.3.</span> <span class="toc-text">优化方式</span></a></li></ol></li></ol></div></div><div class="post-content"><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul>
+<li>创建对象的成本较大，而同一个类的不同对象之间差别不大（大部分字段相同），此时可以利用已有对象（原型）进行拷贝的的方式来创建新对象，以达到节省创建时间的目的一种基于原型创建对象的设计模式（即：不需要根据类来生成实例，而是根据实例生成新的实例）</li>
+<li>不关心对象的具体类型，而是找到一个对象，再通过克隆来创建一个一模一样的对象</li>
+</ul>
+<hr>
+<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><ul>
+<li>对象中的数据需要经过复杂的计算才能得到（排序、计算哈希），或者是需要从RPC、网络、数据库、文件系统等非常慢的IO中读取</li>
+</ul>
+<hr>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><h4 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h4><ul>
+<li>不仅会复制索引，还会复制数据本身</li>
+</ul>
+<h5 id="方式"><a href="#方式" class="headerlink" title="方式"></a>方式</h5><ul>
+<li><p>递归拷贝对象、对象的引用对象以及引用对象的引用对象…</p>
+</li>
+<li><p>将对象序列化，再反序列化成新的对象</p>
+<h5 id="弊端"><a href="#弊端" class="headerlink" title="弊端"></a>弊端</h5></li>
+<li><p>两种实现方式都会比浅拷贝耗时、耗内存空间</p>
+</li>
+</ul>
+<h4 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h4><ul>
+<li>只会拷贝对象中的基本数据类型以及引用对象的内存地址，不会拷贝数据本身对象。相当于浅拷贝得到对象和被拷贝的对象实际上还是在共享同一个数据</li>
+<li>Java中，<code>Object</code>的<code>clone()</code>方法就是浅拷贝</li>
+</ul>
+<h4 id="优化方式"><a href="#优化方式" class="headerlink" title="优化方式"></a>优化方式</h4><ul>
+<li><p>先浅拷贝，再将需要更新的对象进行深度拷贝，替换掉浅拷贝中的老对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> HashMap&lt;String, SearchWord&gt; currentKeywords=<span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">long</span> lastUpdateTime = -<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">refresh</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//浅拷贝</span></span><br><span class="line">    HashMap&lt;String, SearchWord&gt; newKeywords = (HashMap&lt;String, SearchWord&gt;) currentKeywords.clone();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 从数据库中取出更新时间&gt;lastUpdateTime的数据，放入到newKeywords中</span></span><br><span class="line">    List&lt;SearchWord&gt; toBeUpdatedSearchWords = getSearchWords(lastUpdateTime);</span><br><span class="line">    <span class="keyword">long</span> maxNewUpdatedTime = lastUpdateTime;</span><br><span class="line">    <span class="keyword">for</span> (SearchWord searchWord : toBeUpdatedSearchWords) &#123;</span><br><span class="line">      <span class="keyword">if</span> (searchWord.getLastUpdateTime() &gt; maxNewUpdatedTime) &#123;</span><br><span class="line">        maxNewUpdatedTime = searchWord.getLastUpdateTime();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (newKeywords.containsKey(searchWord.getKeyword())) &#123;</span><br><span class="line">        newKeywords.remove(searchWord.getKeyword());</span><br><span class="line">      &#125;</span><br><span class="line">      newKeywords.put(searchWord.getKeyword(), searchWord);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    lastUpdateTime = maxNewUpdatedTime;</span><br><span class="line">    currentKeywords = newKeywords; <span class="comment">//替换</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">private</span> List&lt;SearchWord&gt; <span class="title">getSearchWords</span><span class="params">(<span class="keyword">long</span> lastUpdateTime)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// <span class="doctag">TODO:</span> 从数据库中取出更新时间&gt;lastUpdateTime的数据</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<hr>
+<ul>
+<li>尽量避免IO操作，而是宁愿选择内存操作与CPU计算这些耗时操作</li>
+</ul>
+</div><div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>冷暖自知</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="/posts/34963c84/">https://www.wl960127.top/posts/34963c84/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本站内容均为个人学习笔记,不涉及商业用途，仅提供学习参考,第三方摘录已署名链接,未署名请评论添加,转载署名来源即可。</li></ul></div><br><script type="text/javascript" src="/js/share.js?v=1.4.5" async></script><a class="article-share-link" data-url="https://www.wl960127.top/posts/34963c84/" data-id="ckvxm552b0057p7oimoqe0c3e" data-qrcode="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAAB0UlEQVR42u3aQW7DMAwEwP7/0ynQU4E09i5lKykwOgVOLI1zIGiSX1/xevys5yu/rz+eVrvnZQsXF3eZ+zhcz1u/Ir6itPucPDYuLu5G7nGgaYPUbP/oXlxc3A/jJscc75bvg4uL+1+47QEzOi4u7udwk5ef4+tXXbnsXQ0XF3eB277A3PH5xvouLi5uyX2UKw9MbZElOh0XF3cLd1baaNOU9tuTMIeLi3sztw4icYvlOLTl3/4RwnBxcW/mJkcmx7SjG20z5uQ/xsXF3chty52zZmry8EWcw8XFXea2aU2SxMx2iO7CxcXdyF0fz2qHNdsUajjjiYuLO+K2w1Kzcud60oOLi7uTmwSaWWskL3PkyRAuLu5ObtIayXudSWI0a9jg4uLu5+ZtkjxJanujJ6EQFxd3C7ctRuQDFu3DFGVZXFzcm7lFenFRwXQ2uoGLi7uf21YmZ6WN2cLFxX0XN19tafWq16r6GFxc3AVuG1BWPs8aKkWXGBcX91Ju2xpZKXPkgezlvbi4uBu5eXk0H8WYFVhPfoOLi/th3CRlaROXGwMZLi7um7grBZHkj8DFxX0vdyVBmRVb8yGtYVkEFxd3gdsWTNsS56yoiouL+ybuN0rlJQv2dB9pAAAAAElFTkSuQmCC">分享</a><div class="tags"></div><div class="post-nav"><a class="pre" href="/posts/858c6e31/">结构型-桥接模式</a><a class="next" href="/posts/4a7ab732/">设计模式之设计原则</a></div><div id="disqus_thread"><div class="btn_click_load"><button class="disqus_click_btn">阅读评论（请确保 Disqus 可以正常加载）</button></div><script type="text/javascript">var disqus_config = function () {
+    this.page.url = 'https://www.wl960127.top/posts/34963c84/';
+    this.page.identifier = 'posts/34963c84/';
+    this.page.title = '创建型-原型模式';
+  };</script><script type="text/javascript" id="disqus-lazy-load-script">$.ajax({
+url: 'https://disqus.com/next/config.json',
+timeout: 2500,
+type: 'GET',
+success: function(){
+  var d = document;
+  var s = d.createElement('script');
+  s.src = '//wuwangdaren.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', + new Date());
+  (d.head || d.body).appendChild(s);
+  $('.disqus_click_btn').css('display', 'none');
+},
+error: function() {
+  $('.disqus_click_btn').css('display', 'block');
+}
+});</script><script type="text/javascript" id="disqus-click-load">$('.btn_click_load').click(() => {  //click to load comments
+    (() => { // DON'T EDIT BELOW THIS LINE
+        var d = document;
+        var s = d.createElement('script');
+        s.src = '//wuwangdaren.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', + new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    $('.disqus_click_btn').css('display','none');
+});</script><script type="text/javascript" id="disqus-count-script">$(function() {
+     var xhr = new XMLHttpRequest();
+     xhr.open('GET', '//disqus.com/next/config.json', true);
+     xhr.timeout = 2500;
+     xhr.onreadystatechange = function () {
+       if (xhr.readyState === 4 && xhr.status === 200) {
+         $('.post-meta .post-comments-count').show();
+         var s = document.createElement('script');
+         s.id = 'dsq-count-scr';
+         s.src = 'https://wuwangdaren.disqus.com/count.js';
+         s.async = true;
+         (document.head || document.body).appendChild(s);
+       }
+     };
+     xhr.ontimeout = function () { xhr.abort(); };
+     xhr.send(null);
+   });
+</script></div><div id="lv-container" data-id="city" data-uid="MTAyMC8zMzgyMC8xMDM3Mw=="><script>(function(d, s) {
+   var j, e = d.getElementsByTagName(s)[0];
+   if (typeof LivereTower === 'function') { return; }
+   j = d.createElement(s);
+   j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+   j.async = true;
+   e.parentNode.insertBefore(j, e);
+})(document, 'script');
+</script></div></div></div></div><div class="pure-u-1 pure-u-md-1-4"><div id="sidebar"><div class="widget"><div class="search-form"><input id="local-search-input" placeholder="Search" type="text" name="q" results="0"><div id="local-search-result"></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">18</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android源码/">Android源码</a><span class="category-list-count">26</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flutter/">Flutter</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术杂谈/">技术杂谈</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/操作系统/">操作系统</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">23</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书笔记/">读书笔记</a><span class="category-list-count">7</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/源码/" style="font-size: 23px; color: #00d6ff">源码</a> <a href="/tags/待完成/" style="font-size: 21px; color: #13c1e4">待完成</a> <a href="/tags/功能实现/" style="font-size: 21px; color: #13c1e4">功能实现</a> <a href="/tags/binder/" style="font-size: 19px; color: #26acc9">binder</a> <a href="/tags/MQTT/" style="font-size: 15px; color: #4d8394">MQTT</a> <a href="/tags/工具/" style="font-size: 15px; color: #4d8394">工具</a> <a href="/tags/FFmpeg/" style="font-size: 17px; color: #3a98af">FFmpeg</a> <a href="/tags/Flutter/" style="font-size: 13px; color: #606e79">Flutter</a> <a href="/tags/Hexo/" style="font-size: 13px; color: #606e79">Hexo</a> <a href="/tags/知识点/" style="font-size: 17px; color: #3a98af">知识点</a> <a href="/tags/Jvm/" style="font-size: 17px; color: #3a98af">Jvm</a> <a href="/tags/Compose/" style="font-size: 13px; color: #606e79">Compose</a> <a href="/tags/Ubuntu/" style="font-size: 19px; color: #26acc9">Ubuntu</a> <a href="/tags/WebRTC/" style="font-size: 13px; color: #606e79">WebRTC</a> <a href="/tags/Dart/" style="font-size: 13px; color: #606e79">Dart</a> <a href="/tags/Http/" style="font-size: 13px; color: #606e79">Http</a> <a href="/tags/开源框架/" style="font-size: 13px; color: #606e79">开源框架</a> <a href="/tags/内核/" style="font-size: 15px; color: #4d8394">内核</a> <a href="/tags/技术杂谈/" style="font-size: 17px; color: #3a98af">技术杂谈</a> <a href="/tags/Framework/" style="font-size: 13px; color: #606e79">Framework</a> <a href="/tags/明朝/" style="font-size: 13px; color: #606e79">明朝</a> <a href="/tags/Jni/" style="font-size: 17px; color: #3a98af">Jni</a> <a href="/tags/组件化/" style="font-size: 13px; color: #606e79">组件化</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/posts/40b4dd29/">2021读书记录</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/2218b608/">IO与Socket简单笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/755b22cf/">Android简单涂鸦记录</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/ab760be3/">Jetpack与Compose使用</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/95b53bcb/">关于学习的第五篇-学霸养成</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/858effef/">关于学习的第四篇-时间管理</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/cf03b6bc/">关于学习的第三篇-高度自律</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/2726a13e/">关于学习的第二篇-高效学习</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/7ae29eec/">关于学习的第一篇-底层思维</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/6f3535f0/">明朝那些事第一部分</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://qkmin.github.io" title="某康的博客" target="_blank">某康的博客</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">冷暖自知</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.4.5" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=1.4.5" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.css"><script type="text/javascript" src="/js/search.js?v=1.4.5"></script><script>var search_path = 'search.xml';
+if (search_path.length == 0) {
+   search_path = 'search.xml';
+}
+var path = '/' + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script><script type="text/javascript" color="100,99,98" opacity="0.7" zindex="-1" count="150" src="//lib.baomitu.com/canvas-nest.js/2.0.3/canvas-nest.umd.js"></script><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=1.4.5"></script><script>if (window.mermaid) {
+  var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
+  mermaid.initialize(options);
+}
+</script><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.4.5"></script><script type="text/javascript" src="/js/smartresize.js?v=1.4.5"></script></div></body></html>
