@@ -85,13 +85,13 @@
     <link href="https://www.wl960127.top/posts/ab760be3/"/>
     <id>https://www.wl960127.top/posts/ab760be3/</id>
     <published>2021-10-08T13:16:03.000Z</published>
-    <updated>2021-11-07T06:43:10.930Z</updated>
+    <updated>2021-11-13T09:44:30.740Z</updated>
     
-    <content type="html"><![CDATA[<p>新项目，练手，一些不足够清晰点位记录</p><ul><li>remember</li><li>comp的绘制机制</li></ul><h4 id="导航"><a href="#导航" class="headerlink" title="导航"></a>导航</h4><ul><li>传参</li><li>参数回调</li><li>关闭当前</li><li>弹出当前</li></ul>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://gitee.com/wl960127/jet-pack-compose">传送门</a></p>]]></content>
     
     <summary type="html">
     
-      关于使用过程中的一些记录
+      一个简单的demo（Hilt+Room+navigation+Compose）
     
     </summary>
     
