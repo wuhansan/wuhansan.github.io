@@ -1,0 +1,287 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content><title>Android的第一个进程之init | 冷暖自知</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.4.5"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/8.0.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/3.3.1/jquery.min.js"></script><link rel="icon" mask sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Android的第一个进程之init</h1><a id="logo" href="/.">冷暖自知</a><p class="description">主动使你掌控,被动使你沉迷</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">Android的第一个进程之init</h1><div class="post-meta">Oct 10, 2019<span> | </span><span class="category"><a href="/categories/Android源码/">Android源码</a></span><script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> 阅读</span></span><span class="post-time"><span class="post-meta-item-text"> | </span><span class="post-meta-item-icon"><i class="fa fa-keyboard-o"></i><span class="post-count"> 1.2k</span><span class="post-meta-item-text"> 字</span></span></span><span class="post-time"> | <span class="post-meta-item-icon"><i class="fa fa-hourglass-half"></i><span class="post-count"> 5</span><span class="post-meta-item-text"> 分钟</span></span></span></div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#概念"><span class="toc-number">1.</span> <span class="toc-text">概念</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#四个阶段"><span class="toc-number">1.1.</span> <span class="toc-text">四个阶段</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#语法"><span class="toc-number">2.</span> <span class="toc-text">语法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Action"><span class="toc-number">2.1.</span> <span class="toc-text">Action</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Commands"><span class="toc-number">2.2.</span> <span class="toc-text">Commands</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Services"><span class="toc-number">2.3.</span> <span class="toc-text">Services</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Options"><span class="toc-number">2.4.</span> <span class="toc-text">Options</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#功能演示"><span class="toc-number">3.</span> <span class="toc-text">功能演示</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#引导zygote"><span class="toc-number">3.1.</span> <span class="toc-text">引导zygote</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#简单流程图示"><span class="toc-number">4.</span> <span class="toc-text">简单流程图示</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#疑问"><span class="toc-number">5.</span> <span class="toc-text">疑问</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参考链接"><span class="toc-number">6.</span> <span class="toc-text">参考链接</span></a></li></ol></div></div><div class="post-content"><h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><ul>
+<li>Linux中第一个进程,进程号为<code>1</code></li>
+<li>负责创建系统中的几个关键进程</li>
+<li>提供了 property_service来管理Android系统属性</li>
+</ul>
+<h5 id="四个阶段"><a href="#四个阶段" class="headerlink" title="四个阶段"></a>四个阶段</h5><ul>
+<li>early-init</li>
+<li>init</li>
+<li>early-boot</li>
+<li>boot</li>
+</ul>
+<h4 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h4><h5 id="Action"><a href="#Action" class="headerlink" title="Action"></a>Action</h5><ul>
+<li><p>动作是以命令流程命名的，有一个触发器决定动作是否发生 </p>
+</li>
+<li><p>配合触发器  <code>trigger</code>使用</p>
+</li>
+<li><p>格式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">on &lt;trigger&gt;   ##触发条件</span><br><span class="line">     &lt;command1&gt;  ##执行命令</span><br><span class="line">     &lt;command2&gt;  ##可以同时执行多个命令</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<h5 id="Commands"><a href="#Commands" class="headerlink" title="Commands"></a>Commands</h5><ul>
+<li><p><code>init.rc</code>中常规<strong>trigger</strong></p>
+<table>
+<thead>
+<tr>
+<th>trigger</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>boot</td>
+<td align="center">init程序启动后触发的第一个事件</td>
+</tr>
+<tr>
+<td>&lt;name&gt;=&lt;value&gt;</td>
+<td align="center">当属性&lt;name&gt; 满足&lt;value&gt;时触发</td>
+</tr>
+<tr>
+<td>device-added/removed-&lt;patch&gt;</td>
+<td align="center">当设备节点添加/删除时触发此事件</td>
+</tr>
+<tr>
+<td>sevice-exited-&lt;name&gt;</td>
+<td align="center">当指定服务&lt;name&gt; 存在时触发</td>
+</tr>
+</tbody></table>
+<p><strong>init.rc中常见的Commands如下：</strong></p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>exec &lt;:path&gt; [&lt;argument&gt;]*</td>
+<td align="center">Fork 并执行一个程序，其路径为&lt;path&gt;。该命令将阻塞 直到该程序启动完成</td>
+</tr>
+<tr>
+<td>export &lt;name&gt; &lt;value&gt;</td>
+<td align="center">设置某个环境变量&lt;name&gt; 的值为&lt;value&gt;。对全局有效，之后的进程都将继承这个变量</td>
+</tr>
+<tr>
+<td>ifup &lt;interface&gt;</td>
+<td align="center">使网络接口&lt;interface&gt; 成功连接</td>
+</tr>
+<tr>
+<td>import &lt;filename&gt;</td>
+<td align="center">解析另一个配置文件&lt;filename&gt;，以扩展当前配置</td>
+</tr>
+<tr>
+<td>chdir &lt;directory&gt;</td>
+<td align="center">更换工作目录为&lt;directory&gt;</td>
+</tr>
+<tr>
+<td>chmod &lt;octal-mode&gt; &lt;path&gt;</td>
+<td align="center">更改文件访问权限</td>
+</tr>
+<tr>
+<td>chown &lt;owner&gt; &lt;group&gt; &lt;path&gt;</td>
+<td align="center">更改文件所有者和群组</td>
+</tr>
+<tr>
+<td>mount &lt;type&gt; &lt;device&gt; &lt;dir&gt; [&lt;mountoption&gt;]*</td>
+<td align="center">尝试在指定路径上挂载一个设备</td>
+</tr>
+<tr>
+<td>start &lt;service&gt;</td>
+<td align="center">启动一个服务，如果它没有处于运行状态的话</td>
+</tr>
+<tr>
+<td>stop &lt;service&gt;</td>
+<td align="center">停止一个服务，如果它当前处于运行状态的话</td>
+</tr>
+<tr>
+<td>setprop &lt;name&gt; <value></value></td>
+<td align="center">设置系统属性&lt;name&gt; 的值为 &lt;value&gt;</td>
+</tr>
+<tr>
+<td>trigger &lt;event&gt;</td>
+<td align="center">触发一个事件</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h5 id="Services"><a href="#Services" class="headerlink" title="Services"></a>Services</h5><ul>
+<li><p>是init进程启动的程序,当服务退出时init进程会视情况重启服务 </p>
+</li>
+<li><p>init生成的子进程，定义在rc文件，其中每一个service，在启动时会通过<a href="http://blog.csdn.net/jason314/article/details/5640969">fork</a>方式生成子进程 </p>
+</li>
+<li><p>格式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">service &lt;name&gt; &lt;pathname&gt; [ &lt;argument&gt; ]*</span><br><span class="line">        &lt;option&gt;</span><br><span class="line">        &lt;option&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>参数</p>
+<ul>
+<li>name: 表示service 的名字；</li>
+<li>pathname: 表示service所在路径，此处的service是可执行文件，所以一定有存储路径；</li>
+<li>argument: 启动service所带的参数；</li>
+<li>option: 对此service的约束选项；</li>
+</ul>
+</li>
+</ul>
+<h5 id="Options"><a href="#Options" class="headerlink" title="Options"></a>Options</h5><ul>
+<li><p>init.rc 中可用的选项</p>
+<table>
+<thead>
+<tr>
+<th align="left">Option</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">on early-init</td>
+<td align="left">设置init进程以及创建的子进程的优先级,设置init进程的安全环境</td>
+</tr>
+<tr>
+<td align="left">on init</td>
+<td align="left">设置全局环境,为cpu accounting创建cgroup(资源控制)挂载点</td>
+</tr>
+<tr>
+<td align="left">on fs</td>
+<td align="left">挂载mtd分区</td>
+</tr>
+<tr>
+<td align="left">on post-fs</td>
+<td align="left">改变系统目录的访问权限</td>
+</tr>
+<tr>
+<td align="left">on post-fs-data</td>
+<td align="left">改变/data目录及其子目录的访问权限</td>
+</tr>
+<tr>
+<td align="left">on boot</td>
+<td align="left">基本网络的初始化,内存管理等</td>
+</tr>
+<tr>
+<td align="left">critical</td>
+<td align="left">表明这是对设备至关重要的服务；如果它在四分钟内退出超过四次，则设备将进入Recovery 模式</td>
+</tr>
+<tr>
+<td align="left">disabled</td>
+<td align="left">表示此服务是不会自动启动，而是需要通过显示调用服务名来启动</td>
+</tr>
+<tr>
+<td align="left">oneshot</td>
+<td align="left">当次服务退出时，不要主动去重启它</td>
+</tr>
+<tr>
+<td align="left">socket &lt;name&gt; &lt;type&gt; &lt;perm&gt; [&lt;user&gt; [&lt;group&gt;] ]</td>
+<td align="left">创建一个名为dev/socket/&lt;name&gt;的 socket，然后将它的fd值传给启动它的进，有效的&lt;type&gt;值包括dgram,stream 和seqpacket。ueser 和group 的默认值为0。</td>
+</tr>
+<tr>
+<td align="left">class &lt;name&gt;</td>
+<td align="left">为该服务指定一个class 名。同一个class 的所有服务必须同时启动或者停止。默认情况下服务的class名是“default”</td>
+</tr>
+<tr>
+<td align="left">service servicemanager</td>
+<td align="left">启动系统管理器管理所有的本地服务,比如位置 音频 …</td>
+</tr>
+<tr>
+<td align="left">service zygote</td>
+<td align="left">启动zygote作为应用进程</td>
+</tr>
+<tr>
+<td align="left">onrestart</td>
+<td align="left">当次服务重启时，执行某些命令</td>
+</tr>
+<tr>
+<td align="left">user &lt;username&gt;</td>
+<td align="left">在启动服务前将用户切换至&lt;username&gt;,默认情况下用户都是root。</td>
+</tr>
+<tr>
+<td align="left">group &lt;groupname&gt; [&lt;groupname&gt;]</td>
+<td align="left">在启动服务前将用户组切换至&lt;groupname&gt;</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h4 id="功能演示"><a href="#功能演示" class="headerlink" title="功能演示"></a>功能演示</h4><h5 id="引导zygote"><a href="#引导zygote" class="headerlink" title="引导zygote"></a>引导zygote</h5><ul>
+<li><p>init.c</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">init_parse_config_file(<span class="string">"/init.rc"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>init.rc</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># init.rc 中  import /init.$&#123;ro.zygote&#125;.rc -&gt;内容如下</span><br><span class="line"># 会先执行 init.rc 再执行 init.zygotexxx.</span><br><span class="line"># 此处 会执行 zygote的启动</span><br><span class="line">service zygote /system/bin/app_process64 -Xzygote /system/bin --zygote --start-system-server</span><br><span class="line">    class main</span><br><span class="line">    // 代表创建一个 AF_STREAM类型的socket (即:TCP socket) 该socket名为 &quot;zygote&quot; 读写权限 666</span><br><span class="line">    socket zygote stream 660 root system  </span><br><span class="line">    onrestart write /sys/android_power/request_state wake</span><br><span class="line">    onrestart write /sys/power/state on</span><br><span class="line">    onrestart restart media</span><br><span class="line">    onrestart restart netd</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="简单流程图示"><a href="#简单流程图示" class="headerlink" title="简单流程图示"></a>简单流程图示</h4><p><img src="init%E8%A7%A3%E6%9E%90services.png" alt></p>
+<p><img src="init%E4%BA%8B%E4%BB%B6%E7%BB%93%E6%9E%84.jpg" alt></p>
+<ul>
+<li>解析返回的 list 会在 <code>init.c</code> 中 <code>execute_one_command</code>和<code>restart_processes</code>执行相关</li>
+</ul>
+<h4 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h4><ul>
+<li>内核是怎么触发的 <code>init</code>进程</li>
+<li>service_start()函数中是怎么创建的zygote进程<ul>
+<li><code>init.c</code>的create_socket函数中的<strong>create_socket</strong>函数创建了<strong>socket</strong>（Zygote），之后执行了<strong>publish_socket</strong>函数</li>
+</ul>
+</li>
+</ul>
+<h4 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h4><p><a href="https://www.jianshu.com/p/4de52d8fb8aa">Android启动过程分析-从按下电源键到第一个用户进程</a></p>
+<p><a href="https://blog.csdn.net/zhonglunshun/article/details/78615980">Android系统init进程启动及init.rc全解析</a></p>
+</div><div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>冷暖自知</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="/posts/36103/">https://www.wl960127.top/posts/36103/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本站内容均为个人学习笔记,不涉及商业用途，仅提供学习参考,第三方摘录已署名链接,未署名请评论添加,转载署名来源即可。</li></ul></div><br><script type="text/javascript" src="/js/share.js?v=1.4.5" async></script><a class="article-share-link" data-url="https://www.wl960127.top/posts/36103/" data-id="ckw3hbgmp000iuuoiv6npqmag" data-qrcode="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABxklEQVR42u3awarDMAwEwP7/T/fBO/VSdyXZpoXxqYSSTHIQ8sqPR7ye/2t95fX668rvuW3h4uKOuc/lynHrK8nvtQEXF/c+d11o8vKUF6z8c+Di4n4zd/IyeYHDxcX9Le47UOFhAR0XF/d7uMnmJyln61dNrmzbq+Hi4g641Q3Mid8H811cXNwi91lcSbOSb3XKT8fFxb3CnQ9QeyOW6gBm27wXFxc34PbGqHl0MrnnhxKGi4t7jDv5696IpFdYcXFxT3B7rF0xyvrK27qLi4t7mDsZkSZFarIdentPXFzcw9wkpFj/J3+ZvEkq91+4uLhbub1NS2+YOml6cHFxb3J7TUkem1YDlA93wMXFvcLtxRz5WanqwYteq4SLi7uXm6gLI8/ii1UHvbi4uHe4OSgvWL0jF0moiouLe4ebDDDy0HNytCL6BLi4uBe584hz0hLlDRYuLu5Nbr56xybm5TLqs3BxcTdxJ4FpvgXqJbib811cXNwidz4OqUKTQlY4TYaLi3uMO4k85vT8ubi4uN/G7bVBCSU5noWLi/sr3L1nxJJhDC4u7k3u/GhFHpVWBzbNWAQXF3fAnQemSVwyKWG4uLgXuX/mzZ9mEXHQRAAAAABJRU5ErkJggg==">分享</a><div class="tags"><a href="/tags/源码/">源码</a></div><div class="post-nav"><a class="pre" href="/posts/39897/">Golang语法学习笔记</a><a class="next" href="/posts/10120/">WebRTC学习</a></div><div id="disqus_thread"><div class="btn_click_load"><button class="disqus_click_btn">阅读评论（请确保 Disqus 可以正常加载）</button></div><script type="text/javascript">var disqus_config = function () {
+    this.page.url = 'https://www.wl960127.top/posts/36103/';
+    this.page.identifier = 'posts/36103/';
+    this.page.title = 'Android的第一个进程之init';
+  };</script><script type="text/javascript" id="disqus-lazy-load-script">$.ajax({
+url: 'https://disqus.com/next/config.json',
+timeout: 2500,
+type: 'GET',
+success: function(){
+  var d = document;
+  var s = d.createElement('script');
+  s.src = '//wuwangdaren.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', + new Date());
+  (d.head || d.body).appendChild(s);
+  $('.disqus_click_btn').css('display', 'none');
+},
+error: function() {
+  $('.disqus_click_btn').css('display', 'block');
+}
+});</script><script type="text/javascript" id="disqus-click-load">$('.btn_click_load').click(() => {  //click to load comments
+    (() => { // DON'T EDIT BELOW THIS LINE
+        var d = document;
+        var s = d.createElement('script');
+        s.src = '//wuwangdaren.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', + new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    $('.disqus_click_btn').css('display','none');
+});</script><script type="text/javascript" id="disqus-count-script">$(function() {
+     var xhr = new XMLHttpRequest();
+     xhr.open('GET', '//disqus.com/next/config.json', true);
+     xhr.timeout = 2500;
+     xhr.onreadystatechange = function () {
+       if (xhr.readyState === 4 && xhr.status === 200) {
+         $('.post-meta .post-comments-count').show();
+         var s = document.createElement('script');
+         s.id = 'dsq-count-scr';
+         s.src = 'https://wuwangdaren.disqus.com/count.js';
+         s.async = true;
+         (document.head || document.body).appendChild(s);
+       }
+     };
+     xhr.ontimeout = function () { xhr.abort(); };
+     xhr.send(null);
+   });
+</script></div><div id="lv-container" data-id="city" data-uid="MTAyMC8zMzgyMC8xMDM3Mw=="><script>(function(d, s) {
+   var j, e = d.getElementsByTagName(s)[0];
+   if (typeof LivereTower === 'function') { return; }
+   j = d.createElement(s);
+   j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+   j.async = true;
+   e.parentNode.insertBefore(j, e);
+})(document, 'script');
+</script></div></div></div></div><div class="pure-u-1 pure-u-md-1-4"><div id="sidebar"><div class="widget"><div class="search-form"><input id="local-search-input" placeholder="Search" type="text" name="q" results="0"><div id="local-search-result"></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">17</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android源码/">Android源码</a><span class="category-list-count">26</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flutter/">Flutter</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术杂谈/">技术杂谈</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/操作系统/">操作系统</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">23</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书笔记/">读书笔记</a><span class="category-list-count">7</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/源码/" style="font-size: 23px; color: #00d6ff">源码</a> <a href="/tags/待完成/" style="font-size: 19.67px; color: #20b3d2">待完成</a> <a href="/tags/功能实现/" style="font-size: 21.33px; color: #10c5e9">功能实现</a> <a href="/tags/binder/" style="font-size: 18px; color: #30a2bc">binder</a> <a href="/tags/MQTT/" style="font-size: 14.67px; color: #507f8f">MQTT</a> <a href="/tags/工具/" style="font-size: 14.67px; color: #507f8f">工具</a> <a href="/tags/FFmpeg/" style="font-size: 16.33px; color: #4091a6">FFmpeg</a> <a href="/tags/Flutter/" style="font-size: 13px; color: #606e79">Flutter</a> <a href="/tags/Hexo/" style="font-size: 13px; color: #606e79">Hexo</a> <a href="/tags/知识点/" style="font-size: 16.33px; color: #4091a6">知识点</a> <a href="/tags/Jvm/" style="font-size: 16.33px; color: #4091a6">Jvm</a> <a href="/tags/Compose/" style="font-size: 13px; color: #606e79">Compose</a> <a href="/tags/Ubuntu/" style="font-size: 18px; color: #30a2bc">Ubuntu</a> <a href="/tags/WebRTC/" style="font-size: 13px; color: #606e79">WebRTC</a> <a href="/tags/Dart/" style="font-size: 13px; color: #606e79">Dart</a> <a href="/tags/Http/" style="font-size: 13px; color: #606e79">Http</a> <a href="/tags/开源框架/" style="font-size: 13px; color: #606e79">开源框架</a> <a href="/tags/内核/" style="font-size: 14.67px; color: #507f8f">内核</a> <a href="/tags/技术杂谈/" style="font-size: 16.33px; color: #4091a6">技术杂谈</a> <a href="/tags/Framework/" style="font-size: 13px; color: #606e79">Framework</a> <a href="/tags/明朝/" style="font-size: 13px; color: #606e79">明朝</a> <a href="/tags/Jni/" style="font-size: 16.33px; color: #4091a6">Jni</a> <a href="/tags/组件化/" style="font-size: 13px; color: #606e79">组件化</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/posts/40b4dd29/">2021读书记录</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/2218b608/">IO与Socket简单笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/ab760be3/">Jetpack与Compose使用</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/95b53bcb/">关于学习的第五篇-学霸养成</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/858effef/">关于学习的第四篇-时间管理</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/cf03b6bc/">关于学习的第三篇-高度自律</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/2726a13e/">关于学习的第二篇-高效学习</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/7ae29eec/">关于学习的第一篇-底层思维</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/6f3535f0/">明朝那些事第一部分</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/de06556f/">JVM类加载机制</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://qkmin.github.io" title="某康的博客" target="_blank">某康的博客</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">冷暖自知</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.4.5" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=1.4.5" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.css"><script type="text/javascript" src="/js/search.js?v=1.4.5"></script><script>var search_path = 'search.xml';
+if (search_path.length == 0) {
+   search_path = 'search.xml';
+}
+var path = '/' + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script><script type="text/javascript" color="100,99,98" opacity="0.7" zindex="-1" count="150" src="//lib.baomitu.com/canvas-nest.js/2.0.3/canvas-nest.umd.js"></script><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=1.4.5"></script><script>if (window.mermaid) {
+  var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
+  mermaid.initialize(options);
+}
+</script><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.4.5"></script><script type="text/javascript" src="/js/smartresize.js?v=1.4.5"></script></div></body></html>

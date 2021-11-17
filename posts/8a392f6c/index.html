@@ -1,0 +1,132 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content><title>JVM基础 | 冷暖自知</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.4.5"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/8.0.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/3.3.1/jquery.min.js"></script><link rel="icon" mask sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">JVM基础</h1><a id="logo" href="/.">冷暖自知</a><p class="description">主动使你掌控,被动使你沉迷</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">JVM基础</h1><div class="post-meta">Feb 3, 2021<span> | </span><span class="category"><a href="/categories/Java/">Java</a></span><script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> 阅读</span></span><span class="post-time"><span class="post-meta-item-text"> | </span><span class="post-meta-item-icon"><i class="fa fa-keyboard-o"></i><span class="post-count"> 1k</span><span class="post-meta-item-text"> 字</span></span></span><span class="post-time"> | <span class="post-meta-item-icon"><i class="fa fa-hourglass-half"></i><span class="post-count"> 3</span><span class="post-meta-item-text"> 分钟</span></span></span></div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#定义"><span class="toc-number">1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#执行方式"><span class="toc-number">2.</span> <span class="toc-text">执行方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#内存管理"><span class="toc-number">3.</span> <span class="toc-text">内存管理</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#内存布局"><span class="toc-number">3.1.</span> <span class="toc-text">内存布局</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#虚拟机栈"><span class="toc-number">3.2.</span> <span class="toc-text">虚拟机栈</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#本地方法栈"><span class="toc-number">3.3.</span> <span class="toc-text">本地方法栈</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#程序计数器"><span class="toc-number">3.4.</span> <span class="toc-text">程序计数器</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#堆"><span class="toc-number">3.5.</span> <span class="toc-text">堆</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#元空间"><span class="toc-number">3.6.</span> <span class="toc-text">元空间</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#小结"><span class="toc-number">3.7.</span> <span class="toc-text">小结</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#补充"><span class="toc-number">4.</span> <span class="toc-text">补充</span></a></li></ol></div></div><div class="post-content"><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><ul>
+<li>上承开发语言，下接操作系统，中间的接口就是字节码。通过不停的翻译执行Java字节码，调用真正的操作系统函数<br>（ Java文件 -&gt; 编译器 -&gt; 字节码 -&gt; JVM -&gt; 机器码 ）</li>
+<li>一次编译，处处运行</li>
+<li>是一个规范，定义了.class文件的结构，加载机制，数据存储，运行时栈等诸多内容，最常见的JVM实现就是Hostpot</li>
+</ul>
+<p>Java虚拟机采用基于栈的架构，其指令由操作码和操作数组成。这些字节码指令，就叫做 <strong>opcode</strong></p>
+<hr>
+<h4 id="执行方式"><a href="#执行方式" class="headerlink" title="执行方式"></a>执行方式</h4><ul>
+<li>解析执行：将opcode+操作数翻译成机器代码</li>
+<li>即时编译 （JIT）：会在一定条件下，将字节码编译成机器码再执行</li>
+</ul>
+<p>这些.class文件会被加载，存放在元空间，等待被调用，这里会有一个类加载器的概念</p>
+<hr>
+<h4 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h4><ul>
+<li>对于Java的自动内存管理机制，为了管理这些快速的内存申请释放操作，就必须引入一个池子（<strong>堆</strong>）来延迟这些内存区域的回收操作</li>
+</ul>
+<h5 id="内存布局"><a href="#内存布局" class="headerlink" title="内存布局"></a>内存布局</h5><ul>
+<li>Java8及以后版本，彻底移除持久化，而是使用Metaspace来进行替代，即: -XX:PermSize等参数调优已经无意义</li>
+</ul>
+<img src="JVM内存区域划分.png" style="zoom:80%;">
+
+<ul>
+<li>JVM堆中的数据是共享的，是占用内存最大的一块区域</li>
+<li>可以执行字节码的模块叫做执行引擎</li>
+<li>程序计数器使得执行引擎在线程切换时候可以恢复</li>
+<li>JVM的内存划分与多线程息息相关。程序运行时候用到的栈以及本地方法栈的维度都是线程</li>
+<li>本地内存包含元数据去和一些直接内存</li>
+</ul>
+<h5 id="虚拟机栈"><a href="#虚拟机栈" class="headerlink" title="虚拟机栈"></a>虚拟机栈</h5><ul>
+<li>Java虚拟机栈基于线程，栈的生命周期和线程一样</li>
+<li>栈的每条数据就是栈帧，每个栈帧包含四个区域<ul>
+<li>局部变量表</li>
+<li>操作数栈</li>
+<li>动态连接</li>
+<li>返回地址</li>
+</ul>
+</li>
+</ul>
+<h5 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h5><ul>
+<li>与虚拟机栈非常相似，服务的对象是native方法</li>
+</ul>
+<h5 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h5><ul>
+<li>一块较小的内存空间，可以看作是当前线程所执行的字节码的行号指示器。保存着当前线程执行的进度</li>
+<li>因为线程而产生，与虚拟机栈配合完成计算操作</li>
+<li>还存储了当前正在运行的流程，包括正在执行的指令、跳转、分支、循环、异常处理等</li>
+</ul>
+<h5 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h5><ul>
+<li>所有线程共享并存储对象（类实例和数组）的内存</li>
+<li>JVM最大的内存区域，申请的几乎所有对象都是在这里存储。垃圾回收操作的对象就是堆</li>
+<li>在程序启动的时候就申请了，但是不一定会全用</li>
+<li>针对堆空间占用，对其不定期的清理机制叫做 GC（Garbage Collection）；不仅需要销毁对象还要空间整理</li>
+</ul>
+<h5 id="元空间"><a href="#元空间" class="headerlink" title="元空间"></a>元空间</h5><ul>
+<li>作为方法区的物理存储容器，而方法区存储的内容有：类信息、常量池、方法数据、方法代码</li>
+</ul>
+<h5 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h5><ul>
+<li><code>栈</code>：存放局部变量</li>
+<li><code>堆</code>：存放new出来的东西</li>
+<li><code>方法区</code>：被虚拟机加载的类信息、常量、静态常量等</li>
+</ul>
+<hr>
+<h4 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h4><p>①对象的创建位置</p>
+<ul>
+<li>取决于对象的类型和在Java类中存在的位置</li>
+<li>对象分为基本数据类型和普通对象；针对<strong>普通对象</strong>，JVM会首先在堆上创建对象，然后在其他地方使用的其实是它的引用，比如把这个引用保存在虚拟机栈的局部变量表中。针对<strong>基本数据类型</strong>，如果方法体内声明了基本数据类型的对象，它就会在栈上直接分配，其他情况都是在堆上分配</li>
+<li>除方法内部的基本数据类型是直接在栈上分配（引用与值并存于此）；<strong>常规而言，栈一般只持有引用，堆只持有实例对象，常量池持有字符串常量以及基本类型常量（public、static、final）</strong></li>
+</ul>
+<p>②存在栈中的数据可以共享</p>
+</div><div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>冷暖自知</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="/posts/8a392f6c/">https://www.wl960127.top/posts/8a392f6c/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本站内容均为个人学习笔记,不涉及商业用途，仅提供学习参考,第三方摘录已署名链接,未署名请评论添加,转载署名来源即可。</li></ul></div><br><script type="text/javascript" src="/js/share.js?v=1.4.5" async></script><a class="article-share-link" data-url="https://www.wl960127.top/posts/8a392f6c/" data-id="ckw3hbgn5001zuuoiorx6j0fk" data-qrcode="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABxElEQVR42u3aQY7CMBAEQP7/aVbitBIk2207JiuVT1EITsGhZc/48YjH8zXer3/feR/5nIsHLi7uNPd5Os6nPnoymSf51of34uLibuQm4XX+gvOYa8Px8D4uLu7NuPnPyCMPFxf3v3OTV87TcXFx78NNNi05bma2ZXs1XFzcCe5MwXTV9ab6Li4u7nRX4jxQZpY7z6GBi4u7hztW4kyWLKsWPVFvFhcXdwu3LXG2W5f807qKg4uLO83NCxB5JM23Xg7v4OLibuSuarW2JZXzO39se3BxcS/jtrg2tpIFU1t8wcXFvZqbbz/GWp55wNX/JS4u7hZuWwCdCal20YOLi/stbv3liWBKuB+ewcXF3c7NW6RjByzaxRMuLu53ue3ULa595jAicXFxt3DzwmVbHs03VPkmChcXdw+3nSIvl4w9iYuLex9u0cyID1e1JZXoXbi4uBu5+UhKG23ho2jf4uLibuGOHaRoGyQzDZXBQMTFxZ3m5uHV/vrzkMpjrj41houLu4i7KryiAkd5jAMXF/fO3Cvi78Igw8XF3c4di7N2m4SLi/tdbrtAGYu2vCWzoCyCi4s7wW0Lpm2hJL/GxcW9AfcHN0TdRKzbd2IAAAAASUVORK5CYII=">分享</a><div class="tags"><a href="/tags/Jvm/">Jvm</a></div><div class="post-nav"><a class="pre" href="/posts/de06556f/">JVM类加载机制</a><a class="next" href="/posts/4ecb59a/">Go进阶</a></div><div id="disqus_thread"><div class="btn_click_load"><button class="disqus_click_btn">阅读评论（请确保 Disqus 可以正常加载）</button></div><script type="text/javascript">var disqus_config = function () {
+    this.page.url = 'https://www.wl960127.top/posts/8a392f6c/';
+    this.page.identifier = 'posts/8a392f6c/';
+    this.page.title = 'JVM基础';
+  };</script><script type="text/javascript" id="disqus-lazy-load-script">$.ajax({
+url: 'https://disqus.com/next/config.json',
+timeout: 2500,
+type: 'GET',
+success: function(){
+  var d = document;
+  var s = d.createElement('script');
+  s.src = '//wuwangdaren.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', + new Date());
+  (d.head || d.body).appendChild(s);
+  $('.disqus_click_btn').css('display', 'none');
+},
+error: function() {
+  $('.disqus_click_btn').css('display', 'block');
+}
+});</script><script type="text/javascript" id="disqus-click-load">$('.btn_click_load').click(() => {  //click to load comments
+    (() => { // DON'T EDIT BELOW THIS LINE
+        var d = document;
+        var s = d.createElement('script');
+        s.src = '//wuwangdaren.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', + new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    $('.disqus_click_btn').css('display','none');
+});</script><script type="text/javascript" id="disqus-count-script">$(function() {
+     var xhr = new XMLHttpRequest();
+     xhr.open('GET', '//disqus.com/next/config.json', true);
+     xhr.timeout = 2500;
+     xhr.onreadystatechange = function () {
+       if (xhr.readyState === 4 && xhr.status === 200) {
+         $('.post-meta .post-comments-count').show();
+         var s = document.createElement('script');
+         s.id = 'dsq-count-scr';
+         s.src = 'https://wuwangdaren.disqus.com/count.js';
+         s.async = true;
+         (document.head || document.body).appendChild(s);
+       }
+     };
+     xhr.ontimeout = function () { xhr.abort(); };
+     xhr.send(null);
+   });
+</script></div><div id="lv-container" data-id="city" data-uid="MTAyMC8zMzgyMC8xMDM3Mw=="><script>(function(d, s) {
+   var j, e = d.getElementsByTagName(s)[0];
+   if (typeof LivereTower === 'function') { return; }
+   j = d.createElement(s);
+   j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+   j.async = true;
+   e.parentNode.insertBefore(j, e);
+})(document, 'script');
+</script></div></div></div></div><div class="pure-u-1 pure-u-md-1-4"><div id="sidebar"><div class="widget"><div class="search-form"><input id="local-search-input" placeholder="Search" type="text" name="q" results="0"><div id="local-search-result"></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">17</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android源码/">Android源码</a><span class="category-list-count">26</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flutter/">Flutter</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术杂谈/">技术杂谈</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/操作系统/">操作系统</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">23</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书笔记/">读书笔记</a><span class="category-list-count">7</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/源码/" style="font-size: 23px; color: #00d6ff">源码</a> <a href="/tags/待完成/" style="font-size: 19.67px; color: #20b3d2">待完成</a> <a href="/tags/功能实现/" style="font-size: 21.33px; color: #10c5e9">功能实现</a> <a href="/tags/binder/" style="font-size: 18px; color: #30a2bc">binder</a> <a href="/tags/MQTT/" style="font-size: 14.67px; color: #507f8f">MQTT</a> <a href="/tags/工具/" style="font-size: 14.67px; color: #507f8f">工具</a> <a href="/tags/FFmpeg/" style="font-size: 16.33px; color: #4091a6">FFmpeg</a> <a href="/tags/Flutter/" style="font-size: 13px; color: #606e79">Flutter</a> <a href="/tags/Hexo/" style="font-size: 13px; color: #606e79">Hexo</a> <a href="/tags/知识点/" style="font-size: 16.33px; color: #4091a6">知识点</a> <a href="/tags/Jvm/" style="font-size: 16.33px; color: #4091a6">Jvm</a> <a href="/tags/Compose/" style="font-size: 13px; color: #606e79">Compose</a> <a href="/tags/Ubuntu/" style="font-size: 18px; color: #30a2bc">Ubuntu</a> <a href="/tags/WebRTC/" style="font-size: 13px; color: #606e79">WebRTC</a> <a href="/tags/Dart/" style="font-size: 13px; color: #606e79">Dart</a> <a href="/tags/Http/" style="font-size: 13px; color: #606e79">Http</a> <a href="/tags/开源框架/" style="font-size: 13px; color: #606e79">开源框架</a> <a href="/tags/内核/" style="font-size: 14.67px; color: #507f8f">内核</a> <a href="/tags/技术杂谈/" style="font-size: 16.33px; color: #4091a6">技术杂谈</a> <a href="/tags/Framework/" style="font-size: 13px; color: #606e79">Framework</a> <a href="/tags/明朝/" style="font-size: 13px; color: #606e79">明朝</a> <a href="/tags/Jni/" style="font-size: 16.33px; color: #4091a6">Jni</a> <a href="/tags/组件化/" style="font-size: 13px; color: #606e79">组件化</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/posts/40b4dd29/">2021读书记录</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/2218b608/">IO与Socket简单笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/ab760be3/">Jetpack与Compose使用</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/95b53bcb/">关于学习的第五篇-学霸养成</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/858effef/">关于学习的第四篇-时间管理</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/cf03b6bc/">关于学习的第三篇-高度自律</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/2726a13e/">关于学习的第二篇-高效学习</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/7ae29eec/">关于学习的第一篇-底层思维</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/6f3535f0/">明朝那些事第一部分</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/de06556f/">JVM类加载机制</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://qkmin.github.io" title="某康的博客" target="_blank">某康的博客</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">冷暖自知</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.4.5" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=1.4.5" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.css"><script type="text/javascript" src="/js/search.js?v=1.4.5"></script><script>var search_path = 'search.xml';
+if (search_path.length == 0) {
+   search_path = 'search.xml';
+}
+var path = '/' + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script><script type="text/javascript" color="100,99,98" opacity="0.7" zindex="-1" count="150" src="//lib.baomitu.com/canvas-nest.js/2.0.3/canvas-nest.umd.js"></script><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=1.4.5"></script><script>if (window.mermaid) {
+  var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
+  mermaid.initialize(options);
+}
+</script><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.4.5"></script><script type="text/javascript" src="/js/smartresize.js?v=1.4.5"></script></div></body></html>

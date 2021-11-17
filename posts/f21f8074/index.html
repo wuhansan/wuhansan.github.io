@@ -1,0 +1,90 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content><title>行为型-访问者模式 | 冷暖自知</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.4.5"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/8.0.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/3.3.1/jquery.min.js"></script><link rel="icon" mask sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">行为型-访问者模式</h1><a id="logo" href="/.">冷暖自知</a><p class="description">主动使你掌控,被动使你沉迷</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">行为型-访问者模式</h1><div class="post-meta">Aug 21, 2020<span> | </span><span class="category"><a href="/categories/设计模式/">设计模式</a></span><script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> 阅读</span></span><span class="post-time"><span class="post-meta-item-text"> | </span><span class="post-meta-item-icon"><i class="fa fa-keyboard-o"></i><span class="post-count"> 445</span><span class="post-meta-item-text"> 字</span></span></span><span class="post-time"> | <span class="post-meta-item-icon"><i class="fa fa-hourglass-half"></i><span class="post-count"> 1</span><span class="post-meta-item-text"> 分钟</span></span></span></div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#定义"><span class="toc-number">1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UML"><span class="toc-number">2.</span> <span class="toc-text">UML</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拓展"><span class="toc-number">3.</span> <span class="toc-text">拓展</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#双分派"><span class="toc-number">3.1.</span> <span class="toc-text">双分派</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#单分派"><span class="toc-number">3.2.</span> <span class="toc-text">单分派</span></a></li></ol></li></ol></div></div><div class="post-content"><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul>
+<li>允许一个或者多个操作应用到一组对象上，解耦操作和对象本身</li>
+</ul>
+<h3 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h3><p><img src="%E8%AE%BF%E9%97%AE%E8%80%85.png" alt></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Extractor extractor = <span class="keyword">new</span> Extractor();</span><br><span class="line">        <span class="keyword">for</span> (ResourceFile i : listAllResourceFiles()) &#123;</span><br><span class="line">            i.accept(extractor);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Compressor compressor = <span class="keyword">new</span> Compressor();</span><br><span class="line">        <span class="keyword">for</span> (ResourceFile i : listAllResourceFiles()) &#123;</span><br><span class="line">            i.accept(compressor);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> List&lt;ResourceFile&gt; <span class="title">listAllResourceFiles</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        List&lt;ResourceFile&gt; resourceFiles = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        resourceFiles.add(<span class="keyword">new</span> PdfFile(<span class="string">"a.pdf"</span>));</span><br><span class="line">        resourceFiles.add(<span class="keyword">new</span> WordFile(<span class="string">"b.word"</span>));</span><br><span class="line">        resourceFiles.add(<span class="keyword">new</span> PPTFile(<span class="string">"c.ppt"</span>));</span><br><span class="line">        <span class="keyword">return</span> resourceFiles;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h3><ul>
+<li><p>所谓的双分派和单分派的区分，指的是：执行哪对象的哪个方法，和几个因素的运行时类型有关</p>
+<p>具体到编程语言的语法机制，双分派（<code>Double Dispatch</code>）和单分派（<code>Single Dispatch</code>）跟多态和函数重载直接相关</p>
+</li>
+</ul>
+<h4 id="双分派"><a href="#双分派" class="headerlink" title="双分派"></a>双分派</h4><ul>
+<li>执行哪个对象的哪个方法，跟<code>对象</code>和<code>方法参数</code>两者的运行时类型有关</li>
+</ul>
+<h4 id="单分派"><a href="#单分派" class="headerlink" title="单分派"></a>单分派</h4><ul>
+<li><p>执行哪个对象的哪个方法，只跟<code>对象</code>的运行时类型有关</p>
+</li>
+<li><p>当前主流的面向对象编程语言（Java、C++、C#）都只支持Single Dispatch</p>
+<ul>
+<li>Java支持多态，代码可以在运行时候获取对象实际类型（即：运行时类型），然后跟根据实际类型调用哪个方法</li>
+<li>尽管Java支持函数重载，但是Java函数重载的语法规则是：并不是在运行时候，根据传递函数的参数的声明类型（运行时类型），来决定调用哪个重载函数，而是编译时候，根据传递进函数的参数的声明类型（即：编译类型），来决定调用哪个重载函数</li>
+<li>总的来说，具体来说，执行那个对象的哪个方法，只跟对象的运行时类型有关，跟参数的运行时类型无关</li>
+</ul>
+</li>
+</ul>
+</div><div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>冷暖自知</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="/posts/f21f8074/">https://www.wl960127.top/posts/f21f8074/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本站内容均为个人学习笔记,不涉及商业用途，仅提供学习参考,第三方摘录已署名链接,未署名请评论添加,转载署名来源即可。</li></ul></div><br><script type="text/javascript" src="/js/share.js?v=1.4.5" async></script><a class="article-share-link" data-url="https://www.wl960127.top/posts/f21f8074/" data-id="ckw3hbgot007suuoi27759wzj" data-qrcode="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAAByklEQVR42u3aSw6DMAxF0e5/01TqqIMS7nNwiKrLCPHLCQPLdvJ64eP4HOn595XxN28+5MqVO809hseYdYZLv0MMcuXKXc8lwYuHp/H0yC84vS5XrtzNuGNWel2uXLn/weUJCvmyXLly9+eS4oc3Qcjd9lpNrly5E9y+hik/36K/K1euXBA+aq2QWpMFjS5Xrtwl3HHLg5QifHozKRRCyJUr9yYuH4AHIJK+kJB3GsLkypXbzJ0phGp0MjEeWOXKldvBrS2N8DDEF2uDuCtXrtyHuDyQpRspSMJ0+pZcuXKXc2tbskiRw+9efFOuXLkLueMgMpMM3ZX0yJUr9ynuTE8lLZN4oPzRFpErV24ztzY8CYU88MVTkitXbjOXtEKmWpwTE7tYSpErV24bt1bk1BofvI1y8ZZcuXKbufOLqbVlGLKZQ65cuc9y79qexQNcbRS5cuWu5KZbMNMSKG2pBH9Irly5Ddw0oKSpCS+c0rty5crt5pLgxbdTjNscaZL04125cuUu5KbtznTplKcyF8/IlSt3My65m77VGMjkypW7kMuDUVr2oORJrly5C7k8QSEDpFu1gh8kV67cJdy0YcrR6blcuXI34L4Bx5e+VVarQmMAAAAASUVORK5CYII=">分享</a><div class="tags"></div><div class="post-nav"><a class="pre" href="/posts/a665927f/">行为型-解释器模式</a><a class="next" href="/posts/6ff4cba/">行为型-迭代器模式</a></div><div id="disqus_thread"><div class="btn_click_load"><button class="disqus_click_btn">阅读评论（请确保 Disqus 可以正常加载）</button></div><script type="text/javascript">var disqus_config = function () {
+    this.page.url = 'https://www.wl960127.top/posts/f21f8074/';
+    this.page.identifier = 'posts/f21f8074/';
+    this.page.title = '行为型-访问者模式';
+  };</script><script type="text/javascript" id="disqus-lazy-load-script">$.ajax({
+url: 'https://disqus.com/next/config.json',
+timeout: 2500,
+type: 'GET',
+success: function(){
+  var d = document;
+  var s = d.createElement('script');
+  s.src = '//wuwangdaren.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', + new Date());
+  (d.head || d.body).appendChild(s);
+  $('.disqus_click_btn').css('display', 'none');
+},
+error: function() {
+  $('.disqus_click_btn').css('display', 'block');
+}
+});</script><script type="text/javascript" id="disqus-click-load">$('.btn_click_load').click(() => {  //click to load comments
+    (() => { // DON'T EDIT BELOW THIS LINE
+        var d = document;
+        var s = d.createElement('script');
+        s.src = '//wuwangdaren.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', + new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    $('.disqus_click_btn').css('display','none');
+});</script><script type="text/javascript" id="disqus-count-script">$(function() {
+     var xhr = new XMLHttpRequest();
+     xhr.open('GET', '//disqus.com/next/config.json', true);
+     xhr.timeout = 2500;
+     xhr.onreadystatechange = function () {
+       if (xhr.readyState === 4 && xhr.status === 200) {
+         $('.post-meta .post-comments-count').show();
+         var s = document.createElement('script');
+         s.id = 'dsq-count-scr';
+         s.src = 'https://wuwangdaren.disqus.com/count.js';
+         s.async = true;
+         (document.head || document.body).appendChild(s);
+       }
+     };
+     xhr.ontimeout = function () { xhr.abort(); };
+     xhr.send(null);
+   });
+</script></div><div id="lv-container" data-id="city" data-uid="MTAyMC8zMzgyMC8xMDM3Mw=="><script>(function(d, s) {
+   var j, e = d.getElementsByTagName(s)[0];
+   if (typeof LivereTower === 'function') { return; }
+   j = d.createElement(s);
+   j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+   j.async = true;
+   e.parentNode.insertBefore(j, e);
+})(document, 'script');
+</script></div></div></div></div><div class="pure-u-1 pure-u-md-1-4"><div id="sidebar"><div class="widget"><div class="search-form"><input id="local-search-input" placeholder="Search" type="text" name="q" results="0"><div id="local-search-result"></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">17</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android源码/">Android源码</a><span class="category-list-count">26</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flutter/">Flutter</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术杂谈/">技术杂谈</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/操作系统/">操作系统</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">23</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书笔记/">读书笔记</a><span class="category-list-count">7</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/源码/" style="font-size: 23px; color: #00d6ff">源码</a> <a href="/tags/待完成/" style="font-size: 19.67px; color: #20b3d2">待完成</a> <a href="/tags/功能实现/" style="font-size: 21.33px; color: #10c5e9">功能实现</a> <a href="/tags/binder/" style="font-size: 18px; color: #30a2bc">binder</a> <a href="/tags/MQTT/" style="font-size: 14.67px; color: #507f8f">MQTT</a> <a href="/tags/工具/" style="font-size: 14.67px; color: #507f8f">工具</a> <a href="/tags/FFmpeg/" style="font-size: 16.33px; color: #4091a6">FFmpeg</a> <a href="/tags/Flutter/" style="font-size: 13px; color: #606e79">Flutter</a> <a href="/tags/Hexo/" style="font-size: 13px; color: #606e79">Hexo</a> <a href="/tags/知识点/" style="font-size: 16.33px; color: #4091a6">知识点</a> <a href="/tags/Jvm/" style="font-size: 16.33px; color: #4091a6">Jvm</a> <a href="/tags/Compose/" style="font-size: 13px; color: #606e79">Compose</a> <a href="/tags/Ubuntu/" style="font-size: 18px; color: #30a2bc">Ubuntu</a> <a href="/tags/WebRTC/" style="font-size: 13px; color: #606e79">WebRTC</a> <a href="/tags/Dart/" style="font-size: 13px; color: #606e79">Dart</a> <a href="/tags/Http/" style="font-size: 13px; color: #606e79">Http</a> <a href="/tags/开源框架/" style="font-size: 13px; color: #606e79">开源框架</a> <a href="/tags/内核/" style="font-size: 14.67px; color: #507f8f">内核</a> <a href="/tags/技术杂谈/" style="font-size: 16.33px; color: #4091a6">技术杂谈</a> <a href="/tags/Framework/" style="font-size: 13px; color: #606e79">Framework</a> <a href="/tags/明朝/" style="font-size: 13px; color: #606e79">明朝</a> <a href="/tags/Jni/" style="font-size: 16.33px; color: #4091a6">Jni</a> <a href="/tags/组件化/" style="font-size: 13px; color: #606e79">组件化</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/posts/40b4dd29/">2021读书记录</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/2218b608/">IO与Socket简单笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/ab760be3/">Jetpack与Compose使用</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/95b53bcb/">关于学习的第五篇-学霸养成</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/858effef/">关于学习的第四篇-时间管理</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/cf03b6bc/">关于学习的第三篇-高度自律</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/2726a13e/">关于学习的第二篇-高效学习</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/7ae29eec/">关于学习的第一篇-底层思维</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/6f3535f0/">明朝那些事第一部分</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/de06556f/">JVM类加载机制</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://qkmin.github.io" title="某康的博客" target="_blank">某康的博客</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">冷暖自知</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.4.5" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=1.4.5" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.css"><script type="text/javascript" src="/js/search.js?v=1.4.5"></script><script>var search_path = 'search.xml';
+if (search_path.length == 0) {
+   search_path = 'search.xml';
+}
+var path = '/' + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script><script type="text/javascript" color="100,99,98" opacity="0.7" zindex="-1" count="150" src="//lib.baomitu.com/canvas-nest.js/2.0.3/canvas-nest.umd.js"></script><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=1.4.5"></script><script>if (window.mermaid) {
+  var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
+  mermaid.initialize(options);
+}
+</script><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.4.5"></script><script type="text/javascript" src="/js/smartresize.js?v=1.4.5"></script></div></body></html>
