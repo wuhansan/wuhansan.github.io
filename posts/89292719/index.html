@@ -1,0 +1,145 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content><title>操作系统之进程与线程 | 冷暖自知</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.4.5"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/8.0.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/3.3.1/jquery.min.js"></script><link rel="icon" mask sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">操作系统之进程与线程</h1><a id="logo" href="/.">冷暖自知</a><p class="description">主动使你掌控,被动使你沉迷</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">操作系统之进程与线程</h1><div class="post-meta">Nov 5, 2020<span> | </span><span class="category"><a href="/categories/操作系统/">操作系统</a></span><script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> 阅读</span></span><span class="post-time"><span class="post-meta-item-text"> | </span><span class="post-meta-item-icon"><i class="fa fa-keyboard-o"></i><span class="post-count"> 838</span><span class="post-meta-item-text"> 字</span></span></span><span class="post-time"> | <span class="post-meta-item-icon"><i class="fa fa-hourglass-half"></i><span class="post-count"> 2</span><span class="post-meta-item-text"> 分钟</span></span></span></div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#进程与线程"><span class="toc-number">1.</span> <span class="toc-text">进程与线程</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#区别"><span class="toc-number">1.1.</span> <span class="toc-text">区别</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#开销对比"><span class="toc-number">1.2.</span> <span class="toc-text">开销对比</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#锁"><span class="toc-number">2.</span> <span class="toc-text">锁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#竞争条件"><span class="toc-number">3.</span> <span class="toc-text">竞争条件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#解决方式"><span class="toc-number">4.</span> <span class="toc-text">解决方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#并发控制"><span class="toc-number">5.</span> <span class="toc-text">并发控制</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#加锁"><span class="toc-number">5.1.</span> <span class="toc-text">加锁</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#去中心化"><span class="toc-number">5.2.</span> <span class="toc-text">去中心化</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#调度"><span class="toc-number">6.</span> <span class="toc-text">调度</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#常规"><span class="toc-number">6.1.</span> <span class="toc-text">常规</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#优化"><span class="toc-number">6.2.</span> <span class="toc-text">优化</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#二次优化"><span class="toc-number">6.3.</span> <span class="toc-text">二次优化</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#死锁"><span class="toc-number">7.</span> <span class="toc-text">死锁</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#基本条件"><span class="toc-number">7.1.</span> <span class="toc-text">基本条件</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#进程间通信"><span class="toc-number">8.</span> <span class="toc-text">进程间通信</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#空缺"><span class="toc-number">9.</span> <span class="toc-text">空缺</span></a></li></ol></div></div><div class="post-content"><h4 id="进程与线程"><a href="#进程与线程" class="headerlink" title="进程与线程"></a>进程与线程</h4><h5 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h5><p><strong>Process</strong> 正在执行的应用程序，软件执行副本，分配资源的基础单位<br><strong>Thread</strong> 轻量级进程，程序执行的基本单位</p>
+<ul>
+<li>操作系统的三个资源：计算资源（CPU）、内存资源、文件资源。后期为了避免一个应用开启多个进程过于耗费资源，所以在进程下面设计了一个仅仅被分配CPU资源的程序执行单位，线程</li>
+<li>操作系统启动后，进程的入口被分配了一个主线程，而操作系统通过调用主线程及其子线程进行资源调度</li>
+<li>创建进程开销大、成本高；创建线程开销小，成本低</li>
+<li>操作系统中存在大量进程，为了不互相干扰所以分配了彼此完全隔离的内存区域，所以一般来说进程之间无法访问相互的内存，除非使用<strong>进程间通信</strong>。但是进程间的线程可以共享进程间的内存资源</li>
+<li><code>用户态线程</code>和<code>内核态线程</code>，区别在于有一个在用户空间创建，一个是执行在内核态，可通过系统调用创造（内核线程是真正的线程，因为为会分配到CPU的执行资源）；<strong>用户态和内核态是为了保护内存资源，而线程划分是为了更好地使用计算资源</strong></li>
+</ul>
+<h5 id="开销对比"><a href="#开销对比" class="headerlink" title="开销对比"></a>开销对比</h5><hr>
+<h4 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h4><ul>
+<li>实现锁需要底层提供的原子操作（<strong>操作不可分</strong>）</li>
+</ul>
+<h4 id="竞争条件"><a href="#竞争条件" class="headerlink" title="竞争条件"></a>竞争条件</h4><ul>
+<li>多线程+多核</li>
+</ul>
+<h4 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h4><ul>
+<li>避免临界区</li>
+<li>cas (Compare And Swap)</li>
+<li>tas (Test And Set)</li>
+</ul>
+<h4 id="并发控制"><a href="#并发控制" class="headerlink" title="并发控制"></a>并发控制</h4><ul>
+<li>目的在于达到同步(<strong>Synchronized</strong>)的状态</li>
+</ul>
+<h5 id="加锁"><a href="#加锁" class="headerlink" title="加锁"></a>加锁</h5><ul>
+<li>悲观锁<ul>
+<li><strong>Pressimistic Lock</strong></li>
+<li>让<strong>临界区</strong>（访问共享资源的程序片段）互斥，每次只有一个线程可以进入临界区</li>
+</ul>
+</li>
+<li>乐观锁<ul>
+<li><strong>Optimistic Lock</strong></li>
+<li>类似git操作，后提交的需要先确认是否有最新，再判断是否冲突，解决后再提交</li>
+<li>类似 cas 指令</li>
+</ul>
+</li>
+</ul>
+<h5 id="去中心化"><a href="#去中心化" class="headerlink" title="去中心化"></a>去中心化</h5><ul>
+<li>① 区块链形式，但是会分支太多</li>
+<li>② 不是很清晰，大意是所有吞吐不直接由中心处理，而是用户与商家先处理。以商家和用户们为一个节点，后期在判断后逐级合并到主分支，一定程度暂缓高峰期中心处理的压力</li>
+</ul>
+<h4 id="调度"><a href="#调度" class="headerlink" title="调度"></a>调度</h4><h5 id="常规"><a href="#常规" class="headerlink" title="常规"></a>常规</h5><ul>
+<li>先到先得 (First Come First Service) <ul>
+<li>使用队列的先进先出，保证公平性和吞吐量</li>
+</ul>
+</li>
+<li>短作业优先 (Shortest Job First)<ul>
+<li>为了减少用户的平均等待时间</li>
+</ul>
+</li>
+</ul>
+<p><strong>缺点</strong></p>
+<ul>
+<li>无法处理紧急插队任务</li>
+<li>等待太久的任务怎么插队</li>
+<li>用时多的任务执行一半,又来了短作业</li>
+</ul>
+<h5 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h5><ul>
+<li>优先级队列 (PriorityQueue) <ul>
+<li>使用数据结构：堆，每次遍历优先级最高的任务，解决紧急插队问题</li>
+</ul>
+</li>
+<li>抢占 (Preemption)<ul>
+<li>执行能力分时，结合优先级队列构成基本线程调度</li>
+</ul>
+</li>
+</ul>
+<h5 id="二次优化"><a href="#二次优化" class="headerlink" title="二次优化"></a>二次优化</h5><ul>
+<li>多级队列<br>多个队列执行调度</li>
+</ul>
+<h4 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h4><h5 id="基本条件"><a href="#基本条件" class="headerlink" title="基本条件"></a>基本条件</h5><ul>
+<li>资源存在互斥逻辑：每次只有一个线程可以抢到资源</li>
+<li>持有等待</li>
+<li>禁止抢占：拿不到就会一直处于等待而不是释放已拥有的资源</li>
+<li>循环等待</li>
+</ul>
+<h4 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h4><h4 id="空缺"><a href="#空缺" class="headerlink" title="空缺"></a>空缺</h4><ul>
+<li>IPC （Intermediate Process Communication）</li>
+<li></li>
+</ul>
+</div><div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>冷暖自知</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="/posts/89292719/">https://www.wl960127.top/posts/89292719/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本站内容均为个人学习笔记,不涉及商业用途，仅提供学习参考,第三方摘录已署名链接,未署名请评论添加,转载署名来源即可。</li></ul></div><br><script type="text/javascript" src="/js/share.js?v=1.4.5" async></script><a class="article-share-link" data-url="https://www.wl960127.top/posts/89292719/" data-id="ckw7l7fk50067yooitfgzekzu" data-qrcode="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABvUlEQVR42u3aQW6EMAwFUO5/abptVUG/HWIN1csKDSh5mYUV2zmOeJzfxu9f7t/ez3nsGLi4uMvc83ZcfZMs3Nve/Vq4uLiT3GSxJKhV/4LcgIuL+y5uPhsuLu5/5a6nRri4uG/h9o4jSYBLkqgtuRouLu4CN69S7nveUt/FxcVtcc/iyANTniYVVsfFxR3h5gGlt4E8WSp8iYuLO8LttUVXlqkGuMLJCxcXd5mbFyOqjdVqa/aBExkuLu6j3F5IqhZGezP8eMbFxR3hVtshK2XQlUYsLi7uPDdvf+YBLi+jVIuwuLi4u7n5dL1yZ6/1crkWLi7uILea5CSHnupVrWhmXFzccW61PJq3YB+j4+LijnCTj/JmSZ5pJW8vwyguLu44d+U5T3vytCqq7+Li4m7j9o4gyWaiqxV5WoWLizvIrTZEnyqR3G8+eo2Li/so9yyO6kWKfJNRYwYXF3eEm4/8ALTSfF1v6OLi4j7F7V2lqpZO8mNTOVfDxcXdxu1Rqhvekqvh4uJ+GHelVFptzODi4r6Fu3Jtq5cm4eLiTnLzA0oveOWXLf74g3BxcUe4veJmr4DSC2G4uLiD3C8gANhXnU7gYgAAAABJRU5ErkJggg==">分享</a><div class="tags"></div><div class="post-nav"><a class="pre" href="/posts/4ecb59a/">Go进阶</a><a class="next" href="/posts/6a0c4ab9/">操作系统之基础知识</a></div><div id="disqus_thread"><div class="btn_click_load"><button class="disqus_click_btn">阅读评论（请确保 Disqus 可以正常加载）</button></div><script type="text/javascript">var disqus_config = function () {
+    this.page.url = 'https://www.wl960127.top/posts/89292719/';
+    this.page.identifier = 'posts/89292719/';
+    this.page.title = '操作系统之进程与线程';
+  };</script><script type="text/javascript" id="disqus-lazy-load-script">$.ajax({
+url: 'https://disqus.com/next/config.json',
+timeout: 2500,
+type: 'GET',
+success: function(){
+  var d = document;
+  var s = d.createElement('script');
+  s.src = '//wuwangdaren.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', + new Date());
+  (d.head || d.body).appendChild(s);
+  $('.disqus_click_btn').css('display', 'none');
+},
+error: function() {
+  $('.disqus_click_btn').css('display', 'block');
+}
+});</script><script type="text/javascript" id="disqus-click-load">$('.btn_click_load').click(() => {  //click to load comments
+    (() => { // DON'T EDIT BELOW THIS LINE
+        var d = document;
+        var s = d.createElement('script');
+        s.src = '//wuwangdaren.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', + new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    $('.disqus_click_btn').css('display','none');
+});</script><script type="text/javascript" id="disqus-count-script">$(function() {
+     var xhr = new XMLHttpRequest();
+     xhr.open('GET', '//disqus.com/next/config.json', true);
+     xhr.timeout = 2500;
+     xhr.onreadystatechange = function () {
+       if (xhr.readyState === 4 && xhr.status === 200) {
+         $('.post-meta .post-comments-count').show();
+         var s = document.createElement('script');
+         s.id = 'dsq-count-scr';
+         s.src = 'https://wuwangdaren.disqus.com/count.js';
+         s.async = true;
+         (document.head || document.body).appendChild(s);
+       }
+     };
+     xhr.ontimeout = function () { xhr.abort(); };
+     xhr.send(null);
+   });
+</script></div><div id="lv-container" data-id="city" data-uid="MTAyMC8zMzgyMC8xMDM3Mw=="><script>(function(d, s) {
+   var j, e = d.getElementsByTagName(s)[0];
+   if (typeof LivereTower === 'function') { return; }
+   j = d.createElement(s);
+   j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+   j.async = true;
+   e.parentNode.insertBefore(j, e);
+})(document, 'script');
+</script></div></div></div></div><div class="pure-u-1 pure-u-md-1-4"><div id="sidebar"><div class="widget"><div class="search-form"><input id="local-search-input" placeholder="Search" type="text" name="q" results="0"><div id="local-search-result"></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">17</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android源码/">Android源码</a><span class="category-list-count">26</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flutter/">Flutter</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术杂谈/">技术杂谈</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/操作系统/">操作系统</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">23</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书笔记/">读书笔记</a><span class="category-list-count">7</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/源码/" style="font-size: 23px; color: #00d6ff">源码</a> <a href="/tags/待完成/" style="font-size: 19.67px; color: #20b3d2">待完成</a> <a href="/tags/功能实现/" style="font-size: 21.33px; color: #10c5e9">功能实现</a> <a href="/tags/binder/" style="font-size: 18px; color: #30a2bc">binder</a> <a href="/tags/MQTT/" style="font-size: 14.67px; color: #507f8f">MQTT</a> <a href="/tags/工具/" style="font-size: 14.67px; color: #507f8f">工具</a> <a href="/tags/FFmpeg/" style="font-size: 16.33px; color: #4091a6">FFmpeg</a> <a href="/tags/Flutter/" style="font-size: 16.33px; color: #4091a6">Flutter</a> <a href="/tags/Hexo/" style="font-size: 13px; color: #606e79">Hexo</a> <a href="/tags/知识点/" style="font-size: 16.33px; color: #4091a6">知识点</a> <a href="/tags/Jvm/" style="font-size: 16.33px; color: #4091a6">Jvm</a> <a href="/tags/Compose/" style="font-size: 13px; color: #606e79">Compose</a> <a href="/tags/Ubuntu/" style="font-size: 18px; color: #30a2bc">Ubuntu</a> <a href="/tags/WebRTC/" style="font-size: 13px; color: #606e79">WebRTC</a> <a href="/tags/Dart/" style="font-size: 13px; color: #606e79">Dart</a> <a href="/tags/Http/" style="font-size: 13px; color: #606e79">Http</a> <a href="/tags/开源框架/" style="font-size: 13px; color: #606e79">开源框架</a> <a href="/tags/内核/" style="font-size: 14.67px; color: #507f8f">内核</a> <a href="/tags/技术杂谈/" style="font-size: 16.33px; color: #4091a6">技术杂谈</a> <a href="/tags/Framework/" style="font-size: 13px; color: #606e79">Framework</a> <a href="/tags/明朝/" style="font-size: 13px; color: #606e79">明朝</a> <a href="/tags/Jni/" style="font-size: 16.33px; color: #4091a6">Jni</a> <a href="/tags/组件化/" style="font-size: 13px; color: #606e79">组件化</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/posts/40b4dd29/">2021读书记录</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/2218b608/">IO与Socket简单笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/69f1c3a4/">Flutter中的Widget</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/8d8888c5/">Flutter中的Key</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/ab760be3/">Jetpack与Compose使用</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/95b53bcb/">关于学习的第五篇-学霸养成</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/858effef/">关于学习的第四篇-时间管理</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/cf03b6bc/">关于学习的第三篇-高度自律</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/2726a13e/">关于学习的第二篇-高效学习</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/7ae29eec/">关于学习的第一篇-底层思维</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://qkmin.github.io" title="某康的博客" target="_blank">某康的博客</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">冷暖自知</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.4.5" async></script><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=1.4.5"></script><script>if (window.mermaid) {
+  var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
+  mermaid.initialize(options);
+}
+
+</script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=1.4.5" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.css"><script type="text/javascript" src="/js/search.js?v=1.4.5"></script><script>var search_path = 'search.xml';
+if (search_path.length == 0) {
+   search_path = 'search.xml';
+}
+var path = '/' + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script><script type="text/javascript" color="100,99,98" opacity="0.7" zindex="-1" count="150" src="//lib.baomitu.com/canvas-nest.js/2.0.3/canvas-nest.umd.js"></script><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.4.5"></script><script type="text/javascript" src="/js/smartresize.js?v=1.4.5"></script></div></body></html>

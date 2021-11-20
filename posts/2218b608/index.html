@@ -1,0 +1,96 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content><title>IO与Socket简单笔记 | 冷暖自知</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.4.5"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/8.0.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/3.3.1/jquery.min.js"></script><link rel="icon" mask sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">IO与Socket简单笔记</h1><a id="logo" href="/.">冷暖自知</a><p class="description">主动使你掌控,被动使你沉迷</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">IO与Socket简单笔记</h1><div class="post-meta">Nov 7, 2021<span> | </span><span class="category"><a href="/categories/Java/">Java</a></span><script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> 阅读</span></span><span class="post-time"><span class="post-meta-item-text"> | </span><span class="post-meta-item-icon"><i class="fa fa-keyboard-o"></i><span class="post-count"> 342</span><span class="post-meta-item-text"> 字</span></span></span><span class="post-time"> | <span class="post-meta-item-icon"><i class="fa fa-hourglass-half"></i><span class="post-count"> 1</span><span class="post-meta-item-text"> 分钟</span></span></span></div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#IO"><span class="toc-number">1.</span> <span class="toc-text">IO</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#类别"><span class="toc-number">1.1.</span> <span class="toc-text">类别</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#BIO"><span class="toc-number">1.1.1.</span> <span class="toc-text">BIO</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#NIO"><span class="toc-number">1.1.2.</span> <span class="toc-text">NIO</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#AIO"><span class="toc-number">1.1.3.</span> <span class="toc-text">AIO</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#同步与异步"><span class="toc-number">1.2.</span> <span class="toc-text">同步与异步</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#阻塞与非阻塞"><span class="toc-number">1.3.</span> <span class="toc-text">阻塞与非阻塞</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Socket"><span class="toc-number">2.</span> <span class="toc-text">Socket</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#TCP"><span class="toc-number">2.1.</span> <span class="toc-text">TCP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#UDP"><span class="toc-number">2.2.</span> <span class="toc-text">UDP</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#单播"><span class="toc-number">2.2.1.</span> <span class="toc-text">单播</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#组播"><span class="toc-number">2.2.2.</span> <span class="toc-text">组播</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#并发"><span class="toc-number">2.3.</span> <span class="toc-text">并发</span></a></li></ol></li></ol></div></div><div class="post-content"><h3 id="IO"><a href="#IO" class="headerlink" title="IO"></a>IO</h3><ul>
+<li>不仅是对文件的操作，网络中比如Socket也是IO操作目标</li>
+<li>InputStream/OutputStream用于读写字节（操作图片文件）</li>
+<li>Reader/Writer则是基于操作字符，增加了字符编解码等功能（读写文本信息）</li>
+<li>BufferOutputStream等带缓冲区的实现，可以避免频繁磁盘读写从而提高处理效率（记得flush）</li>
+</ul>
+<h4 id="类别"><a href="#类别" class="headerlink" title="类别"></a>类别</h4><h5 id="BIO"><a href="#BIO" class="headerlink" title="BIO"></a>BIO</h5><p>传统IO，基于流模型实现，同步阻塞</p>
+<h5 id="NIO"><a href="#NIO" class="headerlink" title="NIO"></a>NIO</h5><p>提供了Channel、Selector、Buffer等新抽象，可构建多路复用、同步非阻塞的IO，以及提供更接近操作系统底层的高性能数据操作方式</p>
+<h5 id="AIO"><a href="#AIO" class="headerlink" title="AIO"></a>AIO</h5><p>Asynchronous IO，改进版NIO。引入了异步非阻塞IO</p>
+<h4 id="同步与异步"><a href="#同步与异步" class="headerlink" title="同步与异步"></a>同步与异步</h4><ul>
+<li><p>synchronous</p>
+<p>一种可靠的运行机制，进行同步操作的时候，后续的任务需要等待当前调用返回之后才会进行下一步</p>
+</li>
+<li><p>asynchronous</p>
+<p>与同步相反，其他任务不需要等待当前调用返回，通常依靠事件、回调等机制来实现任务次序的关系</p>
+</li>
+</ul>
+<h4 id="阻塞与非阻塞"><a href="#阻塞与非阻塞" class="headerlink" title="阻塞与非阻塞"></a>阻塞与非阻塞</h4><ul>
+<li><p>blocking</p>
+<p>进行阻塞操作的时候，线程会处理阻塞状态、无法从事其他任务。只有当条件就绪才能继续</p>
+</li>
+<li><p>non-blocking</p>
+<p>不管IO操作是否结束，直接返回，相应的操作在后台继续处理</p>
+</li>
+</ul>
+<hr>
+<h3 id="Socket"><a href="#Socket" class="headerlink" title="Socket"></a>Socket</h3><p>select</p>
+<p>epoll</p>
+<p>poll</p>
+<h4 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h4><h4 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h4><h5 id="单播"><a href="#单播" class="headerlink" title="单播"></a>单播</h5><h5 id="组播"><a href="#组播" class="headerlink" title="组播"></a>组播</h5><h4 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h4><p>​    </p>
+</div><div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>冷暖自知</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="/posts/2218b608/">https://www.wl960127.top/posts/2218b608/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本站内容均为个人学习笔记,不涉及商业用途，仅提供学习参考,第三方摘录已署名链接,未署名请评论添加,转载署名来源即可。</li></ul></div><br><script type="text/javascript" src="/js/share.js?v=1.4.5" async></script><a class="article-share-link" data-url="https://www.wl960127.top/posts/2218b608/" data-id="ckw7l7fiq0024yooim9mkhwph" data-qrcode="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAAByklEQVR42u3aSW6EQAwF0L7/pYmULWn4dg2g6NWqBQ08WFjl4fOJ1/G7zkfO63w2v+e0hYuLO8w9Ltf51gmiep/EgIuLu597HWjyUJUcyT8BLi7u+7nJ9iW/ChcX939wr/+ZJDwJHRcX9z3cvMyR03tHpuVquLi4A9xqwXTF74X1XVxc3CL3KK7qlqVXHv36dFxc3C3cWSXOvHGSN2W/fiBcXNzF3LkljOuremdvQhguLu4Cbu+v10NaIw2VamDFxcVdwa2WR6tbmaQUcv3yf8RdXFzcxdxZqU7eLq22Zwr7Mlxc3Enc3gBEnghVz94kPLi4uFu41YSkutGZtenBxcV9ijtSwki2L3kovHkuLi7uYm41uPTCU15wuXklXFzch7gJK3+BPORFCRguLu4WbrKtGVnVO0efABcXdzG3Oj7VG8+qtlRxcXHfwK0mP72W6kgoxMXF3c+tjmElBY7eHQp2XFzcZdxeGpN3PJPCyviQBy4u7gpudbSiOnpVLaHeXIuLi7uRm5c785GLXim2MJiFi4v7Am7OyjcuCwMZLi7uy7jloaugeYOLi7uf20P0SqXVJm6zLIKLizvA7Y1Y5ZNfvaIqLi7uQ9wfPdolC333A/wAAAAASUVORK5CYII=">分享</a><div class="tags"><a href="/tags/知识点/">知识点</a></div><div class="post-nav"><a class="pre" href="/posts/40b4dd29/">2021读书记录</a><a class="next" href="/posts/69f1c3a4/">Flutter中的Widget</a></div><div id="disqus_thread"><div class="btn_click_load"><button class="disqus_click_btn">阅读评论（请确保 Disqus 可以正常加载）</button></div><script type="text/javascript">var disqus_config = function () {
+    this.page.url = 'https://www.wl960127.top/posts/2218b608/';
+    this.page.identifier = 'posts/2218b608/';
+    this.page.title = 'IO与Socket简单笔记';
+  };</script><script type="text/javascript" id="disqus-lazy-load-script">$.ajax({
+url: 'https://disqus.com/next/config.json',
+timeout: 2500,
+type: 'GET',
+success: function(){
+  var d = document;
+  var s = d.createElement('script');
+  s.src = '//wuwangdaren.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', + new Date());
+  (d.head || d.body).appendChild(s);
+  $('.disqus_click_btn').css('display', 'none');
+},
+error: function() {
+  $('.disqus_click_btn').css('display', 'block');
+}
+});</script><script type="text/javascript" id="disqus-click-load">$('.btn_click_load').click(() => {  //click to load comments
+    (() => { // DON'T EDIT BELOW THIS LINE
+        var d = document;
+        var s = d.createElement('script');
+        s.src = '//wuwangdaren.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', + new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    $('.disqus_click_btn').css('display','none');
+});</script><script type="text/javascript" id="disqus-count-script">$(function() {
+     var xhr = new XMLHttpRequest();
+     xhr.open('GET', '//disqus.com/next/config.json', true);
+     xhr.timeout = 2500;
+     xhr.onreadystatechange = function () {
+       if (xhr.readyState === 4 && xhr.status === 200) {
+         $('.post-meta .post-comments-count').show();
+         var s = document.createElement('script');
+         s.id = 'dsq-count-scr';
+         s.src = 'https://wuwangdaren.disqus.com/count.js';
+         s.async = true;
+         (document.head || document.body).appendChild(s);
+       }
+     };
+     xhr.ontimeout = function () { xhr.abort(); };
+     xhr.send(null);
+   });
+</script></div><div id="lv-container" data-id="city" data-uid="MTAyMC8zMzgyMC8xMDM3Mw=="><script>(function(d, s) {
+   var j, e = d.getElementsByTagName(s)[0];
+   if (typeof LivereTower === 'function') { return; }
+   j = d.createElement(s);
+   j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+   j.async = true;
+   e.parentNode.insertBefore(j, e);
+})(document, 'script');
+</script></div></div></div></div><div class="pure-u-1 pure-u-md-1-4"><div id="sidebar"><div class="widget"><div class="search-form"><input id="local-search-input" placeholder="Search" type="text" name="q" results="0"><div id="local-search-result"></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">17</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android源码/">Android源码</a><span class="category-list-count">26</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flutter/">Flutter</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术杂谈/">技术杂谈</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/操作系统/">操作系统</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">23</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书笔记/">读书笔记</a><span class="category-list-count">7</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/源码/" style="font-size: 23px; color: #00d6ff">源码</a> <a href="/tags/待完成/" style="font-size: 19.67px; color: #20b3d2">待完成</a> <a href="/tags/功能实现/" style="font-size: 21.33px; color: #10c5e9">功能实现</a> <a href="/tags/binder/" style="font-size: 18px; color: #30a2bc">binder</a> <a href="/tags/MQTT/" style="font-size: 14.67px; color: #507f8f">MQTT</a> <a href="/tags/工具/" style="font-size: 14.67px; color: #507f8f">工具</a> <a href="/tags/FFmpeg/" style="font-size: 16.33px; color: #4091a6">FFmpeg</a> <a href="/tags/Flutter/" style="font-size: 16.33px; color: #4091a6">Flutter</a> <a href="/tags/Hexo/" style="font-size: 13px; color: #606e79">Hexo</a> <a href="/tags/知识点/" style="font-size: 16.33px; color: #4091a6">知识点</a> <a href="/tags/Jvm/" style="font-size: 16.33px; color: #4091a6">Jvm</a> <a href="/tags/Compose/" style="font-size: 13px; color: #606e79">Compose</a> <a href="/tags/Ubuntu/" style="font-size: 18px; color: #30a2bc">Ubuntu</a> <a href="/tags/WebRTC/" style="font-size: 13px; color: #606e79">WebRTC</a> <a href="/tags/Dart/" style="font-size: 13px; color: #606e79">Dart</a> <a href="/tags/Http/" style="font-size: 13px; color: #606e79">Http</a> <a href="/tags/开源框架/" style="font-size: 13px; color: #606e79">开源框架</a> <a href="/tags/内核/" style="font-size: 14.67px; color: #507f8f">内核</a> <a href="/tags/技术杂谈/" style="font-size: 16.33px; color: #4091a6">技术杂谈</a> <a href="/tags/Framework/" style="font-size: 13px; color: #606e79">Framework</a> <a href="/tags/明朝/" style="font-size: 13px; color: #606e79">明朝</a> <a href="/tags/Jni/" style="font-size: 16.33px; color: #4091a6">Jni</a> <a href="/tags/组件化/" style="font-size: 13px; color: #606e79">组件化</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/posts/40b4dd29/">2021读书记录</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/2218b608/">IO与Socket简单笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/69f1c3a4/">Flutter中的Widget</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/8d8888c5/">Flutter中的Key</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/ab760be3/">Jetpack与Compose使用</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/95b53bcb/">关于学习的第五篇-学霸养成</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/858effef/">关于学习的第四篇-时间管理</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/cf03b6bc/">关于学习的第三篇-高度自律</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/2726a13e/">关于学习的第二篇-高效学习</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/7ae29eec/">关于学习的第一篇-底层思维</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://qkmin.github.io" title="某康的博客" target="_blank">某康的博客</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">冷暖自知</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.4.5" async></script><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=1.4.5"></script><script>if (window.mermaid) {
+  var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
+  mermaid.initialize(options);
+}
+
+</script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=1.4.5" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.css"><script type="text/javascript" src="/js/search.js?v=1.4.5"></script><script>var search_path = 'search.xml';
+if (search_path.length == 0) {
+   search_path = 'search.xml';
+}
+var path = '/' + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script><script type="text/javascript" color="100,99,98" opacity="0.7" zindex="-1" count="150" src="//lib.baomitu.com/canvas-nest.js/2.0.3/canvas-nest.umd.js"></script><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.4.5"></script><script type="text/javascript" src="/js/smartresize.js?v=1.4.5"></script></div></body></html>
