@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.wl960127.top/"/>
-  <updated>2021-11-07T06:51:37.193Z</updated>
+  <updated>2021-11-22T14:26:41.552Z</updated>
   <id>https://www.wl960127.top/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>锁与多线程</title>
+    <link href="https://www.wl960127.top/posts/cbbe54bb/"/>
+    <id>https://www.wl960127.top/posts/cbbe54bb/</id>
+    <published>2021-11-22T14:23:37.000Z</published>
+    <updated>2021-11-22T14:26:41.552Z</updated>
+    
+    <summary type="html">
+    
+      关于线程与锁的笔记记录
+    
+    </summary>
+    
+      <category term="Java" scheme="https://www.wl960127.top/categories/Java/"/>
+    
+    
+      <category term="知识点" scheme="https://www.wl960127.top/tags/%E7%9F%A5%E8%AF%86%E7%82%B9/"/>
+    
+  </entry>
   
   <entry>
     <title>2021读书记录</title>
@@ -41,13 +61,13 @@
     <link href="https://www.wl960127.top/posts/2218b608/"/>
     <id>https://www.wl960127.top/posts/2218b608/</id>
     <published>2021-11-07T06:35:10.000Z</published>
-    <updated>2021-11-16T12:41:47.968Z</updated>
+    <updated>2021-11-22T14:24:53.743Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="IO"><a href="#IO" class="headerlink" title="IO"></a>IO</h3><ul><li>不仅是对文件的操作，网络中比如Socket也是IO操作目标</li><li>InputStream/OutputStream用于读写字节（操作图片文件）</li><li>Reader/Writer则是基于操作字符，增加了字符编解码等功能（读写文本信息）</li><li>BufferOutputStream等带缓冲区的实现，可以避免频繁磁盘读写从而提高处理效率（记得flush）</li></ul><h4 id="类别"><a href="#类别" class="headerlink" title="类别"></a>类别</h4><h5 id="BIO"><a href="#BIO" class="headerlink" title="BIO"></a>BIO</h5><p>传统IO，基于流模型实现，同步阻塞</p><h5 id="NIO"><a href="#NIO" class="headerlink" title="NIO"></a>NIO</h5><p>提供了Channel、Selector、Buffer等新抽象，可构建多路复用、同步非阻塞的IO，以及提供更接近操作系统底层的高性能数据操作方式</p><h5 id="AIO"><a href="#AIO" class="headerlink" title="AIO"></a>AIO</h5><p>Asynchronous IO，改进版NIO。引入了异步非阻塞IO</p><h4 id="同步与异步"><a href="#同步与异步" class="headerlink" title="同步与异步"></a>同步与异步</h4><ul><li><p>synchronous</p><p>一种可靠的运行机制，进行同步操作的时候，后续的任务需要等待当前调用返回之后才会进行下一步</p></li><li><p>asynchronous</p><p>与同步相反，其他任务不需要等待当前调用返回，通常依靠事件、回调等机制来实现任务次序的关系</p></li></ul><h4 id="阻塞与非阻塞"><a href="#阻塞与非阻塞" class="headerlink" title="阻塞与非阻塞"></a>阻塞与非阻塞</h4><ul><li><p>blocking</p><p>进行阻塞操作的时候，线程会处理阻塞状态、无法从事其他任务。只有当条件就绪才能继续</p></li><li><p>non-blocking</p><p>不管IO操作是否结束，直接返回，相应的操作在后台继续处理</p></li></ul><hr><h3 id="Socket"><a href="#Socket" class="headerlink" title="Socket"></a>Socket</h3><p>select</p><p>epoll</p><p>poll</p><h4 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h4><h4 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h4><h5 id="单播"><a href="#单播" class="headerlink" title="单播"></a>单播</h5><h5 id="组播"><a href="#组播" class="headerlink" title="组播"></a>组播</h5><h4 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h4><p>​    </p>]]></content>
+    <content type="html"><![CDATA[<h3 id="IO"><a href="#IO" class="headerlink" title="IO"></a>IO</h3><ul><li>不仅是对文件的操作，网络中比如Socket也是IO操作目标</li><li>InputStream/OutputStream用于读写字节（操作图片文件）</li><li>Reader/Writer则是基于操作字符，增加了字符编解码等功能（读写文本信息）</li><li>BufferOutputStream等带缓冲区的实现，可以避免频繁磁盘读写从而提高处理效率（记得flush）</li></ul><h4 id="类别"><a href="#类别" class="headerlink" title="类别"></a>类别</h4><h5 id="BIO"><a href="#BIO" class="headerlink" title="BIO"></a>BIO</h5><p>传统IO，基于流模型实现，同步阻塞</p><h5 id="NIO"><a href="#NIO" class="headerlink" title="NIO"></a>NIO</h5><p>提供了Channel、Selector、Buffer等新抽象，可构建多路复用、同步非阻塞的IO，以及提供更接近操作系统底层的高性能数据操作方式</p><h5 id="AIO"><a href="#AIO" class="headerlink" title="AIO"></a>AIO</h5><p>Asynchronous IO，改进版NIO。引入了异步非阻塞IO</p><h4 id="同步与异步"><a href="#同步与异步" class="headerlink" title="同步与异步"></a>同步与异步</h4><ul><li><p>synchronous</p><p>一种可靠的运行机制，进行同步操作的时候，后续的任务需要等待当前调用返回之后才会进行下一步</p></li><li><p>asynchronous</p><p>与同步相反，其他任务不需要等待当前调用返回，通常依靠事件、回调等机制来实现任务次序的关系</p></li></ul><h4 id="阻塞与非阻塞"><a href="#阻塞与非阻塞" class="headerlink" title="阻塞与非阻塞"></a>阻塞与非阻塞</h4><ul><li><p>blocking</p><p>进行阻塞操作的时候，线程会处理阻塞状态、无法从事其他任务。只有当条件就绪才能继续</p></li><li><p>non-blocking</p><p>不管IO操作是否结束，直接返回，相应的操作在后台继续处理</p></li></ul><hr><h3 id="Socket"><a href="#Socket" class="headerlink" title="Socket"></a>Socket</h3><p><img src="Socket%E9%80%9A%E8%AE%AF%E6%B5%81%E7%A8%8B.png" alt="Socket通讯流程"></p><p>既是一种编程模型，又是一段程序，同时又是一个双向文件（应用&lt;===&gt;缓冲区）</p><p>一个线程要处理所有关注的Socket产生的变化，这种情况就构成了<code>I/O多路复用</code></p><h4 id="线性结构"><a href="#线性结构" class="headerlink" title="线性结构"></a>线性结构</h4><p>阻塞型，且判断消息是否需要发送，需要遍历关注的Socket集合</p><h5 id="select"><a href="#select" class="headerlink" title="select()"></a>select()</h5><ul><li>能监听的文件描述符个数受限于 <strong><em>\</em>FD_SETSIZE**</strong>，默认1024；注意的是修改进程打开的文件描述符个数并不能改变select监听文件的个数</li><li>处理1024以下的客户端时候，选择select最合适；如果连接客户端过多，select会采取轮询算法，会降低服务器的性能及处理效率</li></ul><h5 id="poll"><a href="#poll" class="headerlink" title="poll()"></a>poll()</h5><ul><li>优化了编程模型，但是性能差距不大</li></ul><h4 id="索引结构"><a href="#索引结构" class="headerlink" title="索引结构"></a>索引结构</h4><p>非阻塞型，将进程关注的文件描述符存入了一颗二叉搜索树</p><h5 id="epoll"><a href="#epoll" class="headerlink" title="epoll()"></a>epoll()</h5><ul><li>高并发连接中，不但能够显著提高程序在系统的CPU利用率，而且还是在只有少量连接活跃的情况下；因为会复用文件描述符来传递结果，而不需要每次都等待事件的到来才进行重新准备要被连接的文件描述符</li><li>在获取事件的时候，不用遍历整个被监听的描述符集合，只需在遍历那些被内核IO异步唤醒而加入准备队列的描述符结合即可</li></ul><hr><h4 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h4><ul><li>支持可靠协议，使用了请求响应和连接模型（三次握手、四次挥手）</li><li>封包排序（有序发出，无需传输，有序组合），利用了滑动窗口、快速重传等方法</li></ul><h4 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h4><ul><li>不支持可靠协议，但是支持基础的数据校验和，只是本身不处理数据丢失</li><li>只给数据报标注了序列号，不管排序</li></ul><h5 id="单播"><a href="#单播" class="headerlink" title="单播"></a>单播</h5><h5 id="组播"><a href="#组播" class="headerlink" title="组播"></a>组播</h5><hr><h4 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h4><h5 id="多进程并发"><a href="#多进程并发" class="headerlink" title="多进程并发"></a>多进程并发</h5><h5 id="多线程并发"><a href="#多线程并发" class="headerlink" title="多线程并发"></a>多线程并发</h5><h5 id="多路IO复用"><a href="#多路IO复用" class="headerlink" title="多路IO复用"></a>多路IO复用</h5><h5 id="多协程并发"><a href="#多协程并发" class="headerlink" title="多协程并发"></a>多协程并发</h5><p>​    </p>]]></content>
     
     <summary type="html">
     
-      关于IO分类与Socket的一些简单实现
+      关于IO分类与Socket的一些简单记录
     
     </summary>
     
@@ -402,26 +422,6 @@
     <summary type="html">
     
       设计模式之美学习笔记&lt;/br&gt;行为型模式主要解决类与对象之间的交互，将不同功能的代码解耦 &lt;/br&gt;模板模式则是：解决复用和拓展问题
-    
-    </summary>
-    
-      <category term="设计模式" scheme="https://www.wl960127.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>行为型-解释器模式</title>
-    <link href="https://www.wl960127.top/posts/a665927f/"/>
-    <id>https://www.wl960127.top/posts/a665927f/</id>
-    <published>2020-09-03T13:50:26.000Z</published>
-    <updated>2021-04-25T13:36:08.000Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>为某个语言定义它的语法表示，并定义一个解释器来处理这个语法</li></ul><h4 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h4><ul><li>将语法规则拆分成一些小的独立的单元，然后对每个单元进行解析，最终合并为对整个语法规则的解析</li></ul><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"bytes"</span></span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Context <span class="keyword">struct</span> &#123;</span><br><span class="line">    text <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 抽象解释器</span></span><br><span class="line"><span class="keyword">type</span> AbstractExpress <span class="keyword">interface</span>&#123;</span><br><span class="line">Interpreter(*Context) <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 终结符，即我们的参数构造类</span></span><br><span class="line"><span class="keyword">type</span> TerminalExpression <span class="keyword">struct</span> &#123;</span><br><span class="line">    arg <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *TerminalExpression)</span> <span class="title">Interpreter</span><span class="params">(ctx *Context)</span> <span class="title">int</span></span>&#123;</span><br><span class="line"><span class="keyword">return</span> t.arg</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 非终结符，即我们的运算符构造类</span></span><br><span class="line"><span class="keyword">type</span> NonTerminalExpression <span class="keyword">struct</span> &#123;</span><br><span class="line">    left AbstractExpress</span><br><span class="line">    right AbstractExpress</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(n NonTerminalExpression)</span> <span class="title">Interpreter</span><span class="params">(ctx *Context)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="comment">// 实现具体的a+b的解释执行操作</span></span><br><span class="line">    <span class="keyword">if</span> !bytes.Equal([]<span class="keyword">byte</span>(ctx.text),[]<span class="keyword">byte</span>(<span class="string">""</span>)) &#123;</span><br><span class="line">        <span class="keyword">return</span> n.left.Interpreter(ctx) + n.right.Interpreter(ctx)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> (</span><br><span class="line">        left AbstractExpress</span><br><span class="line">        right AbstractExpress</span><br><span class="line">        callExpression AbstractExpress</span><br><span class="line">    )</span><br><span class="line">    left = &amp;TerminalExpression&#123;arg:<span class="number">12</span>&#125;</span><br><span class="line">    right = &amp;TerminalExpression&#123;arg:<span class="number">34</span>&#125;</span><br><span class="line">    callExpression = &amp;NonTerminalExpression&#123;left:left,right:right&#125;</span><br><span class="line"></span><br><span class="line">    context := &amp;Context&#123;text:<span class="string">"+"</span>&#125;</span><br><span class="line"></span><br><span class="line">    result := callExpression.Interpreter(context)</span><br><span class="line">    fmt.Println(result)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h3><p>优点:</p><ul><li>拓展性强：修改文法规则只需要修改相应的非终结符表达式就可以了，即增加非终结符类就可以了。</li></ul><p>缺点:</p><ul><li>采用递归调用方法，不利于调试，增加了系统的复杂性以及降低了系统执行的效率；</li><li>解释器模式比较容易造成类设计的膨胀，主要是非终结符表达式类会随着系统的复杂性而膨胀；</li><li>可利用的场景比较少；</li><li>对于比较复杂的文法不好解析。</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      设计模式之美学习笔记&lt;/br&gt;行为型模式主要解决类与对象之间的交互，将不同功能的代码解耦 &lt;/br&gt;观察者模式则是：编译器、规则引擎、正则表达式
     
     </summary>
     
