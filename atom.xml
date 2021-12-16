@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.wl960127.top/"/>
-  <updated>2021-11-22T14:26:41.552Z</updated>
+  <updated>2021-11-07T06:51:37.193Z</updated>
   <id>https://www.wl960127.top/</id>
   
   <author>
@@ -15,26 +15,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>锁与多线程</title>
-    <link href="https://www.wl960127.top/posts/cbbe54bb/"/>
-    <id>https://www.wl960127.top/posts/cbbe54bb/</id>
-    <published>2021-11-22T14:23:37.000Z</published>
-    <updated>2021-11-22T14:26:41.552Z</updated>
-    
-    <summary type="html">
-    
-      关于线程与锁的笔记记录
-    
-    </summary>
-    
-      <category term="Java" scheme="https://www.wl960127.top/categories/Java/"/>
-    
-    
-      <category term="知识点" scheme="https://www.wl960127.top/tags/%E7%9F%A5%E8%AF%86%E7%82%B9/"/>
-    
-  </entry>
   
   <entry>
     <title>2021读书记录</title>
@@ -422,6 +402,26 @@
     <summary type="html">
     
       设计模式之美学习笔记&lt;/br&gt;行为型模式主要解决类与对象之间的交互，将不同功能的代码解耦 &lt;/br&gt;模板模式则是：解决复用和拓展问题
+    
+    </summary>
+    
+      <category term="设计模式" scheme="https://www.wl960127.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>行为型-解释器模式</title>
+    <link href="https://www.wl960127.top/posts/a665927f/"/>
+    <id>https://www.wl960127.top/posts/a665927f/</id>
+    <published>2020-09-03T13:50:26.000Z</published>
+    <updated>2021-04-25T13:36:08.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul><li>为某个语言定义它的语法表示，并定义一个解释器来处理这个语法</li></ul><h4 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h4><ul><li>将语法规则拆分成一些小的独立的单元，然后对每个单元进行解析，最终合并为对整个语法规则的解析</li></ul><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"bytes"</span></span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Context <span class="keyword">struct</span> &#123;</span><br><span class="line">    text <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 抽象解释器</span></span><br><span class="line"><span class="keyword">type</span> AbstractExpress <span class="keyword">interface</span>&#123;</span><br><span class="line">Interpreter(*Context) <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 终结符，即我们的参数构造类</span></span><br><span class="line"><span class="keyword">type</span> TerminalExpression <span class="keyword">struct</span> &#123;</span><br><span class="line">    arg <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *TerminalExpression)</span> <span class="title">Interpreter</span><span class="params">(ctx *Context)</span> <span class="title">int</span></span>&#123;</span><br><span class="line"><span class="keyword">return</span> t.arg</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 非终结符，即我们的运算符构造类</span></span><br><span class="line"><span class="keyword">type</span> NonTerminalExpression <span class="keyword">struct</span> &#123;</span><br><span class="line">    left AbstractExpress</span><br><span class="line">    right AbstractExpress</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(n NonTerminalExpression)</span> <span class="title">Interpreter</span><span class="params">(ctx *Context)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="comment">// 实现具体的a+b的解释执行操作</span></span><br><span class="line">    <span class="keyword">if</span> !bytes.Equal([]<span class="keyword">byte</span>(ctx.text),[]<span class="keyword">byte</span>(<span class="string">""</span>)) &#123;</span><br><span class="line">        <span class="keyword">return</span> n.left.Interpreter(ctx) + n.right.Interpreter(ctx)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> (</span><br><span class="line">        left AbstractExpress</span><br><span class="line">        right AbstractExpress</span><br><span class="line">        callExpression AbstractExpress</span><br><span class="line">    )</span><br><span class="line">    left = &amp;TerminalExpression&#123;arg:<span class="number">12</span>&#125;</span><br><span class="line">    right = &amp;TerminalExpression&#123;arg:<span class="number">34</span>&#125;</span><br><span class="line">    callExpression = &amp;NonTerminalExpression&#123;left:left,right:right&#125;</span><br><span class="line"></span><br><span class="line">    context := &amp;Context&#123;text:<span class="string">"+"</span>&#125;</span><br><span class="line"></span><br><span class="line">    result := callExpression.Interpreter(context)</span><br><span class="line">    fmt.Println(result)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h3><p>优点:</p><ul><li>拓展性强：修改文法规则只需要修改相应的非终结符表达式就可以了，即增加非终结符类就可以了。</li></ul><p>缺点:</p><ul><li>采用递归调用方法，不利于调试，增加了系统的复杂性以及降低了系统执行的效率；</li><li>解释器模式比较容易造成类设计的膨胀，主要是非终结符表达式类会随着系统的复杂性而膨胀；</li><li>可利用的场景比较少；</li><li>对于比较复杂的文法不好解析。</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      设计模式之美学习笔记&lt;/br&gt;行为型模式主要解决类与对象之间的交互，将不同功能的代码解耦 &lt;/br&gt;观察者模式则是：编译器、规则引擎、正则表达式
     
     </summary>
     
